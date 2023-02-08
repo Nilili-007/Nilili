@@ -1,11 +1,10 @@
-interface IPlacelist {
+interface IPlaceList {
   name: string;
-  order: number;
 }
 
 interface PostProps {
-  target: string;
-  placelist: IPlacelist[];
+  targetPlace: string;
+  placeList: IPlaceList[];
 }
 
 // 선택한 여행지 정보 및 설명 반환하기
@@ -16,12 +15,12 @@ interface PostProps {
 // 5. Desc - Props로 받아온 여행지 정보 반환
 // 6. Desc - 첫 렌더링시 예외 처리(첫 번째 여행지 반환)
 
-const Desc = ({ target, placelist }: PostProps) => {
+const Desc = ({ targetPlace, placeList }: PostProps) => {
   return (
     <>
       <div className="w-1/2 h-96 justify-end">
         <h3 className="font-bold text-xl">
-          {target ? target : placelist[0].name}
+          {targetPlace ? targetPlace : placeList[0].name}
         </h3>
         <p>주소</p>
         <p className="text-gray-400 text-sm">(도로명 주소)</p>
