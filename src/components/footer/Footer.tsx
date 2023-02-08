@@ -13,7 +13,13 @@ const Footer = () => {
           <div>
             <div className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
               <div className=" text-white border-white hover:border-transparent hover:text-teal-500  mt-4 lg:mt-0">
-                family site
+                <a
+                  href="https://github.com/Nilili-007/Nilili"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  family site
+                </a>
               </div>
             </div>
           </div>
