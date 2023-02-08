@@ -4,7 +4,7 @@ import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 const LikeBtn = () => {
   const [like, setlike] = useState(false);
   return (
-    <div className="m-5">
+    <div className="my-4">
       {like === true ? (
         <IoHeartSharp
           className="text-rose-600"
