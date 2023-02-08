@@ -1,5 +1,11 @@
+import CourseTitle from "../components/course/CourseTitle";
+
 const Course = () => {
-  return <>Course</>;
+  return (
+    <>
+      <CourseTitle />
+    </>
+  );
 };
 
 export default Course;

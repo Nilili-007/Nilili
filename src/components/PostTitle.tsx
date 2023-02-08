@@ -1,6 +1,5 @@
 import React from "react";
 import Select from "react-select";
-import styled from "styled-components";
 
 const regionOptions = [
   { value: "서울", label: "서울" },
@@ -55,12 +54,5 @@ const PostTitle = () => {
     </div>
   );
 };
-
-// const RegionSelect = styled(Select)`
-// @media screen {
-
-// }
-//   width: 160px;
-// `;
 
 export default PostTitle;
