@@ -1,9 +1,10 @@
-import { SearchBox, SearchLanding } from "../components";
+import { SearchBox, SearchLanding, SearchList } from "../components";
 const Search = () => {
   return (
     <>
       <SearchLanding />
       <SearchBox />
+      <SearchList />
     </>
   );
 };

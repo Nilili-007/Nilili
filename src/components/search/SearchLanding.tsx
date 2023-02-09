@@ -8,7 +8,7 @@ const SearchLanding = () => {
       <img
         className="relative brightness-50 h-[70vh] w-full mx-auto my-0"
         alt="메인사진"
-        src="/assets/traditionalhouse.jpg"
+        src="/assets/water.jpg"
       ></img>
       <div className=" absolute bottom-1/3 right-[20%]">
         <p className="  min-w-[390px] mb-10 text-[35px] text-white font-bold leading-[60px]">
