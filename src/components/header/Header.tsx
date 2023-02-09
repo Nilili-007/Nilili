@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Login from "../auth/Login";
+import Modal from "../auth/Modal";
 import Weather from "./Weather";
 
 const Header = () => {
@@ -7,16 +7,16 @@ const Header = () => {
   const [navbar, setNavbar] = useState(false);
 
   // login modal toggle
-  const [loginBtn, setLoginBtn] = useState(false);
+  const [modal, setModal] = useState(false);
 
   // modal 띄우기
-  const loginModal = () => {
-    setLoginBtn(true);
+  const openModal = () => {
+    setModal(true);
   };
 
   return (
     <>
-      {loginBtn ? <Login setLoginBtn={setLoginBtn} /> : <></>}
+      {modal ? <Modal modal={modal} setModal={setModal} /> : <></>}
       <nav className="w-full bg-black shadow">
         <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
           <div>
@@ -73,7 +73,7 @@ const Header = () => {
                   <Weather />
                 </li>
                 <li className="text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
-                  <button onClick={loginModal}>로그인/회원가입</button>
+                  <button onClick={openModal}>로그인/회원가입</button>
                 </li>
               </ul>
             </div>
