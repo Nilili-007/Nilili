@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Select from "react-select";
+import { FaSearch } from "react-icons/fa";
 
 const regionOptions = [
   { value: "서울", label: "서울" },
@@ -34,11 +35,11 @@ const SearchBox = () => {
   const [category, setCategory] = useState("LC");
 
   return (
-    <div className="mb-14  bg-pink-300 ma 3xl:w-[60%] 2xl:w-[70%] w-[90%]">
-      <p className=" w-fit mx-auto text-[55px] font-bold my-16">
+    <div className="mb-[2%]  bg-pink-300 3xl:w-[60%] 2xl:w-[70%] w-[90%]">
+      <p className=" w-fit mx-auto xl:text-[55px] lg:text-[45px] sm:text-[35px]  text-2xl font-bold my-[5%]">
         WHAT ARE YOUR PLANS?
       </p>
-      <div className="flex justify-evenly text-gray-400 font-bold text-2xl">
+      <div className="hidden sm:flex justify-evenly text-gray-400 font-bold text-2xl">
         <button
           className={`${
             category === "LC"
@@ -47,7 +48,7 @@ const SearchBox = () => {
           } `}
           onClick={() => setCategory("LC")}
         >
-          장소 선택하기
+          지역 선택하기
         </button>
         <button
           className={`${
@@ -68,6 +69,38 @@ const SearchBox = () => {
           onClick={() => setCategory("SC")}
         >
           목적지 검색하기
+        </button>
+      </div>
+      <div className="sm:hidden flex justify-evenly text-gray-400 font-bold text-xl">
+        <button
+          className={`${
+            category === "LC"
+              ? "text-black font-bold border-b-2 border-black"
+              : "text-gray-400 font-medium"
+          } `}
+          onClick={() => setCategory("LC")}
+        >
+          지역
+        </button>
+        <button
+          className={`${
+            category === "HT"
+              ? "text-black font-bold border-b-2 border-black"
+              : "text-gray-400 font-medium"
+          }  `}
+          onClick={() => setCategory("HT")}
+        >
+          해시태그
+        </button>
+        <button
+          className={`${
+            category === "SC"
+              ? "text-black font-bold border-b-2 border-black"
+              : "text-gray-400 font-medium"
+          } `}
+          onClick={() => setCategory("SC")}
+        >
+          목적지
         </button>
       </div>
       <div className="border  border-black flex items-center  p-[40px]">
@@ -100,11 +133,14 @@ const SearchBox = () => {
           className={`${
             category === "SC" ? "block" : "hidden"
           } rounded-sm indent-4 border border-gray-300 w-[90%] h-[38px]`}
-          placeholder="목적지를 입력하세요."
+          placeholder="입력하세요."
         />
 
-        <button className="bg-black  text-white ml-10 px-20 py-3 text-lg">
+        <button className="hidden sm:block bg-black  text-white ml-10 px-20 py-3 text-lg">
           SEARCH
+        </button>
+        <button className="sm:hidden bg-black  text-white ml-10 p-3 text-lg">
+          <FaSearch />
         </button>
       </div>
     </div>
