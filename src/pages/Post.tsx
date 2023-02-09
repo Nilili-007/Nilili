@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { AiFillPlusCircle } from "react-icons/ai";
-import Modal from "../components/post/Modal";
-import Plan from "../components/post/Plan";
-import Desc from "../components/course/Desc";
+import PostTitle from "../components/post/PostTitle";
+import PostHashTag from "../components/post/PostHashTag";
+import PostBtn from "../components/post/PostBtn";
+import PostSearchModal from "../components/post/PostSearchModal";
+import CourseDesc from "../components/course/CourseDesc";
+import CourseLine from "../components/post/CourseLine";
 
 interface IinitialList {
   name: string;
@@ -16,6 +19,7 @@ const Post = () => {
     { name: "페로탕" },
     { name: "국제갤러리" },
     { name: "학고재" },
+    { name: "국립현대미술관" },
   ];
   const [placeList, setPlaceList] = useState(initialList);
 
@@ -25,47 +29,40 @@ const Post = () => {
 
   return (
     <>
-      <header className="p-5 border-b bg-gray-200">임시 헤더</header>
-      <div className="w-11/12 mx-auto mt-10">
-        <div className="">
-          <div className="py-3">
-            <span className="mr-3 font-bold">카테고리</span>
-            제목
+      <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0">
+        <PostTitle />
+        <div className="w-full h-96 border border-black mt-5 flex justify-center items-center xs:h-48 xs:mt-0">
+          지도
+        </div>
+        <div className="flex justify-end -mt-20 mr-4 xs:-mt-12 xs:mr-2">
+          <AiFillPlusCircle
+            className="text-6xl cursor-pointer xs:text-4xl"
+            onClick={showModal}
+          />
+        </div>
+        {modalOpen && <PostSearchModal setModalOpen={setModalOpen} />}
+        <CourseLine
+          setTargetPlace={setTargetPlace}
+          placeList={placeList}
+          setPlaceList={setPlaceList}
+        />
+        <div className="flex mt-5 mb-10">
+          <div className="w-1/2 h-96 border border-black mr-4 flex justify-center items-center xs:hidden">
+            사진
           </div>
-          <div className="border-b border-black -mt-1" />
-          <div>
-            <div className="flex">
-              <div className="w-full h-96 border border-black mt-5 flex justify-center items-center">
-                지도
-              </div>
-            </div>
-            <div className="flex justify-end my-5">
-              <AiFillPlusCircle
-                className="text-4xl cursor-pointer"
-                onClick={showModal}
-              />
-            </div>
-            {modalOpen && <Modal setModalOpen={setModalOpen} />}
-            <Plan
-              setTargetPlace={setTargetPlace}
-              placeList={placeList}
-              setPlaceList={setPlaceList}
+          <div className="flex flex-col w-1/2 xs:w-full">
+            <CourseDesc targetPlace={targetPlace} placeList={placeList} />
+            <textarea
+              placeholder="여행지를 소개해주세요."
+              className="h-60 justify-end border border-black p-3 xs:h-40"
             />
-            <div className="flex mt-5">
-              <div className="w-1/2 h-96 border border-black mr-4 flex justify-center items-center">
-                사진
-              </div>
-              {/* <textarea
-                placeholder="여행지를 소개해주세요."
-                className="w-1/2 h-96 justify-end border border-black ml-2 p-3"
-              /> */}
-              <Desc targetPlace={targetPlace} placeList={placeList} />
-            </div>
-            {/* <button className="bg-gray-200 border border-black px-2 mt-3 float-right">
+            <button className="bg-gray-200 border border-black px-2 mt-3 float-right">
               등록
-            </button> */}
+            </button>
           </div>
         </div>
+        <PostHashTag />
+        <PostBtn />
       </div>
     </>
   );
