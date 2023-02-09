@@ -1,11 +1,13 @@
 import { SearchBox, SearchLanding, SearchList } from "../components";
 const Search = () => {
   return (
-    <>
+    <div>
       <SearchLanding />
-      <SearchBox />
-      <SearchList />
-    </>
+      <div className="flex flex-wrap justify-center">
+        <SearchBox />
+        <SearchList />
+      </div>
+    </div>
   );
 };
 

@@ -34,14 +34,17 @@ const SearchBox = () => {
   const [category, setCategory] = useState("LC");
   console.log(category);
   return (
-    <div className="my-10 mx-auto  lg:w-[910px] md:w-[610px] min-w-[310px]">
-      <div className="flex justify-evenly text-gray-400 text-s font-bold">
+    <div className=" lg:w-[1200px] md:w-[700px] min-w-[200px] ">
+      <p className=" w-fit mx-auto text-[55px] font-bold my-16">
+        WHAT ARE YOUR PLANS?
+      </p>
+      <div className="flex justify-evenly text-gray-400 font-bold text-2xl">
         <button
           className={`${
             category === "LC"
               ? "text-black font-bold border-b-2 border-black"
               : "text-gray-400 font-medium"
-          } pb-3`}
+          } `}
           onClick={() => setCategory("LC")}
         >
           장소 선택하기
@@ -51,7 +54,7 @@ const SearchBox = () => {
             category === "HT"
               ? "text-black font-bold border-b-2 border-black"
               : "text-gray-400 font-medium"
-          } pb-3 `}
+          }  `}
           onClick={() => setCategory("HT")}
         >
           해시태그 선택하기
@@ -61,18 +64,20 @@ const SearchBox = () => {
             category === "SC"
               ? "text-black font-bold border-b-2 border-black"
               : "text-gray-400 font-medium"
-          } pb-3`}
+          } `}
           onClick={() => setCategory("SC")}
         >
-          검색하기
+          목적지 검색하기
         </button>
       </div>
-      <div className="border  border-black flex justify-center py-5">
+      <div className="border  border-black flex justify-center bg-purple-300 p-[40px]">
         <input
           placeholder="키워드를 입력하세요"
-          className="indent-2 text-xs bg-gray-50 lg:w-[810px] md:w-[510px] min-w-[210px]"
+          className="indent-2 text-xs bg-gray-50  lg:w-[900px] md:w-[510px] min-w-[210px]"
         />
-        <button className="bg-black text-white ml-2 p-2 text-xs">선택</button>
+        <button className="bg-black text-white ml-10 px-20 py-3 text-lg">
+          SEARCH
+        </button>
       </div>
       <Select
         className=""
