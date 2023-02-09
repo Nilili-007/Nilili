@@ -13,7 +13,7 @@ const Modal = ({ setModalOpen }: PostProps) => {
   };
 
   return (
-    <Container>
+    <div className="w-[800px] h-auto max-h-[800px] overflow-y-scroll bg-white border border-black p-5 absolute translate-x-[70%] -translate-y-[135%] ">
       <div className="flex">
         <input
           placeholder="여행지를 입력해주세요."
@@ -55,22 +55,8 @@ const Modal = ({ setModalOpen }: PostProps) => {
           className="mx-auto mt-1 cursor-pointer text-4xl"
         />
       </div>
-    </Container>
+    </div>
   );
 };
 
 export default Modal;
-
-const Container = styled.div`
-  width: 800px;
-  height: auto;
-  max-height: 800px;
-  overflow-y: scroll;
-  background-color: white;
-  border: 1px solid black;
-  padding: 20px;
-  position: absolute;
-  top: 10%;
-  left: 20%;
-  transform: translate(15%, -5%);
-`;
