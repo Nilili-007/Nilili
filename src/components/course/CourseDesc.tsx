@@ -15,25 +15,25 @@ interface PostProps {
 // 5. Desc - Props로 받아온 여행지 정보 반환
 // 6. Desc - 첫 렌더링시 예외 처리(첫 번째 여행지 반환)
 
-const Desc = ({ targetPlace, placeList }: PostProps) => {
+const CourseDesc = ({ targetPlace, placeList }: PostProps) => {
   return (
     <>
-      <div className="w-1/2 h-96 justify-end">
+      <div className="w-1/2 h-[106px] justify-end xs:w-full xs:-mt-5">
         <h3 className="font-bold text-xl">
           {targetPlace ? targetPlace : placeList[0].name}
         </h3>
         <p>주소</p>
         <p className="text-gray-400 text-sm">(도로명 주소)</p>
         <p>000-0000-0000</p>
-        <div className="mt-4">
+        {/* <div className="mt-4">
           유저가 작성한 여행지 설명 유저가 작성한 여행지 설명 유저가 작성한
           여행지 설명 유저가 작성한 여행지 설명 유저가 작성한 여행지 설명 유저가
           작성한 여행지 설명 유저가 작성한 여행지 설명 유저가 작성한 여행지 설명
           유저가 작성한 여행지 설명
-        </div>
+        </div> */}
       </div>
     </>
   );
 };
 
-export default Desc;
+export default CourseDesc;

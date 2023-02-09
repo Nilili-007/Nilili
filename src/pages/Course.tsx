@@ -3,8 +3,8 @@ import CommentInput from "../components/course/CommentInput";
 import CourseHashTag from "../components/course/CourseHashTag";
 import CourseTitle from "../components/course/CourseTitle";
 import LikeBtn from "../components/course/LikeBtn";
-import PostHashTag from "../components/PostHashTag";
-import PostTitle from "../components/PostTitle";
+import PostTitle from "../components/post/PostTitle";
+import PostHashTag from "../components/post/PostHashTag";
 
 const Course = () => {
   const [isEdit, setIsEdit] = useState(false);
