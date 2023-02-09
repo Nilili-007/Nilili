@@ -10,6 +10,7 @@ const Header = () => {
   const [navbar, setNavbar] = useState(false);
 
   const navigate = useNavigate();
+  const [isSign, setIsSign] = useState<any>(null);
 
   // login modal toggle
   const [modal, setModal] = useState(false);
@@ -29,6 +30,15 @@ const Header = () => {
         console.log("error: ", error);
       });
   };
+
+  // 새로고침했을 때 user가 있는지 없는지 판단하기
+  setTimeout(() => {
+    if (authService.currentUser) {
+      setIsSign(true);
+    } else {
+      setIsSign(false);
+    }
+  }, 1000);
 
   return (
     <>
@@ -89,11 +99,13 @@ const Header = () => {
                   <Weather />
                 </li>
                 <li className="text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
-                  {authService.currentUser ? (
-                    <button onClick={logoutBtn}>로그아웃</button>
-                  ) : (
-                    <button onClick={openModal}>로그인/회원가입</button>
-                  )}
+                  {isSign !== null ? (
+                    isSign ? (
+                      <button onClick={logoutBtn}>로그아웃</button>
+                    ) : (
+                      <button onClick={openModal}>로그인/회원가입</button>
+                    )
+                  ) : null}
                 </li>
               </ul>
             </div>
