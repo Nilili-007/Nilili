@@ -1,6 +1,6 @@
 const Landing = () => {
   const scrollToList = () => {
-    window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
+    window.scrollTo({ top: window.innerHeight + 72, behavior: "smooth" });
   };
   console.log(window.innerHeight);
 
