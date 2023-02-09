@@ -1,5 +1,11 @@
+import UserNameEdit from "../components/user/UserNameEdit";
+
 const User = () => {
-  return <>User</>;
+  return (
+    <>
+      <UserNameEdit />
+    </>
+  );
 };
 
 export default User;
