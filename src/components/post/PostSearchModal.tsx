@@ -1,23 +1,21 @@
 import React, { Dispatch, SetStateAction } from "react";
-import styled from "styled-components";
-
 import { AiFillCloseCircle } from "react-icons/ai";
 
 interface PostProps {
   setModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const Modal = ({ setModalOpen }: PostProps) => {
+const PostSearchModal = ({ setModalOpen }: PostProps) => {
   const closeModal = () => {
     setModalOpen(false);
   };
 
   return (
-    <div className="w-[800px] h-auto max-h-[800px] overflow-y-scroll bg-white border border-black p-5 absolute translate-x-[70%] -translate-y-[135%] ">
+    <div className="w-[800px] h-auto max-h-[800px] overflow-y-scroll bg-white border border-black p-5 absolute translate-x-[45%] -translate-y-[140%] xs:w-11/12 xs:h-auto xs:h-max-5/6 xs:translate-x-0 xs:-translate-y-64 z-[999]">
       <div className="flex">
         <input
           placeholder="여행지를 입력해주세요."
-          className="w-11/12 h-8 border border-black p-1.5"
+          className="w-11/12 h-8 border border-black p-1.5 xs:w-5/6"
         />
         <button className="bg-gray-200 border border-black px-2 ml-2">
           검색
@@ -59,4 +57,4 @@ const Modal = ({ setModalOpen }: PostProps) => {
   );
 };
 
-export default Modal;
+export default PostSearchModal;

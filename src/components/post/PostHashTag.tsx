@@ -13,7 +13,7 @@ const PostHashTag = () => {
     { value: "#단체여행", label: "#단체여행" },
   ];
   return (
-    <div>
+    <div className="xs:-mt-5">
       <Select
         options={hashTagOptions}
         isMulti
