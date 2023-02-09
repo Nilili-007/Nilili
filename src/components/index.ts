@@ -1,6 +1,10 @@
+//메인 페이지
 import Landing from "./main/Landing";
-import SearchBox from "./main/SearchBox";
 import RecentList from "./main/RecentList";
 import LikeList from "./main/LikeList";
 
-export { Landing, SearchBox, RecentList, LikeList };
+//서치 페이지
+import SearchBox from "./search/SearchBox";
+import SearchLanding from "./search/SearchLanding";
+
+export { Landing, RecentList, LikeList, SearchLanding, SearchBox };
