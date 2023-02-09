@@ -34,7 +34,7 @@ const SearchBox = () => {
   const [category, setCategory] = useState("LC");
 
   return (
-    <div className="mb-14 lg:w-[1200px] md:w-[700px] min-w-[200px] ">
+    <div className="mb-14  bg-pink-300 ma 3xl:w-[60%] 2xl:w-[70%] w-[90%]">
       <p className=" w-fit mx-auto text-[55px] font-bold my-16">
         WHAT ARE YOUR PLANS?
       </p>
@@ -74,7 +74,7 @@ const SearchBox = () => {
         <div
           className={`${
             category === "LC" ? "block" : "hidden"
-          } indent-2 lg:w-[900px] md:w-[510px] min-w-[210px]`}
+          } indent-2 w-[90%]`}
         >
           <Select
             options={regionOptions}
@@ -85,7 +85,7 @@ const SearchBox = () => {
         <div
           className={`${
             category === "HT" ? "block" : "hidden"
-          } indent-2 lg:w-[900px] md:w-[510px] min-w-[210px]`}
+          } indent-2 w-[90%]`}
         >
           <Select
             options={hashTagOptions}
@@ -99,7 +99,7 @@ const SearchBox = () => {
         <input
           className={`${
             category === "SC" ? "block" : "hidden"
-          } rounded-sm indent-4 border border-gray-300 lg:w-[900px] md:w-[510px] min-w-[210px] h-[38px]`}
+          } rounded-sm indent-4 border border-gray-300 w-[90%] h-[38px]`}
           placeholder="목적지를 입력하세요."
         />
 

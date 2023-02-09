@@ -12,7 +12,7 @@ const RecentList = () => {
       <p className="pb-5 w-fit text-xl text-[#999999]">
         NILILI 사용자가 가장 최근 올린 일정을 함께해보세요.
       </p>
-      <div className=" w-[1200px] flex flex-wrap justify-between ">
+      <li className=" w-[1200px] inline-block ">
         {new Array(4).fill(null).map((_, idx) => (
           <div key={idx}>
             <img
@@ -30,7 +30,7 @@ const RecentList = () => {
             </p>
           </div>
         ))}
-      </div>
+      </li>
     </div>
   );
 };

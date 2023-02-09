@@ -24,7 +24,7 @@ const SearchLanding = () => {
           className=" border-white border text-white font-medium mx-3  hover:bg-amber-500  text-xl w-48 py-2 my-auto"
           onClick={scrollToList}
         >
-          아래로 스크롤
+          검색하러 가기
         </button>
       </div>
     </>

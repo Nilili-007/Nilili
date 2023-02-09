@@ -8,7 +8,7 @@ const Search = () => {
   return (
     <div>
       <SearchLanding />
-      <div className="flex flex-wrap justify-center">
+      <div className="flex flex-wrap flex-col items-center">
         <SearchBox />
         <SearchList />
       </div>
