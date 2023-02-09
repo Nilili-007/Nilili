@@ -1,12 +1,13 @@
-import { Landing, LikeList, RecentList } from "../components";
+import { Landing, RandomList, RecentList, CityList, Path } from "../components";
 
 const Main = () => {
   return (
     <div className=" flex flex-col items-center ">
       <Landing />
-
-      <LikeList />
+      <Path />
+      <CityList />
       <RecentList />
+      <RandomList />
     </div>
   );
 };

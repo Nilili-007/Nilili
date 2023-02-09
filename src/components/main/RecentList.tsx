@@ -1,80 +1,31 @@
 import { useState } from "react";
 
+// <button
+//           onClick={() => setHashtag("5")}
+//           className="bg-black text-white px-1 mr-2"
+//         ></button>
 const RecentList = () => {
   const [hashtag, setHashtag] = useState("1");
   return (
-    <div className="  my-10 ">
-      <div className="flex items-center">
-        <p className="mr-5 font-bold text-2xl mb-2">해시태그별 최신 코스</p>
-        <button
-          onClick={() => setHashtag("1")}
-          className="bg-black text-white px-1 mr-2 "
-        >
-          전체
-        </button>
-        <button
-          onClick={() => setHashtag("2")}
-          className="bg-black text-white px-1 mr-2"
-        >
-          연인끼리
-        </button>
-        <button
-          onClick={() => setHashtag("3")}
-          className="bg-black text-white px-1 mr-2"
-        >
-          연인끼리
-        </button>
-        <button
-          onClick={() => setHashtag("4")}
-          className="bg-black text-white px-1 mr-2"
-        >
-          연인끼리
-        </button>
-        <button
-          onClick={() => setHashtag("5")}
-          className="bg-black text-white px-1 mr-2"
-        >
-          연인끼리
-        </button>
-        <button
-          onClick={() => setHashtag("6")}
-          className="bg-black text-white px-1 mr-2"
-        >
-          연인끼리
-        </button>
-        <button
-          onClick={() => setHashtag("7")}
-          className="bg-black text-white px-1 mr-2"
-        >
-          연인끼리
-        </button>
-        <button
-          onClick={() => setHashtag("8")}
-          className="bg-black text-white px-1 mr-2"
-        >
-          연인끼리
-        </button>
-        <button
-          onClick={() => setHashtag("9")}
-          className="bg-black text-white px-1 mr-2"
-        >
-          연인끼리
-        </button>
-      </div>
-      <div className=" w-[1100px] flex flex-wrap justify-between ">
-        {new Array(8).fill(null).map((_, idx) => (
-          <div className="pt-6 border-t-2 border-black w-[260px]  " key={idx}>
+    <div className=" my-10 ">
+      <p className=" w-fit text-[55px] font-bold">WHAT'S NEW?</p>
+      <p className="pb-5 w-fit text-xl text-[#999999]">
+        NILILI 사용자가 가장 최근 올린 일정을 함께해보세요.
+      </p>
+      <div className=" w-[1200px] flex flex-wrap justify-between ">
+        {new Array(4).fill(null).map((_, idx) => (
+          <div key={idx}>
             <img
               alt="최신순 이미지"
-              src="/assets/saryangdo.jpg"
-              className="w-[260px] h-[230px]"
+              src="/assets/course.jpg"
+              className="w-[280px] h-[296px] pt-5 border-t-2 border-black"
             />
-            <p className="0 mx-auto w-[250px] h-[50px] overflow-hidden  font-bold">
+            <p className="0 ml-1 mt-5 w-[270px] h-[60px] text-2xl overflow-hidden font-black">
               title 제목이 아주 아주 길어지는 경우에 어떻게 보일까요 근데 제목에
               글자 수 제한을 넣어야 할까요 아니면 몇글자까지 보여주는 제한만
               주는게 좋을까요
             </p>
-            <p className=" mx-auto w-[250px] h-[30px] text-gray-500 text-xs ">
+            <p className="ml-1 mt-2 w-[270px] h-[30px] font-medium text-gray-400 text-xl mb-3 ">
               작성자 이름
             </p>
           </div>
