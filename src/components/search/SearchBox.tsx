@@ -32,7 +32,7 @@ const hashTagOptions = [
 
 const SearchBox = () => {
   const [category, setCategory] = useState("LC");
-  console.log(category);
+
   return (
     <div className=" lg:w-[1200px] md:w-[700px] min-w-[200px] ">
       <p className=" w-fit mx-auto text-[55px] font-bold my-16">
@@ -70,28 +70,43 @@ const SearchBox = () => {
           목적지 검색하기
         </button>
       </div>
-      <div className="border  border-black flex justify-center bg-purple-300 p-[40px]">
+      <div className="border  border-black flex items-center  bg-purple-300 p-[40px]">
+        <div
+          className={`${
+            category === "LC" ? "block" : "hidden"
+          } indent-2 lg:w-[900px] md:w-[510px] min-w-[210px]`}
+        >
+          <Select
+            options={regionOptions}
+            placeholder={"지역명"}
+            autoFocus={true}
+          />
+        </div>
+        <div
+          className={`${
+            category === "HT" ? "block" : "hidden"
+          } indent-2 lg:w-[900px] md:w-[510px] min-w-[210px]`}
+        >
+          <Select
+            options={hashTagOptions}
+            isMulti
+            isSearchable={false}
+            isClearable={true}
+            placeholder={"#해시태그"}
+          />
+        </div>
+
         <input
-          placeholder="키워드를 입력하세요"
-          className="indent-2 text-xs bg-gray-50  lg:w-[900px] md:w-[510px] min-w-[210px]"
+          className={`${
+            category === "SC" ? "block" : "hidden"
+          } rounded-sm indent-4  lg:w-[900px] md:w-[510px] min-w-[210px] h-[38px]`}
+          placeholder="목적지를 입력하세요"
         />
+
         <button className="bg-black text-white ml-10 px-20 py-3 text-lg">
           SEARCH
         </button>
       </div>
-      <Select
-        className=""
-        options={regionOptions}
-        placeholder={"지역명"}
-        autoFocus={true}
-      />
-      <Select
-        options={hashTagOptions}
-        isMulti
-        isSearchable={false}
-        isClearable={true}
-        placeholder={"#해시태그"}
-      />
     </div>
   );
 };
