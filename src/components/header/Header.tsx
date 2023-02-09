@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Login from "../auth/Login";
+import Weather from "./Weather";
 
 const Header = () => {
   // 반응형 header
@@ -68,6 +69,9 @@ const Header = () => {
               }`}
             >
               <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
+                <li className="text-sm px-4 py-2 leading-none  text-white">
+                  <Weather />
+                </li>
                 <li className="text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
                   <button onClick={loginModal}>로그인/회원가입</button>
                 </li>
