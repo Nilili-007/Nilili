@@ -1,4 +1,7 @@
+import { signOut } from "firebase/auth";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { authService } from "../../utils/firebase";
 import Modal from "../auth/Modal";
 import Weather from "./Weather";
 
@@ -6,12 +9,25 @@ const Header = () => {
   // 반응형 header
   const [navbar, setNavbar] = useState(false);
 
+  const navigate = useNavigate();
+
   // login modal toggle
   const [modal, setModal] = useState(false);
 
   // modal 띄우기
   const openModal = () => {
     setModal(true);
+  };
+
+  const logoutBtn = () => {
+    signOut(authService)
+      .then(() => {
+        alert("로그아웃");
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log("error: ", error);
+      });
   };
 
   return (
@@ -73,7 +89,11 @@ const Header = () => {
                   <Weather />
                 </li>
                 <li className="text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
-                  <button onClick={openModal}>로그인/회원가입</button>
+                  {authService.currentUser ? (
+                    <button onClick={logoutBtn}>로그아웃</button>
+                  ) : (
+                    <button onClick={openModal}>로그인/회원가입</button>
+                  )}
                 </li>
               </ul>
             </div>
