@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   courseList: [],
+  filteredCourse: "",
 };
 
 const temporarySlice = createSlice({
@@ -10,11 +11,12 @@ const temporarySlice = createSlice({
   reducers: {
     addCourse: (state: any, action) => {
       state.courseList = [...state.courseList, action.payload];
-      console.log(state.courseList);
-      console.log(action.payload);
     },
     updateCourse: (state: any, action) => {
       state.courseList = action.payload;
+    },
+    filterCourse: (state: any, action) => {
+      state.filteredCourse = action.payload;
     },
     deleteCourse: (state: any, action) => {
       state.courseList = state.courseList.filter((item: any) => {
@@ -24,5 +26,6 @@ const temporarySlice = createSlice({
   },
 });
 
-export const { addCourse, updateCourse, deleteCourse } = temporarySlice.actions;
+export const { addCourse, updateCourse, deleteCourse, filterCourse } =
+  temporarySlice.actions;
 export default temporarySlice.reducer;

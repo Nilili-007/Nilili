@@ -36,7 +36,7 @@ const PostSearchModal = ({ setModalOpen, setSearchKeyword }: PostProps) => {
   const sessionList = JSON.parse(`${sessionStorage.getItem("sessionList")}`);
 
   return (
-    <div className="w-[800px] h-auto max-h-[800px] overflow-y-scroll bg-white border border-black p-5 absolute translate-x-[10%] -translate-y-[50%] xs:w-11/12 xs:h-auto xs:h-max-5/6 xs:translate-x-0 xs:-translate-y-64 z-[999]">
+    <div className="w-[800px] h-auto max-h-[800px] overflow-y-scroll bg-white border border-black p-5 absolute translate-x-[10%] -translate-y-[120%] xs:w-11/12 xs:h-auto xs:h-max-5/6 xs:translate-x-0 xs:-translate-y-64 z-[999]">
       <form onSubmit={(e) => onSubmitSearch(e)} className="flex">
         <input
           value={text}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import PostSearchModal from "./PostSearchModal";
-import CourseLine from "./CourseLine";
+import PostCourseLine from "./PostCourseLine";
 
 const PostMap = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -60,7 +60,7 @@ const PostMap = () => {
           }}
         />
       </Map>
-      <CourseLine modalOpen={modalOpen} setModalOpen={setModalOpen} />
+      <PostCourseLine modalOpen={modalOpen} setModalOpen={setModalOpen} />
       {modalOpen && (
         <PostSearchModal
           setModalOpen={setModalOpen}
