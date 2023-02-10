@@ -4,6 +4,7 @@ import RecentList from "./main/RecentList";
 import RandomList from "./main/RandomList";
 import CityList from "./main/CityList";
 import Path from "./main/Path";
+import TopButton from "./main/TopButton";
 
 //서치 페이지
 import SearchBox from "./search/SearchBox";
@@ -19,4 +20,5 @@ export {
   SearchBox,
   SearchList,
   Path,
+  TopButton,
 };
