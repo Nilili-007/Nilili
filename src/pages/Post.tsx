@@ -14,6 +14,7 @@ interface IinitialList {
   name: string;
 }
 
+//select option의 타입
 export interface optionType {
   value: string;
   label: string;
@@ -40,7 +41,7 @@ const Post = () => {
 
   //카테고리 선택
   const [category, setCategory] = useState("");
-
+  const [courseTitle, setCourseTitle] = useState("");
   //해시태그 선택
   const [selectedTags, setSelectedTags] = useState<optionType[] | null>([]);
 
@@ -50,19 +51,26 @@ const Post = () => {
     //selectedTags는 오브젝트 배열입니다.
     //hashtag는 데이터베이스에 문자열 배열로 들어가야 하기 때문에, value 값만 추출하여 문자열배열로 바꿉니다.
     let selectedValues = selectedTags?.map((tag) => tag.value);
-    console.log(category, selectedValues);
+    console.log(category, selectedValues, courseTitle);
     const newPost: any = {
       category,
       selectedValues,
+      courseTitle,
     };
     dispatch(addPost(newPost));
     navigate("/course");
   };
 
   return (
+    // 테스트목적으로 div를 form으로 변경했습니다.
     <form onSubmit={submitHandle}>
       <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0">
-        <PostTitle category={category} setCategory={setCategory} />
+        <PostTitle
+          category={category}
+          setCategory={setCategory}
+          courseTitle={courseTitle}
+          setCourseTitle={setCourseTitle}
+        />
         <div className="w-full h-96 border border-black mt-5 flex justify-center items-center xs:h-48 xs:mt-0">
           지도
         </div>
