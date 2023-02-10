@@ -6,10 +6,8 @@ import PostBtn from "../components/post/PostBtn";
 import PostSearchModal from "../components/post/PostSearchModal";
 import CourseDesc from "../components/course/CourseDesc";
 import CourseLine from "../components/post/CourseLine";
-import { useDispatch } from "react-redux";
-import courseSlice, { addPost } from "../redux/modules/courseSlice";
 import { useNavigate } from "react-router-dom";
-
+import { useAddCourseMutation } from "../redux/modules/apiSlice";
 interface IinitialList {
   name: string;
 }
@@ -21,10 +19,11 @@ export interface optionType {
 }
 
 const Post = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
   const [targetPlace, setTargetPlace] = useState("");
+  const [addCourse] = useAddCourseMutation();
 
   const initialList: IinitialList[] = [
     { name: "PKM갤러리" },
@@ -51,13 +50,12 @@ const Post = () => {
     //selectedTags는 오브젝트 배열입니다.
     //hashtag는 데이터베이스에 문자열 배열로 들어가야 하기 때문에, value 값만 추출하여 문자열배열로 바꿉니다.
     let selectedValues = selectedTags?.map((tag) => tag.value);
-    console.log(category, selectedValues, courseTitle);
-    const newPost: any = {
+    const newPost = {
       category,
       selectedValues,
       courseTitle,
     };
-    dispatch(addPost(newPost));
+    addCourse(newPost);
     navigate("/course");
   };
 

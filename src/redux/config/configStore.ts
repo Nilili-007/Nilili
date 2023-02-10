@@ -1,8 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import courseSlice from "../modules/courseSlice";
+import { courseApi } from "../modules/apiSlice";
 
 const store = configureStore({
-  reducer: { courseSlice },
+  // reducer: { courseSlice },
+  reducer: {
+    [courseApi.reducerPath]: courseApi.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(courseApi.middleware),
 });
 
 export default store;
