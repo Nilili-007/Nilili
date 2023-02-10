@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  placelist: [],
+  courseList: [],
 };
 
 const temporarySlice = createSlice({
@@ -9,14 +9,20 @@ const temporarySlice = createSlice({
   initialState,
   reducers: {
     addCourse: (state: any, action) => {
-      state.placelist = [...state.placelist, action.payload];
+      state.courseList = [...state.courseList, action.payload];
+      console.log(state.courseList);
+      console.log(action.payload);
     },
-    dragCourse: (state: any, action) => {
-      state.placelist = [];
-      state.placelist = action.payload;
+    updateCourse: (state: any, action) => {
+      state.courseList = action.payload;
+    },
+    deleteCourse: (state: any, action) => {
+      state.courseList = state.courseList.filter((item: any) => {
+        return item.id !== action.payload;
+      });
     },
   },
 });
 
-export const { addCourse, dragCourse } = temporarySlice.actions;
+export const { addCourse, updateCourse, deleteCourse } = temporarySlice.actions;
 export default temporarySlice.reducer;

@@ -3,18 +3,12 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { addCourse } from "../../redux/modules/temporarySlice";
 
-interface IPlacelist {
-  name: string;
-}
-
 interface PostProps {
   setModalOpen: Dispatch<SetStateAction<boolean>>;
-  setPlace: Dispatch<SetStateAction<string>>;
-  placeList: IPlacelist[];
-  list: any;
+  setSearchKeyword: Dispatch<SetStateAction<string>>;
 }
 
-const PostSearchModal = ({ setModalOpen, setPlace }: PostProps) => {
+const PostSearchModal = ({ setModalOpen, setSearchKeyword }: PostProps) => {
   const dispatch = useDispatch();
   const [text, setText] = useState("");
 
@@ -24,16 +18,17 @@ const PostSearchModal = ({ setModalOpen, setPlace }: PostProps) => {
 
   const onSubmitSearch = (e: any) => {
     e.preventDefault();
-    setPlace(text);
+    setSearchKeyword(text);
     setText("");
   };
 
-  const onClickSessionData = (e: any, item: any) => {
+  const onClickAddCourse = (e: any, item: any) => {
     const targetItem = {
       name: item.place_name,
       address: item.address_name,
       road: item.road_address_name,
       phone: item.phone,
+      id: item.id,
     };
     dispatch(addCourse(targetItem));
   };
@@ -67,7 +62,7 @@ const PostSearchModal = ({ setModalOpen, setPlace }: PostProps) => {
             <>
               <div
                 key={item.id}
-                onClick={(e) => onClickSessionData(e, item)}
+                onClick={(e) => onClickAddCourse(e, item)}
                 className="p-3 cursor-pointer bg-white hover:bg-red-100 rounded-xl"
               >
                 <h5 className="font-bold text-xl">{item.place_name}</h5>

@@ -1,10 +1,11 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { dragCourse } from "../../redux/modules/temporarySlice";
+import { deleteCourse, updateCourse } from "../../redux/modules/temporarySlice";
 
 interface PostProps {
-  setTargetPlace: Dispatch<SetStateAction<string>>;
+  modalOpen: boolean;
+  setModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 interface IinitialDragData {
@@ -15,10 +16,10 @@ interface IinitialDragData {
   updateLists: any[];
 }
 
-const CourseLine = ({ setTargetPlace }: PostProps) => {
+const CourseLine = ({ modalOpen, setModalOpen }: PostProps) => {
   const dispatch = useDispatch();
   const temporaryList = useSelector(
-    (state: any) => state.temporarySlice.placelist
+    (state: any) => state.temporarySlice.courseList
   );
 
   const initialDragData: IinitialDragData = {
@@ -33,9 +34,10 @@ const CourseLine = ({ setTargetPlace }: PostProps) => {
   const [dragData, setDragData] = useState(initialDragData);
   const [isDragged, setIsDragged] = useState<any | null>(false);
 
-  const sesstionCourse = JSON.parse(
-    `${sessionStorage.getItem("sesstionCourse")}`
-  );
+  const showModal = () => {
+    sessionStorage.clear();
+    setModalOpen(!modalOpen);
+  };
 
   const onDragOver = (e: any) => {
     e.stopPropagation();
@@ -58,7 +60,7 @@ const CourseLine = ({ setTargetPlace }: PostProps) => {
 
   const onDragEnd = (e: any) => {
     setIsDragged(false);
-    dispatch(dragCourse([...dragData.updateLists]));
+    dispatch(updateCourse([...dragData.updateLists]));
 
     setDragData({
       ...dragData,
@@ -110,13 +112,20 @@ const CourseLine = ({ setTargetPlace }: PostProps) => {
   };
 
   const onClickCircle = (e: any, key: number) => {
-    const targetItem: any = {
-      name: sesstionCourse[key].name,
-      address: sesstionCourse[key].address,
-      road: sesstionCourse[key].road,
-      phone: sesstionCourse[key].phone,
-    };
-    setTargetPlace(targetItem);
+    // const targetItem: any = {
+    //   name: sesstionCourse[key].name,
+    //   address: sesstionCourse[key].address,
+    //   road: sesstionCourse[key].road,
+    //   phone: sesstionCourse[key].phone,
+    // };
+    // setTargetPlace(targetItem);
+  };
+
+  const onClickDeleteCourse = (item: any) => {
+    // 모달로 변경
+    if (window.confirm("일정에서 삭제하시겠습니까?")) {
+      return dispatch(deleteCourse(item.id));
+    }
   };
 
   useEffect(() => {
@@ -125,24 +134,19 @@ const CourseLine = ({ setTargetPlace }: PostProps) => {
 
   return (
     <>
-      <div className="border-t border-black mt-20 xs:mt-16" />
-      <div className="flex justify-between mt-5">
+      <div className="border-t border-black mt-20 xs:mt-16 " />
+      <div className="flex justify-between mt-4">
         {dragList?.map((item: any, key: any) => {
           let default_class = "";
-
           dragData.move_right.includes(key) && (default_class = "move_right");
-
           dragData.move_left.includes(key) && (default_class = "move_left");
 
           return (
-            <div
-              onClick={(e) => onClickCircle(e, key)}
-              key={key}
-              className="flex flex-col justify-between cursor-pointer hover:opacity-50"
-            >
+            <div className="flex flex-col justify-between cursor-pointer hover:opacity-50">
               <CourseItem
                 draggable
                 key={key}
+                onClick={(e) => onClickCircle(e, key)}
                 data-index={key}
                 data-position={key}
                 onDragOver={onDragOver}
@@ -156,11 +160,21 @@ const CourseLine = ({ setTargetPlace }: PostProps) => {
               >
                 #{key + 1} {item.name}
               </CourseItem>
-              <div className="flex justify-center items-center w-4 h-4 mb-3 rounded-full bg-black xs:w-2 xs:h-2 xs:mb-4" />
+              <div
+                onClick={() => onClickDeleteCourse(item)}
+                className="flex justify-center items-center w-8 h-8 mb-4 rounded-full bg-black text-white text-3xl xs:w-2 xs:h-2 xs:mb-4"
+              >
+                -
+              </div>
             </div>
           );
         })}
-        <div className="w-4 h-4 rounded-full bg-white border border-black -mt-7 xs:w-2 xs:h-2 xs:-mt-6" />
+        <div
+          onClick={showModal}
+          className="flex justify-center items-center w-8 h-8 rounded-full bg-white border border-black text-3xl -mt-8 cursor-pointer xs:w-2 xs:h-2 xs:-mt-6"
+        >
+          +
+        </div>
       </div>
     </>
   );
