@@ -154,6 +154,7 @@ const Modal = ({ modal, setModal }: ModalProps) => {
                   closeModal={closeModal}
                   error={error}
                   loginBtn={loginBtn}
+                  setModal={setModal}
                 />
                 <div className="flex items-center justify-center p-6 border-t border-solid border-blueGray-200 rounded-b">
                   <div className="flex items-center justify-center text-gray-500 text-sm font-bold mr-5">

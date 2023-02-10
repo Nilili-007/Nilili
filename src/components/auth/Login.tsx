@@ -1,3 +1,6 @@
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { authService } from "../../utils/firebase";
+
 interface LoginProps {
   email: string;
   setEmail: React.Dispatch<React.SetStateAction<string>>;
@@ -6,6 +9,7 @@ interface LoginProps {
   error: string;
   loginBtn: any;
   closeModal: any;
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Login = ({
@@ -16,6 +20,7 @@ const Login = ({
   error,
   closeModal,
   loginBtn,
+  setModal,
 }: LoginProps) => {
   const emailHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -25,6 +30,19 @@ const Login = ({
   const pwHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setPW(event.target.value);
+  };
+
+  // google login
+  const signInGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(authService, provider)
+      .then((result) => {
+        alert("로그인 성공");
+        setModal(false);
+      })
+      .catch((error) => {
+        console.log("error: ", error);
+      });
   };
 
   return (
@@ -78,7 +96,7 @@ const Login = ({
       <div className="flex items-center justify-center p-6 border-t border-solid border-blueGray-200 rounded-b">
         <div className="flex-column items-center">
           <div>
-            <button>
+            <button onClick={signInGoogle}>
               <img className="w-80" src="./login/google.png" alt="" />
             </button>
           </div>
