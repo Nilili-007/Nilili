@@ -1,14 +1,10 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-
-interface IPlacelist {
-  name: string;
-}
+import { dragCourse } from "../../redux/modules/temporarySlice";
 
 interface PostProps {
   setTargetPlace: Dispatch<SetStateAction<string>>;
-  placeList: IPlacelist[];
-  setPlaceList: Dispatch<SetStateAction<any>>;
 }
 
 interface IinitialDragData {
@@ -19,7 +15,12 @@ interface IinitialDragData {
   updateLists: any[];
 }
 
-const CourseLine = ({ setTargetPlace, placeList, setPlaceList }: PostProps) => {
+const CourseLine = ({ setTargetPlace }: PostProps) => {
+  const dispatch = useDispatch();
+  const temporaryList = useSelector(
+    (state: any) => state.temporarySlice.placelist
+  );
+
   const initialDragData: IinitialDragData = {
     target: null,
     index: -1,
@@ -28,8 +29,13 @@ const CourseLine = ({ setTargetPlace, placeList, setPlaceList }: PostProps) => {
     updateLists: [],
   };
 
+  const [dragList, setDragList] = useState(temporaryList);
   const [dragData, setDragData] = useState(initialDragData);
   const [isDragged, setIsDragged] = useState<any | null>(false);
+
+  const sesstionCourse = JSON.parse(
+    `${sessionStorage.getItem("sesstionCourse")}`
+  );
 
   const onDragOver = (e: any) => {
     e.stopPropagation();
@@ -43,7 +49,7 @@ const CourseLine = ({ setTargetPlace, placeList, setPlaceList }: PostProps) => {
       ...dragData,
       target: e.target,
       index: Number(e.target.dataset.index),
-      updateLists: [...placeList],
+      updateLists: [...dragList],
     });
 
     e.dataTransfer.setData("text/html", "");
@@ -52,7 +58,7 @@ const CourseLine = ({ setTargetPlace, placeList, setPlaceList }: PostProps) => {
 
   const onDragEnd = (e: any) => {
     setIsDragged(false);
-    setPlaceList([...dragData.updateLists]);
+    dispatch(dragCourse([...dragData.updateLists]));
 
     setDragData({
       ...dragData,
@@ -104,14 +110,24 @@ const CourseLine = ({ setTargetPlace, placeList, setPlaceList }: PostProps) => {
   };
 
   const onClickCircle = (e: any, key: number) => {
-    setTargetPlace(placeList[key].name);
+    const targetItem: any = {
+      name: sesstionCourse[key].name,
+      address: sesstionCourse[key].address,
+      road: sesstionCourse[key].road,
+      phone: sesstionCourse[key].phone,
+    };
+    setTargetPlace(targetItem);
   };
+
+  useEffect(() => {
+    setDragList(temporaryList);
+  }, [temporaryList]);
 
   return (
     <>
       <div className="border-t border-black mt-20 xs:mt-16" />
       <div className="flex justify-between mt-5">
-        {placeList.map((item, key) => {
+        {dragList?.map((item: any, key: any) => {
           let default_class = "";
 
           dragData.move_right.includes(key) && (default_class = "move_right");
@@ -158,12 +174,16 @@ const CourseItem = styled.h5`
   font-size: 20px;
   cursor: grab;
 
+  // 보완 필요
+  // 1. 이동 범위 1/n로 계산
+  // 2. 드래그 할 아이템과 드랍할 아이템의 영역 자동 계산
+
   &.move_left {
-    transform: translate(-10px, 0);
+    transform: translate(-90px, 0);
     z-index: 1;
   }
   &.move_right {
-    transform: translate(10px, 0);
+    transform: translate(90px, 0);
     z-index: 1;
   }
 

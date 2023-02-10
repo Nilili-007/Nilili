@@ -1,9 +1,12 @@
 interface IPlaceList {
   name: string;
+  address: string;
+  road: string;
+  phone: string;
 }
 
 interface PostProps {
-  targetPlace: string;
+  targetPlace: any;
   placeList: IPlaceList[];
 }
 
@@ -20,11 +23,13 @@ const CourseDesc = ({ targetPlace, placeList }: PostProps) => {
     <>
       <div className="w-1/2 h-[106px] justify-end xs:w-full xs:-mt-5">
         <h3 className="font-bold text-xl">
-          {targetPlace ? targetPlace : placeList[0].name}
+          {targetPlace === "" ? placeList[0].name : targetPlace.name}
         </h3>
-        <p>주소</p>
-        <p className="text-gray-400 text-sm">(도로명 주소)</p>
-        <p>000-0000-0000</p>
+        <p>{targetPlace === "" ? placeList[0].address : targetPlace.address}</p>
+        <p className="text-gray-400 text-sm">
+          {targetPlace === "" ? placeList[0].road : targetPlace.road}
+        </p>
+        <p>{targetPlace === "" ? placeList[0].phone : targetPlace.phone}</p>
         {/* <div className="mt-4">
           유저가 작성한 여행지 설명 유저가 작성한 여행지 설명 유저가 작성한
           여행지 설명 유저가 작성한 여행지 설명 유저가 작성한 여행지 설명 유저가
