@@ -12,12 +12,12 @@ const SearchList = () => {
               src="/assets/course.jpg"
               className=""
             />
-            <p className="pr-4 ml-1 mt-5 h-16 text-2xl overflow-hidden font-black">
+            <p className="pr-4 ml-1 mt-5 sm:h-16 h-14 sm:text-2xl text-lg overflow-hidden font-black ">
               title 제목이 아주 아주 길어지는 경우에 어떻게 보일까요 근데 제목에
               글자 수 제한을 넣어야 할까요 아니면 몇글자까지 보여주는 제한만
               주는게 좋을까요
             </p>
-            <p className="ml-1 mt-2 font-medium text-gray-400 text-xl mb-3 ">
+            <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
               작성자 이름
             </p>
           </ul>

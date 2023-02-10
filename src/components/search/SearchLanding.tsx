@@ -4,14 +4,14 @@ const SearchLanding = () => {
   };
 
   return (
-    <div className="hidden sm:block relative">
-      <img
-        className=" brightness-50 sm:h-[70vh] sm:w-full aspect-video  mx-auto"
+    <div className="flex justify-end items-center sm:h-[70vh] sm:w-full aspect-video  bg-no-repeat bg-cover bg-center bg-fixed bg-[url('https://user-images.githubusercontent.com/117059420/217974553-ac861bb0-b64d-48a4-ad4c-092fcce81720.jpg')] ">
+      {/* <img
+        className=" brightness-50 sm:h-[70vh] sm:w-full sm:h- aspect-video  mx-auto"
         alt="메인사진"
         src="/assets/water.jpg"
-      ></img>
-      <div className=" absolute bottom-[20%] right-[20%]">
-        <p className="mb-10 xl:text-[55px] lg:text-[45px] sm:text-[35px]  text-white font-bold leading-[70px]">
+      ></img> */}
+      <div>
+        <p className="mb-10  lg:text-[45px] sm:text-[35px] text-xl leading-loose  text-white font-bold ">
           <br />
           금수강산 명소 찾아
           <br />
@@ -20,7 +20,7 @@ const SearchLanding = () => {
           여행을 떠나보세요
         </p>
         <button
-          className=" border-white bg-slate-500 border text-white font-medium mx-3  hover:bg-amber-500  text-xl w-48 py-2 my-auto"
+          className="hidden sm:block border-white border text-white font-medium mx-3  hover:bg-amber-500  text-xl w-48 py-2 my-auto"
           onClick={scrollToList}
         >
           검색하러 가기
