@@ -9,8 +9,8 @@ const Landing = () => {
 
   return (
     <div className="flex justify-end  items-center flex-wrap overflow-auto sm:h-[70vh] w-full aspect-video  bg-no-repeat bg-cover bg-center sm:bg-fixed bg-[url('https://user-images.githubusercontent.com/117059420/217982337-b6b4d259-e3d2-4535-8e62-ca8d5d27082f.jpg')] min-w-[370px] ">
-      <div className="mr-[10%] bg-red-300">
-        <p className="hidden sm:block mb-10  lg:text-[45px] md:text-[38px] sm:text-[35px] text-xl leading-loose  text-white font-bold ">
+      <div className="hidden sm:block mr-[10%]">
+        <p className=" mb-10  lg:text-[45px] md:text-[38px] sm:text-[35px] text-xl leading-loose  text-white font-bold ">
           <br />
           금수강산 명소 찾아
           <br />

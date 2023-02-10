@@ -35,7 +35,7 @@ const SearchBox = () => {
   const [category, setCategory] = useState("LC");
 
   return (
-    <div className="mb-[2%]  bg-pink-300 3xl:w-[60%] 2xl:w-[70%] w-[90%] min-w-[370px]">
+    <div className="mb-[2%] 3xl:w-[60%] 2xl:w-[70%] w-[90%] min-w-[370px]">
       <p className=" w-fit mx-auto xl:text-[55px] lg:text-[45px] sm:text-[35px]  text-2xl font-bold my-[5%]">
         WHAT ARE YOUR PLANS?
       </p>

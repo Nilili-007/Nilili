@@ -1,6 +1,6 @@
 const SearchList = () => {
   return (
-    <div className=" my-10 bg-pink-300 ma 3xl:w-[60%] 2xl:w-[70%] w-[90%] ">
+    <div className=" my-10 3xl:w-[60%] 2xl:w-[70%] w-[90%] ">
       <ul className="  flex flex-wrap justify-evenly">
         {new Array(16).fill(null).map((_, idx) => (
           <li

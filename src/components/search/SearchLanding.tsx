@@ -5,7 +5,7 @@ const SearchLanding = () => {
 
   return (
     <div className="flex justify-end items-center flex-wrap overflow-auto sm:h-[70vh] w-full aspect-video  bg-no-repeat bg-cover bg-center sm:bg-fixed bg-[url('https://user-images.githubusercontent.com/117059420/217974553-ac861bb0-b64d-48a4-ad4c-092fcce81720.jpg')] min-w-[370px] ">
-      <div className="mr-[10%] bg-red-300">
+      <div className="mr-[10%]">
         <p className="mb-10  lg:text-[45px] md:text-[38px] sm:text-[35px] text-xl leading-loose  text-white font-bold ">
           <br />
           금수강산 명소 찾아
