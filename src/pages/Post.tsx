@@ -6,14 +6,25 @@ import PostBtn from "../components/post/PostBtn";
 import PostSearchModal from "../components/post/PostSearchModal";
 import CourseDesc from "../components/course/CourseDesc";
 import CourseLine from "../components/post/CourseLine";
+import { useDispatch } from "react-redux";
+import courseSlice, { addPost } from "../redux/modules/courseSlice";
+import { useNavigate } from "react-router-dom";
 
 interface IinitialList {
   name: string;
 }
 
+export interface optionType {
+  value: string;
+  label: string;
+}
+
 const Post = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
   const [targetPlace, setTargetPlace] = useState("");
+
   const initialList: IinitialList[] = [
     { name: "PKM갤러리" },
     { name: "페로탕" },
@@ -27,10 +38,31 @@ const Post = () => {
     setModalOpen(!modalOpen);
   };
 
+  //카테고리 선택
+  const [category, setCategory] = useState("");
+
+  //해시태그 선택
+  const [selectedTags, setSelectedTags] = useState<optionType[] | null>([]);
+
+  //Hashtag 테스트용 submit handler
+  const submitHandle = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    //selectedTags는 오브젝트 배열입니다.
+    //hashtag는 데이터베이스에 문자열 배열로 들어가야 하기 때문에, value 값만 추출하여 문자열배열로 바꿉니다.
+    let selectedValues = selectedTags?.map((tag) => tag.value);
+    console.log(category, selectedValues);
+    const newPost: any = {
+      category,
+      selectedValues,
+    };
+    dispatch(addPost(newPost));
+    navigate("/course");
+  };
+
   return (
-    <>
+    <form onSubmit={submitHandle}>
       <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0">
-        <PostTitle />
+        <PostTitle category={category} setCategory={setCategory} />
         <div className="w-full h-96 border border-black mt-5 flex justify-center items-center xs:h-48 xs:mt-0">
           지도
         </div>
@@ -61,10 +93,13 @@ const Post = () => {
             </button>
           </div>
         </div>
-        <PostHashTag />
+        <PostHashTag
+          selectedTags={selectedTags}
+          setSelectedTags={setSelectedTags}
+        />
         <PostBtn />
       </div>
-    </>
+    </form>
   );
 };
 

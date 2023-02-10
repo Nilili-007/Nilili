@@ -19,7 +19,16 @@ const regionOptions = [
   { value: "울산", label: "울산" },
 ];
 
-const PostTitle = () => {
+interface titleProps {
+  category?: string;
+  setCategory?: any;
+}
+
+const PostTitle = ({ category, setCategory }: titleProps) => {
+  const handleCateSelect = (event: any) => {
+    setCategory(event.value);
+  };
+
   return (
     <div className="flex gap-5 md:gap-10 items-center h-24 justyfy-center xs:gap-3 ">
       <div className="w-1/4 xs:w-1/3 xs:text-xs ">
@@ -27,6 +36,10 @@ const PostTitle = () => {
           options={regionOptions}
           placeholder={"지역명"}
           autoFocus={true}
+          onChange={handleCateSelect}
+          value={regionOptions.filter(function (option) {
+            return option.value === category;
+          })}
         />
       </div>
       <input className="w-3/4 md:w-6/7 md:text-3xl sm:text-lg sm:w-full p-2 border-slate-300 border-b-2 " />

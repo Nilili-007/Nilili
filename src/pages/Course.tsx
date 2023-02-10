@@ -5,10 +5,18 @@ import CourseTitle from "../components/course/CourseTitle";
 import LikeBtn from "../components/course/LikeBtn";
 import PostTitle from "../components/post/PostTitle";
 import PostHashTag from "../components/post/PostHashTag";
+import { useSelector } from "react-redux";
 
 const Course = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+
+  const category = useSelector((state) => {
+    console.log(state);
+    return state;
+  });
+  console.log(category);
+
   return (
     <div className="w-11/12 md:w-3/4 m-auto">
       {isEdit ? (
