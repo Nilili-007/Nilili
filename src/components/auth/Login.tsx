@@ -1,4 +1,8 @@
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  FacebookAuthProvider,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import { authService } from "../../utils/firebase";
 
 interface LoginProps {
@@ -44,6 +48,23 @@ const Login = ({
         console.log("error: ", error);
       });
   };
+
+  // facebook login
+  const signInFacebook = () => {
+    const provider = new FacebookAuthProvider();
+    signInWithPopup(authService, provider)
+      .then((result) => {
+        alert("로그인 성공");
+        setModal(false);
+      })
+      .catch((error) => {
+        console.log("error: ", error);
+      });
+  };
+
+  // kakao login
+
+  // naver login
 
   return (
     <>
@@ -101,6 +122,11 @@ const Login = ({
             </button>
           </div>
           <div>
+            <button onClick={signInFacebook}>
+              <img className="w-80" src="./login/facebook.png" alt="" />
+            </button>
+          </div>
+          {/* <div>
             <button>
               <img className="w-80" src="./login/kakao.png" alt="" />
             </button>
@@ -109,7 +135,7 @@ const Login = ({
             <button>
               <img className="w-80" src="./login/naver.png" alt="" />
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </>
