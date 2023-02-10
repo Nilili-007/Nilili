@@ -4,13 +4,8 @@ const SearchLanding = () => {
   };
 
   return (
-    <div className="flex justify-end items-center sm:h-[70vh] sm:w-full aspect-video  bg-no-repeat bg-cover bg-center bg-fixed bg-[url('https://user-images.githubusercontent.com/117059420/217974553-ac861bb0-b64d-48a4-ad4c-092fcce81720.jpg')] ">
-      {/* <img
-        className=" brightness-50 sm:h-[70vh] sm:w-full sm:h- aspect-video  mx-auto"
-        alt="메인사진"
-        src="/assets/water.jpg"
-      ></img> */}
-      <div>
+    <div className="flex justify-end items-center flex-wrap overflow-auto sm:h-[70vh] sm:w-full aspect-video  bg-no-repeat bg-cover bg-center sm:bg-fixed bg-[url('https://user-images.githubusercontent.com/117059420/217974553-ac861bb0-b64d-48a4-ad4c-092fcce81720.jpg')] ">
+      <div className="mr-[15%]">
         <p className="mb-10  lg:text-[45px] sm:text-[35px] text-xl leading-loose  text-white font-bold ">
           <br />
           금수강산 명소 찾아
