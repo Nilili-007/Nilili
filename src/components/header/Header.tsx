@@ -1,4 +1,4 @@
-import { signOut } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authService } from "../../utils/firebase";
@@ -31,6 +31,16 @@ const Header = () => {
       });
   };
 
+  const auth = getAuth();
+  const user = auth.currentUser;
+  // if (user !== null) {
+  //   const displayName = user.displayName;
+  //   const email = user.email;
+
+  //   console.log("dispalyName: ", displayName);
+  //   console.log("email: ", email);
+  // }
+
   // 새로고침했을 때 user가 있는지 없는지 판단하기
   setTimeout(() => {
     if (authService.currentUser) {
@@ -47,9 +57,9 @@ const Header = () => {
         <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
           <div>
             <div className="flex items-center justify-between py-3 md:py-5 md:block">
-              <a href="/">
+              <button onClick={() => navigate("/")}>
                 <h2 className="text-2xl text-white font-bold">Nilili</h2>
-              </a>
+              </button>
               <div className="md:hidden">
                 <button
                   className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
@@ -95,17 +105,34 @@ const Header = () => {
               }`}
             >
               <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
+                {isSign !== null ? (
+                  isSign ? (
+                    <>
+                      <li className="text-sm px-4 py-2 leading-none  text-white">
+                        {user?.email?.split("@")[0]}님 오늘은 어디로 떠나볼까요?
+                      </li>
+                      <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
+                        <button onClick={() => navigate("/user/:id")}>
+                          MY PAGE
+                        </button>
+                      </li>
+                      <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
+                        <button onClick={() => navigate("/post")}>
+                          Travelouges
+                        </button>
+                      </li>
+                      <li className="text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
+                        <button onClick={logoutBtn}>로그아웃</button>
+                      </li>
+                    </>
+                  ) : (
+                    <li className="text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
+                      <button onClick={openModal}>로그인/회원가입</button>
+                    </li>
+                  )
+                ) : null}
                 <li className="text-sm px-4 py-2 leading-none  text-white">
                   <Weather />
-                </li>
-                <li className="text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
-                  {isSign !== null ? (
-                    isSign ? (
-                      <button onClick={logoutBtn}>로그아웃</button>
-                    ) : (
-                      <button onClick={openModal}>로그인/회원가입</button>
-                    )
-                  ) : null}
                 </li>
               </ul>
             </div>
