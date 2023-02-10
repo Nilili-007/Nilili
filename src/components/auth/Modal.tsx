@@ -3,6 +3,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router";
 import { authService } from "../../utils/firebase";
 import Login from "./Login";
 import Register from "./Register";
@@ -27,7 +28,12 @@ const Modal = ({ modal, setModal }: ModalProps) => {
   const [isValidLogin, setIsValidLogin] = useState(false);
   const [login, setLogin] = useState(true);
 
+  // 비밀번호 잊어버렸을 때 modal
+  //const [sendEmail, setSendEmail] = useState(false);
+
   const modalRef = useRef<HTMLDivElement | null>(null);
+
+  const navigate = useNavigate();
 
   const closeModal = () => {
     if (modal) setModal(false);
@@ -136,6 +142,16 @@ const Modal = ({ modal, setModal }: ModalProps) => {
     }
   };
 
+  const goForgotPage = () => {
+    navigate("/forgot");
+    setModal(false);
+  };
+
+  // const sendEmailBtn = () => {
+  //   setSendEmail(true);
+  //   setModal(false);
+  // };
+
   return (
     <>
       <div
@@ -158,7 +174,19 @@ const Modal = ({ modal, setModal }: ModalProps) => {
                 />
                 <div className="flex items-center justify-center p-6 border-t border-solid border-blueGray-200 rounded-b">
                   <div className="flex items-center justify-center text-gray-500 text-sm font-bold mr-5">
-                    아직 회원이 아니라면?
+                    비밀번호를 잊어버리셨나요?
+                  </div>
+                  <button
+                    className="text-white bg-purple-300 active:bg-purple-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                    type="button"
+                    onClick={goForgotPage}
+                  >
+                    비밀번호 찾기
+                  </button>
+                </div>
+                <div className="flex items-center justify-center p-6 border-t border-solid border-blueGray-200 rounded-b">
+                  <div className="flex items-center justify-center text-gray-500 text-sm font-bold mr-5">
+                    아직 회원이 아니신가요?
                   </div>
                   <button
                     className="text-white bg-purple-300 active:bg-purple-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
