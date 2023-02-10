@@ -33,6 +33,7 @@ const Header = () => {
 
   const auth = getAuth();
   const user = auth.currentUser;
+  const userName = user?.email?.split("@")[0];
   // if (user !== null) {
   //   const displayName = user.displayName;
   //   const email = user.email;
@@ -109,7 +110,7 @@ const Header = () => {
                   isSign ? (
                     <>
                       <li className="text-sm px-4 py-2 leading-none  text-white">
-                        {user?.email?.split("@")[0]}님 오늘은 어디로 떠나볼까요?
+                        {userName}님 오늘은 어디로 떠나볼까요?
                       </li>
                       <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
                         <button onClick={() => navigate("/user/:id")}>
