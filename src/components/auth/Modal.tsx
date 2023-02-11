@@ -158,7 +158,7 @@ const Modal = ({ modal, setModal }: ModalProps) => {
         ref={modalRef}
         className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
       >
-        <div className="relative w-auto my-6 mx-auto max-w-3xl">
+        <div className="relative w-auto h-3/4 my-6 mx-auto max-w-3xl">
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             {login ? (
               <>
@@ -172,24 +172,24 @@ const Modal = ({ modal, setModal }: ModalProps) => {
                   loginBtn={loginBtn}
                   setModal={setModal}
                 />
-                <div className="flex items-center justify-center p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  <div className="flex items-center justify-center text-gray-500 text-sm font-bold mr-5">
+                <div className="flex items-center justify-center p-2 border-t border-solid border-blueGray-200 rounded-b">
+                  <div className="flex items-center justify-center text-gray-500 text-xs mr-5">
                     비밀번호를 잊어버리셨나요?
                   </div>
                   <button
-                    className="text-white bg-purple-300 active:bg-purple-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                    className="text-black border-b border-blue-500 font-bold text-xs p-1 hover:text-blue-600 outline-none focus:outline-none mr-1 mb-1"
                     type="button"
                     onClick={goForgotPage}
                   >
                     비밀번호 찾기
                   </button>
                 </div>
-                <div className="flex items-center justify-center p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  <div className="flex items-center justify-center text-gray-500 text-sm font-bold mr-5">
+                <div className="flex items-center justify-center p-2 rounded-b">
+                  <div className="flex items-center justify-center text-gray-500 text-xs mr-5">
                     아직 회원이 아니신가요?
                   </div>
                   <button
-                    className="text-white bg-purple-300 active:bg-purple-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                    className="text-black border-b border-blue-500 font-bold text-xs p-1 hover:text-blue-600 outline-none focus:outline-none mr-1 mb-1"
                     type="button"
                     onClick={registerBtn}
                   >
@@ -211,11 +211,11 @@ const Modal = ({ modal, setModal }: ModalProps) => {
                   closeModal={closeModal}
                 />
                 <div className="flex items-center justify-center p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  <div className="flex items-center justify-center text-gray-500 text-sm font-bold mr-5">
+                  <div className="flex items-center justify-center text-gray-500 text-xs mr-5">
                     이미 회원이라면?
                   </div>
                   <button
-                    className="text-white bg-purple-300 active:bg-purple-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                    className="text-black border-b border-blue-500 font-bold text-xs p-1 hover:text-blue-600 outline-none focus:outline-none mr-1 mb-1"
                     type="button"
                     onClick={loginBtn}
                   >
