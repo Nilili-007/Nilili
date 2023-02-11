@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { authService } from "../../utils/firebase";
 import Modal from "../auth/Modal";
 import Weather from "./Weather";
+import { BsSearch } from "react-icons/bs";
 
 const Header = () => {
   // 반응형 header
@@ -135,6 +136,12 @@ const Header = () => {
                     </li>
                   )
                 ) : null}
+                <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
+                  <button onClick={() => navigate("/")}>
+                    {/* 검색 페이지 생성 시 navigate 추가 예정 */}
+                    <BsSearch />
+                  </button>
+                </li>
               </ul>
             </div>
           </div>
