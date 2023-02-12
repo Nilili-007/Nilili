@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdOutlineMoreVert, MdDelete } from "react-icons/md";
 import { AiOutlineEdit } from "react-icons/ai";
+import { CommentType } from "./CommentInput";
 
 interface CourseTitleProps {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  comment: CommentType;
 }
 
-const Comment = ({ setModalOpen }: CourseTitleProps) => {
+const Comment = ({ setModalOpen, comment }: CourseTitleProps) => {
   const [editToggle, setEditToggle] = useState(false);
   const [edit, setEdit] = useState(false);
+
   return (
     <div className="relative border-b px-2 py-4">
       <div className="flex justify-between mb-2">
-        <p className="font-bold text-md">닉네임</p>
+        <p className="font-bold text-md">{comment.nickname}</p>
         <div className="flex gap-3 justify-end w-1/3 items-center ">
           <MdOutlineMoreVert
             className="sm:hidden cursor-pointer"
@@ -47,9 +50,7 @@ const Comment = ({ setModalOpen }: CourseTitleProps) => {
         </div>
       ) : null}
       {edit === false ? (
-        <p className="text-md">
-          댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글
-        </p>
+        <p className="text-md">{comment.comment}</p>
       ) : (
         <textarea
           className="border-2 resize-none px-2 py-1 w-full h-24"

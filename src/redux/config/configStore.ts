@@ -1,8 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { courseApi } from "../modules/apiSlice";
-
 const store = configureStore({
-  // reducer: { courseSlice },
   reducer: {
     [courseApi.reducerPath]: courseApi.reducer,
   },
