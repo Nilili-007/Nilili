@@ -2,7 +2,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { authService } from "../../utils/firebase";
 import Login from "./Login";
 import Register from "./Register";
@@ -16,9 +16,11 @@ interface ModalProps {
   setPW?: React.Dispatch<React.SetStateAction<string>>;
   error?: string;
   setError?: React.Dispatch<React.SetStateAction<string>>;
+  modalOutClick: (e: any) => void;
+  modalRef: React.ForwardedRef<HTMLDivElement>;
 }
 
-const Modal = ({ modal, setModal }: ModalProps) => {
+const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [pw, setPW] = useState("");
@@ -28,14 +30,11 @@ const Modal = ({ modal, setModal }: ModalProps) => {
 
   const [category, setCategory] = useState("LG");
 
-  // 비밀번호 잊어버렸을 때 modal
-  //const [sendEmail, setSendEmail] = useState(false);
-
-  const modalRef = useRef<HTMLDivElement | null>(null);
-
   const closeModal = () => {
-    if (modal) setModal(false);
-    document.body.style.overflow = "unset";
+    if (modal) {
+      setModal(false);
+      document.body.style.overflow = "unset";
+    }
   };
 
   // login 유효성 검사
@@ -140,15 +139,11 @@ const Modal = ({ modal, setModal }: ModalProps) => {
     }
   };
 
-  // const sendEmailBtn = () => {
-  //   setSendEmail(true);
-  //   setModal(false);
-  // };
-
   return (
     <>
       <div
         ref={modalRef}
+        onClick={(e) => modalOutClick(e)}
         className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
       >
         <div className="relative w-auto h-3/4 my-6 mx-auto max-w-3xl">
@@ -217,7 +212,12 @@ const Modal = ({ modal, setModal }: ModalProps) => {
                 </div>
               </>
             ) : (
-              <AuthForgot setCategory={setCategory} category={category} />
+              <AuthForgot
+                setCategory={setCategory}
+                category={category}
+                setModal={setModal}
+                closeModal={closeModal}
+              />
             )}
           </div>
         </div>
