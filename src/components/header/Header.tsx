@@ -1,5 +1,5 @@
 import { getAuth, signOut } from "firebase/auth";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { authService } from "../../utils/firebase";
 import Modal from "../auth/Modal";
@@ -14,10 +14,18 @@ const Header = () => {
 
   // login modal toggle
   const [modal, setModal] = useState(false);
+  const modalRef = useRef<HTMLDivElement | null>(null);
 
   // modal 띄우기
   const openModal = () => {
     setModal(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const modalOutClick = (e: any) => {
+    if (modalRef.current === e.target) {
+      setModal(false);
+    }
   };
 
   const logoutBtn = () => {
@@ -46,7 +54,16 @@ const Header = () => {
 
   return (
     <>
-      {modal ? <Modal modal={modal} setModal={setModal} /> : <></>}
+      {modal ? (
+        <Modal
+          modal={modal}
+          setModal={setModal}
+          modalOutClick={modalOutClick}
+          modalRef={modalRef}
+        />
+      ) : (
+        <></>
+      )}
       <nav className="w-full bg-black shadow">
         <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
           <div>
