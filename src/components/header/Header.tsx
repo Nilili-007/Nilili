@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { authService } from "../../utils/firebase";
 import Modal from "../auth/Modal";
 import Weather from "./Weather";
-import { BsSearch } from "react-icons/bs";
 
 const Header = () => {
   // 반응형 header
@@ -35,13 +34,6 @@ const Header = () => {
   const auth = getAuth();
   const user = auth.currentUser;
   const userName = user?.email?.split("@")[0];
-  // if (user !== null) {
-  //   const displayName = user.displayName;
-  //   const email = user.email;
-
-  //   console.log("dispalyName: ", displayName);
-  //   console.log("email: ", email);
-  // }
 
   // 새로고침했을 때 user가 있는지 없는지 판단하기
   setTimeout(() => {
