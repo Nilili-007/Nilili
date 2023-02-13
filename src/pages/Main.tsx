@@ -1,4 +1,10 @@
-import { Landing, RandomList, RecentList, CityList, Path } from "../components";
+import {
+  Landing,
+  Path,
+  CityList,
+  RecentList,
+  RandomList,
+} from "../components/main";
 
 const Main = () => {
   return (
