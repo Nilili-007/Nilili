@@ -1,7 +1,12 @@
 import { getAuth, sendPasswordResetEmail } from "@firebase/auth";
 import { useState } from "react";
 
-const AuthForgot = () => {
+interface ForgotProps {
+  category: string;
+  setCategory: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const AuthForgot = ({ category, setCategory }: ForgotProps) => {
   const [sending, setSending] = useState<boolean>(false);
   const [sent, setSent] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
@@ -63,6 +68,12 @@ const AuthForgot = () => {
                   onClick={() => sendEmailBtn()}
                 >
                   이메일 전송
+                </button>
+                <button
+                  className="text-white bg-purple-300 active:bg-purple-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                  onClick={() => setCategory("LG")}
+                >
+                  로그인 창으로
                 </button>
               </>
             )}

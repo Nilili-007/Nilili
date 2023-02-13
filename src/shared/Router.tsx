@@ -13,7 +13,7 @@ const Router = () => {
         <Route path="/post" element={<Post />} />
         <Route path="/user/:id" element={<User />} />
         <Route path="/:id" element={<Course />} />
-        <Route path="/forgot" element={<AuthForgot />} />
+
         <Route path="/search" element={<Search />} />
       </Routes>
       <Footer />
