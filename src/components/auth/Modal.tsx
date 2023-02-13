@@ -3,11 +3,10 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router";
 import { authService } from "../../utils/firebase";
 import Login from "./Login";
 import Register from "./Register";
-
+import AuthForgot from "./AuthForgot";
 interface ModalProps {
   modal: boolean;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,14 +25,13 @@ const Modal = ({ modal, setModal }: ModalProps) => {
 
   const [pwCheck, setPWCheck] = useState("");
   const [isValidLogin, setIsValidLogin] = useState(false);
-  const [login, setLogin] = useState(true);
+
+  const [category, setCategory] = useState("LG");
 
   // 비밀번호 잊어버렸을 때 modal
   //const [sendEmail, setSendEmail] = useState(false);
 
   const modalRef = useRef<HTMLDivElement | null>(null);
-
-  const navigate = useNavigate();
 
   const closeModal = () => {
     if (modal) setModal(false);
@@ -90,7 +88,7 @@ const Modal = ({ modal, setModal }: ModalProps) => {
   const loginBtn = (
     event: React.MouseEvent<HTMLDivElement | HTMLButtonElement>
   ) => {
-    if (login) {
+    if (category === "LG") {
       if (!isValidLogin) {
         return;
       }
@@ -108,8 +106,8 @@ const Modal = ({ modal, setModal }: ModalProps) => {
         });
     }
 
-    if (!login) {
-      setLogin(true);
+    if (category !== "LG") {
+      setCategory("LG");
       setPW("");
       setEmail("");
       setPWCheck("");
@@ -120,7 +118,7 @@ const Modal = ({ modal, setModal }: ModalProps) => {
   const registerBtn = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    if (!login) {
+    if (category === "SU") {
       registerValidationCheck();
       createUserWithEmailAndPassword(authService, email, pw)
         .then((userCredential) => {
@@ -133,18 +131,13 @@ const Modal = ({ modal, setModal }: ModalProps) => {
           }
         });
     }
-    if (login) {
-      setLogin(false);
+    if (category !== "SU") {
+      setCategory("SU");
       setPW("");
       setEmail("");
       setPWCheck("");
       setError("");
     }
-  };
-
-  const goForgotPage = () => {
-    navigate("/forgot");
-    setModal(false);
   };
 
   // const sendEmailBtn = () => {
@@ -160,7 +153,7 @@ const Modal = ({ modal, setModal }: ModalProps) => {
       >
         <div className="relative w-auto h-3/4 my-6 mx-auto max-w-3xl">
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-            {login ? (
+            {category === "LG" ? (
               <>
                 <Login
                   email={email}
@@ -179,7 +172,7 @@ const Modal = ({ modal, setModal }: ModalProps) => {
                   <button
                     className="text-black border-b border-blue-500 font-bold text-xs p-1 hover:text-blue-600 outline-none focus:outline-none mr-1 mb-1"
                     type="button"
-                    onClick={goForgotPage}
+                    onClick={() => setCategory("FG")}
                   >
                     비밀번호 찾기
                   </button>
@@ -197,7 +190,7 @@ const Modal = ({ modal, setModal }: ModalProps) => {
                   </button>
                 </div>
               </>
-            ) : (
+            ) : category === "SU" ? (
               <>
                 <Register
                   setEmail={setEmail}
@@ -223,6 +216,8 @@ const Modal = ({ modal, setModal }: ModalProps) => {
                   </button>
                 </div>
               </>
+            ) : (
+              <AuthForgot setCategory={setCategory} category={category} />
             )}
           </div>
         </div>

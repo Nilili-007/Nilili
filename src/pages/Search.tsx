@@ -1,4 +1,5 @@
-import { SearchBox, SearchLanding, SearchList } from "../components";
+import { SearchLanding, SearchBox, SearchList } from "../components/search";
+
 import { useEffect } from "react";
 
 const Search = () => {
