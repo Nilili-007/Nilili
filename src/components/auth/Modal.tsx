@@ -217,7 +217,12 @@ const Modal = ({ modal, setModal }: ModalProps) => {
                 </div>
               </>
             ) : (
-              <AuthForgot setCategory={setCategory} category={category} />
+              <AuthForgot
+                setCategory={setCategory}
+                category={category}
+                setModal={setModal}
+                closeModal={closeModal}
+              />
             )}
           </div>
         </div>

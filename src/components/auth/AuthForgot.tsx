@@ -4,9 +4,16 @@ import { useState } from "react";
 interface ForgotProps {
   category: string;
   setCategory: React.Dispatch<React.SetStateAction<string>>;
+  closeModal: any;
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AuthForgot = ({ category, setCategory }: ForgotProps) => {
+const AuthForgot = ({
+  category,
+  setCategory,
+  closeModal,
+  setModal,
+}: ForgotProps) => {
   const [sending, setSending] = useState<boolean>(false);
   const [sent, setSent] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
@@ -24,7 +31,7 @@ const AuthForgot = ({ category, setCategory }: ForgotProps) => {
         alert("이메일에 링크를 보냈습니다");
         setSent(true);
         setSending(false);
-        setCategory("LG");
+        setModal(false);
       })
       .catch((error) => {
         alert("이메일 보내기 실패");
@@ -40,6 +47,14 @@ const AuthForgot = ({ category, setCategory }: ForgotProps) => {
           <div className="border-0 rounded-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             <div className="flex items-start justify-between p-5  border-gray-300 rounded-t ">
               <h3 className="text-2xl font=semibold">비밀번호 찾기</h3>
+              <button
+                className="bg-transparent border-0 text-black float-right"
+                onClick={closeModal}
+              >
+                <span className="text-black opacity-7 h-6 w-6 text-xl block  py-0 rounded-full">
+                  x
+                </span>
+              </button>
             </div>
             {sent ? (
               <div className="text-2xl font=semibold">
