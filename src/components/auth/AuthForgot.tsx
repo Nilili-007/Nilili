@@ -24,6 +24,7 @@ const AuthForgot = ({ category, setCategory }: ForgotProps) => {
         alert("이메일에 링크를 보냈습니다");
         setSent(true);
         setSending(false);
+        setCategory("LG");
       })
       .catch((error) => {
         alert("이메일 보내기 실패");
@@ -36,9 +37,9 @@ const AuthForgot = ({ category, setCategory }: ForgotProps) => {
     <>
       <div className="flex justify-center items-center w-full">
         <div className="relative w-auto my-6 mx-auto max-w-3xl">
-          <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+          <div className="border-0 rounded-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             <div className="flex items-start justify-between p-5  border-gray-300 rounded-t ">
-              <h3 className="text-2xl font=semibold">비밀번호를 찾기 위해</h3>
+              <h3 className="text-2xl font=semibold">비밀번호 찾기</h3>
             </div>
             {sent ? (
               <div className="text-2xl font=semibold">
@@ -46,7 +47,7 @@ const AuthForgot = ({ category, setCategory }: ForgotProps) => {
               </div>
             ) : (
               <>
-                <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t ">
+                <div className="flex items-start justify-between p-5 ">
                   <div className=" font=semibold">
                     사용자의 이메일을 입력해주세요
                   </div>
@@ -62,19 +63,24 @@ const AuthForgot = ({ category, setCategory }: ForgotProps) => {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-                <button
-                  className="text-white bg-purple-300 active:bg-purple-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                  disabled={sending}
-                  onClick={() => sendEmailBtn()}
-                >
-                  이메일 전송
-                </button>
-                <button
-                  className="text-white bg-purple-300 active:bg-purple-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                  onClick={() => setCategory("LG")}
-                >
-                  로그인 창으로
-                </button>
+                <div className="flex items-center justify-center">
+                  <button
+                    disabled={sending}
+                    className="m-1 text-white bg-purple-300 active:bg-purple-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                    type="button"
+                    onClick={() => sendEmailBtn()}
+                  >
+                    이메일 전송
+                  </button>
+                </div>
+                <div className="flex items-center justify-center p-6 ">
+                  <button
+                    className="text-black border-b border-blue-500 font-bold text-xs p-1 hover:text-blue-600 outline-none focus:outline-none mr-1 mb-1"
+                    onClick={() => setCategory("LG")}
+                  >
+                    로그인 창으로 돌아가기
+                  </button>
+                </div>
               </>
             )}
           </div>
