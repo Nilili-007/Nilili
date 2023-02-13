@@ -1,10 +1,9 @@
 import { getAuth, signOut } from "firebase/auth";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { authService } from "../../utils/firebase";
 import Modal from "../auth/Modal";
 import Weather from "./Weather";
-import { BsSearch } from "react-icons/bs";
 
 const Header = () => {
   // 반응형 header
@@ -15,10 +14,18 @@ const Header = () => {
 
   // login modal toggle
   const [modal, setModal] = useState(false);
+  const modalRef = useRef<HTMLDivElement | null>(null);
 
   // modal 띄우기
   const openModal = () => {
     setModal(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const modalOutClick = (e: any) => {
+    if (modalRef.current === e.target) {
+      setModal(false);
+    }
   };
 
   const logoutBtn = () => {
@@ -35,13 +42,6 @@ const Header = () => {
   const auth = getAuth();
   const user = auth.currentUser;
   const userName = user?.email?.split("@")[0];
-  // if (user !== null) {
-  //   const displayName = user.displayName;
-  //   const email = user.email;
-
-  //   console.log("dispalyName: ", displayName);
-  //   console.log("email: ", email);
-  // }
 
   // 새로고침했을 때 user가 있는지 없는지 판단하기
   setTimeout(() => {
@@ -54,7 +54,16 @@ const Header = () => {
 
   return (
     <>
-      {modal ? <Modal modal={modal} setModal={setModal} /> : <></>}
+      {modal ? (
+        <Modal
+          modal={modal}
+          setModal={setModal}
+          modalOutClick={modalOutClick}
+          modalRef={modalRef}
+        />
+      ) : (
+        <></>
+      )}
       <nav className="w-full bg-black shadow">
         <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
           <div>
@@ -114,16 +123,17 @@ const Header = () => {
                   isSign ? (
                     <>
                       <li className="text-sm px-4 py-2 leading-none  text-white">
-                        {userName}님 오늘은 어디로 떠나볼까요?
-                      </li>
-                      <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
-                        <button onClick={() => navigate("/user/:id")}>
-                          MY PAGE
+                        <button
+                          className="font-bold underline hover:text-teal-500"
+                          onClick={() => navigate("/user/:id")}
+                        >
+                          {userName}
                         </button>
+                        님 오늘은 어디로 떠나볼까요?
                       </li>
                       <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
                         <button onClick={() => navigate("/post")}>
-                          Travelouges
+                          글쓰기
                         </button>
                       </li>
                       <li className="text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
@@ -136,12 +146,6 @@ const Header = () => {
                     </li>
                   )
                 ) : null}
-                <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
-                  <button onClick={() => navigate("/")}>
-                    {/* 검색 페이지 생성 시 navigate 추가 예정 */}
-                    <BsSearch />
-                  </button>
-                </li>
               </ul>
             </div>
           </div>
