@@ -114,16 +114,17 @@ const Header = () => {
                   isSign ? (
                     <>
                       <li className="text-sm px-4 py-2 leading-none  text-white">
-                        {userName}님 오늘은 어디로 떠나볼까요?
-                      </li>
-                      <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
-                        <button onClick={() => navigate("/user/:id")}>
-                          MY PAGE
+                        <button
+                          className="font-bold underline hover:text-teal-500"
+                          onClick={() => navigate("/user/:id")}
+                        >
+                          {userName}
                         </button>
+                        님 오늘은 어디로 떠나볼까요?
                       </li>
                       <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
                         <button onClick={() => navigate("/post")}>
-                          Travelouges
+                          글쓰기
                         </button>
                       </li>
                       <li className="text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
@@ -136,12 +137,6 @@ const Header = () => {
                     </li>
                   )
                 ) : null}
-                <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
-                  <button onClick={() => navigate("/")}>
-                    {/* 검색 페이지 생성 시 navigate 추가 예정 */}
-                    <BsSearch />
-                  </button>
-                </li>
               </ul>
             </div>
           </div>
