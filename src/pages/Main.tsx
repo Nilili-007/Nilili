@@ -4,6 +4,7 @@ import {
   CityList,
   RecentList,
   RandomList,
+  HashtagList,
 } from "../components/main";
 
 const Main = () => {
@@ -12,8 +13,10 @@ const Main = () => {
       <Landing />
       <Path />
       <CityList />
+
       <RecentList />
       <RandomList />
+      <HashtagList />
     </div>
   );
 };
