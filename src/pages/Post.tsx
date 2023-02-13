@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { AiFillPlusCircle } from "react-icons/ai";
-import PostTitle from "../components/post/PostTitle";
-import PostHashTag from "../components/post/PostHashTag";
-import PostBtn from "../components/post/PostBtn";
-import PostSearchModal from "../components/post/PostSearchModal";
-import CourseDesc from "../components/course/CourseDesc";
-import CourseLine from "../components/post/CourseLine";
+import {
+  CourseLine,
+  PostBtn,
+  PostHashTag,
+  PostSearchModal,
+  PostTitle,
+} from "../components/post";
+
+import { CourseDesc } from "../components/course";
+
 import { useNavigate } from "react-router-dom";
 import { useAddCourseMutation } from "../redux/modules/apiSlice";
 interface IinitialList {

@@ -1,10 +1,11 @@
 import { useState } from "react";
-import CommentInput from "../components/course/CommentInput";
-import CourseHashTag from "../components/course/CourseHashTag";
-import CourseTitle from "../components/course/CourseTitle";
-import LikeBtn from "../components/course/LikeBtn";
-import PostTitle from "../components/post/PostTitle";
-import PostHashTag from "../components/post/PostHashTag";
+import {
+  CommentInput,
+  CourseHashTag,
+  CourseTitle,
+  LikeBtn,
+} from "../components/course";
+import { PostTitle, PostHashTag } from "../components/post";
 import { useSelector } from "react-redux";
 
 const Course = () => {
