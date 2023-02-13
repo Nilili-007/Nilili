@@ -45,7 +45,13 @@ const Course = () => {
       <div className="mb-10">
         <h2 className="text-xl font-bold">댓글({data?.length})</h2>
         {data?.map((comment) => {
-          return <Comment setModalOpen={setModalOpen} comment={comment} />;
+          return (
+            <Comment
+              key={comment.id}
+              setModalOpen={setModalOpen}
+              comment={comment}
+            />
+          );
         })}
       </div>
     </div>

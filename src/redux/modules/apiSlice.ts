@@ -2,9 +2,12 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   getDocs,
   orderBy,
   query,
+  updateDoc,
 } from "firebase/firestore";
 import { CommentType } from "../../components/course/CommentInput";
 import { dbService } from "../../utils/firebase";
@@ -59,6 +62,32 @@ export const courseApi = createApi({
       },
       providesTags: ["Courses"],
     }),
+    updateComment: builder.mutation({
+      async queryFn({ commentId, newComment }) {
+        try {
+          await updateDoc(doc(dbService, "comments", commentId), {
+            comment: newComment,
+          });
+          return { data: null };
+        } catch (error: any) {
+          console.error(error.message);
+          return { error: error.message };
+        }
+      },
+      invalidatesTags: ["Courses"],
+    }),
+    deleteComment: builder.mutation({
+      async queryFn(commentId) {
+        try {
+          await deleteDoc(doc(dbService, "comments", commentId));
+          return { data: null };
+        } catch (error: any) {
+          console.error(error.message);
+          return { error: error.message };
+        }
+      },
+      invalidatesTags: ["Courses"],
+    }),
   }),
 });
 
@@ -66,4 +95,6 @@ export const {
   useAddCourseMutation,
   useAddCommentMutation,
   useGetCommentQuery,
+  useDeleteCommentMutation,
+  useUpdateCommentMutation,
 } = courseApi;
