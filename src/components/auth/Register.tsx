@@ -6,6 +6,9 @@ interface RegisterProps {
   setPW: React.Dispatch<React.SetStateAction<string>>;
   setPWCheck: React.Dispatch<React.SetStateAction<string>>;
   error: string;
+  emailerror: string;
+  pwerror: string;
+  pwcheckerror: string;
   registerBtn: any;
   closeModal: any;
 }
@@ -18,6 +21,9 @@ const Register = ({
   setPWCheck,
   pwCheck,
   error,
+  emailerror,
+  pwerror,
+  pwcheckerror,
   registerBtn,
   closeModal,
 }: RegisterProps) => {
@@ -62,7 +68,7 @@ const Register = ({
             onChange={emailHandler}
             placeholder="이메일을 입력해주세요"
           />
-
+          <div className="text-red-600 font-bold m-2">{emailerror}</div>
           <label className="block text-black text-sm font-bold mb-3">
             비밀번호
           </label>
@@ -73,6 +79,7 @@ const Register = ({
             onChange={pwHandler}
             placeholder="비밀번호를 입력해주세요"
           />
+          <div className="text-red-600 font-bold m-2">{pwerror}</div>
           <label className="block text-black text-sm font-bold mb-3">
             비밀번호 확인
           </label>
@@ -83,6 +90,7 @@ const Register = ({
             onChange={pwCheckHandler}
             placeholder="비밀번호를 다시 입력해주세요"
           />
+          <div className="text-red-600 font-bold m-2">{pwcheckerror}</div>
           <div className="flex items-center justify-center">
             <button
               className="m-1 text-white bg-purple-300 active:bg-purple-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
