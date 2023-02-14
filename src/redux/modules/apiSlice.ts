@@ -16,6 +16,7 @@ export const courseApi = createApi({
   baseQuery: fetchBaseQuery(),
   tagTypes: ["Courses"],
   endpoints: (builder) => ({
+    //Course reducer
     addCourse: builder.mutation({
       async queryFn(newCourse) {
         try {
@@ -27,6 +28,51 @@ export const courseApi = createApi({
         }
       },
       invalidatesTags: ["Courses"],
+    }),
+    getCourse: builder.query<CourseType[], void>({
+      async queryFn() {
+        try {
+          const courseQuery = query(
+            collection(dbService, "courses"),
+            orderBy("createdAt", "desc")
+          );
+          const querySnapshot = await getDocs(courseQuery);
+          let courses: any = [];
+          querySnapshot?.forEach((doc) => {
+            courses.push({ id: doc.id, ...doc.data() } as CourseType);
+          });
+          return { data: courses };
+        } catch (error: any) {
+          console.error(error.message);
+          return { error: error.message };
+        }
+      },
+      providesTags: ["Courses"],
+    }),
+
+    //list reducer
+    getCityList: builder.query<CourseType[], void>({
+      async queryFn() {
+        try {
+          const courseQuery = query(
+            collection(dbService, "courses"),
+            orderBy("likes", "desc")
+          );
+          const querySnapshot = await getDocs(courseQuery);
+          let courses: any = [];
+          querySnapshot?.forEach((doc) => {
+            courses.push({
+              id: doc.id,
+              ...doc.data(),
+            } as CourseType);
+          });
+          return { data: courses };
+        } catch (error: any) {
+          console.error(error.message);
+          return { error: error.message };
+        }
+      },
+      providesTags: ["Courses"],
     }),
 
     //Comment Reducer
@@ -49,9 +95,9 @@ export const courseApi = createApi({
             collection(dbService, "comments"),
             orderBy("createdAt", "asc")
           );
-          const querySnaphot = await getDocs(commentQuery);
+          const querySnapshot = await getDocs(commentQuery);
           let comments: any = [];
-          querySnaphot?.forEach((doc) => {
+          querySnapshot?.forEach((doc) => {
             comments.push({ id: doc.id, ...doc.data() } as CommentType);
           });
           return { data: comments };
@@ -93,6 +139,8 @@ export const courseApi = createApi({
 
 export const {
   useAddCourseMutation,
+  useGetCourseQuery,
+  useGetCityListQuery,
   useAddCommentMutation,
   useGetCommentQuery,
   useDeleteCommentMutation,

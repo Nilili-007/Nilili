@@ -33,7 +33,7 @@ const PostTitle = ({
   setCourseTitle,
 }: titleProps) => {
   return (
-    <div className="flex gap-5 md:gap-10 items-center h-24 justyfy-center xs:gap-3 ">
+    <div className="flex gap-5 md:gap-10 items-center h-24 justify-center xs:gap-3 ">
       <div className="w-1/4 xs:w-1/3 xs:text-xs ">
         <Select
           options={regionOptions}

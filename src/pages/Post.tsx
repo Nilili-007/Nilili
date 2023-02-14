@@ -12,6 +12,7 @@ import { CourseDesc } from "../components/course";
 
 import { useNavigate } from "react-router-dom";
 import { useAddCourseMutation } from "../redux/modules/apiSlice";
+import { authService } from "../utils/firebase";
 interface IinitialList {
   name: string;
 }
@@ -48,6 +49,8 @@ const Post = () => {
   //해시태그 선택
   const [selectedTags, setSelectedTags] = useState<optionType[] | null>([]);
 
+  const userId = authService.currentUser?.uid;
+
   //Hashtag 테스트용 submit handler
   const submitHandle = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -55,10 +58,16 @@ const Post = () => {
     //hashtag는 데이터베이스에 문자열 배열로 들어가야 하기 때문에, value 값만 추출하여 문자열배열로 바꿉니다.
     let selectedValues = selectedTags?.map((tag) => tag.value);
     const newPost = {
-      category,
-      selectedValues,
-      courseTitle,
+      location: category,
+      hashtags: selectedValues,
+      title: courseTitle,
+      createdAt: JSON.stringify(new Date()),
+      likes: 1,
+      userId,
+      nickname: "선형",
+      places: [],
     };
+
     addCourse(newPost);
     navigate("/course");
   };
