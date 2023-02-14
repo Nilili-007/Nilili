@@ -1,9 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Header from "../components/header/Header";
+import Footer from "../components/footer/Footer";
 import { Main, Post, User, Course, Search } from "../pages";
 
 const Router = () => {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/post" element={<Post />} />
@@ -11,6 +14,7 @@ const Router = () => {
         <Route path="/:id" element={<Course />} />
         <Route path="/search" element={<Search />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };

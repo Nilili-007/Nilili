@@ -1,13 +1,16 @@
 import { useState } from "react";
-import CommentInput from "../components/course/CommentInput";
-import CourseHashTag from "../components/course/CourseHashTag";
-import CourseTitle from "../components/course/CourseTitle";
-import LikeBtn from "../components/course/LikeBtn";
-import PostTitle from "../components/post/PostTitle";
-import PostHashTag from "../components/post/PostHashTag";
-import Comment from "../components/course/Comment";
+import {
+  CommentInput,
+  CourseHashTag,
+  CourseTitle,
+  LikeBtn,
+  Comment,
+  CommentDesc
+} from "../components/course";
+import { PostTitle, PostHashTag } from "../components/post";
 import { useGetCommentQuery } from "../redux/modules/apiSlice";
-import CommentDesc from "../components/course/CommentDesc";
+
+
 
 const Course = () => {
   const [isEdit, setIsEdit] = useState(false);

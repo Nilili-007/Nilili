@@ -1,29 +1,76 @@
-import { useState } from "react";
-import Login from "../auth/Login";
+import { getAuth, signOut } from "firebase/auth";
+import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { authService } from "../../utils/firebase";
+import Modal from "../auth/Modal";
 import Weather from "./Weather";
 
 const Header = () => {
   // 반응형 header
   const [navbar, setNavbar] = useState(false);
 
+  const navigate = useNavigate();
+  const [isSign, setIsSign] = useState<any>(null);
+
   // login modal toggle
-  const [loginBtn, setLoginBtn] = useState(false);
+  const [modal, setModal] = useState(false);
+  const modalRef = useRef<HTMLDivElement | null>(null);
 
   // modal 띄우기
-  const loginModal = () => {
-    setLoginBtn(true);
+  const openModal = () => {
+    setModal(true);
+    document.body.style.overflow = "hidden";
   };
+
+  const modalOutClick = (e: any) => {
+    if (modalRef.current === e.target) {
+      setModal(false);
+    }
+  };
+
+  const logoutBtn = () => {
+    signOut(authService)
+      .then(() => {
+        alert("로그아웃");
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log("error: ", error);
+      });
+  };
+
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const userName = user?.email?.split("@")[0];
+
+  // 새로고침했을 때 user가 있는지 없는지 판단하기
+  setTimeout(() => {
+    if (authService.currentUser) {
+      setIsSign(true);
+    } else {
+      setIsSign(false);
+    }
+  }, 1000);
 
   return (
     <>
-      {loginBtn ? <Login setLoginBtn={setLoginBtn} /> : <></>}
+      {modal ? (
+        <Modal
+          modal={modal}
+          setModal={setModal}
+          modalOutClick={modalOutClick}
+          modalRef={modalRef}
+        />
+      ) : (
+        <></>
+      )}
       <nav className="w-full bg-black shadow">
         <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
           <div>
             <div className="flex items-center justify-between py-3 md:py-5 md:block">
-              <a href="/">
+              <button onClick={() => navigate("/")}>
                 <h2 className="text-2xl text-white font-bold">Nilili</h2>
-              </a>
+              </button>
               <div className="md:hidden">
                 <button
                   className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
@@ -72,9 +119,33 @@ const Header = () => {
                 <li className="text-sm px-4 py-2 leading-none  text-white">
                   <Weather />
                 </li>
-                <li className="text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
-                  <button onClick={loginModal}>로그인/회원가입</button>
-                </li>
+                {isSign !== null ? (
+                  isSign ? (
+                    <>
+                      <li className="text-sm px-4 py-2 leading-none  text-white">
+                        <button
+                          className="font-bold underline hover:text-teal-500"
+                          onClick={() => navigate("/user/:id")}
+                        >
+                          {userName}
+                        </button>
+                        님 오늘은 어디로 떠나볼까요?
+                      </li>
+                      <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
+                        <button onClick={() => navigate("/post")}>
+                          글쓰기
+                        </button>
+                      </li>
+                      <li className="text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
+                        <button onClick={logoutBtn}>로그아웃</button>
+                      </li>
+                    </>
+                  ) : (
+                    <li className="text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
+                      <button onClick={openModal}>로그인/회원가입</button>
+                    </li>
+                  )
+                ) : null}
               </ul>
             </div>
           </div>
