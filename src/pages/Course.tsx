@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import {
   CommentInput,
   CourseHashTag,
@@ -15,7 +16,12 @@ const Course = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [comment, setComment] = useState("");
   const [desc, setDesc] = useState(true);
-  const { data } = useGetCommentQuery();
+  const { data, isLoading, isError, error } = useGetCommentQuery();
+  const paramId = useParams().id;
+
+  if (isError) {
+    console.log(error);
+  }
 
   return (
     <div className="w-11/12 md:w-3/4 m-auto">
@@ -42,7 +48,11 @@ const Course = () => {
         <CourseHashTag />
       )}
       <LikeBtn />
-      <CommentInput comment={comment} setComment={setComment} />
+      <CommentInput
+        comment={comment}
+        setComment={setComment}
+        paramId={paramId}
+      />
       <div className="mb-10">
         <div>
           <input
@@ -74,6 +84,9 @@ const Course = () => {
           />
         </div>
         <h2 className="text-xl font-bold">댓글({data?.length})</h2>
+        {isLoading ? (
+          <h3 className="text-xl">댓글을 불러오고 있습니다 :-) </h3>
+        ) : null}
         {desc === true ? (
           <CommentDesc />
         ) : (
@@ -85,5 +98,5 @@ const Course = () => {
     </div>
   );
 };
-
+// .filter((comment) => comment.postId === paramId)
 export default Course;
