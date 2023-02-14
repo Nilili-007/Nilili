@@ -1,6 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addDesc, deleteDesc } from "../../redux/modules/temporarySlice";
+import {
+  addDesc,
+  deleteDesc,
+  editDesc,
+} from "../../redux/modules/temporarySlice";
 
 // 데이터 추가
 // 데이터 삭제
@@ -11,8 +15,7 @@ import { addDesc, deleteDesc } from "../../redux/modules/temporarySlice";
 
 const PostTextarea = ({ id, text, setText, setOpenDesc }: any) => {
   const dispatch = useDispatch();
-
-  const [postDescList, setPostDescList] = useState<any | null>([]);
+  const [edit, setEdit] = useState(false);
 
   const courseList = useSelector(
     (state: any) => state.temporarySlice.courseList
@@ -34,6 +37,8 @@ const PostTextarea = ({ id, text, setText, setOpenDesc }: any) => {
     }
   });
 
+  const defaultText = defaultDesc[0]?.desc;
+
   // 1. courseList에서 filteredId와 일치하는 아이템의 인덱스 구하기
   // 2. filteredKey와 1번 값이 일치하면 close, 불일치하는 모든 아이템은 open
 
@@ -41,14 +46,24 @@ const PostTextarea = ({ id, text, setText, setOpenDesc }: any) => {
 
   const filteredId = !filteredCourse ? courseList[0].id : id;
 
-  const onClickAddDesc = () => {
-    const newDesc = {
-      id: filteredId,
-      desc: text,
-    };
+  const newDesc = {
+    id: filteredId,
+    desc: text,
+  };
 
+  const onClickAddDesc = () => {
     dispatch(addDesc(newDesc));
     setOpenDesc(false);
+  };
+
+  const onClickEditBtn = () => {
+    setEdit(true);
+    setText(defaultText);
+  };
+
+  const onClickEditDesc = () => {
+    setEdit(false);
+    dispatch(editDesc(newDesc));
   };
 
   const onClickDeleteDesc = () => {
@@ -56,6 +71,7 @@ const PostTextarea = ({ id, text, setText, setOpenDesc }: any) => {
     if (window.confirm("일정에서 삭제하시겠습니까?")) {
       return dispatch(deleteDesc(filteredId));
     }
+    setText("");
   };
 
   return (
@@ -79,18 +95,41 @@ const PostTextarea = ({ id, text, setText, setOpenDesc }: any) => {
         </>
       ) : (
         <>
-          <p className="mt-3 text-lg">{defaultDesc[0]?.desc}</p>
-          <div className="float-right pr-7 mt-3">
-            <button className="px-2 py-1 bg-gray-200 rounded-lg border border-black hover:bg-red-100 mr-1">
-              수정
-            </button>
-            <button
-              onClick={onClickDeleteDesc}
-              className="px-2 py-1 bg-gray-200 rounded-lg border border-black hover:bg-red-100"
-            >
-              삭제
-            </button>
-          </div>
+          {edit === false ? (
+            <>
+              <p className="mt-3">{defaultText}</p>
+              <div className="float-right pr-7 mt-3">
+                <button
+                  onClick={onClickEditBtn}
+                  className="px-2 py-1 bg-gray-200 rounded-lg border border-black hover:bg-red-100 mr-1"
+                >
+                  수정
+                </button>
+                <button
+                  onClick={onClickDeleteDesc}
+                  className="px-2 py-1 bg-gray-200 rounded-lg border border-black hover:bg-red-100"
+                >
+                  삭제
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <textarea
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                className="w-[95%] h-[150px] focus:outline-none mt-2 px-2 py-1 border border-black"
+              />
+              <div className="pr-4">
+                <button
+                  onClick={onClickEditDesc}
+                  className="px-2 py-1 bg-gray-200 rounded-lg float-right border border-black hover:bg-red-100"
+                >
+                  완료
+                </button>
+              </div>
+            </>
+          )}
         </>
       )}
     </div>

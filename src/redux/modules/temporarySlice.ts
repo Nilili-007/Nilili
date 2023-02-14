@@ -31,6 +31,13 @@ const temporarySlice = createSlice({
     addDesc: (state: any, action) => {
       state.descList = [...state.descList, action.payload];
     },
+    editDesc: (state: any, action) => {
+      state.descList = [...state.descList];
+      const i = state.descList.findIndex(
+        (item: any) => item.id === action.payload.id
+      );
+      state.descList[i].desc = action.payload.desc;
+    },
     deleteDesc: (state: any, action) => {
       state.descList = state.descList.filter((item: any) => {
         return item.id !== action.payload;
@@ -46,6 +53,7 @@ export const {
   filterCourse,
   filterKey,
   addDesc,
+  editDesc,
   deleteDesc,
 } = temporarySlice.actions;
 export default temporarySlice.reducer;
