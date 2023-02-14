@@ -4,19 +4,20 @@ import {
   CourseHashTag,
   CourseTitle,
   LikeBtn,
+  Comment,
+  CommentDesc
 } from "../components/course";
 import { PostTitle, PostHashTag } from "../components/post";
-import { useSelector } from "react-redux";
+import { useGetCommentQuery } from "../redux/modules/apiSlice";
+
+
 
 const Course = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-
-  const category = useSelector((state) => {
-    console.log(state);
-    return state;
-  });
-  console.log(category);
+  const [comment, setComment] = useState("");
+  const [desc, setDesc] = useState(true);
+  const { data } = useGetCommentQuery();
 
   return (
     <div className="w-11/12 md:w-3/4 m-auto">
@@ -43,7 +44,46 @@ const Course = () => {
         <CourseHashTag />
       )}
       <LikeBtn />
-      <CommentInput setModalOpen={setModalOpen} />
+      <CommentInput comment={comment} setComment={setComment} />
+      <div className="mb-10">
+        <div>
+          <input
+            id="desc"
+            type="button"
+            onClick={() => {
+              setDesc(true);
+            }}
+            value="최신순"
+            style={
+              desc === true
+                ? { fontWeight: 600, textDecoration: "underline" }
+                : undefined
+            }
+            className="mr-2 mb-4"
+          />
+          <input
+            id="asc"
+            type="button"
+            onClick={() => {
+              setDesc(false);
+            }}
+            value="오래된 순"
+            style={
+              desc === false
+                ? { fontWeight: 600, textDecoration: "underline" }
+                : undefined
+            }
+          />
+        </div>
+        <h2 className="text-xl font-bold">댓글({data?.length})</h2>
+        {desc === true ? (
+          <CommentDesc />
+        ) : (
+          data?.map((comment) => {
+            return <Comment key={comment.id} comment={comment} />;
+          })
+        )}
+      </div>
     </div>
   );
 };
