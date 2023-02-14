@@ -10,8 +10,6 @@ const PostMap = () => {
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
 
-  console.log(searchList);
-
   useEffect(() => {
     const ps = new kakao.maps.services.Places();
 

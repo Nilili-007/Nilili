@@ -4,6 +4,7 @@ import styled from "styled-components";
 import {
   deleteCourse,
   filterCourse,
+  filterKey,
   updateCourse,
 } from "../../redux/modules/temporarySlice";
 import { FaCheck } from "react-icons/fa";
@@ -48,11 +49,12 @@ const PostCourseLine = ({ modalOpen, setModalOpen }: PostProps) => {
     setModalOpen(!modalOpen);
   };
 
-  const showDesc = (item: any) => {
+  const showDesc = (item: any, key: number) => {
     const result = dragList.filter((place: any) => place.id === item.id);
     setTargetId(result[0].id);
     setOpenDesc(!openDesc);
     dispatch(filterCourse(item));
+    dispatch(filterKey(key));
   };
 
   const onDragOver = (e: any) => {
@@ -139,45 +141,45 @@ const PostCourseLine = ({ modalOpen, setModalOpen }: PostProps) => {
   return (
     <div className="w-1/3 pl-7 float-right">
       <div className="flex items-center justify-center h-full border-l-2 border-black ml-3.5 " />
-      <div className="flex flex-col -mt-[1000px] h-full justify-between overflow-y-scroll ">
+      <div className="flex flex-col -mt-[1000px] h-full overflow-y-scroll ">
         {dragList?.map((item: any, key: any) => {
           let default_class = "";
           dragData.move_up.includes(key) && (default_class = "move_up");
           dragData.move_down.includes(key) && (default_class = "move_down");
 
           return (
-            <>
-              <div className="flex cursor-pointer">
-                <div
-                  onClick={() => onClickDeleteCourse(item)}
-                  className="flex justify-center items-center w-8 h-8 rounded-full bg-black text-white text-3xl hover:bg-red-500 xs:w-2 xs:h-2"
-                >
-                  <TiMinus className="text-xl" />
-                </div>
-                <div className="w-[90%]">
-                  <CourseItem
-                    draggable
-                    key={key}
-                    onClick={() => showDesc(item)}
-                    data-index={key}
-                    data-position={key}
-                    onDragOver={onDragOver}
-                    onDragStart={(e: any) => onDragStart(e)}
-                    onDragEnd={onDragEnd}
-                    onDrop={onDrop}
-                    onDragEnter={onDragEnter}
-                    onDragLeave={onDragLeave}
-                    className={default_class}
-                    onDrag={isDragged}
-                  >
-                    #{key + 1} {item.name}
-                  </CourseItem>
-                  {targetId === item.id
-                    ? openDesc && <PostCourseDesc item={item} />
-                    : null}
-                </div>
+            <div className="flex cursor-pointer mb-20 ">
+              <div
+                onClick={() => onClickDeleteCourse(item)}
+                className="flex justify-center items-center w-8 h-8 rounded-full bg-black text-white text-3xl hover:bg-red-500 xs:w-2 xs:h-2"
+              >
+                <TiMinus className="text-xl" />
               </div>
-            </>
+              <div className="w-[90%]">
+                <CourseItem
+                  draggable
+                  key={key}
+                  onClick={() => showDesc(item, key)}
+                  data-index={key}
+                  data-position={key}
+                  onDragOver={onDragOver}
+                  onDragStart={(e: any) => onDragStart(e)}
+                  onDragEnd={onDragEnd}
+                  onDrop={onDrop}
+                  onDragEnter={onDragEnter}
+                  onDragLeave={onDragLeave}
+                  className={default_class}
+                  onDrag={isDragged}
+                >
+                  #{key + 1} {item.name}
+                </CourseItem>
+                {targetId === item.id
+                  ? openDesc && (
+                      <PostCourseDesc item={item} setOpenDesc={setOpenDesc} />
+                    )
+                  : null}
+              </div>
+            </div>
           );
         })}
         <div

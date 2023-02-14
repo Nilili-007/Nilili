@@ -3,14 +3,10 @@ import { useSelector } from "react-redux";
 import { PostTextarea } from ".";
 
 // 선택한 여행지 정보 및 설명 반환하기
-// 1. Post - 데이터 배열로 관리(여행지, 순서)
-// 2. Post - useState로 여행지 선택 관리
-// 3. Post - 1번 배열에 map을 적용해서 여행지 갯수만큼 원 반환
-// 4. Post - 원 클릭시 setState(배열[인덱스].여행지)
-// 5. Desc - Props로 받아온 여행지 정보 반환
-// 6. Desc - 첫 렌더링시 예외 처리(첫 번째 여행지 반환)
+// 1. descList 조회
+// 2. descList.map 실행
 
-const PostCourseDesc = ({ item }: any) => {
+const PostCourseDesc = ({ item, key, setOpenDesc }: any) => {
   const [text, setText] = useState("");
   const courseList = useSelector(
     (state: any) => state.temporarySlice.courseList
@@ -30,6 +26,7 @@ const PostCourseDesc = ({ item }: any) => {
             id={filteredCourse.id ? filteredCourse.id : courseList[0].id}
             text={text}
             setText={setText}
+            setOpenDesc={setOpenDesc}
           />
         </>
       ) : (
