@@ -1,8 +1,3 @@
-import { PostTitle } from "../components/post";
-import { PostHashTag } from "../components/post";
-import { PostBtn } from "../components/post";
-import { PostMap } from "../components/post";
-
 // 파이어베이스에 즉시 저장할 데이터 : 카테고리, 제목, 해시태그
 // 세션스토리지를 거친 후 파이어베이스에 저장할 데이터 : 장소, 장소별 설명(id, 설명)
 
@@ -16,16 +11,78 @@ import { PostMap } from "../components/post";
 // 2. 검색 결과에서 장소 선택 후 initialDesc에 해당 장소에 대한 설명 push(id, 설명)
 // 3. 게시글 작성시 initialDesc를 파이어베이스에 저장 후 세션 스토리지 초기화
 
-// 게시글 데이터 DB : uuid, createdAt, 카테고리, 제목, 해시태그, initialPlace
+import { useState } from "react";
+import { AiFillPlusCircle } from "react-icons/ai";
+import {
+  CourseLine,
+  PostBtn,
+  PostHashTag,
+  PostSearchModal,
+  PostTitle,
+  PostMap
+} from "../components/post";
+
+import { CourseDesc } from "../components/course";
+import { useNavigate } from "react-router-dom";
+import { useAddCourseMutation } from "../redux/modules/apiSlice";
+interface IinitialList {
+  name: string;
+}
+
+//select option의 타입
+export interface optionType {
+  value: string;
+  label: string;
+}
 
 const Post = () => {
+  const navigate = useNavigate();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [targetPlace, setTargetPlace] = useState("");
+  const [addCourse] = useAddCourseMutation();
+  
+    //카테고리 선택
+  const [category, setCategory] = useState("");
+  const [courseTitle, setCourseTitle] = useState("");
+  
+  //해시태그 선택
+  const [selectedTags, setSelectedTags] = useState<optionType[] | null>([]);
+  
+    //Hashtag 테스트용 submit handler
+  const submitHandle = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    //selectedTags는 오브젝트 배열입니다.
+    //hashtag는 데이터베이스에 문자열 배열로 들어가야 하기 때문에, value 값만 추출하여 문자열배열로 바꿉니다.
+    let selectedValues = selectedTags?.map((tag) => tag.value);
+    const newPost = {
+      category,
+      selectedValues,
+      courseTitle,
+    };
+    addCourse(newPost);
+    navigate("/course");
+  };
+
+// 게시글 데이터 DB : uuid, createdAt, 카테고리, 제목, 해시태그, initialPlac
+
   return (
-    <div className="w-[85%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0">
-      <PostTitle />
-      <PostMap />
-      <PostHashTag />
-      <PostBtn />
-    </div>
+    // 테스트목적으로 div를 form으로 변경했습니다.
+    <form onSubmit={submitHandle}>
+      <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0">
+        <PostTitle
+          category={category}
+          setCategory={setCategory}
+          courseTitle={courseTitle}
+          setCourseTitle={setCourseTitle}
+        />
+        <PostMap />
+        <PostHashTag
+          selectedTags={selectedTags}
+          setSelectedTags={setSelectedTags}
+        />
+        <PostBtn />
+      </div>
+    </form>
   );
 };
 

@@ -1,25 +1,46 @@
 import React from "react";
 import Select from "react-select";
+import { optionType } from "../../pages/Post";
 
-const PostHashTag = () => {
-  const hashTagOptions = [
-    { value: "#여자혼자", label: "#여자혼자" },
-    { value: "#남자혼자", label: "#남자혼자" },
-    { value: "#커플끼리", label: "#커플끼리" },
-    { value: "#부부끼리", label: "#부부끼리" },
-    { value: "#부모님과", label: "#부모님과" },
-    { value: "#반려동물", label: "#반려동물" },
-    { value: "#아이들과", label: "#아이들과" },
-    { value: "#단체여행", label: "#단체여행" },
-  ];
+const hashTagOptions = [
+  { value: "#가족", label: "#가족" },
+  { value: "#친구", label: "#친구" },
+  { value: "#연인", label: "#연인" },
+  { value: "#반려동물", label: "#반려동물" },
+  { value: "#혼자", label: "#혼자" },
+  { value: "#단체", label: "#단체" },
+  { value: "#아이들과", label: "#아이들과" },
+  { value: "#힐링", label: "#힐링" },
+  { value: "#데이트", label: "#데이트" },
+  { value: "#쇼핑", label: "#쇼핑" },
+  { value: "#맛집", label: "#맛집" },
+  { value: "#카페", label: "#카페" },
+  { value: "#예술", label: "#예술" },
+  { value: "#예술", label: "#예술" },
+  { value: "#캠핑", label: "#캠핑" },
+  { value: "#섬", label: "#섬" },
+  { value: "#역사", label: "#역사" },
+];
+interface tagProps {
+  selectedTags?: optionType[] | null;
+  setSelectedTags?: any;
+}
+
+const PostHashTag = ({ selectedTags, setSelectedTags }: tagProps) => {
+  function handleTagSelect(data: any) {
+    setSelectedTags(data);
+  }
+
   return (
     <div className="xs:-mt-5">
       <Select
         options={hashTagOptions}
-        isMulti
-        isSearchable={false}
-        isClearable={true}
         placeholder={"#해시태그"}
+        value={selectedTags}
+        onChange={handleTagSelect}
+        isMulti
+        isSearchable={true}
+        isClearable={true}
       />
     </div>
   );
