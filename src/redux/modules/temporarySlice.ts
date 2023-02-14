@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   courseList: [],
   filteredCourse: "",
+  descList: [],
 };
 
 const temporarySlice = createSlice({
@@ -23,9 +24,13 @@ const temporarySlice = createSlice({
         return item.id !== action.payload;
       });
     },
+    addDesc: (state: any, action) => {
+      state.descList = [...state.descList, action.payload];
+      console.log(state.descList);
+    },
   },
 });
 
-export const { addCourse, updateCourse, deleteCourse, filterCourse } =
+export const { addCourse, updateCourse, deleteCourse, filterCourse, addDesc } =
   temporarySlice.actions;
 export default temporarySlice.reducer;

@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
+import { PostTextarea } from ".";
 
 // 선택한 여행지 정보 및 설명 반환하기
 // 1. Post - 데이터 배열로 관리(여행지, 순서)
@@ -8,7 +10,8 @@ import { useSelector } from "react-redux";
 // 5. Desc - Props로 받아온 여행지 정보 반환
 // 6. Desc - 첫 렌더링시 예외 처리(첫 번째 여행지 반환)
 
-const PostCourseDesc = () => {
+const PostCourseDesc = ({ item }: any) => {
+  const [text, setText] = useState("");
   const courseList = useSelector(
     (state: any) => state.temporarySlice.courseList
   );
@@ -17,42 +20,21 @@ const PostCourseDesc = () => {
   );
 
   return (
-    <div className="flex mt-5 mb-10">
-      <div className="w-1/2 h-96 border border-black mr-4 flex justify-center items-center xs:hidden">
-        사진
-      </div>
-      <div className="w-1/2 h-[106px] justify-end xs:w-full xs:-mt-5">
-        {courseList.length > 0 ? (
-          <div className="flex flex-col">
-            <h3 className="font-bold text-xl">
-              {filteredCourse.name ? filteredCourse.name : courseList[0].name}
-            </h3>
-            <p>
-              {filteredCourse.address
-                ? filteredCourse.address
-                : courseList[0].address}
-            </p>
-            <p className="text-gray-400 text-sm">
-              {filteredCourse.road ? filteredCourse.road : courseList[0].road}
-            </p>
-            <p>
-              {filteredCourse.phone
-                ? filteredCourse.phone
-                : courseList[0].phone}
-            </p>
-
-            <textarea
-              placeholder="여행지를 소개해주세요."
-              className="h-60 justify-end border border-black p-3 mt-4 xs:h-40"
-            />
-            <button className="bg-gray-200 border border-black px-2 mt-3 float-right">
-              등록
-            </button>
-          </div>
-        ) : (
-          <h3 className="text-3xl font-bold">"여행지를 추가해주세요."</h3>
-        )}
-      </div>
+    <div className="w-full h-auto ml-3 mt-1">
+      {courseList.length > 0 ? (
+        <>
+          <p>{item.address}</p>
+          <p className="text-gray-400 text-sm">{item.road}</p>
+          <p>{item.phone}</p>
+          <PostTextarea
+            id={filteredCourse.id ? filteredCourse.id : courseList[0].id}
+            text={text}
+            setText={setText}
+          />
+        </>
+      ) : (
+        <h3 className="text-3xl font-bold">"여행지를 추가해주세요."</h3>
+      )}
     </div>
   );
 };

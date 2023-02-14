@@ -6,9 +6,11 @@ import PostCourseLine from "./PostCourseLine";
 const PostMap = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
-  const [list, setList] = useState([]);
+  const [searchList, setSearchList] = useState([]);
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
+
+  console.log(searchList);
 
   useEffect(() => {
     const ps = new kakao.maps.services.Places();
@@ -35,14 +37,13 @@ const PostMap = () => {
         // @ts-ignore
         map.setBounds(bounds);
         // @ts-ignore
-        setList(data);
-        sessionStorage.setItem("sessionList", JSON.stringify(data));
+        setSearchList(data);
       }
     });
   }, [searchKeyword]);
 
   return (
-    <div className="w-full">
+    <div className="w-full flex mb-6">
       <Map
         center={{
           lat: 37.566826,
@@ -51,7 +52,7 @@ const PostMap = () => {
         level={3}
         // @ts-ignore
         onCreate={setMap}
-        className="w-full h-96"
+        className="w-2/3 h-[1000px] z-0"
       >
         <MapMarker
           position={{
@@ -65,6 +66,8 @@ const PostMap = () => {
         <PostSearchModal
           setModalOpen={setModalOpen}
           setSearchKeyword={setSearchKeyword}
+          searchList={searchList}
+          setSearchList={setSearchList}
         />
       )}
     </div>

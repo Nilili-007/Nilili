@@ -9,6 +9,7 @@ import {
 import { FaCheck } from "react-icons/fa";
 import { HiPlusSm } from "react-icons/hi";
 import { TiMinus } from "react-icons/ti";
+import PostCourseDesc from "./PostCourseDesc";
 
 interface PostProps {
   modalOpen: boolean;
@@ -18,8 +19,8 @@ interface PostProps {
 interface IinitialDragData {
   target: any;
   index: number;
-  move_left: any[];
-  move_right: any[];
+  move_down: any[];
+  move_up: any[];
   updateLists: any[];
 }
 
@@ -32,18 +33,26 @@ const PostCourseLine = ({ modalOpen, setModalOpen }: PostProps) => {
   const initialDragData: IinitialDragData = {
     target: null,
     index: -1,
-    move_left: [],
-    move_right: [],
+    move_down: [],
+    move_up: [],
     updateLists: [],
   };
 
   const [dragList, setDragList] = useState(temporaryList);
   const [dragData, setDragData] = useState(initialDragData);
   const [isDragged, setIsDragged] = useState<any | null>(false);
+  const [openDesc, setOpenDesc] = useState<any | null>(false);
+  const [targetId, setTargetId] = useState();
 
   const showModal = () => {
-    sessionStorage.clear();
     setModalOpen(!modalOpen);
+  };
+
+  const showDesc = (item: any) => {
+    const result = dragList.filter((place: any) => place.id === item.id);
+    setTargetId(result[0].id);
+    setOpenDesc(!openDesc);
+    dispatch(filterCourse(item));
   };
 
   const onDragOver = (e: any) => {
@@ -71,8 +80,8 @@ const PostCourseLine = ({ modalOpen, setModalOpen }: PostProps) => {
 
     setDragData({
       ...dragData,
-      move_right: [],
-      move_left: [],
+      move_up: [],
+      move_down: [],
       updateLists: [],
     });
 
@@ -86,29 +95,27 @@ const PostCourseLine = ({ modalOpen, setModalOpen }: PostProps) => {
     const _dragged = Number(dragData.target.dataset.index);
     const _index = Number(dragData.index);
     const _target = Number(e.target.dataset.index);
-    let move_right = [...dragData.move_right];
-    let move_left = [...dragData.move_left];
+    let move_up = [...dragData.move_up];
+    let move_down = [...dragData.move_down];
 
     let data = [...dragData.updateLists];
     data[_index] = data.splice(_target, 1, data[_index])[0];
 
     if (_dragged > _target) {
-      move_right.includes(_target)
-        ? move_right.pop()
-        : move_right.push(_target);
+      move_up.includes(_target) ? move_up.pop() : move_up.push(_target);
     } else if (_dragged < _target) {
-      move_left.includes(_target) ? move_left.pop() : move_left.push(_target);
+      move_down.includes(_target) ? move_down.pop() : move_down.push(_target);
     } else {
-      move_right = [];
-      move_left = [];
+      move_up = [];
+      move_down = [];
     }
 
     setDragData({
       ...dragData,
       updateLists: data,
       index: _target,
-      move_left,
-      move_right,
+      move_down,
+      move_up,
     });
   };
 
@@ -116,10 +123,6 @@ const PostCourseLine = ({ modalOpen, setModalOpen }: PostProps) => {
     if (e.target === dragData.target) {
       e.target.style.visibility = "hidden";
     }
-  };
-
-  const onClickFilterCourse = (item: any) => {
-    dispatch(filterCourse(item));
   };
 
   const onClickDeleteCourse = (item: any) => {
@@ -134,78 +137,84 @@ const PostCourseLine = ({ modalOpen, setModalOpen }: PostProps) => {
   }, [temporaryList]);
 
   return (
-    <>
-      <div className="border-t border border-black mt-20 xs:mt-16 " />
-      <div className="flex justify-between mt-4">
+    <div className="w-1/3 pl-7 float-right">
+      <div className="flex items-center justify-center h-full border-l-2 border-black ml-3.5 " />
+      <div className="flex flex-col -mt-[1000px] h-full justify-between overflow-y-scroll ">
         {dragList?.map((item: any, key: any) => {
           let default_class = "";
-          dragData.move_right.includes(key) && (default_class = "move_right");
-          dragData.move_left.includes(key) && (default_class = "move_left");
+          dragData.move_up.includes(key) && (default_class = "move_up");
+          dragData.move_down.includes(key) && (default_class = "move_down");
 
           return (
-            <div className="flex flex-col justify-between cursor-pointer">
-              <CourseItem
-                draggable
-                key={key}
-                onClick={() => onClickFilterCourse(item)}
-                data-index={key}
-                data-position={key}
-                onDragOver={onDragOver}
-                onDragStart={(e: any) => onDragStart(e)}
-                onDragEnd={onDragEnd}
-                onDrop={onDrop}
-                onDragEnter={onDragEnter}
-                onDragLeave={onDragLeave}
-                className={default_class}
-                onDrag={isDragged}
-              >
-                #{key + 1} {item.name}
-              </CourseItem>
-              <div
-                onClick={() => onClickDeleteCourse(item)}
-                className="flex justify-center items-center w-8 h-8 mb-4 rounded-full bg-black text-white text-3xl hover:bg-red-500 xs:w-2 xs:h-2 xs:mb-4"
-              >
-                <TiMinus className="text-xl" />
+            <>
+              <div className="flex cursor-pointer">
+                <div
+                  onClick={() => onClickDeleteCourse(item)}
+                  className="flex justify-center items-center w-8 h-8 rounded-full bg-black text-white text-3xl hover:bg-red-500 xs:w-2 xs:h-2"
+                >
+                  <TiMinus className="text-xl" />
+                </div>
+                <div className="w-[90%]">
+                  <CourseItem
+                    draggable
+                    key={key}
+                    onClick={() => showDesc(item)}
+                    data-index={key}
+                    data-position={key}
+                    onDragOver={onDragOver}
+                    onDragStart={(e: any) => onDragStart(e)}
+                    onDragEnd={onDragEnd}
+                    onDrop={onDrop}
+                    onDragEnter={onDragEnter}
+                    onDragLeave={onDragLeave}
+                    className={default_class}
+                    onDrag={isDragged}
+                  >
+                    #{key + 1} {item.name}
+                  </CourseItem>
+                  {targetId === item.id
+                    ? openDesc && <PostCourseDesc item={item} />
+                    : null}
+                </div>
               </div>
-            </div>
+            </>
           );
         })}
         <div
           onClick={showModal}
-          className="flex justify-center items-center w-8 h-8 rounded-full bg-white border-2 border-black text-3xl -mt-8 cursor-pointer hover:border-red-500 hover:text-red-500 xs:w-2 xs:h-2 xs:-mt-6"
+          className="w-8 h-8 rounded-full bg-white border-2 border-black text-3xl cursor-pointer hover:border-red-500 hover:text-red-500 xs:w-2 xs:h-2 xs:-mt-6"
         >
           <HiPlusSm />
         </div>
         {temporaryList.length > 0 ? (
           ""
         ) : (
-          <div className="flex justify-center items-center w-8 h-8 rounded-full bg-white border-2 border-black text-sm -mt-8 cursor-pointer xs:w-2 xs:h-2 xs:-mt-6">
+          <div className="flex justify-center items-center w-8 h-8 rounded-full bg-white border-2 border-black text-sm cursor-pointer xs:w-2 xs:h-2 xs:-mt-6">
             <FaCheck />
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
 export default PostCourseLine;
 
 const CourseItem = styled.h5`
-  margin-top: -62px;
+  margin-left: 10px;
   font-weight: bold;
   font-size: 20px;
   cursor: grab;
+  width: 90%;
 
-  // 보완 필요
-  // 1. 이동 범위 1/n로 계산
-  // 2. 드래그 할 아이템과 드랍할 아이템의 영역 자동 계산
+  // 드롭시 원래 위치로 돌아가는 현상 보완
 
-  &.move_left {
-    transform: translate(-90px, 0);
+  &.move_down {
+    transform: translate(0, -40px);
     z-index: 1;
   }
-  &.move_right {
-    transform: translate(90px, 0);
+  &.move_up {
+    transform: translate(0, 40px);
     z-index: 1;
   }
 

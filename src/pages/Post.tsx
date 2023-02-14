@@ -1,9 +1,7 @@
-import { useState } from "react";
-import PostTitle from "../components/post/PostTitle";
-import PostHashTag from "../components/post/PostHashTag";
-import PostBtn from "../components/post/PostBtn";
-import PostMap from "../components/post/PostMap";
-import PostCourseDesc from "../components/post/PostCourseDesc";
+import { PostTitle } from "../components/post";
+import { PostHashTag } from "../components/post";
+import { PostBtn } from "../components/post";
+import { PostMap } from "../components/post";
 
 // 파이어베이스에 즉시 저장할 데이터 : 카테고리, 제목, 해시태그
 // 세션스토리지를 거친 후 파이어베이스에 저장할 데이터 : 장소, 장소별 설명(id, 설명)
@@ -22,12 +20,9 @@ import PostCourseDesc from "../components/post/PostCourseDesc";
 
 const Post = () => {
   return (
-    <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0">
+    <div className="w-[85%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0">
       <PostTitle />
       <PostMap />
-      <div className="flex flex-col w-full xs:w-full">
-        <PostCourseDesc />
-      </div>
       <PostHashTag />
       <PostBtn />
     </div>

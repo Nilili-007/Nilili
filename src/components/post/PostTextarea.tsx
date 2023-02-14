@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addDesc } from "../../redux/modules/temporarySlice";
 
@@ -11,6 +12,8 @@ import { addDesc } from "../../redux/modules/temporarySlice";
 const PostTextarea = ({ id, text, setText }: any) => {
   const dispatch = useDispatch();
 
+  const [postDescList, setPostDescList] = useState<any | null>([]);
+
   const courseList = useSelector(
     (state: any) => state.temporarySlice.courseList
   );
@@ -19,29 +22,50 @@ const PostTextarea = ({ id, text, setText }: any) => {
     (state: any) => state.temporarySlice.filteredCourse
   );
 
-  const onAddDesc = () => {
-    const newDesc = {
-      id: !filteredCourse ? courseList[0].id : id,
-      desc: text,
+  const filteredId = !filteredCourse ? courseList[0].id : id;
+
+  const newDesc = {
+    id: filteredId,
+    desc: text,
+  };
+
+  useEffect(() => {
+    return () => {
+      if (text) {
+        setPostDescList([...postDescList, newDesc]);
+      }
+      setText("");
     };
+  }, [filteredId]);
+
+  const test = postDescList?.filter((item: any) => {
+    if (item.id === filteredCourse.id) {
+      return item;
+    }
+  });
+
+  const onClickNext = () => {
     dispatch(addDesc(newDesc));
-    setText("");
   };
 
   return (
-    <div className="flex flex-col">
+    <div>
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder="여행지를 소개해주세요."
-        className="h-60 justify-end border border-black p-3 mt-4 xs:h-40"
+        placeholder={
+          test[0] === undefined ? "여행지를 소개해주세요." : test[0].desc
+        }
+        className="w-[95%] h-[150px] focus:outline-none mt-2 px-2 py-1 border border-black"
       />
-      <button
-        onClick={onAddDesc}
-        className="bg-gray-200 border border-black px-2 mt-3 float-right"
-      >
-        등록
-      </button>
+      <div className="pr-4">
+        <button
+          onClick={onClickNext}
+          className="px-2 py-1 bg-gray-200 rounded-lg border border-black float-right hover:bg-red-100"
+        >
+          다음 코스에 대한 설명을 등록해주세요!
+        </button>
+      </div>
     </div>
   );
 };
