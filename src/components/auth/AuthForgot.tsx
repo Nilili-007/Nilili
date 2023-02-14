@@ -64,16 +64,16 @@ const AuthForgot = ({
               <>
                 <div className="flex items-start justify-between p-5 ">
                   <div className=" font=semibold">
-                    사용자의 이메일을 입력해주세요
+                    비밀번호 재설정을 위해 회원가입한 이메일을 입력해주세요
                   </div>
                 </div>
                 <div className="m-2">
                   <input
-                    className="shadow appearance-none border rounded w-full py-2 px-1 text-black mb-6"
+                    className="shadow appearance-none border rounded w-full py-2 px-1 text-black mr-2  mb-6"
                     type="email"
                     name="email"
                     id="email"
-                    placeholder="이메일을 입력해주세요"
+                    placeholder="이메일"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
