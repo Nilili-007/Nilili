@@ -7,6 +7,7 @@ import { authService } from "../../utils/firebase";
 import Login from "./Login";
 import Register from "./Register";
 import AuthForgot from "./AuthForgot";
+
 interface ModalProps {
   modal: boolean;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -61,12 +62,7 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
     } else if (!pw) {
       setError("");
       setEmailError("");
-      setPWError("비밀번호를 입력해주세요.");
-      return;
-    } else if (pw.length < 6) {
-      setError("");
-      setEmailError("");
-      setPWError("비밀번호 형식이 아닙니다.");
+      setPWError("비밀번호를 입력해주세요");
       return;
     } else {
       setError("");
@@ -79,8 +75,15 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
 
   // register 유효성 검사
   const registerValidationCheck = () => {
+    const pwRegex = /^[A-Za-z0-9]{8,15}$/;
+
     loginvalidationCheck();
-    if (!pwCheck) {
+    if (!pwRegex.test(pw)) {
+      setPWError(
+        "비밀번호는 영문 대소문자, 숫자를 혼합하여 8~15자로 입력해주세요."
+      );
+      return;
+    } else if (!pwCheck) {
       setPWCheckError("비밀번호를 다시 한번 입력해주세요.");
       return;
     } else if (pw !== pwCheck) {
