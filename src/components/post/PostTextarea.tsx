@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addDesc } from "../../redux/modules/temporarySlice";
+import { addDesc, deleteDesc } from "../../redux/modules/temporarySlice";
 
 // 데이터 추가
 // 데이터 삭제
@@ -34,16 +34,14 @@ const PostTextarea = ({ id, text, setText, setOpenDesc }: any) => {
     }
   });
 
-  console.log(defaultDesc.length);
-
   // 1. courseList에서 filteredId와 일치하는 아이템의 인덱스 구하기
   // 2. filteredKey와 1번 값이 일치하면 close, 불일치하는 모든 아이템은 open
 
   // descList에 filteredId와 일치하는 아이템이 있다면 추가 제한
 
-  const onClickAddDesc = () => {
-    const filteredId = !filteredCourse ? courseList[0].id : id;
+  const filteredId = !filteredCourse ? courseList[0].id : id;
 
+  const onClickAddDesc = () => {
     const newDesc = {
       id: filteredId,
       desc: text,
@@ -51,6 +49,13 @@ const PostTextarea = ({ id, text, setText, setOpenDesc }: any) => {
 
     dispatch(addDesc(newDesc));
     setOpenDesc(false);
+  };
+
+  const onClickDeleteDesc = () => {
+    // 모달로 변경
+    if (window.confirm("일정에서 삭제하시겠습니까?")) {
+      return dispatch(deleteDesc(filteredId));
+    }
   };
 
   return (
@@ -73,7 +78,20 @@ const PostTextarea = ({ id, text, setText, setOpenDesc }: any) => {
           </div>
         </>
       ) : (
-        <p className="mt-3 text-lg">{defaultDesc[0]?.desc}</p>
+        <>
+          <p className="mt-3 text-lg">{defaultDesc[0]?.desc}</p>
+          <div className="float-right pr-7 mt-3">
+            <button className="px-2 py-1 bg-gray-200 rounded-lg border border-black hover:bg-red-100 mr-1">
+              수정
+            </button>
+            <button
+              onClick={onClickDeleteDesc}
+              className="px-2 py-1 bg-gray-200 rounded-lg border border-black hover:bg-red-100"
+            >
+              삭제
+            </button>
+          </div>
+        </>
       )}
     </div>
   );
