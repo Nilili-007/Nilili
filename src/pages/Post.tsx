@@ -12,17 +12,13 @@
 // 3. 게시글 작성시 initialDesc를 파이어베이스에 저장 후 세션 스토리지 초기화
 
 import { useState } from "react";
-import { AiFillPlusCircle } from "react-icons/ai";
 import {
-  CourseLine,
   PostBtn,
   PostHashTag,
-  PostSearchModal,
   PostTitle,
-  PostMap
-} from "../components/post";
+  PostMap,
+} from "../components/post/index";
 
-import { CourseDesc } from "../components/course";
 import { useNavigate } from "react-router-dom";
 import { useAddCourseMutation } from "../redux/modules/apiSlice";
 interface IinitialList {
@@ -40,15 +36,15 @@ const Post = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [targetPlace, setTargetPlace] = useState("");
   const [addCourse] = useAddCourseMutation();
-  
-    //카테고리 선택
+
+  //카테고리 선택
   const [category, setCategory] = useState("");
   const [courseTitle, setCourseTitle] = useState("");
-  
+
   //해시태그 선택
   const [selectedTags, setSelectedTags] = useState<optionType[] | null>([]);
-  
-    //Hashtag 테스트용 submit handler
+
+  //Hashtag 테스트용 submit handler
   const submitHandle = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     //selectedTags는 오브젝트 배열입니다.
@@ -63,7 +59,7 @@ const Post = () => {
     navigate("/course");
   };
 
-// 게시글 데이터 DB : uuid, createdAt, 카테고리, 제목, 해시태그, initialPlac
+  // 게시글 데이터 DB : uuid, createdAt, 카테고리, 제목, 해시태그, initialPlac
 
   return (
     // 테스트목적으로 div를 form으로 변경했습니다.

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { PostTextarea } from ".";
+import PostTextarea from "./PostTextarea";
 
 // 선택한 여행지 정보 및 설명 반환하기
 // 1. descList 조회
