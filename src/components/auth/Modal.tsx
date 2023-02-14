@@ -7,6 +7,7 @@ import { authService } from "../../utils/firebase";
 import Login from "./Login";
 import Register from "./Register";
 import AuthForgot from "./AuthForgot";
+
 interface ModalProps {
   modal: boolean;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -22,6 +23,10 @@ interface ModalProps {
 
 const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
   const [error, setError] = useState("");
+  const [emailerror, setEmailError] = useState("");
+  const [pwerror, setPWError] = useState("");
+  const [pwcheckerror, setPWCheckError] = useState("");
+
   const [email, setEmail] = useState("");
   const [pw, setPW] = useState("");
 
@@ -39,23 +44,30 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
 
   // login 유효성 검사
   const loginvalidationCheck = () => {
+    const emailRegex =
+      /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+
     if (!email && !pw) {
       setError("이메일과 비밀번호를 입력해주세요.");
       return;
-    } else if (email.indexOf("@") === -1) {
-      setError("이메일 형식이 아닙니다.");
+    } else if (!emailRegex.test(email)) {
+      setError("");
+      setEmailError("이메일 형식이 아닙니다.");
+      setPWError("");
       return;
     } else if (!email) {
-      setError("이메일을 입력해주세요.");
+      setError("");
+      setEmailError("이메일을 입력해주세요.");
       return;
     } else if (!pw) {
-      setError("비밀번호를 입력해주세요.");
-      return;
-    } else if (pw.length < 6) {
-      setError("비밀번호 형식이 아닙니다.");
+      setError("");
+      setEmailError("");
+      setPWError("비밀번호를 입력해주세요");
       return;
     } else {
       setError("");
+      setEmailError("");
+      setPWError("");
       setIsValidLogin(true);
       return;
     }
@@ -63,15 +75,25 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
 
   // register 유효성 검사
   const registerValidationCheck = () => {
+    const pwRegex = /^[A-Za-z0-9]{8,15}$/;
+
     loginvalidationCheck();
-    if (!pwCheck) {
-      setError("비밀번호를 다시 한번 입력해주세요.");
+    if (!pwRegex.test(pw)) {
+      setPWError(
+        "비밀번호는 영문 대소문자, 숫자를 혼합하여 8~15자로 입력해주세요."
+      );
+      return;
+    } else if (!pwCheck) {
+      setPWCheckError("비밀번호를 다시 한번 입력해주세요.");
       return;
     } else if (pw !== pwCheck) {
-      setError("비밀번호가 맞지 않습니다. 다시 입력해주세요");
+      setPWCheckError("비밀번호가 맞지 않습니다. 다시 입력해주세요");
       return;
     } else {
       setError("");
+      setEmailError("");
+      setPWError("");
+      setPWCheckError("");
       return;
     }
   };
@@ -157,6 +179,8 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
                   setPW={setPW}
                   closeModal={closeModal}
                   error={error}
+                  emailerror={emailerror}
+                  pwerror={pwerror}
                   loginBtn={loginBtn}
                   setModal={setModal}
                 />
@@ -195,6 +219,9 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
                   pw={pw}
                   email={email}
                   error={error}
+                  emailerror={emailerror}
+                  pwerror={pwerror}
+                  pwcheckerror={pwcheckerror}
                   registerBtn={registerBtn}
                   closeModal={closeModal}
                 />
