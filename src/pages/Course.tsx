@@ -18,6 +18,7 @@ const Course = () => {
   const [desc, setDesc] = useState(true);
   const { data, isLoading, isError, error } = useGetCommentQuery();
   const paramId = useParams().id;
+  const filterData = data?.filter((comment) => comment.postId === paramId);
 
   if (isError) {
     console.log(error);
@@ -83,14 +84,14 @@ const Course = () => {
             }
           />
         </div>
-        <h2 className="text-xl font-bold">댓글({data?.length})</h2>
+        <h2 className="text-xl font-bold">댓글({filterData?.length})</h2>
         {isLoading ? (
           <h3 className="text-xl">댓글을 불러오고 있습니다 :-) </h3>
         ) : null}
         {desc === true ? (
-          <CommentDesc />
+          <CommentDesc paramId={paramId} />
         ) : (
-          data?.map((comment) => {
+          filterData?.map((comment) => {
             return <Comment key={comment.id} comment={comment} />;
           })
         )}
@@ -98,5 +99,5 @@ const Course = () => {
     </div>
   );
 };
-// .filter((comment) => comment.postId === paramId)
+
 export default Course;

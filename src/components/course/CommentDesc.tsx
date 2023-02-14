@@ -2,13 +2,19 @@ import React from "react";
 import { useGetCommentDescQuery } from "../../redux/modules/apiSlice";
 import Comment from "./Comment";
 
-const CommentDesc = () => {
+interface CommentDescProps {
+  paramId: string | undefined;
+}
+
+const CommentDesc = ({ paramId }: CommentDescProps) => {
   const { data } = useGetCommentDescQuery();
   return (
     <div>
-      {data?.map((comment) => {
-        return <Comment key={comment.id} comment={comment} />;
-      })}
+      {data
+        ?.filter((comment) => comment.postId === paramId)
+        .map((comment) => {
+          return <Comment key={comment.id} comment={comment} />;
+        })}
     </div>
   );
 };
