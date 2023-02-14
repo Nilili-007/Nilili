@@ -5,12 +5,10 @@ import {
   CourseTitle,
   LikeBtn,
   Comment,
-  CommentDesc
+  CommentDesc,
 } from "../components/course";
 import { PostTitle, PostHashTag } from "../components/post";
 import { useGetCommentQuery } from "../redux/modules/apiSlice";
-
-
 
 const Course = () => {
   const [isEdit, setIsEdit] = useState(false);
