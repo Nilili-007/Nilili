@@ -116,9 +116,6 @@ const Header = () => {
               }`}
             >
               <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-                <li className="text-sm px-4 py-2 leading-none  text-white">
-                  <Weather />
-                </li>
                 {isSign !== null ? (
                   isSign ? (
                     <>
@@ -136,16 +133,19 @@ const Header = () => {
                           글쓰기
                         </button>
                       </li>
-                      <li className="text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
+                      <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-5000">
                         <button onClick={logoutBtn}>로그아웃</button>
                       </li>
                     </>
                   ) : (
-                    <li className="text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
-                      <button onClick={openModal}>로그인/회원가입</button>
+                    <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
+                      <button onClick={openModal}>로그인</button>
                     </li>
                   )
                 ) : null}
+                <li className="text-sm px-4 py-2 leading-none  text-white">
+                  <Weather />
+                </li>
               </ul>
             </div>
           </div>
