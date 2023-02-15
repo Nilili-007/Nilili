@@ -5,13 +5,15 @@ declare global {
 }
 
 declare interface CourseType {
-  id?: string;
-  location?: string;
-  hashtags?: string[];
-  title?: string;
-  createdAt?: date;
-  likes?: number;
-  userId?: string;
-  nickname?: string;
-  places?: string[];
+  id: string;
+  location: string;
+  hashtags: string[];
+  title: string;
+  image: string;
+  createdAt: date;
+  likes: number;
+  userId: string;
+  nickname: string;
+  isDone: boolean;
+  places: string[];
 }

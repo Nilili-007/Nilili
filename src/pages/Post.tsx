@@ -61,10 +61,12 @@ const Post = () => {
       location: category,
       hashtags: selectedValues,
       title: courseTitle,
+      image: "/assets/course.jpg",
       createdAt: JSON.stringify(new Date()),
-      likes: 1,
+      likes: 80,
       userId,
       nickname: "선형",
+      isDone: false,
       places: [],
     };
 
