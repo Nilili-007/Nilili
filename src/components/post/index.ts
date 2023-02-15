@@ -6,6 +6,7 @@ import PostMap from "./PostMap";
 import PostSearchModal from "./PostSearchModal";
 import PostTextarea from "./PostTextarea";
 import PostTitle from "./PostTitle";
+import PostHeader from "./PostHeader";
 
 export {
   PostBtn,
@@ -16,4 +17,5 @@ export {
   PostSearchModal,
   PostTextarea,
   PostTitle,
+  PostHeader,
 };
