@@ -49,7 +49,7 @@ const Post = () => {
   //해시태그 선택
   const [selectedTags, setSelectedTags] = useState<optionType[] | null>([]);
 
-  const userId = authService.currentUser?.uid;
+  const userID = authService.currentUser?.uid;
 
   //Hashtag 테스트용 submit handler
   const submitHandle = (event: React.FormEvent<HTMLFormElement>) => {
@@ -64,7 +64,8 @@ const Post = () => {
       image: "/assets/course.jpg",
       createdAt: JSON.stringify(new Date()),
       likes: 80,
-      userId,
+      likesID: [userID],
+      userID,
       nickname: "선형",
       isDone: false,
       places: [],

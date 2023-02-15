@@ -1,5 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import { useGetRecentListQuery } from "../../redux/modules/apiSlice";
+
 const AfterRecent = () => {
+  const navigate = useNavigate();
   const { data, isLoading, isError } = useGetRecentListQuery();
   if (isLoading) {
     return <>로딩중....</>;
@@ -22,6 +25,7 @@ const AfterRecent = () => {
           .slice(0, 3)
           .map((item) => (
             <li
+              onClick={() => navigate(`/course/?q=${item.id}`)}
               className="md:w-[31%] w-[360px]  inline-block mx-3  "
               key={item.id}
             >
