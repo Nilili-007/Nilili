@@ -7,6 +7,7 @@ import PostSearchModal from "./PostSearchModal";
 import PostTextarea from "./PostTextarea";
 import PostTitle from "./PostTitle";
 import PostHeader from "./PostHeader";
+import PostTravelStatus from "./PostTravelStatus";
 
 export {
   PostBtn,
@@ -18,4 +19,5 @@ export {
   PostTextarea,
   PostTitle,
   PostHeader,
+  PostTravelStatus,
 };

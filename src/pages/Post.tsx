@@ -8,6 +8,7 @@ import {
   PostTitle,
   PostMap,
   PostHeader,
+  PostTravelStatus,
 } from "../components/post/index";
 
 import { useNavigate } from "react-router-dom";
@@ -50,25 +51,36 @@ const Post = () => {
     navigate("/course");
   };
 
-  // 게시글 데이터 DB : uuid, createdAt, 카테고리, 제목, 해시태그, initialPlac
+  // 게시글 데이터 DB : uuid, createdAt, 카테고리, 제목, 해시태그, initialPlace
 
   return (
     // <form onSubmit={submitHandle}>
-    <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0">
+    <>
       <PostHeader />
-      <PostTitle
-        category={category}
-        setCategory={setCategory}
-        courseTitle={courseTitle}
-        setCourseTitle={setCourseTitle}
-      />
-      <PostMap />
-      <PostHashTag
-        selectedTags={selectedTags}
-        setSelectedTags={setSelectedTags}
-      />
-      <PostBtn />
-    </div>
+      <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0">
+        <div className="flex">
+          <div className="flex flex-col">
+            <p className="text-2xl font-bold">목적지를 추가해보세요.</p>
+            <p className="text-gray-400 mt-1">
+              간단한 클릭으로 여행지를 추가할 수 있어요.
+            </p>
+          </div>
+          <PostTravelStatus />
+        </div>
+        <PostTitle
+          category={category}
+          setCategory={setCategory}
+          courseTitle={courseTitle}
+          setCourseTitle={setCourseTitle}
+        />
+        <PostHashTag
+          selectedTags={selectedTags}
+          setSelectedTags={setSelectedTags}
+        />
+        <PostMap />
+        <PostBtn />
+      </div>
+    </>
     // </form>
   );
 };

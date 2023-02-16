@@ -30,6 +30,7 @@ const temporarySlice = createSlice({
     },
     addDesc: (state: any, action) => {
       state.descList = [...state.descList, action.payload];
+      console.log(state.descList);
     },
     editDesc: (state: any, action) => {
       state.descList = [...state.descList];

@@ -13,9 +13,11 @@ import {
 // 장소 클릭시 해당 장소에 대한 설명만 textarea에 불러오기
 // (설명 데이터가 없으면 빈칸, 있으면 미리 입력한 내용)
 
-const PostTextarea = ({ id, text, setText, setOpenDesc }: any) => {
+const PostTextarea = ({ id, item, text, setText, onClickGetId }: any) => {
   const dispatch = useDispatch();
   const [edit, setEdit] = useState(false);
+
+  console.log(item.id, item.name);
 
   const courseList = useSelector(
     (state: any) => state.temporarySlice.courseList
@@ -51,9 +53,10 @@ const PostTextarea = ({ id, text, setText, setOpenDesc }: any) => {
     desc: text,
   };
 
+  // const onClickGetId = (item: any) => {};
+
   const onClickAddDesc = () => {
     dispatch(addDesc(newDesc));
-    setOpenDesc(false);
   };
 
   const onClickEditBtn = () => {
@@ -80,18 +83,17 @@ const PostTextarea = ({ id, text, setText, setOpenDesc }: any) => {
         <>
           <textarea
             value={text}
+            onClick={onClickGetId}
             onChange={(e) => setText(e.target.value)}
             placeholder="여행지를 소개해주세요."
-            className="w-[95%] h-[150px] focus:outline-none mt-2 px-2 py-1 border border-black"
+            className="w-[100%] h-[50px] focus:outline-none mt-2 px-2 py-1 text-black border border-black"
           />
-          <div className="pr-4">
-            <button
-              onClick={onClickAddDesc}
-              className="px-2 py-1 bg-gray-200 rounded-lg border border-black float-right hover:bg-red-100"
-            >
-              다음 코스에 대한 설명을 등록해주세요!
-            </button>
-          </div>
+          <button
+            onClick={onClickAddDesc}
+            className="px-2 py-1 bg-gray-200 text-black border border-black float-right"
+          >
+            등록
+          </button>
         </>
       ) : (
         <>
@@ -116,9 +118,10 @@ const PostTextarea = ({ id, text, setText, setOpenDesc }: any) => {
           ) : (
             <>
               <textarea
+                onClick={() => onClickGetId(item)}
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                className="w-[95%] h-[150px] focus:outline-none mt-2 px-2 py-1 border border-black"
+                className="w-[100%] h-[50px] focus:outline-none mt-2 px-2 py-1 border border-black"
               />
               <div className="pr-4">
                 <button

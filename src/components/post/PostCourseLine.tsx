@@ -2,13 +2,11 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import {
+  addDesc,
   deleteCourse,
   filterCourse,
-  filterKey,
   updateCourse,
 } from "../../redux/modules/temporarySlice";
-import { FaCheck } from "react-icons/fa";
-import { HiPlusSm } from "react-icons/hi";
 import { TiMinus } from "react-icons/ti";
 import PostCourseDesc from "./PostCourseDesc";
 
@@ -31,6 +29,20 @@ const PostCourseLine = ({ modalOpen, setModalOpen }: PostProps) => {
     (state: any) => state.temporarySlice.courseList
   );
 
+  const filteredId = useSelector(
+    (state: any) => state.temporarySlice.filteredCourse
+  );
+
+  const descList = useSelector((state: any) => state.temporarySlice.descList);
+
+  const filteredDesc = descList?.filter((item: any) => {
+    if (item.id === filteredId) {
+      return item;
+    }
+  });
+
+  console.log(filteredDesc);
+
   const initialDragData: IinitialDragData = {
     target: null,
     index: -1,
@@ -39,22 +51,13 @@ const PostCourseLine = ({ modalOpen, setModalOpen }: PostProps) => {
     updateLists: [],
   };
 
+  const [text, setText] = useState("");
   const [dragList, setDragList] = useState(temporaryList);
   const [dragData, setDragData] = useState(initialDragData);
   const [isDragged, setIsDragged] = useState<any | null>(false);
-  const [openDesc, setOpenDesc] = useState<any | null>(false);
-  const [targetId, setTargetId] = useState();
 
   const showModal = () => {
     setModalOpen(!modalOpen);
-  };
-
-  const showDesc = (item: any, key: number) => {
-    const result = dragList.filter((place: any) => place.id === item.id);
-    setTargetId(result[0].id);
-    setOpenDesc(!openDesc);
-    dispatch(filterCourse(item));
-    dispatch(filterKey(key));
   };
 
   const onDragOver = (e: any) => {
@@ -127,6 +130,22 @@ const PostCourseLine = ({ modalOpen, setModalOpen }: PostProps) => {
     }
   };
 
+  const onClickGetId = (item: any) => {
+    dispatch(filterCourse(item.id));
+    // dispatch(filterKey(key));
+  };
+
+  const onClickAddDesc = (item: any) => {
+    const newDesc = {
+      id: item.id,
+      desc: text,
+    };
+    if (text) {
+      dispatch(addDesc(newDesc));
+      setText("");
+    }
+  };
+
   const onClickDeleteCourse = (item: any) => {
     // 모달로 변경
     if (window.confirm("일정에서 삭제하시겠습니까?")) {
@@ -139,62 +158,75 @@ const PostCourseLine = ({ modalOpen, setModalOpen }: PostProps) => {
   }, [temporaryList]);
 
   return (
-    <div className="w-1/3 pl-7 float-right">
-      <div className="flex items-center justify-center h-full border-l-2 border-black ml-3.5 " />
-      <div className="flex flex-col -mt-[1000px] h-full overflow-y-scroll ">
+    <div className="w-[35%] h-[1000px] pl-7 float-right">
+      <div className="flex flex-col h-full overflow-y-scroll ">
         {dragList?.map((item: any, key: any) => {
           let default_class = "";
           dragData.move_up.includes(key) && (default_class = "move_up");
           dragData.move_down.includes(key) && (default_class = "move_down");
 
           return (
-            <div className="flex cursor-pointer mb-20 ">
-              <div
-                onClick={() => onClickDeleteCourse(item)}
-                className="flex justify-center items-center w-8 h-8 rounded-full bg-black text-white text-3xl hover:bg-red-500 xs:w-2 xs:h-2"
-              >
-                <TiMinus className="text-xl" />
+            <CourseItem
+              draggable
+              key={key}
+              data-index={key}
+              data-position={key}
+              onDragOver={onDragOver}
+              onDragStart={(e: any) => onDragStart(e)}
+              onDragEnd={onDragEnd}
+              onDrop={onDrop}
+              onDragEnter={onDragEnter}
+              onDragLeave={onDragLeave}
+              className={default_class}
+              onDrag={isDragged}
+              onMouseLeave={() => onClickAddDesc(item)}
+            >
+              <div className="w-full px-2 py-3 flex">
+                <div className="w-full">
+                  <h4 className="pl-3 font-bold text-xl">
+                    #{key + 1} {item.name}
+                  </h4>
+                  <PostCourseDesc item={item} />
+                  {/* descList 중에서 id가 item.id와 일치하는 내용만 보여주기 */}
+                  {descList[0].desc}
+
+                  {item.id === filteredId ? (
+                    <>
+                      <textarea
+                        placeholder="자유롭게 메모를 남겨보세요."
+                        value={text}
+                        onChange={(e) => setText(e.target.value)}
+                        onClick={() => onClickGetId(item)}
+                        className="border-b border-gray-600 w-full h-20 mt-3 ml-3 py-1 text-sm focus:outline-none"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <textarea
+                        placeholder="자유롭게 메모를 남겨보세요."
+                        onClick={() => onClickGetId(item)}
+                        className="border-b border-gray-600 w-full h-20 mt-3 ml-3 py-1 text-sm focus:outline-none"
+                      />
+                    </>
+                  )}
+                  {/* <button
+                    onClick={() => onClickAddDesc(item)}
+                    className="bg-black text-white px-2 py-1 mt-1 -mr-3 float-right"
+                  >
+                    등록
+                  </button> */}
+                </div>
+                <TiMinus
+                  onClick={() => onClickDeleteCourse(item)}
+                  className="-mt-2 text-3xl text-gray-400 hover:text-black"
+                />
               </div>
-              <div className="w-[90%]">
-                <CourseItem
-                  draggable
-                  key={key}
-                  onClick={() => showDesc(item, key)}
-                  data-index={key}
-                  data-position={key}
-                  onDragOver={onDragOver}
-                  onDragStart={(e: any) => onDragStart(e)}
-                  onDragEnd={onDragEnd}
-                  onDrop={onDrop}
-                  onDragEnter={onDragEnter}
-                  onDragLeave={onDragLeave}
-                  className={default_class}
-                  onDrag={isDragged}
-                >
-                  #{key + 1} {item.name}
-                </CourseItem>
-                {targetId === item.id
-                  ? openDesc && (
-                      <PostCourseDesc item={item} setOpenDesc={setOpenDesc} />
-                    )
-                  : null}
-              </div>
-            </div>
+            </CourseItem>
           );
         })}
-        <div
-          onClick={showModal}
-          className="w-8 h-8 rounded-full bg-white border-2 border-black text-3xl cursor-pointer hover:border-red-500 hover:text-red-500 xs:w-2 xs:h-2 xs:-mt-6"
-        >
-          <HiPlusSm />
-        </div>
-        {temporaryList.length > 0 ? (
-          ""
-        ) : (
-          <div className="flex justify-center items-center w-8 h-8 rounded-full bg-white border-2 border-black text-sm cursor-pointer xs:w-2 xs:h-2 xs:-mt-6">
-            <FaCheck />
-          </div>
-        )}
+        <button onClick={showModal} className="bg-black text-white py-2">
+          여행지 추가하기
+        </button>
       </div>
     </div>
   );
@@ -203,12 +235,9 @@ const PostCourseLine = ({ modalOpen, setModalOpen }: PostProps) => {
 export default PostCourseLine;
 
 const CourseItem = styled.h5`
-  margin-left: 10px;
-  font-weight: bold;
-  font-size: 20px;
   cursor: grab;
-  width: 90%;
-
+  margin-bottom: 30px;
+  border: 1px solid #9ca3af;
   // 드롭시 원래 위치로 돌아가는 현상 보완
 
   &.move_down {
@@ -221,13 +250,9 @@ const CourseItem = styled.h5`
   }
 
   &:hover {
-    color: #ef4444;
+    border: 1px solid black;
   }
 
   @media screen and (max-width: 414px) {
-    font-size: 12px;
-    font-weight: normal;
-    letter-spacing: -0.3px;
-    margin-top: -50px;
   }
 `;
