@@ -23,17 +23,17 @@ const BeforeRecent = () => {
           ?.filter((item: CourseType) => item.isDone === false)
           .slice(0, 4)
           .map((item) => (
-            <Link to={`/course/${item.id}`}>
-              <li
-                className="md:w-[23%] w-[360px]  inline-block mx-3 pt-6 border-t-2 border-black   "
-                key={item.id}
-              >
+            <Link to={`/course/${item.id}`} key={item.id}>
+              <li className="md:w-[23%] w-[360px]  inline-block mx-3 pt-6 border-t-2 border-black   ">
                 <img alt="최신순 이미지" src="/assets/course.jpg" />
                 <p className="pr-4 ml-1 mt-5 mb-5 sm:text-2xl text-xl overflow-hidden font-black ">
                   {item.title}
                 </p>
                 <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
                   {item.nickname}
+                </p>
+                <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
+                  {item.createdAt}
                 </p>
               </li>
             </Link>

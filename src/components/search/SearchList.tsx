@@ -16,11 +16,8 @@ const SearchList = () => {
         {data
           ?.filter((item: CourseType) => item.isDone === true)
           .map((item) => (
-            <Link to={`/course/${item.id}`}>
-              <li
-                className="xl:w-[24%] lg:w-[32%] sm:w-[47%] w-[90%] pt-6 border-t-2 border-black  "
-                key={item.id}
-              >
+            <Link to={`/course/${item.id}`} key={item.id}>
+              <li className="xl:w-[24%] lg:w-[32%] sm:w-[47%] w-[90%] pt-6 border-t-2 border-black  ">
                 <img alt="지역별 최다 좋아요" src="/assets/course.jpg" />
                 <p className="pr-4 ml-1 mt-5 sm:h-16 h-14 sm:text-2xl text-xl overflow-hidden font-black ">
                   {item.title}

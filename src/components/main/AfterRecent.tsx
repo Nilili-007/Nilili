@@ -23,11 +23,8 @@ const AfterRecent = () => {
           ?.filter((item: CourseType) => item.isDone === true)
           .slice(0, 3)
           .map((item) => (
-            <Link to={`/course/${item.id}`}>
-              <li
-                className="md:w-[31%] w-[360px]  inline-block mx-3  "
-                key={item.id}
-              >
+            <Link to={`/course/${item.id}`} key={item.id}>
+              <li className="md:w-[31%] w-[360px]  inline-block mx-3  ">
                 <img
                   alt="지역별 좋아요 이미지"
                   src="/assets/saryangdo.jpg"
