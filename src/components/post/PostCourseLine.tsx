@@ -2,9 +2,9 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import {
-  addDesc,
   deleteCourse,
-  deleteDesc,
+  deleteMemo,
+  editMemo,
   filterCourse,
   updateCourse,
 } from "../../redux/modules/temporarySlice";
@@ -33,8 +33,6 @@ const PostCourseLine = ({ modalOpen, setModalOpen }: PostProps) => {
   const filteredId = useSelector(
     (state: any) => state.temporarySlice.filteredCourse
   );
-
-  const descList = useSelector((state: any) => state.temporarySlice.descList);
 
   const initialDragData: IinitialDragData = {
     target: null,
@@ -131,10 +129,11 @@ const PostCourseLine = ({ modalOpen, setModalOpen }: PostProps) => {
   const onClickAddDesc = (item: any) => {
     const newDesc = {
       id: item.id,
-      desc: text,
+      memo: text,
     };
     if (text) {
-      dispatch(addDesc(newDesc));
+      console.log("실행");
+      dispatch(editMemo(newDesc));
       setText("");
     }
   };
@@ -143,8 +142,12 @@ const PostCourseLine = ({ modalOpen, setModalOpen }: PostProps) => {
     // 모달로 변경
     if (window.confirm("일정에서 삭제하시겠습니까?")) {
       dispatch(deleteCourse(item.id));
-      dispatch(deleteDesc(item.id));
+      dispatch(deleteMemo(item.id));
     }
+  };
+
+  const onClickDeleteMemo = (item: any) => {
+    dispatch(deleteMemo(item.id));
   };
 
   useEffect(() => {
@@ -173,7 +176,7 @@ const PostCourseLine = ({ modalOpen, setModalOpen }: PostProps) => {
               onDragLeave={onDragLeave}
               className={default_class}
               onDrag={isDragged}
-              onMouseLeave={() => onClickAddDesc(item)}
+              // onMouseLeave={() => onClickAddDesc(item, key)}
             >
               <div className="w-full px-2 py-3 flex">
                 <div className="w-full">
@@ -181,20 +184,51 @@ const PostCourseLine = ({ modalOpen, setModalOpen }: PostProps) => {
                     #{key + 1} {item.name}
                   </h4>
                   <PostCourseDesc item={item} />
-                  {descList[key]?.desc ? (
-                    <p className="ml-3 mt-3 text-sm">{descList[key]?.desc}</p>
+                  {/* {
+                    descList.filter((target: { id: number; desc: string }) => {
+                      if (target.id === item.id) {
+                        return target;
+                      }
+                      return target;
+                    }).desc
+                  } */}
+
+                  {item.memo ? (
+                    <>
+                      <p className="ml-3 mt-3 text-sm hover:bg-gray-100">
+                        {item.memo}
+                      </p>
+                      <div className="flex float-right mt-2 -mr-3">
+                        <button
+                          onClick={() => onClickAddDesc(item)}
+                          className="bg-black text-white px-2 py-1 mr-2"
+                        >
+                          수정
+                        </button>
+                        <button
+                          onClick={() => onClickDeleteMemo(item)}
+                          className="bg-black text-white px-2 py-1"
+                        >
+                          삭제
+                        </button>
+                      </div>
+                    </>
                   ) : (
+                    // <textarea
+                    //   value={text}
+                    //   onChange={(e) => setText(e.target.value)}
+                    //   onClick={() => onClickEditDesc(key)}
+                    //   className="border-b border-gray-600 w-full h-20 mt-3 ml-3 py-1 text-sm focus:outline-none"
+                    // />
                     <>
                       {item.id === filteredId ? (
-                        <>
-                          <textarea
-                            placeholder="자유롭게 메모를 남겨보세요."
-                            value={text}
-                            onChange={(e) => setText(e.target.value)}
-                            onClick={() => onClickGetId(item)}
-                            className="border-b border-gray-600 w-full h-20 mt-3 ml-3 py-1 text-sm focus:outline-none"
-                          />
-                        </>
+                        <textarea
+                          placeholder="자유롭게 메모를 남겨보세요."
+                          value={text}
+                          onChange={(e) => setText(e.target.value)}
+                          onClick={() => onClickGetId(item)}
+                          className="border-b border-gray-600 w-full h-20 mt-3 ml-3 py-1 text-sm focus:outline-none"
+                        />
                       ) : (
                         <>
                           <textarea
@@ -204,14 +238,14 @@ const PostCourseLine = ({ modalOpen, setModalOpen }: PostProps) => {
                           />
                         </>
                       )}
+                      <button
+                        onClick={() => onClickAddDesc(item)}
+                        className="bg-black text-white px-2 py-1 mt-1 -mr-3 float-right"
+                      >
+                        등록
+                      </button>
                     </>
                   )}
-                  {/* <button
-                    onClick={() => onClickAddDesc(item)}
-                    className="bg-black text-white px-2 py-1 mt-1 -mr-3 float-right"
-                  >
-                    등록
-                  </button> */}
                 </div>
                 <TiMinus
                   onClick={() => onClickDeleteCourse(item)}

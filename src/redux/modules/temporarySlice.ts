@@ -28,23 +28,24 @@ const temporarySlice = createSlice({
     filterKey: (state: any, action) => {
       state.filteredKey = action.payload;
     },
-    addDesc: (state: any, action) => {
-      state.descList = [...state.descList, action.payload];
-      console.log(state.descList);
-    },
-    editDesc: (state: any, action) => {
-      state.descList = [...state.descList];
-      const i = state.descList.findIndex(
+    // addDesc: (state: any, action) => {
+    //   state.descList = [...state.descList, action.payload];
+    //   console.log(state.descList);
+    // },
+    editMemo: (state: any, action) => {
+      console.log(action.payload);
+      state.courseList = [...state.courseList];
+      const i = state.courseList.findIndex(
         (item: any) => item.id === action.payload.id
       );
-      state.descList[i].desc = action.payload.desc;
+      state.courseList[i].memo = action.payload.memo;
     },
-    deleteDesc: (state: any, action) => {
+    deleteMemo: (state: any, action) => {
       console.log(action.payload);
-      state.descList = state.descList.filter((item: any) => {
+      state.courseList = state.courseList.filter((item: any) => {
         return item.id !== action.payload;
       });
-      console.log(state.descList);
+      console.log(state.courseList);
     },
   },
 });
@@ -55,8 +56,7 @@ export const {
   deleteCourse,
   filterCourse,
   filterKey,
-  addDesc,
-  editDesc,
-  deleteDesc,
+  editMemo,
+  deleteMemo,
 } = temporarySlice.actions;
 export default temporarySlice.reducer;

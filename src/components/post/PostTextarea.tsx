@@ -1,10 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addDesc,
-  deleteDesc,
-  editDesc,
-} from "../../redux/modules/temporarySlice";
+import { deleteMemo, editMemo } from "../../redux/modules/temporarySlice";
 
 // 데이터 추가
 // 데이터 삭제
@@ -56,7 +52,7 @@ const PostTextarea = ({ id, item, text, setText, onClickGetId }: any) => {
   // const onClickGetId = (item: any) => {};
 
   const onClickAddDesc = () => {
-    dispatch(addDesc(newDesc));
+    // dispatch(addDesc(newDesc));
   };
 
   const onClickEditBtn = () => {
@@ -66,13 +62,13 @@ const PostTextarea = ({ id, item, text, setText, onClickGetId }: any) => {
 
   const onClickEditDesc = () => {
     setEdit(false);
-    dispatch(editDesc(newDesc));
+    dispatch(editMemo(newDesc));
   };
 
   const onClickDeleteDesc = () => {
     // 모달로 변경
     if (window.confirm("일정에서 삭제하시겠습니까?")) {
-      return dispatch(deleteDesc(filteredId));
+      return dispatch(deleteMemo(filteredId));
     }
     setText("");
   };
