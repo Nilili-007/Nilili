@@ -9,9 +9,11 @@ import {
 } from "../components/post";
 
 import { CourseDesc } from "../components/course";
-
 import { useNavigate } from "react-router-dom";
-import { useAddCourseMutation } from "../redux/modules/apiSlice";
+import {
+  useAddCourseMutation,
+  useGetCourseQuery,
+} from "../redux/modules/apiSlice";
 import { authService } from "../utils/firebase";
 interface IinitialList {
   name: string;
@@ -29,7 +31,9 @@ const Post = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [targetPlace, setTargetPlace] = useState("");
   const [addCourse] = useAddCourseMutation();
-
+  const { data } = useGetCourseQuery();
+  const bID = data && data[data.length];
+  console.log(bID);
   const initialList: IinitialList[] = [
     { name: "PKM갤러리" },
     { name: "페로탕" },
@@ -37,6 +41,7 @@ const Post = () => {
     { name: "학고재" },
     { name: "국립현대미술관" },
   ];
+
   const [placeList, setPlaceList] = useState(initialList);
 
   const showModal = () => {
@@ -57,6 +62,7 @@ const Post = () => {
     //selectedTags는 오브젝트 배열입니다.
     //hashtag는 데이터베이스에 문자열 배열로 들어가야 하기 때문에, value 값만 추출하여 문자열배열로 바꿉니다.
     let selectedValues = selectedTags?.map((tag) => tag.value);
+
     const newPost = {
       location: category,
       hashtags: selectedValues,
@@ -72,7 +78,8 @@ const Post = () => {
     };
 
     addCourse(newPost);
-    navigate("/course");
+
+    navigate(`/post`);
   };
 
   return (

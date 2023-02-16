@@ -1,5 +1,5 @@
 import { useGetLikeListQuery } from "../../redux/modules/apiSlice";
-
+import { Link } from "react-router-dom";
 const AfterLike = () => {
   const { data, isLoading, isError } = useGetLikeListQuery();
   if (isLoading) {
@@ -22,25 +22,27 @@ const AfterLike = () => {
           ?.filter((item: CourseType) => item.isDone === true)
           .slice(0, 3)
           .map((item) => (
-            <li
-              className="md:w-[31%] w-[360px]  inline-block mx-3  "
-              key={item.id}
-            >
-              <img
-                alt="지역별 좋아요 이미지"
-                src="/assets/saryangdo.jpg"
-                className=" border-t-2 border-black pt-6"
-              />
-              <p className="pr-4 ml-1 mt-5 mb-5  sm:text-2xl text-xl overflow-hidden font-black ">
-                {item.title}
-              </p>
-              <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
-                {item.nickname}
-              </p>
-              <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
-                {item.createdAt}
-              </p>
-            </li>
+            <Link to={`/course/${item.id}`}>
+              <li
+                className="md:w-[31%] w-[360px]  inline-block mx-3  "
+                key={item.id}
+              >
+                <img
+                  alt="지역별 좋아요 이미지"
+                  src="/assets/saryangdo.jpg"
+                  className=" border-t-2 border-black pt-6"
+                />
+                <p className="pr-4 ml-1 mt-5 mb-5  sm:text-2xl text-xl overflow-hidden font-black ">
+                  {item.title}
+                </p>
+                <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
+                  {item.nickname}
+                </p>
+                <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
+                  {item.createdAt}
+                </p>
+              </li>
+            </Link>
           ))}
       </ul>
     </div>

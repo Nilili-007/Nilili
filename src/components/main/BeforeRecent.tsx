@@ -1,6 +1,8 @@
-import { useGetRecentListQuery } from "../../redux/modules/apiSlice";
+import { useGetCourseQuery } from "../../redux/modules/apiSlice";
+import { Link } from "react-router-dom";
+
 const BeforeRecent = () => {
-  const { data, isLoading, isError } = useGetRecentListQuery();
+  const { data, isLoading, isError } = useGetCourseQuery();
   if (isLoading) {
     return <>로딩중....</>;
   }
@@ -21,18 +23,20 @@ const BeforeRecent = () => {
           ?.filter((item: CourseType) => item.isDone === false)
           .slice(0, 4)
           .map((item) => (
-            <li
-              className="md:w-[23%] w-[360px]  inline-block mx-3 pt-6 border-t-2 border-black   "
-              key={item.id}
-            >
-              <img alt="최신순 이미지" src="/assets/course.jpg" />
-              <p className="pr-4 ml-1 mt-5 mb-5 sm:text-2xl text-xl overflow-hidden font-black ">
-                {item.title}
-              </p>
-              <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
-                {item.nickname}
-              </p>
-            </li>
+            <Link to={`/course/${item.id}`}>
+              <li
+                className="md:w-[23%] w-[360px]  inline-block mx-3 pt-6 border-t-2 border-black   "
+                key={item.id}
+              >
+                <img alt="최신순 이미지" src="/assets/course.jpg" />
+                <p className="pr-4 ml-1 mt-5 mb-5 sm:text-2xl text-xl overflow-hidden font-black ">
+                  {item.title}
+                </p>
+                <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
+                  {item.nickname}
+                </p>
+              </li>
+            </Link>
           ))}
       </ul>
     </div>
