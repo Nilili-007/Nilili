@@ -32,7 +32,7 @@ const PostHashTag = ({ selectedTags, setSelectedTags }: tagProps) => {
   }
 
   return (
-    <div className="xs:-mt-5">
+    <div className="mb-8">
       <Select
         options={hashTagOptions}
         placeholder={"#해시태그"}
