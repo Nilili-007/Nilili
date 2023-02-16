@@ -27,6 +27,7 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
   const [emailerror, setEmailError] = useState("");
   const [pwerror, setPWError] = useState("");
   const [pwcheckerror, setPWCheckError] = useState("");
+  const [nameError, setNameError] = useState("");
 
   const [email, setEmail] = useState("");
   const [pw, setPW] = useState("");
@@ -78,14 +79,23 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
   // register 유효성 검사
   const registerValidationCheck = () => {
     const pwRegex = /^[A-Za-z0-9]{8,15}$/;
+    const nameRegex = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,8}$/;
 
     loginvalidationCheck();
-    if (!pwRegex.test(pw)) {
+    if (!nameRegex.test(userName)) {
+      setNameError(
+        "닉네임은 2~8자로 영어 또는 숫자 또는 한글이 조합되어야 합니다."
+      );
+      return;
+    } else if (!pwRegex.test(pw)) {
       setPWError(
         "비밀번호는 영문 대소문자, 숫자를 혼합하여 8~15자로 입력해주세요."
       );
       return;
-    } else if (!pwCheck) {
+    } else if (!userName) {
+      setNameError("닉네임을 입력해주세요");
+      setError("");
+    } else if (!pwCheck && !pwRegex.test(pw)) {
       setPWCheckError("비밀번호를 다시 한번 입력해주세요.");
       return;
     } else if (pw !== pwCheck) {
@@ -246,6 +256,7 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
                   emailerror={emailerror}
                   pwerror={pwerror}
                   pwcheckerror={pwcheckerror}
+                  nameError={nameError}
                   registerBtn={registerBtn}
                   closeModal={closeModal}
                 />

@@ -11,6 +11,7 @@ interface RegisterProps {
   emailerror: string;
   pwerror: string;
   pwcheckerror: string;
+  nameError: string;
   registerBtn: any;
   closeModal: any;
 }
@@ -28,6 +29,7 @@ const Register = ({
   emailerror,
   pwerror,
   pwcheckerror,
+  nameError,
   registerBtn,
   closeModal,
 }: RegisterProps) => {
@@ -77,6 +79,7 @@ const Register = ({
             onChange={userHandler}
             placeholder="닉네임"
           />
+          <div className="text-red-600 font-sm mb-6">{nameError}</div>
           <label className="block text-black font-2xl font-bold mb-3">
             이메일
           </label>
