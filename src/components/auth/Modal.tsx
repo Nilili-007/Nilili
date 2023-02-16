@@ -1,6 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import React, { useState, useEffect } from "react";
 import { authService } from "../../utils/firebase";
@@ -29,6 +30,7 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
 
   const [email, setEmail] = useState("");
   const [pw, setPW] = useState("");
+  const [userName, setUserName] = useState("");
 
   const [pwCheck, setPWCheck] = useState("");
   const [isValidLogin, setIsValidLogin] = useState(false);
@@ -120,6 +122,7 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
           alert("로그인 성공");
           setModal(false);
           document.body.style.overflow = "unset";
+          localStorage.setItem("User", JSON.stringify(authService.currentUser));
         })
         .catch((error) => {
           console.log("error: ", error);
@@ -142,8 +145,27 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
     if (category === "SU") {
       registerValidationCheck();
       createUserWithEmailAndPassword(authService, email, pw)
-        .then((userCredential) => {
-          alert("회원가입 성공");
+        .then((data) => {
+          // alert("회원가입 성공");
+          // setModal(false);
+          updateProfile(data.user, {
+            displayName: userName,
+            photoURL:
+              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+          });
+          return data.user;
+        })
+        .then((item) => {
+          console.log(item);
+          const userData = {
+            photoURL:
+              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+            uid: item.uid,
+            displayName: userName,
+            email: item.email,
+          };
+          console.log(userData);
+          localStorage.setItem("User", JSON.stringify(userData));
           setModal(false);
         })
         .catch((error) => {
@@ -212,6 +234,8 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
             ) : category === "SU" ? (
               <>
                 <Register
+                  userName={userName}
+                  setUserName={setUserName}
                   setEmail={setEmail}
                   pwCheck={pwCheck}
                   setPW={setPW}

@@ -41,7 +41,8 @@ const Header = () => {
 
   const auth = getAuth();
   const user = auth.currentUser;
-  const userName = user?.email?.split("@")[0];
+  const userName = user?.displayName;
+  const userImg: any = user?.photoURL;
 
   // 새로고침했을 때 user가 있는지 없는지 판단하기
   setTimeout(() => {
@@ -119,6 +120,13 @@ const Header = () => {
                 {isSign !== null ? (
                   isSign ? (
                     <>
+                      {/* <li className="text-sm px-4 py-2 leading-none  text-white">
+                        <img
+                          src={userImg}
+                          alt=""
+                          className="object-contain h-10 w-10 rounded-full"
+                        />
+                      </li> */}
                       <li className="text-sm px-4 py-2 leading-none  text-white">
                         <button
                           className="font-bold underline hover:text-teal-500"
