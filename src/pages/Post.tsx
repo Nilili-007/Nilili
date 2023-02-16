@@ -20,7 +20,10 @@ import {
 } from "../components/post/index";
 
 import { useNavigate } from "react-router-dom";
-import { useAddCourseMutation } from "../redux/modules/apiSlice";
+import {
+  useAddCourseMutation,
+  useGetCourseQuery,
+} from "../redux/modules/apiSlice";
 import { authService } from "../utils/firebase";
 
 //select option의 타입
@@ -32,7 +35,9 @@ export interface optionType {
 const Post = () => {
   const navigate = useNavigate();
   const [addCourse] = useAddCourseMutation();
-
+  const { data } = useGetCourseQuery();
+  const test = data && data[0].id;
+  console.log(test);
   //카테고리 선택
   const [category, setCategory] = useState("");
   const [courseTitle, setCourseTitle] = useState("");
@@ -55,17 +60,17 @@ const Post = () => {
       title: courseTitle,
       image: "/assets/course.jpg",
       createdAt: JSON.stringify(new Date()),
-      likes: 5,
+      likes: 3,
       likesID: [userID],
       userID,
       nickname: "선형",
-      isDone: false,
+      isDone: true,
       places: [],
     };
 
     addCourse(newPost);
-
-    navigate(`/post`);
+    navigate("/course/1");
+    navigate(`/course/${test}`);
   };
 
   // 게시글 데이터 DB : uuid, createdAt, 카테고리, 제목, 해시태그, initialPlac
