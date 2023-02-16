@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import PostSearchModal from "./PostSearchModal";
-import PostCourseLine from "./PostCourseLine";
+import PostCourseLine from "./PostCourseInfo";
 
 const PostMap = () => {
   const [modalOpen, setModalOpen] = useState(false);
