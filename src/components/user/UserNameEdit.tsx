@@ -2,6 +2,7 @@ import { getAuth, updateProfile } from "firebase/auth";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { authService } from "../../utils/firebase";
+import ProfileEdit from "./ProfileEdit";
 
 const UserNameEdit = () => {
   const [toggle, setToggle] = useState(false);
@@ -15,7 +16,7 @@ const UserNameEdit = () => {
   const auth = getAuth();
   const user = auth.currentUser;
   const userName = user?.displayName;
-  //const userImg: any = user?.photoURL;
+  const userImg: any = user?.photoURL;
 
   const [nickname, setNickName] = useState<any>(userName);
 
@@ -38,8 +39,18 @@ const UserNameEdit = () => {
     setNickName(event.target.value);
   };
 
+  const [modal, setModal] = useState(false);
+
+  const openModal = () => {
+    setModal(true);
+  };
+
   return (
     <>
+      {modal ? <ProfileEdit modal={modal} setModal={setModal} /> : <></>}
+      <div>
+        <button onClick={openModal}>modal open</button>
+      </div>
       {toggle ? (
         <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
           <div className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
@@ -52,18 +63,18 @@ const UserNameEdit = () => {
               onClick={editNameBtn}
               className="text-sm px-4 py-2 leading-none border rounded text-black border-black hover:border-transparent hover:bg-blue-200 mt-4 lg:mt-0"
             >
-              변경 완료
+              프로필 수정정
             </button>
           </div>
         </div>
       ) : (
         <div className="justify-between px-4 mt-4 mb-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
           <div className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-            {/* <img
+            <img
               src={userImg}
               alt=""
-              className="object-contain h-10 w-10 rounded-full"
-            /> */}
+              className="object-fill h-10 w-10 rounded-full"
+            />
             <div className="font-3xl m-5 text-black font-bold">
               {userName}님!
             </div>
@@ -71,7 +82,7 @@ const UserNameEdit = () => {
               onClick={nameEdit}
               className="text-sm px-4 py-2 leading-none border rounded text-black border-black hover:border-transparent hover:bg-blue-200 mt-4 lg:mt-0"
             >
-              닉네임 변경하기
+              프로필 수정
             </button>
           </div>
         </div>
