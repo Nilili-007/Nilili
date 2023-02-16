@@ -102,9 +102,9 @@ const ProfileEdit = ({
       onClick={(e) => modalOutClick(e)}
       ref={modalRef}
     >
-      <div className="relative w-full h-full max-w-md md:h-auto">
+      <div className="relative w-full h-3/4 max-w-md md:h-auto">
         {/* modal contents */}
-        <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+        <div className="border rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
           <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t ">
             <h3 className="text-2xl font=semibold">프로필 수정</h3>
             <button
@@ -118,27 +118,50 @@ const ProfileEdit = ({
           </div>
           <div className="relative p-6 flex-auto">
             {/* 프로필 수정란 */}
-            <img
-              className="object-fill h-20 w-20 rounded-full"
-              src={img}
-              alt=""
-            />
-            <button>
-              <label htmlFor="changeimg">이미지 선택</label>
-            </button>
-            <input
-              hidden
-              id="changeimg"
-              type="file"
-              placeholder="파일선택"
-              ref={imgRef}
-              onChange={changeImgFile}
-            />
+            <div className="flex justify-center items-center">
+              <img
+                className="object-fill h-40 w-40 rounded-full m-2"
+                src={img}
+                alt=""
+              />
+            </div>
+            <div className="flex justify-center items-center mb-3">
+              <button className="text-sm  px-1 py-1 leading-none border rounded text-black hover:border-transparent hover:bg-blue-200 mt-4 lg:mt-0">
+                <label htmlFor="changeimg">사진 선택</label>
+              </button>
+              <input
+                hidden
+                id="changeimg"
+                type="file"
+                placeholder="파일선택"
+                ref={imgRef}
+                onChange={changeImgFile}
+              />
+            </div>
             {/* 닉네임 변경 */}
-            <input onChange={editNameHandler} ref={nameRef} value={nickname} />
+            <div className="flex justify-center items-center m-3">
+              <input
+                className="shadow appearance-none w-3/4 border rounded py-2 px-1 text-black"
+                onChange={editNameHandler}
+                ref={nameRef}
+                value={nickname}
+              />
+            </div>
             {/* 전체 수정 버튼 완료/취소버튼 */}
-            <button onClick={profileEdit}>적용</button>
-            <button onClick={cancleBtn}>취소</button>
+            <div className="flex justify-center items-center mt-3">
+              <button
+                className="text-sm m-2 px-4 py-2 leading-none border rounded text-black border-black hover:border-transparent hover:bg-blue-200 mt-4 lg:mt-0"
+                onClick={profileEdit}
+              >
+                완료
+              </button>
+              <button
+                className="text-sm m-2 px-4 py-2 leading-none border rounded text-black border-black hover:border-transparent hover:bg-blue-200 mt-4 lg:mt-0"
+                onClick={cancleBtn}
+              >
+                취소
+              </button>
+            </div>
           </div>
         </div>
       </div>
