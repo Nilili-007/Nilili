@@ -7,6 +7,8 @@ import { authService, storage } from "../../utils/firebase";
 interface ProfileEditModal {
   modal: boolean;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  modalOutClick: (e: any) => void;
+  modalRef: React.ForwardedRef<HTMLDivElement>;
 }
 
 // interface ProfileItem {
@@ -14,7 +16,12 @@ interface ProfileEditModal {
 //   image: any;
 // }
 
-const ProfileEdit = ({ modal, setModal }: ProfileEditModal) => {
+const ProfileEdit = ({
+  modal,
+  setModal,
+  modalRef,
+  modalOutClick,
+}: ProfileEditModal) => {
   const closeModal = () => {
     if (modal) {
       setModal(false);
@@ -90,7 +97,11 @@ const ProfileEdit = ({ modal, setModal }: ProfileEditModal) => {
   };
 
   return (
-    <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+    <div
+      className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+      onClick={(e) => modalOutClick(e)}
+      ref={modalRef}
+    >
       <div className="relative w-full h-full max-w-md md:h-auto">
         {/* modal contents */}
         <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
