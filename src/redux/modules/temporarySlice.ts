@@ -4,7 +4,6 @@ const initialState = {
   courseList: [],
   filteredKey: "",
   filteredCourse: {},
-  descList: [],
 };
 
 const temporarySlice = createSlice({
@@ -28,12 +27,8 @@ const temporarySlice = createSlice({
     filterKey: (state: any, action) => {
       state.filteredKey = action.payload;
     },
-    // addDesc: (state: any, action) => {
-    //   state.descList = [...state.descList, action.payload];
-    //   console.log(state.descList);
-    // },
+
     editMemo: (state: any, action) => {
-      console.log(action.payload);
       state.courseList = [...state.courseList];
       const i = state.courseList.findIndex(
         (item: any) => item.id === action.payload.id
@@ -41,11 +36,11 @@ const temporarySlice = createSlice({
       state.courseList[i].memo = action.payload.memo;
     },
     deleteMemo: (state: any, action) => {
-      console.log(action.payload);
-      state.courseList = state.courseList.filter((item: any) => {
-        return item.id !== action.payload;
-      });
-      console.log(state.courseList);
+      state.courseList = [...state.courseList];
+      const i = state.courseList.findIndex(
+        (item: any) => item.id === action.payload
+      );
+      state.courseList[i].memo = "";
     },
   },
 });
