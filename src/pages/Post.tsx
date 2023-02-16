@@ -55,7 +55,7 @@ const Post = () => {
       title: courseTitle,
       image: "/assets/course.jpg",
       createdAt: JSON.stringify(new Date()),
-      likes: 80,
+      likes: 5,
       likesID: [userID],
       userID,
       nickname: "선형",

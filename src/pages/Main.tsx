@@ -1,9 +1,6 @@
 import {
   Landing,
   Path,
-  CityList,
-  RecentList,
-  RandomList,
   HashtagList,
   BeforeRecent,
   AfterLike,
@@ -19,9 +16,6 @@ const Main = () => {
       <AfterLike />
       <AfterRecent />
       <HashtagList />
-      <CityList />
-      <RecentList />
-      <RandomList />
     </div>
   );
 };
