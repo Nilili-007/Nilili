@@ -4,6 +4,7 @@ import styled from "styled-components";
 import {
   addDesc,
   deleteCourse,
+  deleteDesc,
   filterCourse,
   updateCourse,
 } from "../../redux/modules/temporarySlice";
@@ -34,14 +35,6 @@ const PostCourseLine = ({ modalOpen, setModalOpen }: PostProps) => {
   );
 
   const descList = useSelector((state: any) => state.temporarySlice.descList);
-
-  const filteredDesc = descList?.filter((item: any) => {
-    if (item.id === filteredId) {
-      return item;
-    }
-  });
-
-  console.log(filteredDesc);
 
   const initialDragData: IinitialDragData = {
     target: null,
@@ -149,7 +142,8 @@ const PostCourseLine = ({ modalOpen, setModalOpen }: PostProps) => {
   const onClickDeleteCourse = (item: any) => {
     // 모달로 변경
     if (window.confirm("일정에서 삭제하시겠습니까?")) {
-      return dispatch(deleteCourse(item.id));
+      dispatch(deleteCourse(item.id));
+      dispatch(deleteDesc(item.id));
     }
   };
 
@@ -187,26 +181,29 @@ const PostCourseLine = ({ modalOpen, setModalOpen }: PostProps) => {
                     #{key + 1} {item.name}
                   </h4>
                   <PostCourseDesc item={item} />
-                  {/* descList 중에서 id가 item.id와 일치하는 내용만 보여주기 */}
-                  {descList[0].desc}
-
-                  {item.id === filteredId ? (
-                    <>
-                      <textarea
-                        placeholder="자유롭게 메모를 남겨보세요."
-                        value={text}
-                        onChange={(e) => setText(e.target.value)}
-                        onClick={() => onClickGetId(item)}
-                        className="border-b border-gray-600 w-full h-20 mt-3 ml-3 py-1 text-sm focus:outline-none"
-                      />
-                    </>
+                  {descList[key]?.desc ? (
+                    <p className="ml-3 mt-3 text-sm">{descList[key]?.desc}</p>
                   ) : (
                     <>
-                      <textarea
-                        placeholder="자유롭게 메모를 남겨보세요."
-                        onClick={() => onClickGetId(item)}
-                        className="border-b border-gray-600 w-full h-20 mt-3 ml-3 py-1 text-sm focus:outline-none"
-                      />
+                      {item.id === filteredId ? (
+                        <>
+                          <textarea
+                            placeholder="자유롭게 메모를 남겨보세요."
+                            value={text}
+                            onChange={(e) => setText(e.target.value)}
+                            onClick={() => onClickGetId(item)}
+                            className="border-b border-gray-600 w-full h-20 mt-3 ml-3 py-1 text-sm focus:outline-none"
+                          />
+                        </>
+                      ) : (
+                        <>
+                          <textarea
+                            placeholder="자유롭게 메모를 남겨보세요."
+                            onClick={() => onClickGetId(item)}
+                            className="border-b border-gray-600 w-full h-20 mt-3 ml-3 py-1 text-sm focus:outline-none"
+                          />
+                        </>
+                      )}
                     </>
                   )}
                   {/* <button

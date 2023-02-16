@@ -40,9 +40,11 @@ const temporarySlice = createSlice({
       state.descList[i].desc = action.payload.desc;
     },
     deleteDesc: (state: any, action) => {
+      console.log(action.payload);
       state.descList = state.descList.filter((item: any) => {
         return item.id !== action.payload;
       });
+      console.log(state.descList);
     },
   },
 });
