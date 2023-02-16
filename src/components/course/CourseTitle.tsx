@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { MdOutlineMoreVert } from "react-icons/md";
-import DeleteModal from "./DeleteModal";
 
 interface CourseTitleProps {
   setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
@@ -61,7 +60,6 @@ const CourseTitle = ({
           </button>
         </div>
       ) : null}
-      {modalOpen ? <DeleteModal setModalOpen={setModalOpen} /> : null}
     </div>
   );
 };

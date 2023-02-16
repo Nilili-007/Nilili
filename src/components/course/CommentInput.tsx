@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useAddCommentMutation } from "../../redux/modules/apiSlice";
 
 interface CourseTitleProps {
@@ -11,12 +11,22 @@ export interface CommentType {
   userId?: string;
   postId?: string;
   nickname?: string;
-  comment?: string;
+  comment?: string | undefined;
 }
 
 const CommentInput = ({ comment, setComment }: CourseTitleProps) => {
   // const paramId = useParams().id;
+  const submitRef = useRef<HTMLButtonElement | any>();
   const [addComment] = useAddCommentMutation();
+  const commentValue = comment.trim();
+  useEffect(() => {
+    if (commentValue) {
+      submitRef.current.disabled = false;
+    }
+    if (!commentValue) {
+      submitRef.current.disabled = true;
+    }
+  }, [comment]);
 
   const commentSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -25,7 +35,7 @@ const CommentInput = ({ comment, setComment }: CourseTitleProps) => {
       userId: "dslfkjslk", //authService.currentUser?.uid,
       postId: "2dkAXpNHm2tCUunGU2lF", // useParams().id;
       nickname: "nickname", //authService.currentUser?.displayName,
-      comment,
+      comment: commentValue,
     };
     addComment(newComment);
     setComment("");
@@ -39,7 +49,11 @@ const CommentInput = ({ comment, setComment }: CourseTitleProps) => {
           value={comment}
           onChange={(event) => setComment(event.target.value)}
         />
-        <button className="bg-gray-300 w-20 px-4 sm:px-5 py-1 rounded-xl float-right mt-1">
+        <button
+          className="bg-blue-500 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
+          ref={submitRef}
+          disabled
+        >
           등록
         </button>
       </form>

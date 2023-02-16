@@ -88,6 +88,26 @@ export const courseApi = createApi({
       },
       invalidatesTags: ["Courses"],
     }),
+    getCommentDesc: builder.query<CommentType[], void>({
+      async queryFn(desc) {
+        try {
+          const commentQuery = query(
+            collection(dbService, "comments"),
+            orderBy("createdAt", "desc")
+          );
+          const querySnaphot = await getDocs(commentQuery);
+          let comments: any = [];
+          querySnaphot?.forEach((doc) => {
+            comments.push({ id: doc.id, ...doc.data() } as CommentType);
+          });
+          return { data: comments };
+        } catch (error: any) {
+          console.error(error.message);
+          return { error: error.message };
+        }
+      },
+      providesTags: ["Courses"],
+    }),
     getComment: builder.query<CommentType[], void>({
       async queryFn() {
         try {
@@ -143,6 +163,7 @@ export const {
   useGetLikeListQuery,
   useAddCommentMutation,
   useGetCommentQuery,
+  useGetCommentDescQuery,
   useDeleteCommentMutation,
   useUpdateCommentMutation,
 } = courseApi;

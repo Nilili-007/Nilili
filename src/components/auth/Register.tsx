@@ -6,6 +6,9 @@ interface RegisterProps {
   setPW: React.Dispatch<React.SetStateAction<string>>;
   setPWCheck: React.Dispatch<React.SetStateAction<string>>;
   error: string;
+  emailerror: string;
+  pwerror: string;
+  pwcheckerror: string;
   registerBtn: any;
   closeModal: any;
 }
@@ -18,6 +21,9 @@ const Register = ({
   setPWCheck,
   pwCheck,
   error,
+  emailerror,
+  pwerror,
+  pwcheckerror,
   registerBtn,
   closeModal,
 }: RegisterProps) => {
@@ -51,38 +57,40 @@ const Register = ({
       </div>
       <div className="relative p-6 flex-auto">
         <form className=" rounded px-8 pt-6 pb-8 w-full">
-          <div className="text-red-600 font-bold m-2">{error}</div>
-          <label className="block text-black text-sm font-bold mb-3">
-            E-mail
+          <div className="text-yellow-500 font-bold m-2">{error}</div>
+          <label className="block text-black font-2xl font-bold mb-3">
+            이메일
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-1 text-black mb-6"
+            className="shadow appearance-none border rounded w-full py-2 px-1 text-black"
             type="email"
             value={email}
             onChange={emailHandler}
-            placeholder="이메일을 입력해주세요"
+            placeholder="이메일"
           />
-
-          <label className="block text-black text-sm font-bold mb-3">
+          <div className="text-red-600 font-sm mb-6">{emailerror}</div>
+          <label className="block text-black font-2xl font-bold mb-3">
             비밀번호
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-1 text-black mb-6"
+            className="shadow appearance-none border rounded w-full py-2 px-1 text-black"
             type="password"
             value={pw}
             onChange={pwHandler}
-            placeholder="비밀번호를 입력해주세요"
+            placeholder="비밀번호"
           />
-          <label className="block text-black text-sm font-bold mb-3">
+          <div className="text-red-600 font-sm mb-6">{pwerror}</div>
+          <label className="block text-black font-2xl font-bold mb-3">
             비밀번호 확인
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-1 text-black mb-6"
+            className="shadow appearance-none border rounded w-full py-2 px-1 text-black"
             type="password"
             value={pwCheck}
             onChange={pwCheckHandler}
             placeholder="비밀번호를 다시 입력해주세요"
           />
+          <div className="text-red-600 font-sm mb-6">{pwcheckerror}</div>
           <div className="flex items-center justify-center">
             <button
               className="m-1 text-white bg-purple-300 active:bg-purple-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
