@@ -11,11 +11,6 @@ interface ProfileEditModal {
   modalRef: React.ForwardedRef<HTMLDivElement>;
 }
 
-// interface ProfileItem {
-//   nickname: any;
-//   image: any;
-// }
-
 const ProfileEdit = ({
   modal,
   setModal,
@@ -34,12 +29,6 @@ const ProfileEdit = ({
   const userName = user?.displayName;
   const userImg: any = user?.photoURL;
 
-  //   const initialProfile = {
-  //     nickname: userName,
-  //     image: userImg,
-  //   };
-
-  //const [profile, setProfile] = useState<ProfileItem>(initialProfile);
   const [img, setImg] = useState(userImg);
   const [nickname, setNickname] = useState<any>(userName);
 
