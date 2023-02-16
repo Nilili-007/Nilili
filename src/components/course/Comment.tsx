@@ -10,9 +10,10 @@ import { authService } from "../../utils/firebase";
 
 interface CommentProps {
   comment: CommentType;
+  index: number;
 }
 
-const Comment = ({ comment }: CommentProps) => {
+const Comment = ({ comment, index }: CommentProps) => {
   const [menuToggle, setMenuToggle] = useState(false);
   const [edit, setEdit] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -58,7 +59,10 @@ const Comment = ({ comment }: CommentProps) => {
   };
 
   return (
-    <div className="border-b px-2 py-4">
+    <div
+      className="border-b px-2 py-4"
+      style={index % 2 === 0 ? { backgroundColor: "#ebebeb" } : undefined}
+    >
       {/* 댓글삭제 확인 모달 */}
       {modalOpen === true ? (
         <div className="bg-white fixed inset-y-[35%] inset-x-[10%] sm:inset-x-[20%] xl:inset-x-[30%] h-64 rounded-lg border-2 flex flex-col justify-center gap-y-10">
@@ -139,7 +143,11 @@ const Comment = ({ comment }: CommentProps) => {
       </div>
       {/* 수정할 때 input창 토글 */}
       {edit === false ? (
-        <p className="text-md">{comment.comment}</p>
+        <div className="w-full">
+          <p className="w-30 text-md whitespace-pre-wrap break-words">
+            {comment.comment}
+          </p>
+        </div>
       ) : (
         <div>
           <textarea

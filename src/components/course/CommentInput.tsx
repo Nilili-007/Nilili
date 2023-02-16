@@ -1,13 +1,8 @@
-import React, { useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
 import { useAddCommentMutation } from "../../redux/modules/apiSlice";
 import { authService } from "../../utils/firebase";
+import { CommentProps } from "./CommentDesc";
 
-interface CourseTitleProps {
-  comment: string;
-  setComment: any;
-  paramId: string | undefined;
-}
 export interface CommentType {
   createdAt?: number;
   id?: string;
@@ -17,7 +12,8 @@ export interface CommentType {
   comment?: string | undefined;
 }
 
-const CommentInput = ({ comment, setComment, paramId }: CourseTitleProps) => {
+const CommentInput = ({ paramId }: CommentProps) => {
+  const [comment, setComment] = useState("");
   const submitRef = useRef<HTMLButtonElement | any>();
   const [addComment] = useAddCommentMutation();
   const commentValue = comment.trim();
@@ -41,12 +37,13 @@ const CommentInput = ({ comment, setComment, paramId }: CourseTitleProps) => {
     };
     addComment(newComment);
     setComment("");
-    console.log(authService.currentUser?.displayName);
   };
   return (
     <>
       <form className="mb-20" onSubmit={commentSubmitHandler}>
         <textarea
+          wrap="hard"
+          cols={20}
           className="border-2 resize-none px-2 py-1 w-full h-28"
           placeholder={
             authService.currentUser
