@@ -3,15 +3,10 @@ import { MdOutlineMoreVert } from "react-icons/md";
 
 interface CourseTitleProps {
   setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
-  modalOpen: boolean;
-  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CourseTitle = ({
-  setIsEdit,
-  modalOpen,
-  setModalOpen,
-}: CourseTitleProps) => {
+const CourseTitle = ({ setIsEdit }: CourseTitleProps) => {
+  const [modalOpen, setModalOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   return (
     <div className="w-full">

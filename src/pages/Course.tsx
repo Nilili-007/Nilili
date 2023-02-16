@@ -1,33 +1,23 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import {
   CommentInput,
   CourseHashTag,
   CourseTitle,
   LikeBtn,
-  Comment,
+  CommentAsc,
   CommentDesc,
 } from "../components/course";
 import { PostTitle, PostHashTag } from "../components/post";
-import { useGetCommentQuery } from "../redux/modules/apiSlice";
 
 const Course = () => {
   const [isEdit, setIsEdit] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [comment, setComment] = useState("");
   const [desc, setDesc] = useState(true);
-  const { data } = useGetCommentQuery();
+  const paramId = useParams().id;
 
   return (
     <div className="w-11/12 md:w-3/4 m-auto">
-      {isEdit ? (
-        <PostTitle />
-      ) : (
-        <CourseTitle
-          setIsEdit={setIsEdit}
-          modalOpen={modalOpen}
-          setModalOpen={setModalOpen}
-        />
-      )}
+      {isEdit ? <PostTitle /> : <CourseTitle setIsEdit={setIsEdit} />}
       {isEdit ? (
         <>
           <PostHashTag />
@@ -42,7 +32,7 @@ const Course = () => {
         <CourseHashTag />
       )}
       <LikeBtn />
-      <CommentInput comment={comment} setComment={setComment} />
+      <CommentInput paramId={paramId} />
       <div className="mb-10">
         <div>
           <input
@@ -73,13 +63,11 @@ const Course = () => {
             }
           />
         </div>
-        <h2 className="text-xl font-bold">댓글({data?.length})</h2>
+
         {desc === true ? (
-          <CommentDesc />
+          <CommentDesc paramId={paramId} />
         ) : (
-          data?.map((comment) => {
-            return <Comment key={comment.id} comment={comment} />;
-          })
+          <CommentAsc paramId={paramId} />
         )}
       </div>
     </div>

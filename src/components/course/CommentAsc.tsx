@@ -1,14 +1,11 @@
 import React, { useState } from "react";
-import { useGetCommentDescQuery } from "../../redux/modules/apiSlice";
+import { useGetCommentQuery } from "../../redux/modules/apiSlice";
 import Comment from "./Comment";
+import { CommentProps } from "./CommentDesc";
 import Pagenation from "./Pagenation";
 
-export interface CommentProps {
-  paramId: string | undefined;
-}
-
-const CommentDesc = ({ paramId }: CommentProps) => {
-  const { data, isLoading, isError, error } = useGetCommentDescQuery();
+const CommentAsc = ({ paramId }: CommentProps) => {
+  const { data, isLoading, isError, error } = useGetCommentQuery();
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
   const filterData = data?.filter((comment) => comment.postId === paramId);
@@ -44,4 +41,4 @@ const CommentDesc = ({ paramId }: CommentProps) => {
   );
 };
 
-export default CommentDesc;
+export default CommentAsc;
