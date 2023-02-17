@@ -10,17 +10,16 @@ import {
 import { PostTitle, PostHashTag } from "../components/post";
 import { useGetCourseQuery } from "../redux/modules/apiSlice";
 
-
 const Course = () => {
   const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(false);
-  const [desc, setDesc] = useState(true);
   const { data } = useGetCourseQuery();
-
 
   const paramId = useParams().id;
 
-  const filterData = data?.filter((course) => course.id === paramId);
+  const filterData = data?.filter(
+    (course: CourseType) => course.id === paramId
+  );
   const courseData = filterData?.pop();
 
   if (paramId === "1") {
