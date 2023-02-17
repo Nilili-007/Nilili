@@ -4,7 +4,6 @@ const initialState = {
   courseList: [],
   filteredKey: "",
   filteredCourse: {},
-  descList: [],
 };
 
 const temporarySlice = createSlice({
@@ -14,9 +13,6 @@ const temporarySlice = createSlice({
     addCourse: (state: any, action) => {
       state.courseList = [...state.courseList, action.payload];
     },
-    updateCourse: (state: any, action) => {
-      state.courseList = action.payload;
-    },
     filterCourse: (state: any, action) => {
       state.filteredCourse = action.payload;
     },
@@ -25,35 +21,56 @@ const temporarySlice = createSlice({
         return item.id !== action.payload;
       });
     },
-    filterKey: (state: any, action) => {
-      state.filteredKey = action.payload;
-    },
-    addDesc: (state: any, action) => {
-      state.descList = [...state.descList, action.payload];
-    },
-    editDesc: (state: any, action) => {
-      state.descList = [...state.descList];
-      const i = state.descList.findIndex(
+    upCourse: (state: any, action) => {
+      state.courseList = [...state.courseList];
+      const i = state.courseList.findIndex(
         (item: any) => item.id === action.payload.id
       );
-      state.descList[i].desc = action.payload.desc;
+      if (i > 0) {
+        let temp = state.courseList[i];
+        state.courseList[i] = state.courseList[i - 1];
+        state.courseList[i - 1] = temp;
+      } else {
+        alert("첫 번째 코스입니다.");
+      }
     },
-    deleteDesc: (state: any, action) => {
-      state.descList = state.descList.filter((item: any) => {
-        return item.id !== action.payload;
-      });
+    downCourse: (state: any, action) => {
+      state.courseList = [...state.courseList];
+      const i = state.courseList.findIndex(
+        (item: any) => item.id === action.payload.id
+      );
+      if (i + 1 < state.courseList.length) {
+        let temp = state.courseList[i];
+        state.courseList[i] = state.courseList[i + 1];
+        state.courseList[i + 1] = temp;
+      } else {
+        alert("마지막 코스입니다.");
+      }
+    },
+    editMemo: (state: any, action) => {
+      state.courseList = [...state.courseList];
+      const i = state.courseList.findIndex(
+        (item: any) => item.id === action.payload.id
+      );
+      state.courseList[i].memo = action.payload.memo;
+    },
+    deleteMemo: (state: any, action) => {
+      state.courseList = [...state.courseList];
+      const i = state.courseList.findIndex(
+        (item: any) => item.id === action.payload
+      );
+      state.courseList[i].memo = "";
     },
   },
 });
 
 export const {
   addCourse,
-  updateCourse,
   deleteCourse,
   filterCourse,
-  filterKey,
-  addDesc,
-  editDesc,
-  deleteDesc,
+  upCourse,
+  downCourse,
+  editMemo,
+  deleteMemo,
 } = temporarySlice.actions;
 export default temporarySlice.reducer;

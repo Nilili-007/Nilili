@@ -16,7 +16,6 @@ const hashTagOptions = [
   { value: "#맛집", label: "#맛집" },
   { value: "#카페", label: "#카페" },
   { value: "#예술", label: "#예술" },
-  { value: "#예술", label: "#예술" },
   { value: "#캠핑", label: "#캠핑" },
   { value: "#섬", label: "#섬" },
   { value: "#역사", label: "#역사" },
@@ -32,7 +31,7 @@ const PostHashTag = ({ selectedTags, setSelectedTags }: tagProps) => {
   }
 
   return (
-    <div className="xs:-mt-5">
+    <div className="mb-8">
       <Select
         options={hashTagOptions}
         placeholder={"#해시태그"}

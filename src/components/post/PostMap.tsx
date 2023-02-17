@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import PostSearchModal from "./PostSearchModal";
-import PostCourseLine from "./PostCourseLine";
+import PostCourseLine from "./PostCourseInfo";
 
 const PostMap = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -50,7 +50,7 @@ const PostMap = () => {
         level={3}
         // @ts-ignore
         onCreate={setMap}
-        className="w-2/3 h-[1000px] z-0"
+        className="w-[65%] h-[1000px] z-0"
       >
         <MapMarker
           position={{

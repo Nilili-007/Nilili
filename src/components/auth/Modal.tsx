@@ -1,6 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import React, { useState, useEffect } from "react";
 import { authService } from "../../utils/firebase";
@@ -20,19 +21,7 @@ interface ModalProps {
   modalOutClick: (e: any) => void;
   modalRef: React.ForwardedRef<HTMLDivElement>;
 }
-
 const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
-  const [error, setError] = useState("");
-  const [emailerror, setEmailError] = useState("");
-  const [pwerror, setPWError] = useState("");
-  const [pwcheckerror, setPWCheckError] = useState("");
-
-  const [email, setEmail] = useState("");
-  const [pw, setPW] = useState("");
-
-  const [pwCheck, setPWCheck] = useState("");
-  const [isValidLogin, setIsValidLogin] = useState(false);
-
   const [category, setCategory] = useState("LG");
 
   const closeModal = () => {
@@ -42,122 +31,19 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
     }
   };
 
-  // login 유효성 검사
-  const loginvalidationCheck = () => {
-    const emailRegex =
-      /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-
-    if (!email && !pw) {
-      setError("이메일과 비밀번호를 입력해주세요.");
-      return;
-    } else if (!emailRegex.test(email)) {
-      setError("");
-      setEmailError("이메일 형식이 아닙니다.");
-      setPWError("");
-      return;
-    } else if (!email) {
-      setError("");
-      setEmailError("이메일을 입력해주세요.");
-      return;
-    } else if (!pw) {
-      setError("");
-      setEmailError("");
-      setPWError("비밀번호를 입력해주세요");
-      return;
-    } else {
-      setError("");
-      setEmailError("");
-      setPWError("");
-      setIsValidLogin(true);
-      return;
-    }
-  };
-
-  // register 유효성 검사
-  const registerValidationCheck = () => {
-    const pwRegex = /^[A-Za-z0-9]{8,15}$/;
-
-    loginvalidationCheck();
-    if (!pwRegex.test(pw)) {
-      setPWError(
-        "비밀번호는 영문 대소문자, 숫자를 혼합하여 8~15자로 입력해주세요."
-      );
-      return;
-    } else if (!pwCheck) {
-      setPWCheckError("비밀번호를 다시 한번 입력해주세요.");
-      return;
-    } else if (pw !== pwCheck) {
-      setPWCheckError("비밀번호가 맞지 않습니다. 다시 입력해주세요");
-      return;
-    } else {
-      setError("");
-      setEmailError("");
-      setPWError("");
-      setPWCheckError("");
-      return;
-    }
-  };
-
-  useEffect(() => {
-    if (pwCheck) {
-      registerValidationCheck();
-    } else {
-      loginvalidationCheck();
-    }
-  }, [email, pw, pwCheck]);
-
   const loginBtn = (
     event: React.MouseEvent<HTMLDivElement | HTMLButtonElement>
   ) => {
-    if (category === "LG") {
-      if (!isValidLogin) {
-        return;
-      }
-
-      // email로 로그인 하기
-      signInWithEmailAndPassword(authService, email, pw)
-        .then(() => {
-          alert("로그인 성공");
-          setModal(false);
-          document.body.style.overflow = "unset";
-        })
-        .catch((error) => {
-          console.log("error: ", error);
-          setError("아이디와 비밀번호를 확인해주세요.");
-        });
-    }
-
     if (category !== "LG") {
       setCategory("LG");
-      setPW("");
-      setEmail("");
-      setPWCheck("");
-      setError("");
     }
   };
 
   const registerBtn = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    if (category === "SU") {
-      registerValidationCheck();
-      createUserWithEmailAndPassword(authService, email, pw)
-        .then((userCredential) => {
-          alert("회원가입 성공");
-          setModal(false);
-        })
-        .catch((error) => {
-          if (error.code === "auth/email-already-in-use") {
-            setError("이미 사용중인 이메일입니다.");
-          }
-        });
-    }
     if (category !== "SU") {
       setCategory("SU");
-      setPW("");
-      setEmail("");
-      setPWCheck("");
-      setError("");
     }
   };
 
@@ -172,18 +58,7 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             {category === "LG" ? (
               <>
-                <Login
-                  email={email}
-                  pw={pw}
-                  setEmail={setEmail}
-                  setPW={setPW}
-                  closeModal={closeModal}
-                  error={error}
-                  emailerror={emailerror}
-                  pwerror={pwerror}
-                  loginBtn={loginBtn}
-                  setModal={setModal}
-                />
+                <Login closeModal={closeModal} setModal={setModal} />
                 <div className="flex items-center justify-center p-2 border-t border-solid border-blueGray-200 rounded-b">
                   <div className="flex items-center justify-center text-gray-500 text-xs mr-5">
                     비밀번호를 잊어버리셨나요?
@@ -211,20 +86,7 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
               </>
             ) : category === "SU" ? (
               <>
-                <Register
-                  setEmail={setEmail}
-                  pwCheck={pwCheck}
-                  setPW={setPW}
-                  setPWCheck={setPWCheck}
-                  pw={pw}
-                  email={email}
-                  error={error}
-                  emailerror={emailerror}
-                  pwerror={pwerror}
-                  pwcheckerror={pwcheckerror}
-                  registerBtn={registerBtn}
-                  closeModal={closeModal}
-                />
+                <Register closeModal={closeModal} setModal={setModal} />
                 <div className="flex items-center justify-center p-6 border-t border-solid border-blueGray-200 rounded-b">
                   <div className="flex items-center justify-center text-gray-500 text-xs mr-5">
                     이미 회원이라면?

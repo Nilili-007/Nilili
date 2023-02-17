@@ -1,9 +1,9 @@
 import {
   Landing,
   Path,
-  CityList,
-  RecentList,
-  RandomList,
+  HashtagList,
+  BeforeRecent,
+  AfterLike,
 } from "../components/main";
 
 const Main = () => {
@@ -11,9 +11,9 @@ const Main = () => {
     <div className=" flex flex-wrap flex-col items-center ">
       <Landing />
       <Path />
-      <CityList />
-      <RecentList />
-      <RandomList />
+      <BeforeRecent />
+      <AfterLike />
+      <HashtagList />
     </div>
   );
 };

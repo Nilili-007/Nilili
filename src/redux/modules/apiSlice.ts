@@ -17,6 +17,7 @@ export const courseApi = createApi({
   baseQuery: fetchBaseQuery(),
   tagTypes: ["Courses"],
   endpoints: (builder) => ({
+    //Course reducer
     addCourse: builder.mutation({
       async queryFn(newCourse) {
         try {
@@ -29,9 +30,55 @@ export const courseApi = createApi({
       },
       invalidatesTags: ["Courses"],
     }),
-    //like 갯수 받아오기 위해 만든 임시 코드입니다.
-    getLikes: builder.query<CourseType[], void>({
+    getCourse: builder.query<CourseType[], void>({
       async queryFn() {
+        try {
+          const courseQuery = query(
+            collection(dbService, "courses"),
+            orderBy("createdAt", "desc")
+          );
+          const querySnapshot = await getDocs(courseQuery);
+          let courses: any = [];
+          querySnapshot?.forEach((doc) => {
+            courses.push({ id: doc.id, ...doc.data() } as CourseType);
+          });
+          return { data: courses };
+        } catch (error: any) {
+          console.error(error.message);
+          return { error: error.message };
+        }
+      },
+      providesTags: ["Courses"],
+    }),
+
+    //list reducer
+    getLikeList: builder.query<CourseType[], void>({
+      async queryFn() {
+        try {
+          const courseQuery = query(
+            collection(dbService, "courses"),
+            orderBy("likes", "desc")
+          );
+          const querySnapshot = await getDocs(courseQuery);
+          let courses: any = [];
+          querySnapshot?.forEach((doc) => {
+            courses.push({
+              id: doc.id,
+              ...doc.data(),
+            } as CourseType);
+          });
+          return { data: courses };
+        } catch (error: any) {
+          console.error(error.message);
+          return { error: error.message };
+        }
+      },
+      providesTags: ["Courses"],
+    }),
+
+    //Comment Reducer
+    addComment: builder.mutation({
+      async queryFn(newComment) {
         try {
           const courseQuery = query(collection(dbService, "courses"));
           const querySnaphot = await getDocs(courseQuery);
@@ -68,9 +115,9 @@ export const courseApi = createApi({
             collection(dbService, "comments"),
             orderBy("createdAt", "desc")
           );
-          const querySnaphot = await getDocs(commentQuery);
+          const querySnapshot = await getDocs(commentQuery);
           let comments: any = [];
-          querySnaphot?.forEach((doc) => {
+          querySnapshot?.forEach((doc) => {
             comments.push({ id: doc.id, ...doc.data() } as CommentType);
           });
           return { data: comments };
@@ -112,7 +159,8 @@ export const courseApi = createApi({
 
 export const {
   useAddCourseMutation,
-  useGetLikesQuery,
+  useGetCourseQuery,
+  useGetLikeListQuery,
   useAddCommentMutation,
   useGetCommentQuery,
   useDeleteCommentMutation,

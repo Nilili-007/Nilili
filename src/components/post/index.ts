@@ -1,19 +1,23 @@
 import PostBtn from "./PostBtn";
 import PostCourseDesc from "./PostCourseDesc";
-import PostCourseLine from "./PostCourseLine";
+import PostCourseInfo from "./PostCourseInfo";
 import PostHashTag from "./PostHashTag";
 import PostMap from "./PostMap";
 import PostSearchModal from "./PostSearchModal";
 import PostTextarea from "./PostTextarea";
 import PostTitle from "./PostTitle";
+import PostHeader from "./PostHeader";
+import PostTravelStatus from "./PostTravelStatus";
 
 export {
   PostBtn,
   PostCourseDesc,
-  PostCourseLine,
+  PostCourseInfo,
   PostHashTag,
   PostMap,
   PostSearchModal,
   PostTextarea,
   PostTitle,
+  PostHeader,
+  PostTravelStatus,
 };
