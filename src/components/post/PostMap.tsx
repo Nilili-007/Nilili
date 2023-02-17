@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { Map } from "react-kakao-maps-sdk";
 import PostSearchModal from "./PostSearchModal";
 import PostCourseLine from "./PostCourseInfo";
+import PostMarkers from "./PostMarkers";
 
 const PostMap = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [searchList, setSearchList] = useState([]);
-  const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
 
   useEffect(() => {
@@ -31,8 +31,6 @@ const PostMap = () => {
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
         }
         // @ts-ignore
-        setMarkers(markers);
-        // @ts-ignore
         map.setBounds(bounds);
         // @ts-ignore
         setSearchList(data);
@@ -47,17 +45,12 @@ const PostMap = () => {
           lat: 37.566826,
           lng: 126.9786567,
         }}
-        level={3}
+        level={7}
         // @ts-ignore
         onCreate={setMap}
-        className="w-[65%] h-[1000px] z-0"
+        className="w-[65%] h-[70vh] z-0"
       >
-        <MapMarker
-          position={{
-            lat: 37.566826,
-            lng: 126.9786567,
-          }}
-        />
+        <PostMarkers />
       </Map>
       <PostCourseLine modalOpen={modalOpen} setModalOpen={setModalOpen} />
       {modalOpen && (

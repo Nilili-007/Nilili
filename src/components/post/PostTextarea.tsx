@@ -38,12 +38,14 @@ const PostTextarea = ({ item }: any) => {
   };
 
   const onClickEditMemo = (item: any) => {
+    dispatch(filterCourse(item.id));
+
     const newMemo = {
       id: item.id,
       memo: text,
     };
-    setText(item.memo);
     setEdit(false);
+    setText(item.memo);
     dispatch(editMemo(newMemo));
   };
 
@@ -79,10 +81,8 @@ const PostTextarea = ({ item }: any) => {
             <>
               <textarea
                 autoFocus
-                placeholder="자유롭게 메모를 남겨보세요."
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                onClick={() => onClickGetId(item)}
                 className="border-b border-gray-600 w-full h-20 mt-3 ml-3 py-1 text-sm focus:outline-none"
               />
             </>

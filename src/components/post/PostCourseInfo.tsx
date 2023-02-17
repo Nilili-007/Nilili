@@ -7,9 +7,10 @@ import {
   upCourse,
 } from "../../redux/modules/temporarySlice";
 import { TiMinus } from "react-icons/ti";
-import { AiOutlineUp, AiOutlineDown } from "react-icons/ai";
+import { AiOutlineUp, AiOutlineDown, AiOutlinePlus } from "react-icons/ai";
 import PostCourseDesc from "./PostCourseDesc";
 import PostTextarea from "./PostTextarea";
+import PostBtn from "./PostBtn";
 
 interface PostProps {
   modalOpen: boolean;
@@ -49,7 +50,7 @@ const PostCourseInfo = ({ modalOpen, setModalOpen }: PostProps) => {
   }, [courseList]);
 
   return (
-    <div className="w-[35%] h-[1000px] pl-7 float-right">
+    <div className="w-[35%] h-[62vh] pl-7 float-right">
       <div className="flex flex-col h-full overflow-y-scroll ">
         {lists?.map((item: any, key: any) => {
           return (
@@ -80,10 +81,14 @@ const PostCourseInfo = ({ modalOpen, setModalOpen }: PostProps) => {
             </div>
           );
         })}
-        <button onClick={showModal} className="bg-black text-white py-2">
-          여행지 추가하기
-        </button>
       </div>
+      <button
+        onClick={showModal}
+        className="w-full border border-gray-400 py-2 flex justify-center"
+      >
+        <AiOutlinePlus className="text-5xl text-gray-300" />
+      </button>
+      <PostBtn />
     </div>
   );
 };
