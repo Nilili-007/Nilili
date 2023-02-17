@@ -13,9 +13,7 @@ import {
 
 import { useNavigate } from "react-router-dom";
 import { useAddCourseMutation } from "../redux/modules/apiSlice";
-interface IinitialList {
-  name: string;
-}
+import { authService } from "../utils/firebase";
 
 //select option의 타입
 export interface optionType {
@@ -25,8 +23,6 @@ export interface optionType {
 
 const Post = () => {
   const navigate = useNavigate();
-  const [modalOpen, setModalOpen] = useState(false);
-  const [targetPlace, setTargetPlace] = useState("");
   const [addCourse] = useAddCourseMutation();
 
   //카테고리 선택
@@ -36,19 +32,32 @@ const Post = () => {
   //해시태그 선택
   const [selectedTags, setSelectedTags] = useState<optionType[] | null>([]);
 
+  const userID = authService.currentUser?.uid;
   //Hashtag 테스트용 submit handler
-  const submitHandle = (event: React.FormEvent<HTMLFormElement>) => {
+  const submitHandle = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     //selectedTags는 오브젝트 배열입니다.
     //hashtag는 데이터베이스에 문자열 배열로 들어가야 하기 때문에, value 값만 추출하여 문자열배열로 바꿉니다.
     let selectedValues = selectedTags?.map((tag) => tag.value);
+
     const newPost = {
-      category,
-      selectedValues,
-      courseTitle,
+      location: category,
+      hashtags: selectedValues,
+      title: courseTitle,
+      image: "/assets/course.jpg",
+      createdAt: JSON.stringify(new Date()),
+      likes: 70,
+      likesID: [userID],
+      userID,
+      nickname: "선형",
+      isDone: true,
+      places: [],
     };
-    addCourse(newPost);
-    navigate("/course");
+
+    await addCourse(newPost); //비동기 제일 마지막에 실행됌. eventloop - 공부
+    //usemutation에 onSuccess
+    window.alert("게시물이 등록되었습니다");
+    navigate(`/course/1`);
   };
 
   // 게시글 데이터 DB : uuid, createdAt, 카테고리, 제목, 해시태그, initialPlace

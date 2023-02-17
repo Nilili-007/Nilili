@@ -1,5 +1,5 @@
-import UserName from "./UserName";
+import UserNameEdit from "./UserName";
 import UserCategoryBtn from "./UserCategoryBtn";
 import UserList from "./UserList";
 
-export { UserName, UserCategoryBtn, UserList };
+export { UserNameEdit, UserCategoryBtn, UserList };

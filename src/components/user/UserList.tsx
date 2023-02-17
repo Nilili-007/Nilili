@@ -1,4 +1,30 @@
-const UserList = () => {
+import { useGetCourseQuery } from "../../redux/modules/apiSlice";
+import { authService } from "../../utils/firebase";
+import { Link } from "react-router-dom";
+type UserListType = {
+  category: string;
+  done: boolean;
+};
+
+const UserList = ({ category, done }: UserListType) => {
+  const { data, isLoading, isError } = useGetCourseQuery();
+
+  if (isLoading) {
+    return <>로딩중....</>;
+  }
+  if (isError) {
+    return <>에러가 발생했습니다.</>;
+  }
+
+  const userID = authService.currentUser?.uid;
+  const mypaths = data?.filter(
+    (item) => item.userID === userID && item.isDone === done
+  );
+  const mylikes = data?.filter(
+    (item) => item.likesID?.includes(userID) && item.isDone === done
+  );
+  let userdata = category === "MY" ? mypaths : mylikes;
+
   return (
     <div className="my-10 3xl:w-[60%] 2xl:w-[70%] w-[90%] ">
       <p className=" ml-4 my-[2%] w-fit xl:text-[55px] lg:text-[45px] sm:text-[35px] text-2xl font-bold  ">
@@ -8,22 +34,19 @@ const UserList = () => {
         NILILI 사용자가 가장 최근 올린 일정을 함께해보세요.
       </p>
 
-      <ul className="  overflow-x-auto whitespace-nowrap no-scrollbar">
-        {new Array(4).fill(null).map((_, idx) => (
-          <li
-            className="md:w-[24%] w-[360px]  inline-block mx-3 pt-6 border-t-2 border-black   "
-            key={idx}
-          >
-            <img alt="최신순 이미지" src="/assets/course.jpg" />
-            <p className="pr-4 ml-1 mt-5 mb-5 sm:text-2xl text-xl overflow-hidden font-black ">
-              title 제목이 아주 아주 길어지는 경우에 어떻게 보일까요 근데 제목에
-              글자 수 제한을 넣어야 할까요 아니면 몇글자까지 보여주는 제한만
-              주는게 좋을까요
-            </p>
-            <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
-              작성자 이름
-            </p>
-          </li>
+      <ul>
+        {userdata?.map((item: CourseType) => (
+          <Link to={`/course/${item.id}`} key={item.id}>
+            <li className="md:w-[24%] w-[360px]  inline-block mx-3 pt-6 border-t-2 border-black   ">
+              <img alt="최신순 이미지" src="/assets/course.jpg" />
+              <p className="pr-4 ml-1 mt-5 mb-5 sm:text-2xl text-xl overflow-hidden font-black ">
+                {item.title}
+              </p>
+              <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
+                {item.createdAt}
+              </p>
+            </li>
+          </Link>
         ))}
       </ul>
     </div>
