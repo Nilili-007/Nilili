@@ -4,7 +4,6 @@ import {
   HashtagList,
   BeforeRecent,
   AfterLike,
-  AfterRecent,
 } from "../components/main";
 
 const Main = () => {
@@ -14,7 +13,6 @@ const Main = () => {
       <Path />
       <BeforeRecent />
       <AfterLike />
-      <AfterRecent />
       <HashtagList />
     </div>
   );
