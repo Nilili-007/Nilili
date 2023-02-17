@@ -1,7 +1,6 @@
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import React, { useEffect, useRef, useState } from "react";
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
-import { CourseType } from "../../pages/Post";
 import { authService, dbService } from "../../utils/firebase";
 interface LikeProps {
   paramId: string | any;
@@ -10,7 +9,7 @@ interface LikeProps {
 
 const LikeBtn = ({ paramId, course }: LikeProps) => {
   const [like, setLike] = useState(false);
-  const courseLikes: any = course && course?.likeUsers.length;
+  const courseLikes: any = course && course?.likesID.length;
   const [likeCount, setLikeCount] = useState<number | any>(0);
   const currentId = authService.currentUser?.uid;
   const courseRef = doc(dbService, "courses", paramId);
@@ -39,7 +38,7 @@ const LikeBtn = ({ paramId, course }: LikeProps) => {
   };
   useEffect(() => {
     setLikeCount(courseLikes);
-    const likeUser = course?.likeUsers.find((user) => user === currentId);
+    const likeUser = course?.likesID.find((user) => user === currentId);
     if (likeUser) {
       setLike(true);
     } else {

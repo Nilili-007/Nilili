@@ -10,7 +10,6 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { CommentType } from "../../components/course/CommentInput";
-import { CourseType } from "../../pages/Post";
 import { dbService } from "../../utils/firebase";
 
 export const courseApi = createApi({
@@ -66,25 +65,6 @@ export const courseApi = createApi({
               id: doc.id,
               ...doc.data(),
             } as CourseType);
-          });
-          return { data: courses };
-        } catch (error: any) {
-          console.error(error.message);
-          return { error: error.message };
-        }
-      },
-      providesTags: ["Courses"],
-    }),
-
-    //Comment Reducer
-    addComment: builder.mutation({
-      async queryFn(newComment) {
-        try {
-          const courseQuery = query(collection(dbService, "courses"));
-          const querySnaphot = await getDocs(courseQuery);
-          let courses: any = [];
-          querySnaphot?.forEach((doc) => {
-            courses.push({ id: doc.id, ...doc.data() });
           });
           return { data: courses };
         } catch (error: any) {
