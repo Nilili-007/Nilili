@@ -10,6 +10,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { CommentType } from "../../components/course/CommentInput";
+import { CourseType } from "../../pages/Post";
 import { dbService } from "../../utils/firebase";
 
 export const courseApi = createApi({
@@ -79,6 +80,25 @@ export const courseApi = createApi({
     addComment: builder.mutation({
       async queryFn(newComment) {
         try {
+          const courseQuery = query(collection(dbService, "courses"));
+          const querySnaphot = await getDocs(courseQuery);
+          let courses: any = [];
+          querySnaphot?.forEach((doc) => {
+            courses.push({ id: doc.id, ...doc.data() });
+          });
+          return { data: courses };
+        } catch (error: any) {
+          console.error(error.message);
+          return { error: error.message };
+        }
+      },
+      providesTags: ["Courses"],
+    }),
+
+    //Comment Reducer
+    addComment: builder.mutation({
+      async queryFn(newComment) {
+        try {
           await addDoc(collection(dbService, "comments"), newComment);
           return { data: newComment };
         } catch (error: any) {
@@ -88,32 +108,12 @@ export const courseApi = createApi({
       },
       invalidatesTags: ["Courses"],
     }),
-    getCommentDesc: builder.query<CommentType[], void>({
-      async queryFn(desc) {
-        try {
-          const commentQuery = query(
-            collection(dbService, "comments"),
-            orderBy("createdAt", "desc")
-          );
-          const querySnaphot = await getDocs(commentQuery);
-          let comments: any = [];
-          querySnaphot?.forEach((doc) => {
-            comments.push({ id: doc.id, ...doc.data() } as CommentType);
-          });
-          return { data: comments };
-        } catch (error: any) {
-          console.error(error.message);
-          return { error: error.message };
-        }
-      },
-      providesTags: ["Courses"],
-    }),
     getComment: builder.query<CommentType[], void>({
       async queryFn() {
         try {
           const commentQuery = query(
             collection(dbService, "comments"),
-            orderBy("createdAt", "asc")
+            orderBy("createdAt", "desc")
           );
           const querySnapshot = await getDocs(commentQuery);
           let comments: any = [];
@@ -163,7 +163,6 @@ export const {
   useGetLikeListQuery,
   useAddCommentMutation,
   useGetCommentQuery,
-  useGetCommentDescQuery,
   useDeleteCommentMutation,
   useUpdateCommentMutation,
 } = courseApi;

@@ -21,6 +21,15 @@ export interface optionType {
   label: string;
 }
 
+export interface CourseType {
+  id: string;
+  category: string;
+  selectedValues: string[];
+  courseTitle: string;
+  likes: 0;
+  likeUsers: string[];
+}
+
 const Post = () => {
   const navigate = useNavigate();
   const [addCourse] = useAddCourseMutation();

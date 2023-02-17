@@ -5,11 +5,11 @@ import {
   CourseHashTag,
   CourseTitle,
   LikeBtn,
-  CommentAsc,
   CommentDesc,
 } from "../components/course";
 import { PostTitle, PostHashTag } from "../components/post";
 import { useGetCourseQuery } from "../redux/modules/apiSlice";
+
 
 const Course = () => {
   const navigate = useNavigate();
@@ -17,7 +17,11 @@ const Course = () => {
   const [desc, setDesc] = useState(true);
   const { data } = useGetCourseQuery();
 
+
   const paramId = useParams().id;
+
+  const filterData = data?.filter((course) => course.id === paramId);
+  const courseData = filterData?.pop();
 
   if (paramId === "1") {
     const test = data && data[0].id;
@@ -41,45 +45,9 @@ const Course = () => {
       ) : (
         <CourseHashTag />
       )}
-      <LikeBtn />
+      <LikeBtn paramId={paramId} course={courseData} />
       <CommentInput paramId={paramId} />
-      <div className="mb-10">
-        <div>
-          <input
-            id="desc"
-            type="button"
-            onClick={() => {
-              setDesc(true);
-            }}
-            value="최신순"
-            style={
-              desc === true
-                ? { fontWeight: 600, textDecoration: "underline" }
-                : undefined
-            }
-            className="mr-2 mb-4"
-          />
-          <input
-            id="asc"
-            type="button"
-            onClick={() => {
-              setDesc(false);
-            }}
-            value="오래된 순"
-            style={
-              desc === false
-                ? { fontWeight: 600, textDecoration: "underline" }
-                : undefined
-            }
-          />
-        </div>
-
-        {desc === true ? (
-          <CommentDesc paramId={paramId} />
-        ) : (
-          <CommentAsc paramId={paramId} />
-        )}
-      </div>
+      <CommentDesc paramId={paramId} />
     </div>
   );
 };
