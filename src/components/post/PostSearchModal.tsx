@@ -8,6 +8,7 @@ interface PostProps {
   setSearchKeyword: Dispatch<SetStateAction<string>>;
   searchList: object[];
   setSearchList: Dispatch<SetStateAction<any>>;
+  searchCnt: any;
 }
 
 const PostSearchModal = ({
@@ -15,6 +16,7 @@ const PostSearchModal = ({
   setSearchKeyword,
   searchList,
   setSearchList,
+  searchCnt,
 }: PostProps) => {
   const dispatch = useDispatch();
   const [text, setText] = useState("");
@@ -47,7 +49,7 @@ const PostSearchModal = ({
   };
 
   return (
-    <div className="w-[800px] pb-5 bg-white border border-black absolute translate-x-[10%] -translate-y-[10%] xs:w-11/12 xs:h-auto xs:h-max-5/6 xs:translate-x-0 xs:-translate-y-64 z-[999]">
+    <div className="w-[800px] pb-5 bg-white border border-black absolute translate-x-[10%] -translate-y-[20%] xs:w-11/12 xs:h-auto xs:h-max-5/6 xs:translate-x-0 xs:-translate-y-64 z-[999]">
       <div className="px-8 py-4">
         <div className="flex items-center border-b border-gray-600 mb-5 pb-3">
           <h3 className="text-2xl font-bold ">여행지 찾기</h3>
@@ -71,7 +73,7 @@ const PostSearchModal = ({
       <div className="overflow-y-scroll max-h-[1000px]">
         {searchList.length > 0 ? (
           <h4 className="my-3 font-bold text-xl px-8 ">
-            검색결과({searchList.length})
+            검색결과({searchCnt})
           </h4>
         ) : (
           ""
@@ -94,6 +96,10 @@ const PostSearchModal = ({
           );
         })}
       </div>
+      <div
+        id="pagination"
+        className="text-2xl font-bold tracking-[20px] flex justify-center items-center mt-5"
+      />
     </div>
   );
 };

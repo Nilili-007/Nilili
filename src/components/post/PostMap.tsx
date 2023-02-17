@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Map, ZoomControl, MapTypeControl } from "react-kakao-maps-sdk";
+import { Map, MapTypeControl } from "react-kakao-maps-sdk";
 import PostSearchModal from "./PostSearchModal";
 import PostCourseLine from "./PostCourseInfo";
 import PostMarkers from "./PostMarkers";
@@ -8,12 +8,46 @@ const PostMap = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [searchList, setSearchList] = useState([]);
+  const [searchCnt, setSearchCnt] = useState<number | null>();
   const [map, setMap] = useState();
 
   useEffect(() => {
     const ps = new kakao.maps.services.Places();
 
-    ps.keywordSearch(searchKeyword, (data, status, _pagination) => {
+    ps.keywordSearch(searchKeyword, (data, status, pagination) => {
+      const displayPagination = (pagination: any) => {
+        var paginationEl = document.getElementById("pagination"),
+          fragment = document.createDocumentFragment(),
+          i;
+
+        // @ts-ignore
+        while (paginationEl.hasChildNodes()) {
+          // @ts-ignore
+          paginationEl.removeChild(paginationEl.lastChild);
+        }
+
+        for (i = 1; i <= pagination.last; i++) {
+          var el = document.createElement("a");
+          el.href = "#";
+          // @ts-ignore
+          el.innerHTML = i;
+
+          if (i === pagination.current) {
+            el.className = "on";
+          } else {
+            el.onclick = (function (i) {
+              return function () {
+                pagination.gotoPage(i);
+              };
+            })(i);
+          }
+
+          fragment.appendChild(el);
+        }
+        // @ts-ignore
+        paginationEl.appendChild(fragment);
+      };
+
       if (status === kakao.maps.services.Status.OK) {
         const bounds = new kakao.maps.LatLngBounds();
         let markers = [];
@@ -30,10 +64,13 @@ const PostMap = () => {
           // @ts-ignore
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
         }
+
         // @ts-ignore
         map.setBounds(bounds);
         // @ts-ignore
         setSearchList(data);
+        displayPagination(pagination);
+        setSearchCnt(pagination.totalCount);
       }
     });
   }, [searchKeyword]);
@@ -61,6 +98,7 @@ const PostMap = () => {
           setSearchKeyword={setSearchKeyword}
           searchList={searchList}
           setSearchList={setSearchList}
+          searchCnt={searchCnt}
         />
       )}
     </div>
