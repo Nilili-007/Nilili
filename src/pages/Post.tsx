@@ -3,7 +3,6 @@
 
 import { useState } from "react";
 import {
-  PostBtn,
   PostHashTag,
   PostTitle,
   PostMap,
@@ -25,9 +24,12 @@ const Post = () => {
   const navigate = useNavigate();
   const [addCourse] = useAddCourseMutation();
 
-  //카테고리 선택
+  //지역 선택
   const [category, setCategory] = useState("");
   const [courseTitle, setCourseTitle] = useState("");
+
+  // 여행전/후 선택
+  const [travelStats, setTravelStatus] = useState<boolean | null>(false);
 
   //해시태그 선택
   const [selectedTags, setSelectedTags] = useState<optionType[] | null>([]);
@@ -64,9 +66,9 @@ const Post = () => {
 
   return (
     // <form onSubmit={submitHandle}>
-    <>
+    <div className="h-[100vh] mb-20">
       <PostHeader />
-      <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0">
+      <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0 ">
         <div className="flex">
           <div className="flex flex-col">
             <p className="text-2xl font-bold">목적지를 추가해보세요.</p>
@@ -74,7 +76,10 @@ const Post = () => {
               간단한 클릭으로 여행지를 추가할 수 있어요.
             </p>
           </div>
-          <PostTravelStatus />
+          <PostTravelStatus
+            travelStatus={travelStats}
+            setTravelStatus={setTravelStatus}
+          />
         </div>
         <PostTitle
           category={category}
@@ -87,9 +92,8 @@ const Post = () => {
           setSelectedTags={setSelectedTags}
         />
         <PostMap />
-        <PostBtn />
       </div>
-    </>
+    </div>
     // </form>
   );
 };

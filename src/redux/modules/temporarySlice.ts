@@ -2,8 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   courseList: [],
-  filteredKey: "",
-  filteredCourse: {},
+  filteredId: "",
 };
 
 const temporarySlice = createSlice({
@@ -14,7 +13,7 @@ const temporarySlice = createSlice({
       state.courseList = [...state.courseList, action.payload];
     },
     filterCourse: (state: any, action) => {
-      state.filteredCourse = action.payload;
+      state.filteredId = action.payload;
     },
     deleteCourse: (state: any, action) => {
       state.courseList = state.courseList.filter((item: any) => {
