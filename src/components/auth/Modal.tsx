@@ -56,79 +56,79 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
   };
 
   // login 유효성 검사
-  const loginvalidationCheck = () => {
-    if (!email && !pw) {
-      setError("이메일과 비밀번호를 입력해주세요");
-      return;
-    }
-    if (!email && correctPW) {
-      setError("");
-      setEmailError("이메일을 입력해주세요");
-      setPWError("");
-      return;
-    }
-    if (!pw && correctEmail) {
-      setError("");
-      setPWError("비밀번호를 입력해주세요");
-      return;
-    }
-    if (correctEmail === null) {
-      setError("");
-      setEmailError("이메일 형식이 아닙니다");
-      return;
-    }
-    if (correctPW === null) {
-      setError("");
-      setEmailError("");
-      setPWError("비밀번호 형식이 아닙니다");
-      return;
-    } else {
-      setError("");
-      setEmailError("");
-      setPWError("");
-      setIsValidLogin(true);
-      return;
-    }
-  };
+  // const loginvalidationCheck = () => {
+  //   if (!email && !pw) {
+  //     setError("이메일과 비밀번호를 입력해주세요");
+  //     return;
+  //   }
+  //   if (!email && correctPW) {
+  //     setError("");
+  //     setEmailError("이메일을 입력해주세요");
+  //     setPWError("");
+  //     return;
+  //   }
+  //   if (!pw && correctEmail) {
+  //     setError("");
+  //     setPWError("비밀번호를 입력해주세요");
+  //     return;
+  //   }
+  //   if (correctEmail === null) {
+  //     setError("");
+  //     setEmailError("이메일 형식이 아닙니다");
+  //     return;
+  //   }
+  //   if (correctPW === null) {
+  //     setError("");
+  //     setEmailError("");
+  //     setPWError("비밀번호 형식이 아닙니다");
+  //     return;
+  //   } else {
+  //     setError("");
+  //     setEmailError("");
+  //     setPWError("");
+  //     setIsValidLogin(true);
+  //     return;
+  //   }
+  // };
 
   // register 유효성 검사
-  const registerValidationCheck = () => {
-    loginvalidationCheck();
-    if (!userNameRegex.test(userName)) {
-      setNameError(
-        "닉네임은 2~8자로 영어 또는 숫자 또는 한글이 조합되어야 합니다."
-      );
-      return;
-    } else if (!pwRegex.test(pw)) {
-      setPWError(
-        "비밀번호는 영문 대소문자, 숫자를 혼합하여 8~15자로 입력해주세요."
-      );
-      return;
-    } else if (!userName) {
-      setNameError("닉네임을 입력해주세요");
-      setError("");
-    } else if (!pwCheck && !pwRegex.test(pw)) {
-      setPWCheckError("비밀번호를 다시 한번 입력해주세요.");
-      return;
-    } else if (pw !== pwCheck) {
-      setPWCheckError("비밀번호가 맞지 않습니다. 다시 입력해주세요");
-      return;
-    } else {
-      setError("");
-      setEmailError("");
-      setPWError("");
-      setPWCheckError("");
-      return;
-    }
-  };
+  // const registerValidationCheck = () => {
+  //   loginvalidationCheck();
+  //   if (!userNameRegex.test(userName)) {
+  //     setNameError(
+  //       "닉네임은 2~8자로 영어 또는 숫자 또는 한글이 조합되어야 합니다."
+  //     );
+  //     return;
+  //   } else if (!pwRegex.test(pw)) {
+  //     setPWError(
+  //       "비밀번호는 영문 대소문자, 숫자를 혼합하여 8~15자로 입력해주세요."
+  //     );
+  //     return;
+  //   } else if (!userName) {
+  //     setNameError("닉네임을 입력해주세요");
+  //     setError("");
+  //   } else if (!pwCheck && !pwRegex.test(pw)) {
+  //     setPWCheckError("비밀번호를 다시 한번 입력해주세요.");
+  //     return;
+  //   } else if (pw !== pwCheck) {
+  //     setPWCheckError("비밀번호가 맞지 않습니다. 다시 입력해주세요");
+  //     return;
+  //   } else {
+  //     setError("");
+  //     setEmailError("");
+  //     setPWError("");
+  //     setPWCheckError("");
+  //     return;
+  //   }
+  // };
 
-  useEffect(() => {
-    if (pwCheck) {
-      registerValidationCheck();
-    } else {
-      loginvalidationCheck();
-    }
-  }, [email, pw, pwCheck, userName]);
+  // useEffect(() => {
+  //   if (pwCheck) {
+  //     registerValidationCheck();
+  //   } else {
+  //     loginvalidationCheck();
+  //   }
+  // }, [email, pw, pwCheck, userName]);
 
   const loginBtn = (
     event: React.MouseEvent<HTMLDivElement | HTMLButtonElement>
@@ -165,36 +165,10 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     if (category === "SU") {
-      registerValidationCheck();
-      createUserWithEmailAndPassword(authService, email, pw)
-        .then((data) => {
-          // alert("회원가입 성공");
-          // setModal(false);
-          updateProfile(data.user, {
-            displayName: userName,
-            photoURL:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-          });
-          return data.user;
-        })
-        .then((item) => {
-          console.log(item);
-          const userData = {
-            photoURL:
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-            uid: item.uid,
-            displayName: userName,
-            email: item.email,
-          };
-          console.log(userData);
-          localStorage.setItem("User", JSON.stringify(userData));
-          setModal(false);
-        })
-        .catch((error) => {
-          if (error.code === "auth/email-already-in-use") {
-            setError("이미 사용중인 이메일입니다.");
-          }
-        });
+      setPW("");
+      setEmail("");
+      setPWCheck("");
+      setError("");
     }
     if (category !== "SU") {
       setCategory("SU");
@@ -255,23 +229,7 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
               </>
             ) : category === "SU" ? (
               <>
-                <Register
-                  userName={userName}
-                  setUserName={setUserName}
-                  setEmail={setEmail}
-                  pwCheck={pwCheck}
-                  setPW={setPW}
-                  setPWCheck={setPWCheck}
-                  pw={pw}
-                  email={email}
-                  error={error}
-                  emailerror={emailerror}
-                  pwerror={pwerror}
-                  pwcheckerror={pwcheckerror}
-                  nameError={nameError}
-                  registerBtn={registerBtn}
-                  closeModal={closeModal}
-                />
+                <Register closeModal={closeModal} setModal={setModal} />
                 <div className="flex items-center justify-center p-6 border-t border-solid border-blueGray-200 rounded-b">
                   <div className="flex items-center justify-center text-gray-500 text-xs mr-5">
                     이미 회원이라면?
