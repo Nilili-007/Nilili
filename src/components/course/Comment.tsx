@@ -6,15 +6,18 @@ import {
   useDeleteCommentMutation,
   useUpdateCommentMutation,
 } from "../../redux/modules/apiSlice";
+import { authService } from "../../utils/firebase";
 
 interface CommentProps {
   comment: CommentType;
+  index: number;
 }
 
-const Comment = ({ comment }: CommentProps) => {
+const Comment = ({ comment, index }: CommentProps) => {
   const [menuToggle, setMenuToggle] = useState(false);
   const [edit, setEdit] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const currentUserId = authService.currentUser?.uid;
 
   // 작성시간 나타내기
   const createdTime: any = comment.createdAt;
@@ -43,6 +46,7 @@ const Comment = ({ comment }: CommentProps) => {
   const deleteCommentHandler = (id: string | undefined) => {
     deleteComment(id);
     setModalOpen(false);
+    alert("삭제되었습니다.");
   };
 
   // 댓글 수정
@@ -51,10 +55,14 @@ const Comment = ({ comment }: CommentProps) => {
   const updateCommentHandler = (id: string | undefined) => {
     updateComment({ commentId: id, newComment: editComment });
     setEdit(false);
+    alert("수정되었습니다.");
   };
 
   return (
-    <div className="border-b px-2 py-4">
+    <div
+      className="border-b px-2 py-4"
+      style={index % 2 === 0 ? { backgroundColor: "#ebebeb" } : undefined}
+    >
       {/* 댓글삭제 확인 모달 */}
       {modalOpen === true ? (
         <div className="bg-white fixed inset-y-[35%] inset-x-[10%] sm:inset-x-[20%] xl:inset-x-[30%] h-64 rounded-lg border-2 flex flex-col justify-center gap-y-10">
@@ -70,54 +78,76 @@ const Comment = ({ comment }: CommentProps) => {
             </button>
             <button
               className="bg-gray-300 px-4 sm:px-8 py-1 rounded-xl"
-              onClick={() => setModalOpen(false)}
+              onClick={() => {
+                setModalOpen(false);
+                alert("취소되었습니다.");
+              }}
             >
               취소
             </button>
           </div>
         </div>
       ) : null}
+
       <div className="flex justify-between mb-2">
         <p className="text-md">
           <span className="font-bold mr-3">{comment.nickname}</span> {nowTime}
         </p>
-
-        <div className="flex gap-3 justify-end w-1/3 items-center ">
-          <MdOutlineMoreVert
-            className="sm:hidden cursor-pointer"
-            size={24}
-            onClick={() => setMenuToggle(!menuToggle)}
-          />
-          <AiOutlineEdit
-            onClick={() => {
-              setEdit(!edit);
-              setEditComment(comment.comment);
-            }}
-            size={20}
-            className="hidden sm:flex"
-          />
-          <MdDelete
-            size={20}
-            className="hidden sm:flex"
-            onClick={() => setModalOpen(true)}
-          />
-        </div>
+        {/* 작성자만 보이는 메뉴 */}
+        {currentUserId === comment.userId ? (
+          <div className="flex gap-3 justify-end w-1/3 items-center ">
+            <MdOutlineMoreVert
+              className="sm:hidden cursor-pointer"
+              size={24}
+              onClick={() => setMenuToggle(!menuToggle)}
+            />
+            <AiOutlineEdit
+              onClick={() => {
+                setEdit(!edit);
+                setEditComment(comment.comment);
+              }}
+              size={20}
+              className="hidden sm:flex"
+            />
+            <MdDelete
+              size={20}
+              className="hidden sm:flex"
+              onClick={() => setModalOpen(true)}
+            />
+          </div>
+        ) : null}
       </div>
-      {menuToggle === true ? (
-        <div className="absolute bg-gray-300  px-4 sm:px-5 py-2 rounded-xl right-6 top-8 flex flex-col gap-y-2 sm:hidden">
-          <button
-            onClick={() => {
-              setEdit(!edit);
-              setMenuToggle(false);
-            }}
-          >
-            {edit === true ? "취소" : "수정"}
-          </button>
-          <button>삭제</button>
-        </div>
-      ) : null}
+      {/* 모바일 화면일때의 드롭다운 메뉴 */}
+      <div className="relative top-0">
+        {menuToggle === true ? (
+          <div className="absolute bg-gray-300 w-16 px-4 sm:px-5 py-2 rounded-xl right-2 flex flex-col gap-y-2 sm:hidden">
+            <button
+              onClick={() => {
+                setEdit(!edit);
+                setEditComment(comment.comment);
+                setMenuToggle(false);
+              }}
+            >
+              {edit === true ? "취소" : "수정"}
+            </button>
+            <button
+              onClick={() => {
+                setModalOpen(true);
+                setMenuToggle(false);
+              }}
+            >
+              삭제
+            </button>
+          </div>
+        ) : null}
+      </div>
+      {/* 수정할 때 input창 토글 */}
       {edit === false ? (
-        <p className="text-md">{comment.comment}</p>
+        <div className="w-full">
+          <p className="w-30 text-md whitespace-pre-wrap break-words">
+            {comment.comment}
+          </p>
+        </div>
       ) : (
         <div>
           <textarea

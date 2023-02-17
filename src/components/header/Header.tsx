@@ -41,7 +41,7 @@ const Header = () => {
 
   const auth = getAuth();
   const user = auth.currentUser;
-  const userName = user?.email?.split("@")[0];
+  const userName = user?.displayName;
 
   // 새로고침했을 때 user가 있는지 없는지 판단하기
   setTimeout(() => {

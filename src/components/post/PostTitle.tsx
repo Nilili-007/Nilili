@@ -33,11 +33,11 @@ const PostTitle = ({
   setCourseTitle,
 }: titleProps) => {
   return (
-    <div className="flex gap-5 md:gap-10 items-center h-24 justify-center xs:gap-3 ">
-      <div className="w-1/4 xs:w-1/3 xs:text-xs ">
+    <div className="flex items-center h-16 gap-4">
+      <div className="w-[15%] xs:w-1/3 xs:text-xs ">
         <Select
           options={regionOptions}
-          placeholder={"지역명"}
+          placeholder={"지역"}
           autoFocus={true}
           onChange={(event: any) => {
             setCategory(event.value);
@@ -48,7 +48,7 @@ const PostTitle = ({
         />
       </div>
       <input
-        className="w-3/4 md:w-6/7 md:text-3xl sm:text-lg sm:w-full p-2 border-slate-300 border-b-2 "
+        className="w-full px-2 py-1.5 border border-gray-400"
         value={courseTitle}
         onChange={(event) => {
           setCourseTitle(event.target.value);

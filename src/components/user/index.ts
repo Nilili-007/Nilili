@@ -1,4 +1,4 @@
-import UserNameEdit from "./UserNameEdit";
+import UserNameEdit from "./UserName";
 import UserCategoryBtn from "./UserCategoryBtn";
 import UserList from "./UserList";
 

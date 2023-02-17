@@ -1,4 +1,6 @@
 interface RegisterProps {
+  userName: string;
+  setUserName: React.Dispatch<React.SetStateAction<string>>;
   email: string;
   setEmail: React.Dispatch<React.SetStateAction<string>>;
   pw: string;
@@ -9,11 +11,14 @@ interface RegisterProps {
   emailerror: string;
   pwerror: string;
   pwcheckerror: string;
+  nameError: string;
   registerBtn: any;
   closeModal: any;
 }
 
 const Register = ({
+  userName,
+  setUserName,
   setEmail,
   email,
   setPW,
@@ -24,9 +29,15 @@ const Register = ({
   emailerror,
   pwerror,
   pwcheckerror,
+  nameError,
   registerBtn,
   closeModal,
 }: RegisterProps) => {
+  const userHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    setUserName(event.target.value);
+  };
+
   const emailHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setEmail(event.target.value);
@@ -58,6 +69,17 @@ const Register = ({
       <div className="relative p-6 flex-auto">
         <form className=" rounded px-8 pt-6 pb-8 w-full">
           <div className="text-yellow-500 font-bold m-2">{error}</div>
+          <label className="block text-black font-2xl font-bold mb-3">
+            닉네임
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-1 text-black"
+            type="text"
+            value={userName}
+            onChange={userHandler}
+            placeholder="닉네임"
+          />
+          <div className="text-red-600 font-sm mb-6">{nameError}</div>
           <label className="block text-black font-2xl font-bold mb-3">
             이메일
           </label>

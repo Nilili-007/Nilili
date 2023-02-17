@@ -37,6 +37,7 @@ const PostSearchModal = ({
       road: item.road_address_name,
       phone: item.phone,
       id: item.id,
+      memo: "",
     };
     dispatch(addCourse(targetItem));
   };
