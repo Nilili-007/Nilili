@@ -10,6 +10,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { CommentType } from "../../components/course/CommentInput";
+import { CourseType } from "../../pages/Post";
 import { dbService } from "../../utils/firebase";
 
 export const courseApi = createApi({
@@ -27,6 +28,24 @@ export const courseApi = createApi({
         }
       },
       invalidatesTags: ["Courses"],
+    }),
+    //like 갯수 받아오기 위해 만든 임시 코드입니다.
+    getLikes: builder.query<CourseType[], void>({
+      async queryFn() {
+        try {
+          const courseQuery = query(collection(dbService, "courses"));
+          const querySnaphot = await getDocs(courseQuery);
+          let courses: any = [];
+          querySnaphot?.forEach((doc) => {
+            courses.push({ id: doc.id, ...doc.data() });
+          });
+          return { data: courses };
+        } catch (error: any) {
+          console.error(error.message);
+          return { error: error.message };
+        }
+      },
+      providesTags: ["Courses"],
     }),
 
     //Comment Reducer
@@ -93,6 +112,7 @@ export const courseApi = createApi({
 
 export const {
   useAddCourseMutation,
+  useGetLikesQuery,
   useAddCommentMutation,
   useGetCommentQuery,
   useDeleteCommentMutation,

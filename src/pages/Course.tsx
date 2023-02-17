@@ -8,10 +8,14 @@ import {
   CommentDesc,
 } from "../components/course";
 import { PostTitle, PostHashTag } from "../components/post";
+import { useGetLikesQuery } from "../redux/modules/apiSlice";
 
 const Course = () => {
   const [isEdit, setIsEdit] = useState(false);
   const paramId = useParams().id;
+  const { data } = useGetLikesQuery();
+  const filterData = data?.filter((course) => course.id === paramId);
+  const courseData = filterData?.pop();
 
   return (
     <div className="w-11/12 md:w-3/4 m-auto">
@@ -29,7 +33,7 @@ const Course = () => {
       ) : (
         <CourseHashTag />
       )}
-      <LikeBtn paramId={paramId} />
+      <LikeBtn paramId={paramId} course={courseData} />
       <CommentInput paramId={paramId} />
       <CommentDesc paramId={paramId} />
     </div>

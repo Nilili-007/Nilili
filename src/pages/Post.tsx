@@ -31,6 +31,15 @@ export interface optionType {
   label: string;
 }
 
+export interface CourseType {
+  id: string;
+  category: string;
+  selectedValues: string[];
+  courseTitle: string;
+  likes: 0;
+  likeUsers: string[];
+}
+
 const Post = () => {
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
@@ -54,6 +63,8 @@ const Post = () => {
       category,
       selectedValues,
       courseTitle,
+      likes: 0,
+      likeUser: [],
     };
     addCourse(newPost);
     navigate("/course");
