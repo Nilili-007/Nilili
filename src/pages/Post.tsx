@@ -57,7 +57,7 @@ const Post = () => {
 
   return (
     // <form onSubmit={submitHandle}>
-    <div className="h-[100vh]">
+    <div className="h-[100vh] mb-20">
       <PostHeader />
       <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0 ">
         <div className="flex">
@@ -67,7 +67,10 @@ const Post = () => {
               간단한 클릭으로 여행지를 추가할 수 있어요.
             </p>
           </div>
-          <PostTravelStatus setTravelStatus={setTravelStatus} />
+          <PostTravelStatus
+            travelStatus={travelStats}
+            setTravelStatus={setTravelStatus}
+          />
         </div>
         <PostTitle
           category={category}
