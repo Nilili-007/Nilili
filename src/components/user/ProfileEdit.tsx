@@ -44,7 +44,6 @@ const ProfileEdit = ({
       reader.readAsDataURL(file);
       reader.onloadend = () => {
         const changeImg = reader.result;
-        localStorage.setItem("imgURL", changeImg as any);
         setImg(changeImg as any);
       };
     }
@@ -53,7 +52,7 @@ const ProfileEdit = ({
   const profileEdit = async () => {
     const imgRef = ref(storage, `${authService.currentUser?.uid}${Date.now()}`);
 
-    const imgDataUrl = localStorage.getItem("imgURL");
+    const imgDataUrl = img;
     let downloadUrl;
     if (imgDataUrl) {
       const response = await uploadString(imgRef, imgDataUrl, "data_url");
@@ -64,8 +63,6 @@ const ProfileEdit = ({
       photoURL: downloadUrl ? downloadUrl : null,
     })
       .then(() => {
-        localStorage.setItem("User", JSON.stringify(authService.currentUser));
-        localStorage.removeItem("imgURL");
         alert("프로필 수정을 완료했습니다");
         setModal(false);
         navigate("/user/:id");
