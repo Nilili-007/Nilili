@@ -12,7 +12,7 @@ declare interface CourseType {
   image: string;
   createdAt: date;
   likes: number;
-  likesID: string[];
+  likesID: any[];
   userID: string;
   nickname: string;
   isDone: boolean;

@@ -1,8 +1,14 @@
 import { useGetCourseQuery } from "../../redux/modules/apiSlice";
 import { authService } from "../../utils/firebase";
+import { Link } from "react-router-dom";
+type UserListType = {
+  category: string;
+  done: boolean;
+};
 
-const UserList = () => {
+const UserList = ({ category, done }: UserListType) => {
   const { data, isLoading, isError } = useGetCourseQuery();
+
   if (isLoading) {
     return <>로딩중....</>;
   }
@@ -11,7 +17,13 @@ const UserList = () => {
   }
 
   const userID = authService.currentUser?.uid;
-  console.log(data?.filter((item) => item.userID === userID));
+  const mypaths = data?.filter(
+    (item) => item.userID === userID && item.isDone === done
+  );
+  const mylikes = data?.filter(
+    (item) => item.likesID?.includes(userID) && item.isDone === done
+  );
+  let userdata = category === "MY" ? mypaths : mylikes;
 
   return (
     <div className="my-10 3xl:w-[60%] 2xl:w-[70%] w-[90%] ">
@@ -22,14 +34,10 @@ const UserList = () => {
         NILILI 사용자가 가장 최근 올린 일정을 함께해보세요.
       </p>
 
-      <ul className="  overflow-x-auto whitespace-nowrap no-scrollbar">
-        {data
-          ?.filter((item) => item.userID === userID)
-          .map((item) => (
-            <li
-              className="md:w-[24%] w-[360px]  inline-block mx-3 pt-6 border-t-2 border-black   "
-              key={item.id}
-            >
+      <ul>
+        {userdata?.map((item: CourseType) => (
+          <Link to={`/course/${item.id}`} key={item.id}>
+            <li className="md:w-[24%] w-[360px]  inline-block mx-3 pt-6 border-t-2 border-black   ">
               <img alt="최신순 이미지" src="/assets/course.jpg" />
               <p className="pr-4 ml-1 mt-5 mb-5 sm:text-2xl text-xl overflow-hidden font-black ">
                 {item.title}
@@ -38,7 +46,8 @@ const UserList = () => {
                 {item.createdAt}
               </p>
             </li>
-          ))}
+          </Link>
+        ))}
       </ul>
     </div>
   );

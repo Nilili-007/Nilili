@@ -12,97 +12,97 @@ const HashtagList = () => {
         </p>
         <div className="flex flex-wrap justify-between mt-[5%]">
           <Link
-            to={`/course/${12}`}
+            to={`/search/`}
             className=" border-b-4 pr-[10%] text-[45px]  border-black mb-12 "
           >
             가족
           </Link>
           <Link
-            to={`/course/${12}`}
+            to={`/search/`}
             className=" border-b-4 pr-[10%] text-[45px]  border-black mb-12 "
           >
             친구
           </Link>
           <Link
-            to={`/course/${12}`}
+            to={`/search/`}
             className=" border-b-4 pr-[10%] text-[45px]  border-black mb-12 "
           >
             연인
           </Link>
           <Link
-            to={`/course/${12}`}
+            to={`/search/`}
             className=" border-b-4 pr-[10%] text-[45px]  border-black mb-12 "
           >
             혼자
           </Link>
           <Link
-            to={`/course/${12}`}
+            to={`/search/`}
             className=" border-b-4 pr-[10%] text-[45px]  border-black mb-12 "
           >
             아이
           </Link>
           <Link
-            to={`/course/${12}`}
+            to={`/search/`}
             className=" border-b-4 pr-[10%] text-[45px]  border-black mb-12 "
           >
             단체
           </Link>
           <Link
-            to={`/course/${12}`}
+            to={`/search/`}
             className=" border-b-4 pr-[10%] text-[45px]  border-black mb-12 "
           >
             반려동물
           </Link>
           <Link
-            to={`/course/${12}`}
+            to={`/search/`}
             className=" border-b-4 pr-[10%] text-[45px]  border-black mb-12 "
           >
             힐링
           </Link>
           <Link
-            to={`/course/${12}`}
+            to={`/search/`}
             className=" border-b-4 pr-[10%] text-[45px]  border-black mb-12 "
           >
             데이트
           </Link>
           <Link
-            to={`/course/${12}`}
+            to={`/search/`}
             className=" border-b-4 pr-[10%] text-[45px]  border-black mb-12 "
           >
             쇼핑
           </Link>
           <Link
-            to={`/course/${12}`}
+            to={`/search/`}
             className=" border-b-4 pr-[10%] text-[45px]  border-black mb-12 "
           >
             맛집
           </Link>
           <Link
-            to={`/course/${12}`}
+            to={`/search/`}
             className=" border-b-4 pr-[10%] text-[45px]  border-black mb-12 "
           >
             카페
           </Link>
           <Link
-            to={`/course/${12}`}
+            to={`/search/`}
             className=" border-b-4 pr-[10%] text-[45px]  border-black mb-12 "
           >
             예술
           </Link>
           <Link
-            to={`/course/${12}`}
+            to={`/search/`}
             className=" border-b-4 pr-[10%] text-[45px]  border-black mb-12 "
           >
             캠핑
           </Link>
           <Link
-            to={`/course/${12}`}
+            to={`/search/`}
             className=" border-b-4 pr-[10%] text-[45px]  border-black mb-12 "
           >
             섬으로
           </Link>
           <Link
-            to={`/course/${12}`}
+            to={`/search/`}
             className=" border-b-4 pr-[10%] text-[45px]  border-black mb-12 "
           >
             역사
