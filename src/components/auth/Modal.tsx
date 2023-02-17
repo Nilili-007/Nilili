@@ -22,6 +22,12 @@ interface ModalProps {
   modalRef: React.ForwardedRef<HTMLDivElement>;
 }
 
+// email, pw, userName 유효성 검사 정규 표현식
+export const emailRegex =
+  /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+export const pwRegex = /^[A-Za-z0-9]{8,15}$/;
+export const userNameRegex = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,8}$/;
+
 const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
   const [error, setError] = useState("");
   const [emailerror, setEmailError] = useState("");
@@ -38,6 +44,10 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
 
   const [category, setCategory] = useState("LG");
 
+  const correctEmail = email.match(emailRegex);
+  const correctPW = pw.match(pwRegex);
+  const correctUsername = userName.match(userNameRegex);
+
   const closeModal = () => {
     if (modal) {
       setModal(false);
@@ -47,25 +57,30 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
 
   // login 유효성 검사
   const loginvalidationCheck = () => {
-    const emailRegex =
-      /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-
     if (!email && !pw) {
-      setError("이메일과 비밀번호를 입력해주세요.");
+      setError("이메일과 비밀번호를 입력해주세요");
       return;
-    } else if (!emailRegex.test(email)) {
+    }
+    if (!email && correctPW) {
       setError("");
-      setEmailError("이메일 형식이 아닙니다.");
+      setEmailError("이메일을 입력해주세요");
       setPWError("");
       return;
-    } else if (!email) {
+    }
+    if (!pw && correctEmail) {
       setError("");
-      setEmailError("이메일을 입력해주세요.");
+      setPWError("비밀번호를 입력해주세요");
       return;
-    } else if (!pw) {
+    }
+    if (correctEmail === null) {
+      setError("");
+      setEmailError("이메일 형식이 아닙니다");
+      return;
+    }
+    if (correctPW === null) {
       setError("");
       setEmailError("");
-      setPWError("비밀번호를 입력해주세요");
+      setPWError("비밀번호 형식이 아닙니다");
       return;
     } else {
       setError("");
@@ -78,11 +93,8 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
 
   // register 유효성 검사
   const registerValidationCheck = () => {
-    const pwRegex = /^[A-Za-z0-9]{8,15}$/;
-    const nameRegex = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,8}$/;
-
     loginvalidationCheck();
-    if (!nameRegex.test(userName)) {
+    if (!userNameRegex.test(userName)) {
       setNameError(
         "닉네임은 2~8자로 영어 또는 숫자 또는 한글이 조합되어야 합니다."
       );
@@ -116,7 +128,7 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
     } else {
       loginvalidationCheck();
     }
-  }, [email, pw, pwCheck]);
+  }, [email, pw, pwCheck, userName]);
 
   const loginBtn = (
     event: React.MouseEvent<HTMLDivElement | HTMLButtonElement>
