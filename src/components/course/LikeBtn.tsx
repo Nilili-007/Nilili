@@ -1,5 +1,5 @@
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import { authService, dbService } from "../../utils/firebase";
 interface LikeProps {
@@ -14,7 +14,7 @@ const LikeBtn = ({ paramId, course }: LikeProps) => {
   const currentId = authService.currentUser?.uid;
   const courseRef = doc(dbService, "courses", paramId);
   const submitRef = useRef<HTMLButtonElement | any>();
-  const submitLike = () => {
+  const submitLike = async () => {
     if (!authService.currentUser) {
       setLike(false);
       alert("좋아요는 로그인 후 이용가능합니다.");
@@ -23,19 +23,28 @@ const LikeBtn = ({ paramId, course }: LikeProps) => {
     if (like === true) {
       setLike(false);
       setLikeCount(likeCount - 1);
-      updateDoc(courseRef, {
-        likes: likeCount,
-        likeUsers: arrayRemove(currentId),
-      });
     } else if (like === false) {
       setLike(true);
       setLikeCount(likeCount + 1);
-      updateDoc(courseRef, {
-        likes: likeCount,
-        likeUsers: arrayUnion(currentId),
-      });
     }
   };
+  useEffect(() => {
+    const updateLikes = async () => {
+      if (like) {
+        await updateDoc(courseRef, {
+          likes: likeCount,
+          likesID: arrayUnion(currentId),
+        });
+      } else {
+        await updateDoc(courseRef, {
+          likes: likeCount,
+          likesID: arrayRemove(currentId),
+        });
+      }
+    };
+    updateLikes();
+  }, [like, likeCount]);
+
   useEffect(() => {
     setLikeCount(courseLikes);
     const likeUser = course?.likesID.find((user) => user === currentId);
