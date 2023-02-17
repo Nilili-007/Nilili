@@ -25,7 +25,7 @@ const BeforeRecent = () => {
           .map((item) => (
             <Link to={`/course/${item.id}`} key={item.id}>
               <li className="md:w-[23%] w-[360px]  inline-block mx-3 pt-6 border-t-2 border-black   ">
-                <img alt="최신순 이미지" src="/assets/course.jpg" />
+                <div className="hover:transition-all w-[300px] h-[300px] bg-no-repeat bg-cover bg-center hover:bg-[url('https://user-images.githubusercontent.com/117059420/219529223-bb81ad92-30cc-4ca2-9ce1-3c7f5dd3a4dc.jpg')] bg-[url('https://user-images.githubusercontent.com/117059420/219529260-5546619d-ed8b-4bc1-86a9-829249a4cd64.jpg')]" />
                 <p className="pr-4 ml-1 mt-5 mb-5 sm:text-2xl text-xl overflow-hidden font-black ">
                   {item.title}
                 </p>
