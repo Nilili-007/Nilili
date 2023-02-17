@@ -1,44 +1,49 @@
-import React, { useEffect, useState } from "react";
-import { MapMarker, Polyline } from "react-kakao-maps-sdk";
-import { useSelector } from "react-redux";
+import { CustomOverlayMap, Polyline } from "react-kakao-maps-sdk";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+import { filterCourse } from "../../redux/modules/temporarySlice";
 
-// 1. 검색 결과에서 장소 선택시 markers(좌표) 추가
-// 2. position에 courseList의 markers 대입
+// 1. 마커 or 카드 클릭시 해당 아이템의 id dispatch
+// 2. courseList 중 좌표 정보가 일치하는 아이템의 id를 filteredId 저장
+// 3. 각각의 컴포넌트에서 현재 아이템 id가 filteredId 일치한다면 스타일 지정
 
 const PostMarkers = () => {
+  const dispatch = useDispatch();
   const courseList = useSelector(
     (state: any) => state.temporarySlice.courseList
   );
+  const filteredId = useSelector(
+    (state: any) => state.temporarySlice.filteredId
+  );
 
-  let line: any = [];
-
+  let polyline: any = [];
   courseList.map((item: any) => {
-    line.push(item.position);
+    polyline.push(item.position);
   });
+
+  const onClickGetId = (item: any) => {
+    dispatch(filterCourse(item.id));
+  };
 
   return (
     <>
       {courseList.map((item: any, index: number) => (
         <>
-          <MapMarker
-            key={index}
-            position={item.position}
-            image={{
-              src: "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png",
-              size: {
-                width: 24,
-                height: 35,
-              },
-            }}
-            title={item.name}
-          >
-            <div className="cursor-pointer p-1 font-bold text-lg border border-gray-600 bg-white h-[60px] w-[150px] flex justify-center items-center hover:bg-black hover:text-white">
-              #{index + 1} {item.name}
-            </div>
-          </MapMarker>
+          <div onClick={() => onClickGetId(item)}>
+            <CustomOverlayMap position={item.position}>
+              <InfoWindow className={item.id === filteredId ? "clicked" : " "}>
+                {item.name}
+              </InfoWindow>
+            </CustomOverlayMap>
+            <CustomOverlayMap position={item.position}>
+              <Marker className={item.id === filteredId ? "clicked" : " "}>
+                <span className="font-bold">#{index + 1}</span>
+              </Marker>
+            </CustomOverlayMap>
+          </div>
           <Polyline
-            path={line}
-            strokeWeight={4}
+            path={polyline}
+            strokeWeight={3}
             strokeColor={"black"}
             strokeOpacity={1}
             strokeStyle={"solid"}
@@ -50,3 +55,48 @@ const PostMarkers = () => {
 };
 
 export default PostMarkers;
+
+const InfoWindow = styled.div`
+  position: relative;
+  background: white;
+  color: gray;
+  border-radius: 0.4em;
+  margin-top: -70px;
+  padding: 3px 10px;
+  font-size: 20px;
+  font-weight: bold;
+  box-shadow: 5px 5px 8px gray;
+
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border: 7px solid transparent;
+    border-top-color: white;
+    border-bottom: 0;
+    margin-left: -7px;
+    margin-bottom: -7px;
+  }
+  &.clicked {
+    color: black;
+  }
+`;
+
+const Marker = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  background: gray;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &.clicked {
+    background: black;
+    width: 45px;
+    height: 45px;
+  }
+`;

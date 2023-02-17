@@ -13,9 +13,8 @@ import {
 // 장소 클릭시 해당 장소에 대한 설명만 textarea에 불러오기
 // (설명 데이터가 없으면 빈칸, 있으면 미리 입력한 내용)
 
-const PostTextarea = ({ item }: any) => {
+const PostTextarea = ({ item, text, setText }: any) => {
   const dispatch = useDispatch();
-  const [text, setText] = useState("");
   const [edit, setEdit] = useState(false);
 
   const filteredId = useSelector(
@@ -31,6 +30,8 @@ const PostTextarea = ({ item }: any) => {
       id: item.id,
       memo: text,
     };
+    console.log("실행");
+    console.log(text);
     if (text) {
       dispatch(editMemo(newMemo));
       setText("");
@@ -83,7 +84,7 @@ const PostTextarea = ({ item }: any) => {
                 autoFocus
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                className="border-b border-gray-600 w-full h-20 mt-3 ml-3 py-1 text-sm focus:outline-none"
+                className="border-b border-gray-600 w-full h-20 mt-3 ml-3 py-1 text-sm text-black focus:outline-none"
               />
             </>
           )}
@@ -97,7 +98,7 @@ const PostTextarea = ({ item }: any) => {
               value={text}
               onChange={(e) => setText(e.target.value)}
               onClick={() => onClickGetId(item)}
-              className="border-b border-gray-600 w-full h-20 mt-3 ml-3 py-1 text-sm focus:outline-none"
+              className="bg-opacity-0 border-b border-gray-600 w-full h-20 mt-3 ml-3 py-1 px-2 text-sm text-black focus:outline-none"
             />
           ) : (
             <>
@@ -105,7 +106,7 @@ const PostTextarea = ({ item }: any) => {
                 autoFocus
                 placeholder="자유롭게 메모를 남겨보세요."
                 onClick={() => onClickGetId(item)}
-                className="border-b border-gray-600 w-full h-20 mt-3 ml-3 py-1 text-sm focus:outline-none"
+                className="bg-opacity-0 border-b border-gray-600 w-full h-20 mt-3 ml-3 py-1 px-2 text-sm text-black focus:outline-none"
               />
             </>
           )}

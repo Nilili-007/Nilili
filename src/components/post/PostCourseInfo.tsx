@@ -1,16 +1,18 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import PostCourseDesc from "./PostCourseDesc";
+import PostTextarea from "./PostTextarea";
+import PostBtn from "./PostBtn";
+import styled from "styled-components";
+import { TiMinus } from "react-icons/ti";
+import { AiOutlineUp, AiOutlineDown, AiOutlinePlus } from "react-icons/ai";
 import {
   deleteCourse,
   deleteMemo,
   downCourse,
+  filterCourse,
   upCourse,
 } from "../../redux/modules/temporarySlice";
-import { TiMinus } from "react-icons/ti";
-import { AiOutlineUp, AiOutlineDown, AiOutlinePlus } from "react-icons/ai";
-import PostCourseDesc from "./PostCourseDesc";
-import PostTextarea from "./PostTextarea";
-import PostBtn from "./PostBtn";
 
 interface PostProps {
   modalOpen: boolean;
@@ -19,12 +21,15 @@ interface PostProps {
 
 const PostCourseInfo = ({ modalOpen, setModalOpen }: PostProps) => {
   const dispatch = useDispatch();
-
   const courseList = useSelector(
     (state: any) => state.temporarySlice.courseList
   );
+  const filteredId = useSelector(
+    (state: any) => state.temporarySlice.filteredId
+  );
 
   const [lists, setLists] = useState(courseList);
+  const [text, setText] = useState("");
 
   const showModal = () => {
     setModalOpen(!modalOpen);
@@ -35,14 +40,20 @@ const PostCourseInfo = ({ modalOpen, setModalOpen }: PostProps) => {
     if (window.confirm("일정에서 삭제하시겠습니까?")) {
       dispatch(deleteCourse(item.id));
       dispatch(deleteMemo(item.id));
+      setText("");
     }
   };
 
   const onClickUpCourse = (item: any) => {
     dispatch(upCourse(item));
   };
+
   const onClickDownCourse = (item: any) => {
     dispatch(downCourse(item));
+  };
+
+  const onClickGetId = (item: any) => {
+    dispatch(filterCourse(item.id));
   };
 
   useEffect(() => {
@@ -50,18 +61,23 @@ const PostCourseInfo = ({ modalOpen, setModalOpen }: PostProps) => {
   }, [courseList]);
 
   return (
-    <div className="w-[35%] h-[62vh] pl-7 float-right">
+    <div className="w-[35%] max-h-[62vh] pl-7 float-right">
       <div className="flex flex-col h-full overflow-y-scroll ">
         {lists?.map((item: any, key: any) => {
           return (
-            <div key={key} className="border border-gray-400 mb-8">
+            <ItemCard
+              key={key}
+              onClick={() => onClickGetId(item)}
+              className={item.id === filteredId ? "clicked" : " "}
+              // className="border border-gray-400 mb-8 cursor-pointer"
+            >
               <div className="w-full px-2 py-3 flex">
                 <div className="w-full">
                   <h4 className="pl-3 font-bold text-xl">
                     #{key + 1} {item.name}
                   </h4>
                   <PostCourseDesc item={item} />
-                  <PostTextarea item={item} />
+                  <PostTextarea item={item} text={text} setText={setText} />
                 </div>
                 <TiMinus
                   onClick={() => onClickDeleteCourse(item)}
@@ -78,7 +94,7 @@ const PostCourseInfo = ({ modalOpen, setModalOpen }: PostProps) => {
                   className="hover:text-gray-400"
                 />
               </div>
-            </div>
+            </ItemCard>
           );
         })}
       </div>
@@ -94,3 +110,13 @@ const PostCourseInfo = ({ modalOpen, setModalOpen }: PostProps) => {
 };
 
 export default PostCourseInfo;
+
+const ItemCard = styled.div`
+  border: 1px solid #9ca3af;
+  margin-bottom: 32px;
+  cursor: pointer;
+  &.clicked {
+    background: black;
+    color: white;
+  }
+`;

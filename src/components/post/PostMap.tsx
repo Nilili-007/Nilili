@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Map } from "react-kakao-maps-sdk";
+import { Map, ZoomControl, MapTypeControl } from "react-kakao-maps-sdk";
 import PostSearchModal from "./PostSearchModal";
 import PostCourseLine from "./PostCourseInfo";
 import PostMarkers from "./PostMarkers";
@@ -45,12 +45,14 @@ const PostMap = () => {
           lat: 37.566826,
           lng: 126.9786567,
         }}
-        level={7}
+        level={8}
         // @ts-ignore
         onCreate={setMap}
-        className="w-[65%] h-[70vh] z-0"
+        className="w-[65%] h-[70vh]"
       >
         <PostMarkers />
+        {/* <ZoomControl position={kakao.maps.ControlPosition.TOPRIGHT} /> */}
+        <MapTypeControl position={kakao.maps.ControlPosition.TOPRIGHT} />
       </Map>
       <PostCourseLine modalOpen={modalOpen} setModalOpen={setModalOpen} />
       {modalOpen && (
