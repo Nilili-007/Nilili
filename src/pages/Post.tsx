@@ -3,7 +3,6 @@
 
 import { useState } from "react";
 import {
-  PostBtn,
   PostHashTag,
   PostTitle,
   PostMap,
@@ -29,9 +28,12 @@ const Post = () => {
   const [targetPlace, setTargetPlace] = useState("");
   const [addCourse] = useAddCourseMutation();
 
-  //카테고리 선택
+  //지역 선택
   const [category, setCategory] = useState("");
   const [courseTitle, setCourseTitle] = useState("");
+
+  // 여행전/후 선택
+  const [travelStats, setTravelStatus] = useState<boolean | null>(false);
 
   //해시태그 선택
   const [selectedTags, setSelectedTags] = useState<optionType[] | null>([]);
@@ -65,7 +67,7 @@ const Post = () => {
               간단한 클릭으로 여행지를 추가할 수 있어요.
             </p>
           </div>
-          <PostTravelStatus />
+          <PostTravelStatus setTravelStatus={setTravelStatus} />
         </div>
         <PostTitle
           category={category}

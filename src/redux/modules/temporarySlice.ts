@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   courseList: [],
-  filteredId: {},
+  filteredId: "",
 };
 
 const temporarySlice = createSlice({
