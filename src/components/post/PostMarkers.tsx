@@ -1,7 +1,7 @@
 import { CustomOverlayMap, Polyline } from "react-kakao-maps-sdk";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 import { filterCourse } from "../../redux/modules/temporarySlice";
+import styled from "styled-components";
 
 // 1. 마커 or 카드 클릭시 해당 아이템의 id dispatch
 // 2. courseList 중 좌표 정보가 일치하는 아이템의 id를 filteredId 저장

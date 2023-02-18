@@ -17,9 +17,16 @@ import {
 interface PostProps {
   modalOpen: boolean;
   setModalOpen: Dispatch<SetStateAction<boolean>>;
+  boundsInfo: object;
+  setBoundsInfo: Dispatch<SetStateAction<object>>;
 }
 
-const PostCourseInfo = ({ modalOpen, setModalOpen }: PostProps) => {
+const PostCourseInfo = ({
+  modalOpen,
+  setModalOpen,
+  boundsInfo,
+  setBoundsInfo,
+}: PostProps) => {
   const dispatch = useDispatch();
   const courseList = useSelector(
     (state: any) => state.temporarySlice.courseList
@@ -54,6 +61,7 @@ const PostCourseInfo = ({ modalOpen, setModalOpen }: PostProps) => {
 
   const onClickGetId = (item: any) => {
     dispatch(filterCourse(item.id));
+    setBoundsInfo(item.bounds);
   };
 
   useEffect(() => {

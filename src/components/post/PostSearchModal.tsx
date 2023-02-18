@@ -9,6 +9,7 @@ interface PostProps {
   searchList: object[];
   setSearchList: Dispatch<SetStateAction<any>>;
   searchCnt: any;
+  boundsInfo: object;
 }
 
 const PostSearchModal = ({
@@ -17,6 +18,7 @@ const PostSearchModal = ({
   searchList,
   setSearchList,
   searchCnt,
+  boundsInfo,
 }: PostProps) => {
   const dispatch = useDispatch();
   const [text, setText] = useState("");
@@ -43,6 +45,7 @@ const PostSearchModal = ({
         lng: item.x,
         lat: item.y,
       },
+      bounds: boundsInfo,
       memo: "",
     };
     dispatch(addCourse(targetItem));
