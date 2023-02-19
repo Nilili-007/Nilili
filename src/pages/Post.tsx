@@ -29,7 +29,7 @@ const Post = () => {
   const [courseTitle, setCourseTitle] = useState("");
 
   // 여행전/후 선택
-  const [travelStats, setTravelStatus] = useState<boolean | null>(false);
+  const [travelStats, setTravelStatus] = useState();
 
   //해시태그 선택
   const [selectedTags, setSelectedTags] = useState<optionType[] | null>([]);

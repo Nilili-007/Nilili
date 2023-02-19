@@ -15,14 +15,14 @@ const PostTravelStatus = ({ travelStatus, setTravelStatus }: any) => {
       <div className="flex ">
         <Category
           onClick={(e) => onClickStatus(e)}
-          className={travelStatus === false ? "clicked" : ""}
+          className={!travelStatus ? "clicked" : ""}
         >
           여행 전
         </Category>
         <div className="border-r border-gray-600 h-8 mx-3" />
         <Category
           onClick={(e) => onClickStatus(e)}
-          className={travelStatus === true ? "clicked" : ""}
+          className={travelStatus ? "clicked" : ""}
         >
           여행 후
         </Category>

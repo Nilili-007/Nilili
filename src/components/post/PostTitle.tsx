@@ -48,7 +48,7 @@ const PostTitle = ({
         />
       </div>
       <input
-        className="w-full px-2 py-1.5 border border-gray-400"
+        className="w-full px-2 py-1.5 border border-gray-400 focus:outline-none"
         value={courseTitle}
         onChange={(event) => {
           setCourseTitle(event.target.value);
