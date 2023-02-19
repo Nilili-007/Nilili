@@ -17,14 +17,12 @@ import {
 interface PostProps {
   modalOpen: boolean;
   setModalOpen: Dispatch<SetStateAction<boolean>>;
-  boundsInfo: object;
   setBoundsInfo: Dispatch<SetStateAction<object>>;
 }
 
 const PostCourseInfo = ({
   modalOpen,
   setModalOpen,
-  boundsInfo,
   setBoundsInfo,
 }: PostProps) => {
   const dispatch = useDispatch();
@@ -77,7 +75,6 @@ const PostCourseInfo = ({
               key={key}
               onClick={() => onClickGetId(item)}
               className={item.id === filteredId ? "clicked" : " "}
-              // className="border border-gray-400 mb-8 cursor-pointer"
             >
               <div className="w-full px-2 py-3 flex">
                 <div className="w-full">
@@ -92,14 +89,14 @@ const PostCourseInfo = ({
                   className="-mt-2 text-3xl text-gray-400 hover:text-black"
                 />
               </div>
-              <div className="flex text-3xl p-3 -mt-10">
+              <div className="flex text-3xl p-3 -mt-5">
                 <AiOutlineUp
                   onClick={() => onClickUpCourse(item)}
                   className="hover:text-gray-400"
                 />
                 <AiOutlineDown
                   onClick={() => onClickDownCourse(item)}
-                  className="hover:text-gray-400"
+                  className="hover:text-gray-400 ml-auto"
                 />
               </div>
             </ItemCard>

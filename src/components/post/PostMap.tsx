@@ -76,19 +76,22 @@ const PostMap = () => {
         }
 
         // @ts-ignore
-        map.setBounds(bounds);
+        map.panTo(bounds);
         displayPagination(pagination);
         // @ts-ignore
         setSearchList(data);
         setSearchCnt(pagination.totalCount);
         setBoundsInfo(bounds);
+        // @ts-ignore
       }
     });
   }, [searchKeyword]);
 
   useEffect(() => {
-    // @ts-ignore
-    map.setBounds(boundsInfo);
+    if (map !== undefined) {
+      // @ts-ignore
+      map.panTo(boundsInfo);
+    }
   }, [filteredId]);
 
   return (
@@ -104,13 +107,11 @@ const PostMap = () => {
         className="w-[65%] h-[70vh]"
       >
         <PostMarkers />
-        {/* <ZoomControl position={kakao.maps.ControlPosition.TOPRIGHT} /> */}
         <MapTypeControl position={kakao.maps.ControlPosition.TOPRIGHT} />
       </Map>
       <PostCourseInfo
         modalOpen={modalOpen}
         setModalOpen={setModalOpen}
-        boundsInfo={boundsInfo}
         setBoundsInfo={setBoundsInfo}
       />
       {modalOpen && (
