@@ -6,9 +6,10 @@ import { useDeleteCourseMutation } from "../../redux/modules/apiSlice";
 interface CourseTitleProps {
   setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
   paramId: string | undefined;
+  course: CourseType | undefined;
 }
 
-const CourseTitle = ({ setIsEdit, paramId }: CourseTitleProps) => {
+const CourseTitle = ({ setIsEdit, paramId, course }: CourseTitleProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -28,10 +29,10 @@ const CourseTitle = ({ setIsEdit, paramId }: CourseTitleProps) => {
       <div className="flex justify-space">
         <div className="flex w-3/4 gap-5 items-center h-24 ">
           <h3 className="w-1/5 sm:w-1/7 md:w-1/11 text-lg md:text-xl text-center">
-            지역명
+            {course?.location}
           </h3>
           <h2 className="w-4/5 sm:w-6/7 md:w-10/11 text-2xl md:text-3xl ">
-            제목
+            {course?.title}
           </h2>
         </div>
         <div className="flex gap-3 justify-end w-1/3 items-center ">
@@ -70,6 +71,7 @@ const CourseTitle = ({ setIsEdit, paramId }: CourseTitleProps) => {
           </button>
         </div>
       ) : null}
+      <h3>작성자 : {course?.nickname}</h3>
     </div>
   );
 };

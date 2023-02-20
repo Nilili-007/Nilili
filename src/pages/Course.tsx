@@ -8,7 +8,6 @@ import {
   CommentDesc,
 } from "../components/course";
 import EditCourse from "../components/course/EditCourse";
-import { PostTitle, PostHashTag } from "../components/post";
 import { useGetCourseQuery } from "../redux/modules/apiSlice";
 
 const Course = () => {
@@ -32,11 +31,19 @@ const Course = () => {
   return (
     <div>
       {isEdit ? (
-        <EditCourse setIsEdit={setIsEdit} />
+        <EditCourse
+          course={courseData}
+          setIsEdit={setIsEdit}
+          paramId={paramId}
+        />
       ) : (
         <div className="w-11/12 md:w-3/4 m-auto">
-          <CourseTitle paramId={paramId} setIsEdit={setIsEdit} />
-          <CourseHashTag />
+          <CourseTitle
+            course={courseData}
+            paramId={paramId}
+            setIsEdit={setIsEdit}
+          />
+          <CourseHashTag course={courseData} />
           <LikeBtn paramId={paramId} course={courseData} />
           <CommentInput paramId={paramId} />
           <CommentDesc paramId={paramId} />

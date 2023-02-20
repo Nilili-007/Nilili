@@ -7,21 +7,42 @@ import { hashTagOptions } from "../post/PostHashTag";
 import { regionOptions } from "../post/PostTitle";
 import { Map, MapTypeControl } from "react-kakao-maps-sdk";
 import PostMarkers from "../post/PostMarkers";
-import { PostSearchModal } from "../post";
+import {
+  PostBtn,
+  PostCourseDesc,
+  PostSearchModal,
+  PostTextarea,
+} from "../post";
 import PostCourseInfo from "../post/PostCourseInfo";
 import styled from "styled-components";
+import { AiOutlineDown, AiOutlinePlus, AiOutlineUp } from "react-icons/ai";
+import {
+  deleteCourse,
+  deleteMemo,
+  downCourse,
+  filterCourse,
+  upCourse,
+} from "../../redux/modules/temporarySlice";
+import { TiMinus } from "react-icons/ti";
+import { useDispatch, useSelector } from "react-redux";
 
 interface EditCourseProps {
   setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  paramId: string | undefined;
+  course: CourseType | undefined;
 }
 
-const EditCourse = ({ setIsEdit }: EditCourseProps) => {
+const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
   const navigate = useNavigate();
   const userID = authService.currentUser?.uid;
 
   //지역 선택
-  const [category, setCategory] = useState("");
-  const [courseTitle, setCourseTitle] = useState("");
+  const [ragions, setRagions] = useState<any | null>([]);
+  const [courseTitle, setCourseTitle] = useState<string | undefined>("");
+  const handleCategorySelect = (data: any) => {
+    setRagions(data);
+  };
+  const regionLimit = 4;
 
   // 여행전/후 선택
   const [travelStatus, setTravelStatus] = useState<boolean | null>(false);
@@ -48,6 +69,139 @@ const EditCourse = ({ setIsEdit }: EditCourseProps) => {
   const [map, setMap] = useState();
   const [boundsInfo, setBoundsInfo] = useState({});
 
+  // const filteredId = useSelector(
+  //   (state: any) => state.temporarySlice.filteredId
+  // );
+
+  useEffect(() => {
+    const ps = new kakao.maps.services.Places();
+
+    ps.keywordSearch(searchKeyword, (data, status, pagination) => {
+      const displayPagination = (pagination: any) => {
+        var paginationEl = document.getElementById("pagination"),
+          fragment = document.createDocumentFragment(),
+          i;
+
+        // @ts-ignore
+        while (paginationEl.hasChildNodes()) {
+          // @ts-ignore
+          paginationEl.removeChild(paginationEl.lastChild);
+        }
+
+        for (i = 1; i <= pagination.last; i++) {
+          var el = document.createElement("a");
+          el.href = "#";
+          // @ts-ignore
+          el.innerHTML = i;
+
+          if (i === pagination.current) {
+            el.className = "on";
+          } else {
+            el.onclick = (function (i) {
+              return function () {
+                pagination.gotoPage(i);
+              };
+            })(i);
+          }
+
+          fragment.appendChild(el);
+        }
+        // @ts-ignore
+        paginationEl.appendChild(fragment);
+      };
+
+      if (status === kakao.maps.services.Status.OK) {
+        const bounds = new kakao.maps.LatLngBounds();
+        let markers = [];
+
+        for (var i = 0; i < data.length; i++) {
+          // @ts-ignore
+          markers.push({
+            position: {
+              lat: data[i].y,
+              lng: data[i].x,
+            },
+            content: data[i].place_name,
+          });
+          // @ts-ignore
+          bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+          // @ts-ignore
+          bounds.ha = bounds.ha - 0.01;
+          // @ts-ignore
+          bounds.oa = bounds.oa + 0.01;
+        }
+
+        // @ts-ignore
+        map.panTo(bounds);
+        displayPagination(pagination);
+        // @ts-ignore
+        setSearchList(data);
+        setSearchCnt(pagination.totalCount);
+        setBoundsInfo(bounds);
+        // @ts-ignore
+      }
+    });
+  }, [searchKeyword]);
+
+  useEffect(() => {
+    if (map !== undefined) {
+      // @ts-ignore
+      map.panTo(boundsInfo);
+    }
+  }, []);
+  // }, [filteredId]);
+
+  // 코스데이터
+  const dispatch = useDispatch();
+  const courseList = useSelector(
+    (state: any) => state.temporarySlice.courseList
+  );
+  const filteredId = useSelector(
+    (state: any) => state.temporarySlice.filteredId
+  );
+
+  const [lists, setLists] = useState(courseList);
+  const [text, setText] = useState("");
+
+  const showModal = () => {
+    setModalOpen(!modalOpen);
+  };
+
+  const onClickDeleteCourse = (item: any) => {
+    // 모달로 변경
+    if (window.confirm("일정에서 삭제하시겠습니까?")) {
+      dispatch(deleteCourse(item.id));
+      dispatch(deleteMemo(item.id));
+      setText("");
+    }
+  };
+
+  const onClickUpCourse = (item: any) => {
+    dispatch(upCourse(item));
+  };
+
+  const onClickDownCourse = (item: any) => {
+    dispatch(downCourse(item));
+  };
+
+  const onClickGetId = (item: any) => {
+    dispatch(filterCourse(item.id));
+    setBoundsInfo(item.bounds);
+  };
+
+  useEffect(() => {
+    setLists(courseList);
+  }, [courseList]);
+
+  // 수정 전 내용 불러오기
+  useEffect(() => {
+    setCourseTitle(course?.title);
+    if (course?.isDone === true) {
+      setTravelStatus(true);
+    } else {
+      setTravelStatus(false);
+    }
+  }, []);
   return (
     <div className="mb-64">
       <div className="h-64 bg-gray-100">
@@ -86,18 +240,20 @@ const EditCourse = ({ setIsEdit }: EditCourseProps) => {
           </div>
         </div>
         <div className="flex items-center h-16 gap-4">
-          <div className="w-[15%] xs:w-1/3 xs:text-xs ">
+          <div className="w-[30%] xs:w-1/3 xs:text-xs ">
             <Select
               options={regionOptions}
               placeholder={"지역"}
               autoFocus={true}
-              onChange={(event: any) => {
-                setCategory(event.value);
-              }}
-              value={regionOptions.filter(function (option) {
-                return option.value === category;
-              })}
-              className="z-10"
+              onChange={handleCategorySelect}
+              isMulti
+              value={ragions}
+              className="basic-multi-select z-20"
+              classNamePrefix="select"
+              isSearchable={true}
+              isOptionDisabled={(ragion) =>
+                ragions && ragions.length >= regionLimit
+              }
             />
           </div>
           <input
@@ -111,6 +267,7 @@ const EditCourse = ({ setIsEdit }: EditCourseProps) => {
         <div className="mb-8">
           <Select
             options={hashTagOptions}
+            defaultValue={[hashTagOptions[2], hashTagOptions[3]]}
             placeholder={"#해시태그"}
             value={selectedTags}
             onChange={handleTagSelect}
@@ -134,11 +291,58 @@ const EditCourse = ({ setIsEdit }: EditCourseProps) => {
             <PostMarkers />
             <MapTypeControl position={kakao.maps.ControlPosition.TOPRIGHT} />
           </Map>
-          <PostCourseInfo
-            modalOpen={modalOpen}
-            setModalOpen={setModalOpen}
-            setBoundsInfo={setBoundsInfo}
-          />
+          <div className="w-[35%] max-h-[62vh] pl-7 float-right">
+            <div className="flex flex-col h-full overflow-y-scroll ">
+              {lists?.map((item: any, key: any) => {
+                return (
+                  <div
+                    key={key}
+                    onClick={() => onClickGetId(item)}
+                    className={item.id === filteredId ? "clicked" : " "}
+                  >
+                    <div className="w-full px-2 py-3 flex">
+                      <div className="w-full">
+                        <h4 className="pl-3 font-bold text-xl">
+                          #{key + 1} {item.name}
+                        </h4>
+                        <PostCourseDesc item={item} />
+                        <PostTextarea
+                          item={item}
+                          text={text}
+                          setText={setText}
+                        />
+                      </div>
+                      <TiMinus
+                        onClick={() => onClickDeleteCourse(item)}
+                        className="-mt-2 text-3xl text-gray-400 hover:text-black"
+                      />
+                    </div>
+                    <div className="flex text-3xl p-3 -mt-5">
+                      <AiOutlineUp
+                        onClick={() => onClickUpCourse(item)}
+                        className="hover:text-gray-400"
+                      />
+                      <AiOutlineDown
+                        onClick={() => onClickDownCourse(item)}
+                        className="hover:text-gray-400 ml-auto"
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <button
+              onClick={showModal}
+              className="w-full border border-gray-400 py-2 flex justify-center"
+            >
+              <AiOutlinePlus className="text-5xl text-gray-300" />
+            </button>
+            <div className="flex justify-center">
+              <button className="w-full bg-black text-white text-lg px-16 py-3 mt-5 mx-auto">
+                게시물 수정하기
+              </button>
+            </div>
+          </div>
           {modalOpen && (
             <PostSearchModal
               setModalOpen={setModalOpen}
