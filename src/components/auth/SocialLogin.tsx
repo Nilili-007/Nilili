@@ -38,15 +38,15 @@ const SocialLogin = ({ setModal }: SocialProps) => {
 
   return (
     <div className="flex items-center justify-center p-6 border-t border-solid border-blueGray-200 rounded-b">
-      <div className="flex-column items-center">
-        <div>
+      <div className="flex items-center">
+        <div className="m-1 border-none">
           <button onClick={signInGoogle}>
-            <img className="w-80" src="./login/google.png" alt="" />
+            <img src="./login/google.png" alt="" />
           </button>
         </div>
-        <div>
+        <div className="m-1 border-none">
           <button onClick={signInFacebook}>
-            <img className="w-80" src="./login/facebook.png" alt="" />
+            <img src="./login/facebook.png" alt="" />
           </button>
         </div>
       </div>
