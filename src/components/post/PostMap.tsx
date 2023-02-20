@@ -95,7 +95,7 @@ const PostMap = () => {
   }, [filteredId]);
 
   return (
-    <div className="w-full flex mb-6">
+    <div className="w-full flex h-[70vh]">
       <Map
         center={{
           lat: 37.566826,
@@ -104,7 +104,7 @@ const PostMap = () => {
         level={8}
         // @ts-ignore
         onCreate={setMap}
-        className="w-[65%] h-[70vh]"
+        className="w-[65%] h-full z-0"
       >
         <PostMarkers />
         <MapTypeControl position={kakao.maps.ControlPosition.TOPRIGHT} />
