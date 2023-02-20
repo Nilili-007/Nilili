@@ -51,7 +51,7 @@ export const courseApi = createApi({
     }),
 
     //list reducer
-    getLikeList: builder.query<CourseType[], void>({
+    getCourseLike: builder.query<CourseType[], void>({
       async queryFn() {
         try {
           const courseQuery = query(
@@ -160,7 +160,7 @@ export const courseApi = createApi({
 export const {
   useAddCourseMutation,
   useGetCourseQuery,
-  useGetLikeListQuery,
+  useGetCourseLikeQuery,
   useAddCommentMutation,
   useGetCommentQuery,
   useGetCommentDescQuery,

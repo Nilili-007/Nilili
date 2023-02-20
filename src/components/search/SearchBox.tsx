@@ -41,7 +41,14 @@ const hashTagOptions = [
 
 const SearchBox = () => {
   const [category, setCategory] = useState("LC");
+  const [locations, setLocations] = useState<string[]>([]);
+  const [hashtags, sethashtags] = useState<string[]>([]);
 
+  const onChangeHandler = (event: any) => {
+    console.log(event);
+    setLocations((prev) => [...prev, event.value]);
+  };
+  console.log(locations);
   return (
     <div className="mb-[2%] 3xl:w-[60%] 2xl:w-[70%] w-[90%] min-w-[370px]">
       <p className=" w-fit mx-auto xl:text-[55px] lg:text-[45px] sm:text-[35px]  text-2xl font-bold my-[5%]">
@@ -121,6 +128,10 @@ const SearchBox = () => {
             options={regionOptions}
             placeholder={"지역명"}
             autoFocus={true}
+            isMulti
+            isSearchable={true}
+            isClearable={true}
+            onChange={(event) => onChangeHandler(event)}
           />
         </div>
         <div
@@ -131,7 +142,7 @@ const SearchBox = () => {
           <Select
             options={hashTagOptions}
             isMulti
-            isSearchable={false}
+            isSearchable={true}
             isClearable={true}
             placeholder={"#해시태그"}
           />

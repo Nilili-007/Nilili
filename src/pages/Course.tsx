@@ -9,22 +9,12 @@ import {
   CommentDesc,
 } from "../components/course";
 import { PostTitle, PostHashTag } from "../components/post";
-import { useGetCourseQuery } from "../redux/modules/apiSlice";
 
 const Course = () => {
-  const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(false);
   const [desc, setDesc] = useState(true);
-  const { data } = useGetCourseQuery();
-
   const paramId = useParams().id;
 
-  if (paramId === "1") {
-    const test = data && data[0].id;
-    if (test) {
-      navigate(`/course/${test}`);
-    }
-  }
   return (
     <div className="w-11/12 md:w-3/4 m-auto">
       {isEdit ? <PostTitle /> : <CourseTitle setIsEdit={setIsEdit} />}

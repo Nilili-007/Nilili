@@ -1,7 +1,7 @@
 // 파이어베이스에 즉시 저장할 데이터 : 카테고리, 제목, 해시태그
 // 세션스토리지를 거친 후 파이어베이스에 저장할 데이터 : 장소, 장소별 설명(id, 설명)
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   PostBtn,
   PostHashTag,
@@ -12,8 +12,12 @@ import {
 } from "../components/post/index";
 
 import { useNavigate } from "react-router-dom";
-import { useAddCourseMutation } from "../redux/modules/apiSlice";
+import {
+  useAddCourseMutation,
+  useGetCourseQuery,
+} from "../redux/modules/apiSlice";
 import { authService } from "../utils/firebase";
+import { Dispatch } from "redux";
 
 //select option의 타입
 export interface optionType {
@@ -31,8 +35,10 @@ const Post = () => {
 
   //해시태그 선택
   const [selectedTags, setSelectedTags] = useState<optionType[] | null>([]);
-
+  const [condition, setCondition] = useState(false);
   const userID = authService.currentUser?.uid;
+  const { data } = useGetCourseQuery();
+
   //Hashtag 테스트용 submit handler
   const submitHandle = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -53,18 +59,24 @@ const Post = () => {
       isDone: true,
       places: [],
     };
+    setCondition(true);
 
-    await addCourse(newPost); //비동기 제일 마지막에 실행됌. eventloop - 공부
-    //usemutation에 onSuccess
+    await addCourse(newPost);
     window.alert("게시물이 등록되었습니다");
-    navigate(`/course/1`);
   };
+
+  useEffect(() => {
+    if (condition) {
+      console.log(data);
+      navigate(`/course/${data && data[0].id}`);
+      setCondition(false);
+    }
+  }, [data]);
 
   // 게시글 데이터 DB : uuid, createdAt, 카테고리, 제목, 해시태그, initialPlace
 
   return (
-    // <form onSubmit={submitHandle}>
-    <>
+    <form onSubmit={submitHandle}>
       <PostHeader />
       <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0">
         <div className="flex">
@@ -89,8 +101,7 @@ const Post = () => {
         <PostMap />
         <PostBtn />
       </div>
-    </>
-    // </form>
+    </form>
   );
 };
 

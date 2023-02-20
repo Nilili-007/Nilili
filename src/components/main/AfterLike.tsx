@@ -1,7 +1,7 @@
-import { useGetLikeListQuery } from "../../redux/modules/apiSlice";
+import { useGetCourseLikeQuery } from "../../redux/modules/apiSlice";
 import { Link } from "react-router-dom";
 const AfterLike = () => {
-  const { data, isLoading, isError } = useGetLikeListQuery();
+  const { data, isLoading, isError } = useGetCourseLikeQuery();
   if (isLoading) {
     return <>로딩중....</>;
   }
