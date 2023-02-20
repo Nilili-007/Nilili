@@ -30,7 +30,11 @@ const Course = () => {
   }
   return (
     <div className="w-11/12 md:w-3/4 m-auto">
-      {isEdit ? <PostTitle /> : <CourseTitle setIsEdit={setIsEdit} />}
+      {isEdit ? (
+        <PostTitle />
+      ) : (
+        <CourseTitle paramId={paramId} setIsEdit={setIsEdit} />
+      )}
       {isEdit ? (
         <>
           <PostHashTag />

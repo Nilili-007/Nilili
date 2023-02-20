@@ -1,5 +1,5 @@
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import { authService, dbService } from "../../utils/firebase";
 interface LikeProps {
@@ -9,12 +9,12 @@ interface LikeProps {
 
 const LikeBtn = ({ paramId, course }: LikeProps) => {
   const [like, setLike] = useState(false);
-  const courseLikes: any = course && course?.likesID.length;
+  const courseLikes = course && course?.likes;
   const [likeCount, setLikeCount] = useState<number | any>(0);
   const currentId = authService.currentUser?.uid;
   const courseRef = doc(dbService, "courses", paramId);
   const submitRef = useRef<HTMLButtonElement | any>();
-  const submitLike = async () => {
+  const submitLike = () => {
     if (!authService.currentUser) {
       setLike(false);
       alert("좋아요는 로그인 후 이용가능합니다.");

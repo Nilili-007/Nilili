@@ -49,6 +49,18 @@ export const courseApi = createApi({
       },
       providesTags: ["Courses"],
     }),
+    deleteCourse: builder.mutation({
+      async queryFn(courseId) {
+        try {
+          await deleteDoc(doc(dbService, "courses", courseId));
+          return { data: null };
+        } catch (error: any) {
+          console.error(error.message);
+          return { error: error.message };
+        }
+      },
+      invalidatesTags: ["Courses"],
+    }),
 
     //list reducer
     getLikeList: builder.query<CourseType[], void>({
@@ -140,6 +152,7 @@ export const courseApi = createApi({
 export const {
   useAddCourseMutation,
   useGetCourseQuery,
+  useDeleteCourseMutation,
   useGetLikeListQuery,
   useAddCommentMutation,
   useGetCommentQuery,
