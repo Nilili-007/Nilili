@@ -1,7 +1,7 @@
 import React from "react";
 import Select from "react-select";
 
-const regionOptions = [
+export const regionOptions = [
   { value: "서울", label: "서울" },
   { value: "경기/인천", label: "경기/인천" },
   { value: "충청남도", label: "충청남도" },

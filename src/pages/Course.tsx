@@ -7,6 +7,7 @@ import {
   LikeBtn,
   CommentDesc,
 } from "../components/course";
+import EditCourse from "../components/course/EditCourse";
 import { PostTitle, PostHashTag } from "../components/post";
 import { useGetCourseQuery } from "../redux/modules/apiSlice";
 
@@ -29,28 +30,18 @@ const Course = () => {
     }
   }
   return (
-    <div className="w-11/12 md:w-3/4 m-auto">
+    <div>
       {isEdit ? (
-        <PostTitle />
+        <EditCourse setIsEdit={setIsEdit} />
       ) : (
-        <CourseTitle paramId={paramId} setIsEdit={setIsEdit} />
+        <div className="w-11/12 md:w-3/4 m-auto">
+          <CourseTitle paramId={paramId} setIsEdit={setIsEdit} />
+          <CourseHashTag />
+          <LikeBtn paramId={paramId} course={courseData} />
+          <CommentInput paramId={paramId} />
+          <CommentDesc paramId={paramId} />
+        </div>
       )}
-      {isEdit ? (
-        <>
-          <PostHashTag />
-          <button
-            onClick={() => setIsEdit(false)}
-            className="bg-gray-300 px-4 sm:px-8 py-1 rounded-xl float-right"
-          >
-            취소
-          </button>
-        </>
-      ) : (
-        <CourseHashTag />
-      )}
-      <LikeBtn paramId={paramId} course={courseData} />
-      <CommentInput paramId={paramId} />
-      <CommentDesc paramId={paramId} />
     </div>
   );
 };

@@ -2,7 +2,7 @@ import React from "react";
 import Select from "react-select";
 import { optionType } from "../../pages/Post";
 
-const hashTagOptions = [
+export const hashTagOptions = [
   { value: "#가족", label: "#가족" },
   { value: "#친구", label: "#친구" },
   { value: "#연인", label: "#연인" },
