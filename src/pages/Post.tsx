@@ -8,6 +8,7 @@ import {
   PostMap,
   PostHeader,
   PostTravelStatus,
+  PostBtn,
 } from "../components/post/index";
 
 import { useNavigate } from "react-router-dom";
@@ -23,6 +24,9 @@ export interface optionType {
 const Post = () => {
   const navigate = useNavigate();
   const [addCourse] = useAddCourseMutation();
+
+  // 커버 선택
+  const [coverImg, setCoverImg] = useState("");
 
   //지역 선택
   const [category, setCategory] = useState("");
@@ -62,12 +66,10 @@ const Post = () => {
     navigate(`/course/1`);
   };
 
-  // 게시글 데이터 DB : uuid, createdAt, 카테고리, 제목, 해시태그, initialPlace
-
   return (
     // <form onSubmit={submitHandle}>
-    <div className="h-[100vh] mb-20">
-      <PostHeader />
+    <div className="max-h-[130vh] mb-[7%]">
+      <PostHeader coverImg={coverImg} setCoverImg={setCoverImg} />
       <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0 ">
         <div className="flex">
           <div className="flex flex-col">
@@ -92,6 +94,7 @@ const Post = () => {
           setSelectedTags={setSelectedTags}
         />
         <PostMap />
+        <PostBtn />
       </div>
     </div>
     // </form>
