@@ -20,31 +20,36 @@ export const regionOptions = [
 ];
 
 interface titleProps {
-  category?: string;
-  setCategory?: any;
+  ragions?: any;
+  setRagions?: any;
   courseTitle?: string;
   setCourseTitle?: any;
 }
 
 const PostTitle = ({
-  category,
-  setCategory,
+  ragions,
+  setRagions,
   courseTitle,
   setCourseTitle,
 }: titleProps) => {
+  const handleCategorySelect = (data: any) => {
+    setRagions(data);
+  };
+  const limit = 4;
   return (
     <div className="flex items-center h-16 gap-4">
-      <div className="w-[15%] xs:w-1/3 xs:text-xs ">
+      <div className="w-full xs:w-1/3 xs:text-xs ">
         <Select
           options={regionOptions}
           placeholder={"지역"}
           autoFocus={true}
-          onChange={(event: any) => {
-            setCategory(event.value);
-          }}
-          value={regionOptions.filter(function (option) {
-            return option.value === category;
-          })}
+          onChange={handleCategorySelect}
+          isMulti
+          value={ragions}
+          className="basic-multi-select z-20"
+          classNamePrefix="select"
+          isSearchable={true}
+          isOptionDisabled={(ragion) => ragions && ragions.length >= limit}
         />
       </div>
       <input

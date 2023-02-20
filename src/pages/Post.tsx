@@ -25,7 +25,7 @@ const Post = () => {
   const [addCourse] = useAddCourseMutation();
 
   //지역 선택
-  const [category, setCategory] = useState("");
+  const [ragions, setRagions] = useState<optionType[] | null>([]);
   const [courseTitle, setCourseTitle] = useState("");
 
   // 여행전/후 선택
@@ -43,7 +43,7 @@ const Post = () => {
     let selectedValues = selectedTags?.map((tag) => tag.value);
 
     const newPost = {
-      location: category,
+      location: ragions,
       hashtags: selectedValues,
       title: courseTitle,
       image: "/assets/course.jpg",
@@ -82,8 +82,8 @@ const Post = () => {
           />
         </div>
         <PostTitle
-          category={category}
-          setCategory={setCategory}
+          ragions={ragions}
+          setRagions={setRagions}
           courseTitle={courseTitle}
           setCourseTitle={setCourseTitle}
         />
