@@ -6,8 +6,8 @@ import {
   CourseTitle,
   LikeBtn,
   CommentDesc,
+  EditCourse,
 } from "../components/course";
-import EditCourse from "../components/course/EditCourse";
 import { useGetCourseQuery } from "../redux/modules/apiSlice";
 
 const Course = () => {

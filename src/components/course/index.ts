@@ -4,6 +4,7 @@ import CourseHashTag from "./CourseHashTag";
 import CourseTitle from "./CourseTitle";
 import CommentDesc from "./CommentDesc";
 import LikeBtn from "./LikeBtn";
+import EditCourse from "./EditCourse";
 
 export {
   Comment,
@@ -12,4 +13,5 @@ export {
   CourseTitle,
   CommentDesc,
   LikeBtn,
+  EditCourse,
 };
