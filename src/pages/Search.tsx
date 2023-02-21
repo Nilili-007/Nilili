@@ -1,4 +1,4 @@
-import { SearchLanding, SearchBox, SearchList } from "../components/search";
+import { SearchLanding, SearchBox } from "../components/search";
 import { useEffect } from "react";
 
 const Search = () => {
@@ -11,7 +11,6 @@ const Search = () => {
       <SearchLanding />
       <div className="flex flex-wrap flex-col items-center">
         <SearchBox />
-        <SearchList />
       </div>
     </div>
   );

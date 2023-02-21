@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   CommentInput,
   CourseHashTag,
@@ -13,7 +13,6 @@ import {
 import { useGetCourseQuery } from "../redux/modules/apiSlice";
 
 const Course = () => {
-  const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(false);
   const { data, isLoading } = useGetCourseQuery();
   const paramId = useParams().id;
@@ -30,12 +29,6 @@ const Course = () => {
     time = JSON.parse(courseData?.createdAt).substr(11, 5);
   }
 
-  if (paramId === "1") {
-    const test = data && data[0].id;
-    if (test) {
-      navigate(`/course/${test}`);
-    }
-  }
   if (isEdit) {
     return (
       <EditCourse course={courseData} setIsEdit={setIsEdit} paramId={paramId} />
