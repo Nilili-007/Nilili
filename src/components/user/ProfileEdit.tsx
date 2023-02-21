@@ -3,6 +3,7 @@ import { getDownloadURL, ref, uploadString } from "@firebase/storage";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router";
 import { authService, storage } from "../../utils/firebase";
+import Swal from "sweetalert2";
 
 interface ProfileEditModal {
   modal: boolean;
@@ -63,7 +64,13 @@ const ProfileEdit = ({
       photoURL: downloadUrl ? downloadUrl : null,
     })
       .then(() => {
-        alert("프로필 수정을 완료했습니다");
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "프로필을 수정했습니다",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         setModal(false);
         navigate("/user/:id");
       })
