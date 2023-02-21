@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { editMemo, filterCourse } from "../../redux/modules/temporarySlice";
 import styled from "styled-components";
 
-const PostTextarea = ({ item, text, setText }: any) => {
+const PostTextarea = ({ item, text, setText, setBoundsInfo }: any) => {
   const dispatch = useDispatch();
 
   const filteredId = useSelector(
@@ -11,6 +11,7 @@ const PostTextarea = ({ item, text, setText }: any) => {
 
   const onFocusGetId = (item: any) => {
     dispatch(filterCourse(item.id));
+    setBoundsInfo(item.bounds);
   };
 
   const onBlurAddMemo = (item: any) => {
@@ -25,8 +26,9 @@ const PostTextarea = ({ item, text, setText }: any) => {
   };
 
   const onFocusEditMemo = (item: any) => {
-    setText(item.memo);
     dispatch(filterCourse(item.id));
+    setBoundsInfo(item.bounds);
+    setText(item.memo);
     const newMemo = {
       id: item.id,
       memo: text,

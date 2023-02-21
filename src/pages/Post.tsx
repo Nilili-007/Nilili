@@ -1,7 +1,8 @@
-// 파이어베이스에 즉시 저장할 데이터 : 카테고리, 제목, 해시태그
-// 세션스토리지를 거친 후 파이어베이스에 저장할 데이터 : 장소, 장소별 설명(id, 설명)
-
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useAddCourseMutation } from "../redux/modules/apiSlice";
+import { authService } from "../utils/firebase";
 import {
   PostHashTag,
   PostTitle,
@@ -9,10 +10,6 @@ import {
   PostHeader,
   PostTravelStatus,
 } from "../components/post/index";
-
-import { useNavigate } from "react-router-dom";
-import { useAddCourseMutation } from "../redux/modules/apiSlice";
-import { authService } from "../utils/firebase";
 
 //select option의 타입
 export interface optionType {
@@ -24,19 +21,29 @@ const Post = () => {
   const navigate = useNavigate();
   const [addCourse] = useAddCourseMutation();
 
+  // 커버
+  const [uploadCover, setUploadCover] = useState("");
+  const [galleryCover, setGalleryCover] = useState("");
+
   //지역 선택
   const [ragions, setRagions] = useState<optionType[] | null>([]);
   const [courseTitle, setCourseTitle] = useState("");
 
   // 여행전/후 선택
-  const [travelStats, setTravelStatus] = useState();
+  const [travelStatus, setTravelStatus] = useState<boolean | null>(null);
 
   //해시태그 선택
   const [selectedTags, setSelectedTags] = useState<optionType[] | null>([]);
 
   const userID = authService.currentUser?.uid;
-  //Hashtag 테스트용 submit handler
-  const submitHandle = async (event: React.FormEvent<HTMLFormElement>) => {
+
+  const courseList = useSelector(
+    (state: any) => state.temporarySlice.courseList
+  );
+
+  const onClickAddPost = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     event.preventDefault();
     //selectedTags는 오브젝트 배열입니다.
     //hashtag는 데이터베이스에 문자열 배열로 들어가야 하기 때문에, value 값만 추출하여 문자열배열로 바꿉니다.
@@ -46,28 +53,53 @@ const Post = () => {
       location: ragions,
       hashtags: selectedLabels,
       title: courseTitle,
-      image: "/assets/course.jpg",
-      createdAt: JSON.stringify(new Date()),
-      likes: 70,
-      likesID: [userID],
+      travelStatus,
+      courseList: JSON.stringify(courseList),
+      cover: uploadCover || galleryCover,
       userID,
-      nickname: "선형",
-      isDone: true,
-      places: [],
+      nickname: authService.currentUser?.displayName,
+      createdAt: Date.now(),
+      likes: 0,
+      likesID: [],
     };
 
-    await addCourse(newPost); //비동기 제일 마지막에 실행됌. eventloop - 공부
-    //usemutation에 onSuccess
-    window.alert("게시물이 등록되었습니다");
-    navigate(`/course/1`);
+    if (
+      (uploadCover || galleryCover) &&
+      travelStatus !== null &&
+      category &&
+      courseTitle &&
+      courseList.length > 1
+    ) {
+      addCourse(newPost);
+      window.alert("훌륭한 여정이에요! 여행 후 리뷰도 꼭 부탁드려요!");
+      navigate(`/course/1`);
+    } else {
+      if (!uploadCover || !galleryCover) {
+        alert("커버 이미지를 추가해주세요.");
+      }
+      if (travelStatus === null) {
+        alert("여행 전/여행 후 카테고리를 선택해주세요.");
+      }
+      if (!category) {
+        alert("하나 이상의 지역을 선택해주세요.");
+      }
+      if (!courseTitle) {
+        alert("제목을 입력해주세요.");
+      }
+      if (courseList.length < 2) {
+        alert("2개 이상의 코스를 등록해주세요.");
+      }
+    }
   };
 
-  // 게시글 데이터 DB : uuid, createdAt, 카테고리, 제목, 해시태그, initialPlace
-
   return (
-    // <form onSubmit={submitHandle}>
-    <div className="h-[100vh] mb-20">
-      <PostHeader />
+    <div className="max-h-[130vh] mb-[7%]">
+      <PostHeader
+        uploadCover={uploadCover}
+        setUploadCover={setUploadCover}
+        galleryCover={galleryCover}
+        setGalleryCover={setGalleryCover}
+      />
       <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0 ">
         <div className="flex">
           <div className="flex flex-col">
@@ -77,7 +109,7 @@ const Post = () => {
             </p>
           </div>
           <PostTravelStatus
-            travelStatus={travelStats}
+            travelStatus={travelStatus}
             setTravelStatus={setTravelStatus}
           />
         </div>
@@ -92,9 +124,16 @@ const Post = () => {
           setSelectedTags={setSelectedTags}
         />
         <PostMap />
+        <div className="flex justify-center mt-7 ">
+          <button
+            onClick={(e) => onClickAddPost(e)}
+            className="w-[280px] bg-black text-white text-lg py-3 mx-auto"
+          >
+            게시물 등록하기
+          </button>
+        </div>
       </div>
     </div>
-    // </form>
   );
 };
 

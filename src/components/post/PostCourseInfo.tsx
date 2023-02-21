@@ -2,7 +2,6 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PostCourseDesc from "./PostCourseDesc";
 import PostTextarea from "./PostTextarea";
-import PostBtn from "./PostBtn";
 import styled from "styled-components";
 import { TiMinus } from "react-icons/ti";
 import { AiOutlineUp, AiOutlineDown, AiOutlinePlus } from "react-icons/ai";
@@ -67,7 +66,7 @@ const PostCourseInfo = ({
   }, [courseList]);
 
   return (
-    <div className="w-[35%] max-h-[62vh] pl-7 float-right">
+    <div className="w-[35%] max-h-[70vh] pl-7 float-right">
       <div className="flex flex-col h-full overflow-y-scroll ">
         {lists?.map((item: any, key: any) => {
           return (
@@ -82,7 +81,12 @@ const PostCourseInfo = ({
                     #{key + 1} {item.name}
                   </h4>
                   <PostCourseDesc item={item} />
-                  <PostTextarea item={item} text={text} setText={setText} />
+                  <PostTextarea
+                    item={item}
+                    text={text}
+                    setText={setText}
+                    setBoundsInfo={setBoundsInfo}
+                  />
                 </div>
                 <TiMinus
                   onClick={() => onClickDeleteCourse(item)}
@@ -102,14 +106,13 @@ const PostCourseInfo = ({
             </ItemCard>
           );
         })}
+        <button
+          onClick={showModal}
+          className="w-full border border-gray-400 py-2 flex justify-center"
+        >
+          <AiOutlinePlus className="text-5xl text-gray-300" />
+        </button>
       </div>
-      <button
-        onClick={showModal}
-        className="w-full border border-gray-400 py-2 flex justify-center"
-      >
-        <AiOutlinePlus className="text-5xl text-gray-300" />
-      </button>
-      <PostBtn />
     </div>
   );
 };

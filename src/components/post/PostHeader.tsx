@@ -1,20 +1,186 @@
-import React from "react";
+import React, { Dispatch, SetStateAction, useRef, useState } from "react";
+import { authService } from "../../utils/firebase";
+import {
+  getStorage,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from "@firebase/storage";
+import { galleryLists } from "./index";
+import { GrFormClose } from "react-icons/gr";
+import styled from "styled-components";
 
-// 커버 추가/제거 : 유저가 직접 업로드, 기본 이미지 중 선택
-// 그라데이션 효과
+interface PostProps {
+  uploadCover: string;
+  setUploadCover: Dispatch<SetStateAction<any>>;
+  galleryCover: string;
+  setGalleryCover: Dispatch<SetStateAction<any>>;
+}
 
-const PostHeader = () => {
+const PostHeader = ({
+  uploadCover,
+  setUploadCover,
+  galleryCover,
+  setGalleryCover,
+}: PostProps) => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [category, setCategory] = useState("업로드");
+  const coverRef = useRef<HTMLInputElement>(null);
+
+  const onClickShowModal = () => {
+    setModalOpen(true);
+  };
+
+  const onClickCategory = (e: any) => {
+    if (e.target.innerText !== "업로드") {
+      setCategory("갤러리");
+    }
+    if (e.target.innerText !== "갤러리") {
+      setCategory("업로드");
+    }
+  };
+
+  const onChangeUploadCover = () => {
+    if (coverRef.current?.files) {
+      const file = coverRef.current.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setUploadCover(reader.result as any);
+      };
+    }
+  };
+
+  const onClickUploadCover = async (event: any) => {
+    event.preventDefault();
+    setModalOpen(false);
+
+    if (coverRef.current?.files) {
+      const file = coverRef.current.files[0];
+      const storage = getStorage();
+      const storageRef = ref(storage, `covers/${file.name}`);
+
+      uploadBytes(storageRef, file).then(() => {
+        getDownloadURL(storageRef).then((url: string) => {
+          setUploadCover(url);
+          setGalleryCover(undefined);
+        });
+      });
+    }
+  };
+
+  const onClickSelectCover = (e: any) => {
+    if (e.target.currentSrc) {
+      setGalleryCover(e.target.currentSrc);
+      setUploadCover(undefined);
+    }
+  };
+
+  const onClickRemoveCover = () => {
+    setGalleryCover("");
+  };
+
   return (
-    <div className="h-64 bg-gray-100">
-      <div className="w-[70%] pt-24 m-auto">
-        <h1 className="text-5xl font-bold">DRAW MY PATH</h1>
-        <p className="mt-4">유저님만의 여정을 직접 그려보세요!</p>
-        <button className="bg-black text-white px-2 py-1 mt-2">
-          Add Cover
-        </button>
+    <div className="h-[700px] text-white">
+      <img
+        src={
+          (uploadCover || galleryCover) !== undefined
+            ? uploadCover || galleryCover
+            : ""
+        }
+        className="w-full h-[700px] object-cover z-0"
+      />
+      <div className="w-full h-[700px] -mt-[700px] absolute z-10 bg-gradient-to-t from-[#00000060]" />
+      <div className="w-[70%] pt-36 m-auto -mt-[350px]">
+        <h1 className="text-5xl font-bold z-20 absolute">DRAW MY PATH</h1>
+        <p className="mt-[68px] z-20 absolute text-lg">
+          {authService.currentUser?.displayName}님만의 여정을 직접 그려보세요!
+        </p>
+        <div className="flex mt-[100px]">
+          <button
+            onClick={onClickShowModal}
+            className="bg-black px-2 py-1 mt-2 mr-3 z-20"
+          >
+            {uploadCover || galleryCover ? "Change Cover" : "Add Cover"}
+          </button>
+          <button
+            onClick={() => onClickRemoveCover()}
+            className="bg-none border border-white px-2 py-1 mt-2 mr-3 z-20"
+          >
+            Remove Cover
+          </button>
+        </div>
       </div>
+      {modalOpen && (
+        <div className="w-[700px] h-[300px] bg-white border border-gray-600 absolute translate-x-[34%] translate-y-[5%] z-[1000]">
+          <div className=" w-[95%] m-auto py-1">
+            <div className="border-b border-gray-600 mt-10" />
+            <GrFormClose
+              onClick={(event) => onClickUploadCover(event)}
+              // onClick={() => setModalOpen(false)}
+              className="cursor-pointer text-4xl ml-auto -mt-10 -mr-1"
+            />
+            <div className="flex -mt-[26px]">
+              <AddCoverCategory
+                onClick={(e) => onClickCategory(e)}
+                className={category === "업로드" ? "clicked" : ""}
+              >
+                업로드
+              </AddCoverCategory>
+              <AddCoverCategory
+                onClick={onClickCategory}
+                className={category === "갤러리" ? "clicked" : ""}
+              >
+                갤러리
+              </AddCoverCategory>
+            </div>
+            <div className="w-full h-full flex flex-col justify-center items-center">
+              {category === "업로드" ? (
+                <div className="w-[665px] h-60 flex justify-center items-center">
+                  <input
+                    type="file"
+                    ref={coverRef}
+                    onChange={onChangeUploadCover}
+                    className="w-[190px] text-black"
+                  />
+                </div>
+              ) : (
+                <div className="overflow-y-scroll max-h-[236px]">
+                  <div className="grid grid-cols-4 gap-3 text-black mt-4 w-full">
+                    {galleryLists.map((item: string) => {
+                      return (
+                        <img
+                          src={item}
+                          key={item}
+                          onClick={(e) => onClickSelectCover(e)}
+                          className="cursor-pointer w-[160px] h-[70px]"
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 export default PostHeader;
+
+const AddCoverCategory = styled.div`
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 18px;
+  color: #9ca3af;
+  padding: 0 8px 2px 8px;
+  &:last-child {
+    margin-left: 20px;
+  }
+  &.clicked {
+    color: black;
+    border-bottom: 2px solid black;
+  }
+`;
