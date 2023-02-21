@@ -14,7 +14,7 @@ const LikeBtn = ({ paramId, course }: LikeProps) => {
   const currentId = authService.currentUser?.uid;
   const courseRef = doc(dbService, "courses", paramId);
   const submitRef = useRef<HTMLButtonElement | any>();
-  const submitLike = () => {
+  const submitLike = async () => {
     if (!authService.currentUser) {
       setLike(false);
       alert("좋아요는 로그인 후 이용가능합니다.");
@@ -32,16 +32,17 @@ const LikeBtn = ({ paramId, course }: LikeProps) => {
     const updateLikes = async () => {
       if (like) {
         await updateDoc(courseRef, {
-          likes: likeCount,
+          likes: likeCount || null,
           likesID: arrayUnion(currentId),
         });
       } else {
         await updateDoc(courseRef, {
-          likes: likeCount,
+          likes: likeCount || null,
           likesID: arrayRemove(currentId),
         });
       }
     };
+    if (!currentId) return;
     updateLikes();
   }, [like, likeCount]);
 
