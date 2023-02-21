@@ -6,13 +6,11 @@ declare global {
 
 declare interface CourseType {
   id: string;
-  location: string[];
-  hashtags: string[];
   title: string;
   travelStatus: boolean;
   location: string[];
   hashtags: string[];
-  courseList: string[];
+  courseList: string;
   coverImg: string;
   userID: string;
   nickname: string;
@@ -24,4 +22,15 @@ declare interface CourseType {
 declare interface optionType {
   value: string;
   label: string;
+}
+
+declare interface CourseListType {
+  memo?: string;
+  name: string;
+  address: string;
+  road: string;
+  phone: string;
+  id: string;
+  bounds: any;
+  position: any;
 }
