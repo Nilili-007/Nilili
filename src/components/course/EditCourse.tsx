@@ -50,7 +50,7 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
   // 수정 전 내용 불러오기
   useEffect(() => {
     setCourseTitle(course?.title);
-    if (course?.isDone === true) {
+    if (course?.travelStatus === true) {
       setTravelStatus(true);
     } else {
       setTravelStatus(false);
@@ -74,9 +74,9 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
       location: selectedRagions,
       hashtags: selectedLabels,
       title: courseTitle,
-      isDone: travelStatus,
       cover: uploadCover || galleryCover,
       courseList: JSON.stringify(courseList),
+      travelStatus,
     });
     alert("정상적으로 수정이 완료되었습니다.");
     setIsEdit(false);

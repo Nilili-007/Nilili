@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import Select, { StylesConfig } from "react-select";
-import { optionType } from "../../pages/Post";
+import Select from "react-select";
 
 export const hashTagOptions = [
   { value: "#가족", label: "#화목하게 가족과" },

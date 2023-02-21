@@ -1,7 +1,7 @@
-import { useGetLikeListQuery } from "../../redux/modules/apiSlice";
+import { useGetCourseLikeQuery } from "../../redux/modules/apiSlice";
 import { Link } from "react-router-dom";
 const AfterLike = () => {
-  const { data, isLoading, isError } = useGetLikeListQuery();
+  const { data, isLoading, isError } = useGetCourseLikeQuery();
   if (isLoading) {
     return <>로딩중....</>;
   }
@@ -19,7 +19,7 @@ const AfterLike = () => {
       </p>
       <ul className="overflow-x-auto whitespace-nowrap no-scrollbar">
         {data
-          ?.filter((item: CourseType) => item.isDone === true)
+          ?.filter((item: CourseType) => item.travelStatus === true)
           .slice(0, 3)
           .map((item) => (
             <Link to={`/course/${item.id}`} key={item.id}>

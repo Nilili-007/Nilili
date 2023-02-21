@@ -77,6 +77,7 @@ const PostHeader = ({
   };
 
   const onClickRemoveCover = () => {
+    setUploadCover("");
     setGalleryCover("");
   };
 

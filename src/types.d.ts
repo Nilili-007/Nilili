@@ -15,6 +15,21 @@ declare interface CourseType {
   likesID: any[];
   userID: string;
   nickname: string;
-  isDone: boolean;
+  travelStatus: boolean;
   courseList: string;
+}
+declare interface optionType {
+  value: string;
+  label: string;
+}
+
+declare interface CourseListType {
+  memo?: string;
+  name: string;
+  address: string;
+  road: string;
+  phone: string;
+  id: string;
+  bounds: any;
+  position: any;
 }
