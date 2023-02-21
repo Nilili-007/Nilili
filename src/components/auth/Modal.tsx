@@ -1,10 +1,4 @@
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
-import React, { useState, useEffect } from "react";
-import { authService } from "../../utils/firebase";
+import React, { useState } from "react";
 import Login from "./Login";
 import Register from "./Register";
 import AuthForgot from "./AuthForgot";
