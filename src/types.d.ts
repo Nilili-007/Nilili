@@ -6,7 +6,7 @@ declare global {
 
 declare interface CourseType {
   id: string;
-  location: string;
+  location: string[];
   hashtags: string[];
   title: string;
   image: string;

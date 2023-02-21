@@ -26,7 +26,7 @@ const Post = () => {
   const [galleryCover, setGalleryCover] = useState("");
 
   //지역 선택
-  const [category, setCategory] = useState("");
+  const [ragions, setRagions] = useState<optionType[] | null>([]);
   const [courseTitle, setCourseTitle] = useState("");
 
   // 여행전/후 선택
@@ -47,13 +47,13 @@ const Post = () => {
     event.preventDefault();
     //selectedTags는 오브젝트 배열입니다.
     //hashtag는 데이터베이스에 문자열 배열로 들어가야 하기 때문에, value 값만 추출하여 문자열배열로 바꿉니다.
-    let selectedValues = selectedTags?.map((tag) => tag.value);
+    let selectedLabels = selectedTags?.map((tag) => tag.label);
 
     const newPost = {
+      location: ragions,
+      hashtags: selectedLabels,
       title: courseTitle,
       travelStatus,
-      location: category,
-      hashtags: selectedValues,
       courseList: JSON.stringify(courseList),
       cover: uploadCover || galleryCover,
       userID,
@@ -114,8 +114,8 @@ const Post = () => {
           />
         </div>
         <PostTitle
-          category={category}
-          setCategory={setCategory}
+          ragions={ragions}
+          setRagions={setRagions}
           courseTitle={courseTitle}
           setCourseTitle={setCourseTitle}
         />

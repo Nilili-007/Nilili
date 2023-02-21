@@ -30,7 +30,7 @@ const CommentDesc = ({ paramId }: CommentProps) => {
     console.log(error);
   }
   return (
-    <div>
+    <div className="mb-40">
       <div className="mb-10">
         <div>
           <input

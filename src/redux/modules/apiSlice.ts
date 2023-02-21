@@ -49,6 +49,33 @@ export const courseApi = createApi({
       },
       providesTags: ["Courses"],
     }),
+    updateCourse: builder.mutation({
+      async queryFn({
+        courseId,
+        location,
+        hashtags,
+        title,
+        // image,
+        isDone,
+        // places,
+      }) {
+        try {
+          await updateDoc(doc(dbService, "courses", courseId), {
+            location,
+            hashtags,
+            title,
+            // image,
+            isDone,
+            // places,
+          });
+          return { data: null };
+        } catch (error: any) {
+          console.error(error.message);
+          return { error: error.message };
+        }
+      },
+      invalidatesTags: ["Courses"],
+    }),
     deleteCourse: builder.mutation({
       async queryFn(courseId) {
         try {
@@ -152,6 +179,7 @@ export const courseApi = createApi({
 export const {
   useAddCourseMutation,
   useGetCourseQuery,
+  useUpdateCourseMutation,
   useDeleteCourseMutation,
   useGetLikeListQuery,
   useAddCommentMutation,

@@ -7,14 +7,13 @@ import {
   LikeBtn,
   CommentDesc,
 } from "../components/course";
-import { PostTitle, PostHashTag } from "../components/post";
+import EditCourse from "../components/course/EditCourse";
 import { useGetCourseQuery } from "../redux/modules/apiSlice";
 
 const Course = () => {
   const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(false);
-  const { data } = useGetCourseQuery();
-
+  const { data, isLoading } = useGetCourseQuery();
   const paramId = useParams().id;
 
   const filterData = data?.filter(
@@ -28,29 +27,28 @@ const Course = () => {
       navigate(`/course/${test}`);
     }
   }
+  if (isEdit) {
+    return (
+      <EditCourse course={courseData} setIsEdit={setIsEdit} paramId={paramId} />
+    );
+  }
   return (
-    <div className="w-11/12 md:w-3/4 m-auto">
-      {isEdit ? (
-        <PostTitle />
+    <div>
+      {isLoading ? (
+        <div className="h-screen m-40 text-3xl">Loading...</div>
       ) : (
-        <CourseTitle paramId={paramId} setIsEdit={setIsEdit} />
+        <div className="w-11/12 md:w-3/4 m-auto">
+          <CourseTitle
+            course={courseData}
+            paramId={paramId}
+            setIsEdit={setIsEdit}
+          />
+          <CourseHashTag course={courseData} />
+          <LikeBtn paramId={paramId} course={courseData} />
+          <CommentInput paramId={paramId} />
+          <CommentDesc paramId={paramId} />
+        </div>
       )}
-      {isEdit ? (
-        <>
-          <PostHashTag />
-          <button
-            onClick={() => setIsEdit(false)}
-            className="bg-gray-300 px-4 sm:px-8 py-1 rounded-xl float-right"
-          >
-            취소
-          </button>
-        </>
-      ) : (
-        <CourseHashTag />
-      )}
-      <LikeBtn paramId={paramId} course={courseData} />
-      <CommentInput paramId={paramId} />
-      <CommentDesc paramId={paramId} />
     </div>
   );
 };
