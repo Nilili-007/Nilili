@@ -64,21 +64,11 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
                 registerBtn={registerBtn}
               />
             ) : category === "SU" ? (
-              <>
-                <Register closeModal={closeModal} setModal={setModal} />
-                <div className="flex items-center justify-center p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  <div className="flex items-center justify-center text-gray-500 text-xs mr-5">
-                    이미 회원이라면?
-                  </div>
-                  <button
-                    className="text-black border-b border-blue-500 font-bold text-xs p-1 hover:text-blue-600 outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                    onClick={loginBtn}
-                  >
-                    로그인
-                  </button>
-                </div>
-              </>
+              <Register
+                closeModal={closeModal}
+                setModal={setModal}
+                loginBtn={loginBtn}
+              />
             ) : (
               <AuthForgot
                 setCategory={setCategory}
