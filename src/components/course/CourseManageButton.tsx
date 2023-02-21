@@ -30,7 +30,7 @@ const CourseManageButton = ({
 
   return (
     <>
-      <div className="flex gap-3 ml-auto -mt-10">
+      <div className="flex gap-3 ml-auto">
         <MdOutlineMoreVert
           className="sm:hidden cursor-pointer"
           size={24}
