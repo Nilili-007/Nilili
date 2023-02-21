@@ -34,20 +34,26 @@ const UserNameEdit = () => {
       ) : (
         <></>
       )}
-      <div className="justify-between px-4 mt-4 mb-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
-        <div className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-          <img
-            src={userImg}
-            alt=""
-            className="object-fill h-10 w-10 rounded-full"
-          />
-          <div className="font-3xl m-5 text-black font-bold">{userName}님!</div>
-          <button
-            onClick={openModal}
-            className="text-sm px-4 py-2 leading-none border rounded text-black border-black hover:border-transparent hover:bg-blue-200 mt-4 lg:mt-0"
-          >
-            프로필 수정
-          </button>
+      <div className="w-full bg-black shadow mb-7">
+        <div className="px-4 mx-auto flex-start lg:max-w-7xl md:items-center md:flex md:px-8">
+          <div className="flex-col">
+            <div className="text-white text-2xl m-3">My Page</div>
+            <div className="items-center justify-center  mb-4  space-y-8 md:flex md:space-x-6 md:space-y-0">
+              <img src={userImg} alt="" className="object-fill h-40 w-40" />
+              <div className="flex-col">
+                <div className="text-white text-2xl mb-7">
+                  안녕하세요, <br />
+                  {userName}님!
+                </div>
+                <button
+                  onClick={openModal}
+                  className="text-sm leading-none border-none underline text-gray-300 hover:text-teal-500 mt-4 lg:mt-0"
+                >
+                  프로필 수정하기
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>
