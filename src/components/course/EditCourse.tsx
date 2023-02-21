@@ -19,6 +19,7 @@ import {
 } from "../../redux/modules/temporarySlice";
 import { TiMinus } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
+import { useUpdateCourseMutation } from "../../redux/modules/apiSlice";
 
 interface EditCourseProps {
   setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
@@ -29,6 +30,8 @@ interface EditCourseProps {
 const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
   const navigate = useNavigate();
   const userID = authService.currentUser?.uid;
+  const [courseTitle, setCourseTitle] = useState<string | undefined>("");
+  // 기존 select로 선택했던 내용 불러오기
   const filterRagion = regionOptions.filter((ragion) =>
     course?.location.includes(ragion.value)
   );
@@ -38,7 +41,6 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
 
   //지역 선택
   const [ragions, setRagions] = useState<any | null>([]);
-  const [courseTitle, setCourseTitle] = useState<string | undefined>("");
   const handleCategorySelect = (data: any) => {
     setRagions(data);
   };
@@ -60,10 +62,6 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
   function handleTagSelect(data: any) {
     setSelectedTags(data);
   }
-  useEffect(() => {
-    console.log(selectedTags);
-    console.log(ragions);
-  }, [ragions, selectedTags]);
   const tagLimit = 5;
 
   //지도
@@ -206,7 +204,27 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
     } else {
       setTravelStatus(false);
     }
+    setRagions(filterRagion);
+    setSelectedTags(filterTags);
   }, []);
+
+  // update mutation
+  const [updateCourse] = useUpdateCourseMutation();
+  const updateCourseHandler = (id: string | undefined) => {
+    let selectedRagions = ragions?.map((ragion: any) => ragion.value);
+    let selectedLabels = selectedTags?.map((tag: any) => tag.label);
+    updateCourse({
+      courseId: id,
+      location: selectedRagions,
+      hashtags: selectedLabels,
+      title: courseTitle,
+      // image,
+      isDone: travelStatus,
+      // places,
+    });
+    alert("정상적으로 수정이 완료되었습니다.");
+    setIsEdit(false);
+  };
 
   return (
     <div className="mb-64">
@@ -343,7 +361,10 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
               <AiOutlinePlus className="text-5xl text-gray-300" />
             </button>
             <div className="flex justify-center">
-              <button className="w-full bg-black text-white text-lg px-16 py-3 mt-5 mx-auto">
+              <button
+                className="w-full bg-black text-white text-lg px-16 py-3 mt-5 mx-auto"
+                onClick={() => updateCourseHandler(paramId)}
+              >
                 게시물 수정하기
               </button>
             </div>
