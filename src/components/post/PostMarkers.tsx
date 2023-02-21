@@ -28,7 +28,7 @@ const PostMarkers = () => {
   return (
     <>
       {courseList.map((item: any, index: number) => (
-        <>
+        <div key={index}>
           <div onClick={() => onClickGetId(item)}>
             <CustomOverlayMap position={item.position}>
               <InfoWindow className={item.id === filteredId ? "clicked" : " "}>
@@ -48,7 +48,7 @@ const PostMarkers = () => {
             strokeOpacity={1}
             strokeStyle={"solid"}
           />
-        </>
+        </div>
       ))}
     </>
   );

@@ -55,18 +55,18 @@ export const courseApi = createApi({
         location,
         hashtags,
         title,
-        // image,
+        cover,
         isDone,
-        // places,
+        courseList,
       }) {
         try {
           await updateDoc(doc(dbService, "courses", courseId), {
             location,
             hashtags,
             title,
-            // image,
+            cover,
             isDone,
-            // places,
+            courseList,
           });
           return { data: null };
         } catch (error: any) {
