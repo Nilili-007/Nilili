@@ -61,11 +61,9 @@ const SearchBox = () => {
       travelStatus === undefined
     ) {
       setFilteredList(data);
-      console.log("검색 안됌");
     }
     // 지역, 해시태그, 키워드(제목, 코스 각각의 이름, 지번주소, 도로명 주소, 메모), 여행 전/후 여부에 따라 필터링
     else {
-      console.log("검색 됌");
       const filteredData: CourseType[] | undefined = data
         ?.filter((item) => isSubsetOf(item.location, locationsArr))
         .filter((item) => isSubsetOf(item.hashtags, hashtagsArr))

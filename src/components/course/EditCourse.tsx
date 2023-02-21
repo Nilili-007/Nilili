@@ -220,7 +220,7 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
       hashtags: selectedLabels,
       title: courseTitle,
       // image,
-      isDone: travelStatus,
+      travelStatus,
       // places,
     });
     alert("정상적으로 수정이 완료되었습니다.");
