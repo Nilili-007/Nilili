@@ -37,14 +37,17 @@ const SocialLogin = ({ setModal }: SocialProps) => {
   };
 
   return (
-    <div className="flex items-center justify-center p-6 border-t border-solid border-blueGray-200 rounded-b">
-      <div className="flex items-center">
-        <div className="m-1 border-none">
+    <div className="flex-column items-center justify-column p-6">
+      <div className="flex items-center justify-center text-black text-sm font-semibold mb-2">
+        SNS 계정으로 로그인하기
+      </div>
+      <div className="flex items-center justify-center">
+        <div className="m-3 border-none">
           <button onClick={signInGoogle}>
             <img src="./login/google.png" alt="" />
           </button>
         </div>
-        <div className="m-1 border-none">
+        <div className="m-3 border-none">
           <button onClick={signInFacebook}>
             <img src="./login/facebook.png" alt="" />
           </button>

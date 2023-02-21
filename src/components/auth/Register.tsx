@@ -228,16 +228,16 @@ const Register = ({ setModal, closeModal, loginBtn }: RegisterProps) => {
           </div>
         </form>
       </div>
+      <div className="flex justify-center items-center ">
+        <div className="border-b border-solid border-gray-500 w-[90%]" />
+      </div>
       <div className="flex items-center justify-center p-6 border-t border-solid border-blueGray-200 rounded-b">
-        <div className="flex items-center justify-center text-gray-500 text-xs mr-5">
-          이미 회원이라면?
-        </div>
         <button
-          className="text-black border-b border-blue-500 font-bold text-xs p-1 hover:text-blue-600 outline-none focus:outline-none mr-1 mb-1"
+          className="text-black underline text-xs font-semibold p-1 outline-none focus:outline-none mr-1 mb-1"
           type="button"
           onClick={loginBtn}
         >
-          로그인
+          로그인 창으로 돌아가기
         </button>
       </div>
     </>

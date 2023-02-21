@@ -131,7 +131,7 @@ const Login = ({
           </div>
           <div className="flex items-center justify-center">
             <button
-              className="w-full text-white bg-black font-bold uppercase text-sm px-6 py-3 shadow hover:shadow-lg outline-none focus:outline-none mb-1"
+              className="w-full text-white bg-black font-bold uppercase text-sm px-6 py-3 shadow hover:shadow-lg outline-none focus:outline-none"
               type="submit"
               disabled={isLogin}
               onClick={(e) => loginBtn(e)}
@@ -142,24 +142,27 @@ const Login = ({
         </form>
       </div>
       <SocialLogin setModal={setModal} />
-      <div className="flex items-center justify-center p-2 border-t border-solid border-blueGray-200 rounded-b">
-        <div className="flex items-center justify-center text-gray-500 text-xs mr-5">
+      <div className="flex justify-center items-center ">
+        <div className="border-b border-solid border-gray-500 w-[90%]" />
+      </div>
+      <div className="flex items-center justify-center p-2 ">
+        <div className="flex items-center justify-center text-gray-500 text-xs mr-1">
           비밀번호를 잊어버리셨나요?
         </div>
         <button
-          className="text-black border-b border-blue-500 font-bold text-xs p-1 hover:text-blue-600 outline-none focus:outline-none mr-1 mb-1"
+          className="text-black underline text-xs font-semibold p-1 outline-none focus:outline-none mr-1 mb-1"
           type="button"
           onClick={() => setCategory("FG")}
         >
           비밀번호 찾기
         </button>
       </div>
-      <div className="flex items-center justify-center p-2 rounded-b">
-        <div className="flex items-center justify-center text-gray-500 text-xs mr-5">
+      <div className="flex items-center justify-center p-2 ">
+        <div className="flex items-center justify-center text-gray-500 text-xs mr-1">
           아직 회원이 아니신가요?
         </div>
         <button
-          className="text-black border-b border-blue-500 font-bold text-xs p-1 hover:text-blue-600 outline-none focus:outline-none mr-1 mb-1"
+          className="text-black underline text-xs font-semibold p-1 outline-none focus:outline-none mr-1 mb-1"
           type="button"
           onClick={registerBtn}
         >
