@@ -1,4 +1,3 @@
-import { useGetCourseQuery } from "../../redux/modules/apiSlice";
 import { Link } from "react-router-dom";
 
 interface ISearchListProps {

@@ -50,7 +50,6 @@ export const courseApi = createApi({
       providesTags: ["Courses"],
     }),
 
-    //list reducer
     getCourseLike: builder.query<CourseType[], void>({
       async queryFn() {
         try {
