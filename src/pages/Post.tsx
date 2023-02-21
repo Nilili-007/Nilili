@@ -58,7 +58,7 @@ const Post = () => {
       cover: uploadCover || galleryCover,
       userID,
       nickname: authService.currentUser?.displayName,
-      createdAt: Date.now(),
+      createdAt: JSON.stringify(new Date()),
       likes: 0,
       likesID: [],
     };
@@ -66,7 +66,7 @@ const Post = () => {
     if (
       (uploadCover || galleryCover) &&
       travelStatus !== null &&
-      category &&
+      ragions &&
       courseTitle &&
       courseList.length > 1
     ) {
@@ -80,7 +80,7 @@ const Post = () => {
       if (travelStatus === null) {
         alert("여행 전/여행 후 카테고리를 선택해주세요.");
       }
-      if (!category) {
+      if (!ragions) {
         alert("하나 이상의 지역을 선택해주세요.");
       }
       if (!courseTitle) {

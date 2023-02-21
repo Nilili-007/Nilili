@@ -4,12 +4,20 @@ import CourseHashTag from "./CourseHashTag";
 import CourseTitle from "./CourseTitle";
 import CommentDesc from "./CommentDesc";
 import LikeBtn from "./LikeBtn";
+import CourseHeader from "./CourseHeader";
+import CourseMap from "./CourseMap";
+import CourseMapMarker from "./CourseMapMarker";
+import CourseInfo from "./CourseInfo";
 
 export {
   Comment,
   CommentInput,
+  CommentDesc,
   CourseHashTag,
   CourseTitle,
-  CommentDesc,
+  CourseHeader,
+  CourseMap,
+  CourseMapMarker,
+  CourseInfo,
   LikeBtn,
 };

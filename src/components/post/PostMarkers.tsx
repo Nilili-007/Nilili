@@ -56,7 +56,7 @@ const PostMarkers = () => {
 
 export default PostMarkers;
 
-const InfoWindow = styled.div`
+export const InfoWindow = styled.div`
   position: relative;
   background: white;
   color: gray;
@@ -85,7 +85,7 @@ const InfoWindow = styled.div`
   }
 `;
 
-const Marker = styled.div`
+export const Marker = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 50px;

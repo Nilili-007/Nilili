@@ -13,21 +13,18 @@ const CourseMap = ({ course }: any) => {
   let bounds: any;
 
   courseList.map((item: any) => {
-    bounds = item.bounds;
-    bounds = Object.setPrototypeOf(bounds, kakao.maps.LatLngBounds.prototype);
-    if (map === undefined) {
-      setMap(bounds);
+    if (item.id === filteredId) {
+      bounds = item.bounds;
+      bounds = Object.setPrototypeOf(bounds, kakao.maps.LatLngBounds.prototype);
     }
   });
 
   useEffect(() => {
     if (map !== undefined) {
       // @ts-ignore
-      //   map.panTo(bounds);
+      map.panTo(bounds);
     }
   }, [filteredId]);
-
-  //   장소 id가 변할 때마다 map.panTo
 
   return (
     <div className="flex w-full h-[70vh] my-14">

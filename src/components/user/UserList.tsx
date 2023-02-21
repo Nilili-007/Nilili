@@ -18,10 +18,10 @@ const UserList = ({ category, done }: UserListType) => {
 
   const userID = authService.currentUser?.uid;
   const mypaths = data?.filter(
-    (item) => item.userID === userID && item.isDone === done
+    (item) => item.userID === userID && item.travelStatus === done
   );
   const mylikes = data?.filter(
-    (item) => item.likesID?.includes(userID) && item.isDone === done
+    (item) => item.likesID?.includes(userID) && item.travelStatus === done
   );
   let userdata = category === "MY" ? mypaths : mylikes;
 

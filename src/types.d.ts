@@ -9,12 +9,12 @@ declare interface CourseType {
   location: string[];
   hashtags: string[];
   title: string;
-  image: string;
+  cover: string;
   createdAt: date;
   likes: number;
   likesID: any[];
   userID: string;
   nickname: string;
-  isDone: boolean;
-  places: string[];
+  travelStatus: boolean;
+  courseList: string[];
 }
