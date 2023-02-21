@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useGetCourseQuery } from "../redux/modules/apiSlice";
 import {
   CommentInput,
   CourseHashTag,
-  CourseTitle,
+  CourseManageButton,
   LikeBtn,
   CommentDesc,
   CourseHeader,
   CourseMap,
   EditCourse,
 } from "../components/course";
-import { useGetCourseQuery } from "../redux/modules/apiSlice";
 
 const Course = () => {
   const [isEdit, setIsEdit] = useState(false);
@@ -41,18 +41,18 @@ const Course = () => {
       ) : (
         <div>
           <CourseHeader course={courseData} />
-          <div className="w-[70%] m-auto">
-            <CourseTitle
-              course={courseData}
-              paramId={paramId}
-              setIsEdit={setIsEdit}
-            />
-            <h3 className="mt-20 text-3xl font-bold">
-              {courseData?.nickname}님의 여행경로
-            </h3>
-            <p className="mt-2 text-lg text-gray-400">
-              {date} {time}
-            </p>
+          <div className="w-[70%] py-10 m-auto">
+            <div className="flex items-center">
+              <div className="flex flex-col">
+                <h3 className="text-3xl font-bold">
+                  {courseData?.nickname}님의 여행경로
+                </h3>
+                <p className="mt-2 text-lg text-gray-400">
+                  {date} {time}
+                </p>
+              </div>
+              <CourseManageButton paramId={paramId} setIsEdit={setIsEdit} />
+            </div>
             <CourseMap course={courseData} />
             <CourseHashTag course={courseData} />
             <LikeBtn paramId={paramId} course={courseData} />
