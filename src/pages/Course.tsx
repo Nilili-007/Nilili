@@ -5,71 +5,43 @@ import {
   CourseHashTag,
   CourseTitle,
   LikeBtn,
-  CommentAsc,
   CommentDesc,
+  EditCourse,
 } from "../components/course";
-import { PostTitle, PostHashTag } from "../components/post";
+import { useGetCourseQuery } from "../redux/modules/apiSlice";
 
 const Course = () => {
   const [isEdit, setIsEdit] = useState(false);
-  const [desc, setDesc] = useState(true);
+  const { data, isLoading } = useGetCourseQuery();
   const paramId = useParams().id;
 
-  return (
-    <div className="w-11/12 md:w-3/4 m-auto">
-      {isEdit ? <PostTitle /> : <CourseTitle setIsEdit={setIsEdit} />}
-      {isEdit ? (
-        <>
-          <PostHashTag />
-          <button
-            onClick={() => setIsEdit(false)}
-            className="bg-gray-300 px-4 sm:px-8 py-1 rounded-xl float-right"
-          >
-            취소
-          </button>
-        </>
-      ) : (
-        <CourseHashTag />
-      )}
-      <LikeBtn />
-      <CommentInput paramId={paramId} />
-      <div className="mb-10">
-        <div>
-          <input
-            id="desc"
-            type="button"
-            onClick={() => {
-              setDesc(true);
-            }}
-            value="최신순"
-            style={
-              desc === true
-                ? { fontWeight: 600, textDecoration: "underline" }
-                : undefined
-            }
-            className="mr-2 mb-4"
-          />
-          <input
-            id="asc"
-            type="button"
-            onClick={() => {
-              setDesc(false);
-            }}
-            value="오래된 순"
-            style={
-              desc === false
-                ? { fontWeight: 600, textDecoration: "underline" }
-                : undefined
-            }
-          />
-        </div>
+  const filterData = data?.filter(
+    (course: CourseType) => course.id === paramId
+  );
+  const courseData = filterData?.pop();
 
-        {desc === true ? (
+  if (isEdit) {
+    return (
+      <EditCourse course={courseData} setIsEdit={setIsEdit} paramId={paramId} />
+    );
+  }
+  return (
+    <div>
+      {isLoading ? (
+        <div className="h-screen m-40 text-3xl">Loading...</div>
+      ) : (
+        <div className="w-11/12 md:w-3/4 m-auto">
+          <CourseTitle
+            course={courseData}
+            paramId={paramId}
+            setIsEdit={setIsEdit}
+          />
+          <CourseHashTag course={courseData} />
+          <LikeBtn paramId={paramId} course={courseData} />
+          <CommentInput paramId={paramId} />
           <CommentDesc paramId={paramId} />
-        ) : (
-          <CommentAsc paramId={paramId} />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

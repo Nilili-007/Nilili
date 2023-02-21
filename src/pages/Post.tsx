@@ -1,22 +1,15 @@
-// 파이어베이스에 즉시 저장할 데이터 : 카테고리, 제목, 해시태그
-// 세션스토리지를 거친 후 파이어베이스에 저장할 데이터 : 장소, 장소별 설명(id, 설명)
-
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useAddCourseMutation } from "../redux/modules/apiSlice";
+import { authService } from "../utils/firebase";
 import {
-  PostBtn,
   PostHashTag,
   PostTitle,
   PostMap,
   PostHeader,
   PostTravelStatus,
 } from "../components/post/index";
-
-import { useNavigate } from "react-router-dom";
-import {
-  useAddCourseMutation,
-  useGetCourseQuery,
-} from "../redux/modules/apiSlice";
-import { authService } from "../utils/firebase";
 
 //select option의 타입
 export interface optionType {
@@ -28,58 +21,87 @@ const Post = () => {
   const navigate = useNavigate();
   const [addCourse] = useAddCourseMutation();
 
-  //카테고리 선택
+  // 커버
+  const [uploadCover, setUploadCover] = useState("");
+  const [galleryCover, setGalleryCover] = useState("");
 
-  const [category, setCategory] = useState("");
+  //지역 선택
+  const [ragions, setRagions] = useState<optionType[] | null>([]);
   const [courseTitle, setCourseTitle] = useState("");
+
+  // 여행전/후 선택
+  const [travelStatus, setTravelStatus] = useState<boolean | null>(null);
 
   //해시태그 선택
   const [selectedTags, setSelectedTags] = useState<optionType[] | null>([]);
-  const [condition, setCondition] = useState(false);
-  const userID = authService.currentUser?.uid;
-  const { data } = useGetCourseQuery();
 
-  //Hashtag 테스트용 submit handler
-  const submitHandle = async (event: any) => {
+  const userID = authService.currentUser?.uid;
+
+  const courseList = useSelector(
+    (state: any) => state.temporarySlice.courseList
+  );
+
+  const onClickAddPost = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     event.preventDefault();
     //selectedTags는 오브젝트 배열입니다.
     //hashtag는 데이터베이스에 문자열 배열로 들어가야 하기 때문에, value 값만 추출하여 문자열배열로 바꿉니다.
-    let selectedValues = selectedTags?.map((tag) => tag.value);
+    let selectedLabels = selectedTags?.map((tag) => tag.label);
+    let selectedRegions = ragions?.map((ragion) => ragion.value);
 
     const newPost = {
+      location: selectedRegions,
+      hashtags: selectedLabels,
       title: courseTitle,
-      travelStatus: false,
-      location: ["충청북도", "부산"],
-      hashtags: selectedValues,
-      courseList: [],
-      coverImg: "/assets/course.jpg",
+      travelStatus,
+      courseList: JSON.stringify(courseList),
+      cover: uploadCover || galleryCover,
       userID,
       nickname: authService.currentUser?.displayName,
-      createdAt: JSON.stringify(new Date()),
+      createdAt: Date.now(),
       likes: 0,
       likesID: [],
     };
 
-    setCondition(true);
-
-    await addCourse(newPost);
-    window.alert("게시물이 등록되었습니다");
+    if (
+      (uploadCover || galleryCover) &&
+      travelStatus !== null &&
+      ragions &&
+      courseTitle &&
+      courseList.length > 1
+    ) {
+      addCourse(newPost);
+      window.alert("훌륭한 여정이에요! 여행 후 리뷰도 꼭 부탁드려요!");
+      navigate(`/course/1`);
+    } else {
+      if (!uploadCover || !galleryCover) {
+        alert("커버 이미지를 추가해주세요.");
+      }
+      if (travelStatus === null) {
+        alert("여행 전/여행 후 카테고리를 선택해주세요.");
+      }
+      if (!ragions) {
+        alert("하나 이상의 지역을 선택해주세요.");
+      }
+      if (!courseTitle) {
+        alert("제목을 입력해주세요.");
+      }
+      if (courseList.length < 2) {
+        alert("2개 이상의 코스를 등록해주세요.");
+      }
+    }
   };
 
-  useEffect(() => {
-    if (condition) {
-      console.log(data);
-      navigate(`/course/${data && data[0].id}`);
-      setCondition(false);
-    }
-  }, [data]);
-
-  // 게시글 데이터 DB : uuid, createdAt, 카테고리, 제목, 해시태그, initialPlace
-
   return (
-    <div>
-      <PostHeader />
-      <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0">
+    <div className="max-h-[130vh] mb-[7%]">
+      <PostHeader
+        uploadCover={uploadCover}
+        setUploadCover={setUploadCover}
+        galleryCover={galleryCover}
+        setGalleryCover={setGalleryCover}
+      />
+      <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0 ">
         <div className="flex">
           <div className="flex flex-col">
             <p className="text-2xl font-bold">목적지를 추가해보세요.</p>
@@ -87,11 +109,14 @@ const Post = () => {
               간단한 클릭으로 여행지를 추가할 수 있어요.
             </p>
           </div>
-          <PostTravelStatus />
+          <PostTravelStatus
+            travelStatus={travelStatus}
+            setTravelStatus={setTravelStatus}
+          />
         </div>
         <PostTitle
-          category={category}
-          setCategory={setCategory}
+          ragions={ragions}
+          setRagions={setRagions}
           courseTitle={courseTitle}
           setCourseTitle={setCourseTitle}
         />
@@ -100,7 +125,14 @@ const Post = () => {
           setSelectedTags={setSelectedTags}
         />
         <PostMap />
-        <PostBtn submitHandle={submitHandle} />
+        <div className="flex justify-center mt-7 ">
+          <button
+            onClick={(e) => onClickAddPost(e)}
+            className="w-[280px] bg-black text-white text-lg py-3 mx-auto"
+          >
+            게시물 등록하기
+          </button>
+        </div>
       </div>
     </div>
   );

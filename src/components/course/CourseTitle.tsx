@@ -1,23 +1,38 @@
 import React, { useState } from "react";
 import { MdOutlineMoreVert } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+import { useDeleteCourseMutation } from "../../redux/modules/apiSlice";
 
 interface CourseTitleProps {
   setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  paramId: string | undefined;
+  course: CourseType | undefined;
 }
 
-const CourseTitle = ({ setIsEdit }: CourseTitleProps) => {
-  const [modalOpen, setModalOpen] = useState(false);
+const CourseTitle = ({ setIsEdit, paramId, course }: CourseTitleProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  // 코스 삭제
+  const [deleteCourse] = useDeleteCourseMutation();
+  const deleteCommentHandler = (id: string | undefined) => {
+    if (window.confirm("게시물을 정말 삭제하시겠습니까?")) {
+      deleteCourse(id);
+      alert("삭제되었습니다.");
+      navigate("/");
+    } else {
+      alert("취소되었습니다.");
+    }
+  };
   return (
-    <div className="w-full">
+    <div className="w-full h-screen">
       <div className="flex justify-space">
         <div className="flex w-3/4 gap-5 items-center h-24 ">
-          <h3 className="w-1/5 sm:w-1/7 md:w-1/11 text-lg md:text-xl text-center">
-            지역명
-          </h3>
-          <h2 className="w-4/5 sm:w-6/7 md:w-10/11 text-2xl md:text-3xl ">
-            제목
-          </h2>
+          <div className="w-1/5 sm:w-1/7 md:w-1/11 text-lg md:text-xl text-center">
+            {course?.location.map((location) => {
+              return <p key={location}>{location}</p>;
+            })}
+          </div>
         </div>
         <div className="flex gap-3 justify-end w-1/3 items-center ">
           <MdOutlineMoreVert
@@ -33,7 +48,7 @@ const CourseTitle = ({ setIsEdit }: CourseTitleProps) => {
           </button>
           <button
             className="bg-gray-300 px-4 sm:px-5 py-1 rounded-xl hidden sm:flex justify-center"
-            onClick={() => setModalOpen(true)}
+            onClick={() => deleteCommentHandler(paramId)}
           >
             삭제
           </button>
@@ -49,12 +64,16 @@ const CourseTitle = ({ setIsEdit }: CourseTitleProps) => {
           </button>
           <button
             className="bg-gray-300 px-4 sm:px-5 py-1 rounded-xl sm:hidden"
-            onClick={() => setModalOpen(true)}
+            onClick={() => deleteCommentHandler(paramId)}
           >
             삭제
           </button>
         </div>
       ) : null}
+      <h3>{course?.nickname} 님의 여행경로</h3>
+      <span className="text-md bg-gray-400 rounded-lg px-2 py-1">
+        {course?.travelStatus === true ? "여행 후" : "여행 전"}
+      </span>
     </div>
   );
 };

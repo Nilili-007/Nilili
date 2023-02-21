@@ -9,7 +9,9 @@ const store = configureStore({
     searchSlice,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(courseApi.middleware),
+    getDefaultMiddleware({ serializableCheck: false }).concat(
+      courseApi.middleware
+    ),
 });
 
 export default store;

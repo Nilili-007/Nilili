@@ -6,6 +6,7 @@ import { authService } from "../../utils/firebase";
 interface RegisterProps {
   closeModal: (e: any) => void;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  loginBtn: any;
 }
 
 interface AuthForm {
@@ -15,7 +16,7 @@ interface AuthForm {
   confirm: string;
 }
 
-const Register = ({ setModal, closeModal }: RegisterProps) => {
+const Register = ({ setModal, closeModal, loginBtn }: RegisterProps) => {
   const [isRegister, setIsRegister] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -79,28 +80,32 @@ const Register = ({ setModal, closeModal }: RegisterProps) => {
 
   return (
     <>
-      <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t ">
-        <h3 className="text-2xl font=semibold">회원가입</h3>
+      <div className="flex justify-between items-center p-5 rounded-t ">
+        <div> </div>
+        <h3 className="text-2xl font-bold">회원가입</h3>
         <button
-          className="bg-transparent border-0 text-black float-right"
+          className="bg-transparent border-0 text-gray-400 font-extrabold text-xl"
           onClick={closeModal}
         >
-          <span className="text-black opacity-7 h-6 w-6 text-xl block  py-0 rounded-full">
-            x
-          </span>
+          X
         </button>
+      </div>
+      <div className="flex justify-center items-center ">
+        <div className="border-b-2 border-solid border-black w-[90%]" />
       </div>
       <div className="relative p-6 flex-auto">
         <form
           className=" rounded px-8 pt-6 pb-8 w-full"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="text-yellow-500 font-bold m-2">{error}</div>
+          <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
+            {error}
+          </div>
           <label className="block text-black font-2xl font-bold mb-3">
             닉네임
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-1 text-black"
+            className="appearance-none border border-gray-400 w-full py-2 px-1 text-black placeholder:text-sm"
             {...register("userName", {
               required: "닉네임을 입력해주세요",
               pattern: {
@@ -122,14 +127,14 @@ const Register = ({ setModal, closeModal }: RegisterProps) => {
             }}
             autoFocus
           />
-          <div className="text-red-600 font-sm mb-6">
+          <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
             {errors?.userName?.message}
           </div>
           <label className="block text-black font-2xl font-bold mb-3">
-            이메일
+            로그인에 사용할 아이디를 입력해주세요.
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-1 text-black"
+            className="appearance-none border border-gray-400 w-full py-2 px-1 text-black placeholder:text-sm"
             {...register("email", {
               required: "이메일을 올바르게 입력해주세요",
               pattern: {
@@ -150,14 +155,14 @@ const Register = ({ setModal, closeModal }: RegisterProps) => {
               }
             }}
           />
-          <div className="text-red-600 font-sm mb-6">
+          <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
             {errors?.email?.message}
           </div>
           <label className="block text-black font-2xl font-bold mb-3">
-            비밀번호
+            로그인에 사용할 비밀번호를 입력해주세요.
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-1 text-black"
+            className="appearance-none border border-gray-400 w-full py-2 px-1 text-black placeholder:text-sm"
             {...register("password", {
               required: "비밀번호를 입력해주세요",
               minLength: {
@@ -183,14 +188,11 @@ const Register = ({ setModal, closeModal }: RegisterProps) => {
               }
             }}
           />
-          <div className="text-red-600 font-sm mb-6">
+          <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
             {errors?.password?.message}
           </div>
-          <label className="block text-black font-2xl font-bold mb-3">
-            비밀번호 확인
-          </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-1 text-black"
+            className="appearance-none border border-gray-400 w-full py-2 px-1 text-black placeholder:text-sm"
             {...register("confirm", {
               required: "비밀번호를 입력해주세요",
               minLength: {
@@ -205,27 +207,38 @@ const Register = ({ setModal, closeModal }: RegisterProps) => {
             id="confirm"
             value={confirm}
             onChange={(event) => setConfirm(event.target.value)}
-            placeholder="비밀번호를 다시 입력해주세요"
+            placeholder="비밀번호 확인"
             onKeyUp={(e) => {
               if (e.key === "Enter") {
                 handleSubmit(onSubmit);
               }
             }}
           />
-          <div className="text-red-600 font-sm mb-6">
+          <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
             {errors?.confirm?.message}
           </div>
           <div className="flex items-center justify-center">
             <button
-              className="m-1 text-white bg-purple-300 active:bg-purple-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+              className="w-full text-white bg-black font-bold uppercase text-sm px-6 py-3 shadow hover:shadow-lg outline-none focus:outline-none mb-1"
               type="submit"
-              //onClick={registerBtn}
               disabled={isRegister}
             >
-              회원가입
+              회원가입하기
             </button>
           </div>
         </form>
+      </div>
+      <div className="flex justify-center items-center ">
+        <div className="border-b border-solid border-gray-500 w-[90%]" />
+      </div>
+      <div className="flex items-center justify-center p-6 border-t border-solid border-blueGray-200 rounded-b">
+        <button
+          className="text-black underline text-xs font-semibold p-1 outline-none focus:outline-none mr-1 mb-1"
+          type="button"
+          onClick={loginBtn}
+        >
+          로그인 창으로 돌아가기
+        </button>
       </div>
     </>
   );

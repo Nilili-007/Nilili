@@ -63,8 +63,6 @@ const ProfileEdit = ({
       photoURL: downloadUrl ? downloadUrl : null,
     })
       .then(() => {
-        // localStorage.setItem("User", JSON.stringify(authService.currentUser));
-        // localStorage.removeItem("imgURL");
         alert("프로필 수정을 완료했습니다");
         setModal(false);
         navigate("/user/:id");

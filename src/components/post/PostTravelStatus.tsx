@@ -1,19 +1,47 @@
-import React from "react";
+import styled from "styled-components";
 
-const PostTravelStatus = () => {
+const PostTravelStatus = ({ travelStatus, setTravelStatus }: any) => {
+  const onClickStatus = (e: any) => {
+    if (e.target.innerText === "여행 전") {
+      setTravelStatus(false);
+    }
+    if (e.target.innerText === "여행 후") {
+      setTravelStatus(true);
+    }
+  };
+
   return (
     <div className="ml-auto">
       <div className="flex ">
-        <button className="border border-gray-600 h-8 px-2 focus:bg-black focus:text-white">
+        <Category
+          onClick={(e) => onClickStatus(e)}
+          className={travelStatus || travelStatus === null ? "" : "clicked"}
+        >
           여행 전
-        </button>
+        </Category>
         <div className="border-r border-gray-600 h-8 mx-3" />
-        <button className="border border-gray-600 h-8 px-2 focus:bg-black focus:text-white">
+        <Category
+          onClick={(e) => onClickStatus(e)}
+          className={travelStatus ? "clicked" : ""}
+        >
           여행 후
-        </button>
+        </Category>
       </div>
     </div>
   );
 };
 
 export default PostTravelStatus;
+
+const Category = styled.button`
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid #4b5563;
+  margin-bottom: 32px;
+  cursor: pointer;
+
+  &.clicked {
+    background: black;
+    color: white;
+  }
+`;
