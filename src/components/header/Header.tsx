@@ -122,11 +122,16 @@ const Header = () => {
                       <li className="text-sm px-4 py-2 leading-none  text-white">
                         <button
                           className="font-bold underline hover:text-teal-500"
-                          onClick={() => navigate("/user/:id")}
+                          onClick={() => navigate(`/user/${userName}`)}
                         >
                           {userName}
                         </button>
                         님 오늘은 어디로 떠나볼까요?
+                      </li>
+                      <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
+                        <button onClick={() => navigate("/search")}>
+                          검색하기
+                        </button>
                       </li>
                       <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
                         <button onClick={() => navigate("/post")}>
@@ -138,9 +143,16 @@ const Header = () => {
                       </li>
                     </>
                   ) : (
-                    <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
-                      <button onClick={openModal}>로그인</button>
-                    </li>
+                    <>
+                      <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
+                        <button onClick={() => navigate("/search")}>
+                          검색하기
+                        </button>
+                      </li>
+                      <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
+                        <button onClick={openModal}>로그인</button>
+                      </li>
+                    </>
                   )
                 ) : null}
                 <li className="text-sm px-4 py-2 leading-none  text-white">
