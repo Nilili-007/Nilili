@@ -98,12 +98,14 @@ const Register = ({ setModal, closeModal, loginBtn }: RegisterProps) => {
           className=" rounded px-8 pt-6 pb-8 w-full"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="text-yellow-500 font-bold m-2">{error}</div>
+          <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
+            {error}
+          </div>
           <label className="block text-black font-2xl font-bold mb-3">
             닉네임
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-1 text-black"
+            className="appearance-none border border-gray-400 w-full py-2 px-1 text-black placeholder:text-sm"
             {...register("userName", {
               required: "닉네임을 입력해주세요",
               pattern: {
@@ -125,14 +127,14 @@ const Register = ({ setModal, closeModal, loginBtn }: RegisterProps) => {
             }}
             autoFocus
           />
-          <div className="text-red-600 font-sm mb-6">
+          <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
             {errors?.userName?.message}
           </div>
           <label className="block text-black font-2xl font-bold mb-3">
-            이메일
+            로그인에 사용할 아이디를 입력해주세요.
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-1 text-black"
+            className="appearance-none border border-gray-400 w-full py-2 px-1 text-black placeholder:text-sm"
             {...register("email", {
               required: "이메일을 올바르게 입력해주세요",
               pattern: {
@@ -153,14 +155,14 @@ const Register = ({ setModal, closeModal, loginBtn }: RegisterProps) => {
               }
             }}
           />
-          <div className="text-red-600 font-sm mb-6">
+          <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
             {errors?.email?.message}
           </div>
           <label className="block text-black font-2xl font-bold mb-3">
-            비밀번호
+            로그인에 사용할 비밀번호를 입력해주세요.
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-1 text-black"
+            className="appearance-none border border-gray-400 w-full py-2 px-1 text-black placeholder:text-sm"
             {...register("password", {
               required: "비밀번호를 입력해주세요",
               minLength: {
@@ -186,14 +188,11 @@ const Register = ({ setModal, closeModal, loginBtn }: RegisterProps) => {
               }
             }}
           />
-          <div className="text-red-600 font-sm mb-6">
+          <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
             {errors?.password?.message}
           </div>
-          <label className="block text-black font-2xl font-bold mb-3">
-            비밀번호 확인
-          </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-1 text-black"
+            className="appearance-none border border-gray-400 w-full py-2 px-1 text-black placeholder:text-sm"
             {...register("confirm", {
               required: "비밀번호를 입력해주세요",
               minLength: {
@@ -208,24 +207,23 @@ const Register = ({ setModal, closeModal, loginBtn }: RegisterProps) => {
             id="confirm"
             value={confirm}
             onChange={(event) => setConfirm(event.target.value)}
-            placeholder="비밀번호를 다시 입력해주세요"
+            placeholder="비밀번호 확인"
             onKeyUp={(e) => {
               if (e.key === "Enter") {
                 handleSubmit(onSubmit);
               }
             }}
           />
-          <div className="text-red-600 font-sm mb-6">
+          <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
             {errors?.confirm?.message}
           </div>
           <div className="flex items-center justify-center">
             <button
-              className="m-1 text-white bg-purple-300 active:bg-purple-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+              className="w-full text-white bg-black font-bold uppercase text-sm px-6 py-3 shadow hover:shadow-lg outline-none focus:outline-none mb-1"
               type="submit"
-              //onClick={registerBtn}
               disabled={isRegister}
             >
-              회원가입
+              회원가입하기
             </button>
           </div>
         </form>
