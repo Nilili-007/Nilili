@@ -49,11 +49,11 @@ const Course = () => {
         <div>
           <CourseHeader course={courseData} />
           <div className="w-[70%] m-auto">
-            {/* <CourseTitle
+            <CourseTitle
               course={courseData}
               paramId={paramId}
               setIsEdit={setIsEdit}
-            /> */}
+            />
             <h3 className="mt-20 text-3xl font-bold">
               {courseData?.nickname}님의 여행경로
             </h3>
