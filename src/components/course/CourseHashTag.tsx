@@ -11,7 +11,7 @@ const CourseHashTag = ({ course }: HashTagProps) => {
       {course?.hashtags.map((hashtag) => {
         return (
           <h3
-            key={hashtag + Object.keys(hashtag)}
+            key={hashtag}
             className="bg-gray-300 px-4 sm:px-5 py-1 rounded-xl flex justify-center"
           >
             {hashtag}

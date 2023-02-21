@@ -7,13 +7,7 @@ import { hashTagOptions } from "../post/PostHashTag";
 import { regionOptions } from "../post/PostTitle";
 import { Map, MapTypeControl } from "react-kakao-maps-sdk";
 import PostMarkers from "../post/PostMarkers";
-import {
-  PostBtn,
-  PostCourseDesc,
-  PostSearchModal,
-  PostTextarea,
-} from "../post";
-import PostCourseInfo from "../post/PostCourseInfo";
+import { PostCourseDesc, PostSearchModal, PostTextarea } from "../post";
 import styled from "styled-components";
 import { AiOutlineDown, AiOutlinePlus, AiOutlineUp } from "react-icons/ai";
 import {
@@ -35,6 +29,12 @@ interface EditCourseProps {
 const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
   const navigate = useNavigate();
   const userID = authService.currentUser?.uid;
+  const filterRagion = regionOptions.filter((ragion) =>
+    course?.location.includes(ragion.value)
+  );
+  const filterTags = hashTagOptions.filter((hashTag) =>
+    course?.hashtags.includes(hashTag.label)
+  );
 
   //지역 선택
   const [ragions, setRagions] = useState<any | null>([]);
@@ -56,10 +56,15 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
   };
 
   //해시태그 선택
-  const [selectedTags, setSelectedTags] = useState<optionType[] | null>([]);
+  const [selectedTags, setSelectedTags] = useState<any | null>([]);
   function handleTagSelect(data: any) {
     setSelectedTags(data);
   }
+  useEffect(() => {
+    console.log(selectedTags);
+    console.log(ragions);
+  }, [ragions, selectedTags]);
+  const tagLimit = 5;
 
   //지도
   const [modalOpen, setModalOpen] = useState(false);
@@ -202,6 +207,7 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
       setTravelStatus(false);
     }
   }, []);
+
   return (
     <div className="mb-64">
       <div className="h-64 bg-gray-100">
@@ -240,15 +246,13 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
           </div>
         </div>
         <div className="flex items-center h-16 gap-4">
-          <div className="w-[30%] xs:w-1/3 xs:text-xs ">
+          <div className="w-[50%] xs:w-1/3 xs:text-xs ">
             <Select
               options={regionOptions}
-              placeholder={"지역"}
-              autoFocus={true}
+              defaultValue={filterRagion}
               onChange={handleCategorySelect}
               isMulti
-              value={ragions}
-              className="basic-multi-select z-20"
+              className="z-20"
               classNamePrefix="select"
               isSearchable={true}
               isOptionDisabled={(ragion) =>
@@ -266,15 +270,16 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
         </div>
         <div className="mb-8">
           <Select
-            options={hashTagOptions}
-            defaultValue={[hashTagOptions[2], hashTagOptions[3]]}
-            placeholder={"#해시태그"}
-            value={selectedTags}
-            onChange={handleTagSelect}
             isMulti
-            isSearchable={true}
-            isClearable={true}
+            defaultValue={filterTags}
+            placeholder={"#해시태그"}
+            options={hashTagOptions}
+            onChange={handleTagSelect}
             className="z-10"
+            isSearchable={true}
+            isOptionDisabled={(selectedTag) =>
+              selectedTags && selectedTags.length >= tagLimit
+            }
           />
         </div>
         <div className="w-full flex mb-6">
