@@ -32,11 +32,7 @@ const CourseTitle = ({ setIsEdit, paramId, course }: CourseTitleProps) => {
             {course?.location.map((location) => {
               return <p key={location}>{location}</p>;
             })}
-          </div> */}
-
-          <h2 className="w-4/5 sm:w-6/7 md:w-10/11 text-2xl md:text-3xl ">
-            {course?.title}
-          </h2>
+          </div>
         </div>
         <div className="flex gap-3 justify-end w-1/3 items-center ">
           <MdOutlineMoreVert
@@ -74,7 +70,7 @@ const CourseTitle = ({ setIsEdit, paramId, course }: CourseTitleProps) => {
           </button>
         </div>
       ) : null}
-      <h3>작성자 : {course?.nickname} </h3>
+      <h3>{course?.nickname} 님의 여행경로</h3>
       <span className="text-md bg-gray-400 rounded-lg px-2 py-1">
         {course?.travelStatus === true ? "여행 후" : "여행 전"}
       </span>

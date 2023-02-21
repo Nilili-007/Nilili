@@ -7,6 +7,8 @@ import SocialLogin from "./SocialLogin";
 interface LoginProps {
   closeModal: any;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setCategory: React.Dispatch<React.SetStateAction<string>>;
+  registerBtn: any;
 }
 
 interface LoginForm {
@@ -14,7 +16,12 @@ interface LoginForm {
   password: string;
 }
 
-const Login = ({ closeModal, setModal }: LoginProps) => {
+const Login = ({
+  closeModal,
+  setModal,
+  setCategory,
+  registerBtn,
+}: LoginProps) => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -51,25 +58,24 @@ const Login = ({ closeModal, setModal }: LoginProps) => {
 
   return (
     <>
-      <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t ">
-        <h3 className="text-2xl font=semibold">로그인</h3>
+      <div className="flex justify-between items-center p-5 rounded-t ">
+        <div></div>
+        <h3 className="text-2xl font-bold">로그인</h3>
         <button
-          className="bg-transparent border-0 text-black float-right"
+          className="bg-transparent border-0 text-gray-400 font-extrabold text-xl"
           onClick={closeModal}
         >
-          <span className="text-black opacity-7 h-6 w-6 text-xl block  py-0 rounded-full">
-            x
-          </span>
+          X
         </button>
       </div>
+      <div className="flex justify-center items-center ">
+        <div className="border-b-2 border-solid border-black w-[90%]" />
+      </div>
       <div className="relative p-6 flex-auto">
-        <form className=" rounded px-8 pt-6 pb-8 w-full">
-          <div className="text-red-600 font-bold m-2">{error}</div>
-          <label className="block text-black font-2xl font-bold mb-3">
-            이메일
-          </label>
+        <form className="px-8 pt-6 pb-8 w-full">
+          <div className="text-red-600 text-sm font-semibold mb-6">{error}</div>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-1 text-black"
+            className="appearance-none border border-gray-400 w-full py-2 px-1 text-black placeholder:text-sm"
             {...register("email", {
               required: "이메일을 올바르게 입력해주세요.",
               pattern: {
@@ -83,21 +89,18 @@ const Login = ({ closeModal, setModal }: LoginProps) => {
             id="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            placeholder="이메일"
+            placeholder="이메일을 입력해주세요"
             onKeyUp={(e) => {
               if (e.key === "Enter") {
                 loginBtn(e);
               }
             }}
           />
-          <div className="text-red-600 font-sm mb-6">
+          <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
             {errors?.email?.message}
           </div>
-          <label className="block text-black font-2xl font-bold mb-3">
-            비밀번호
-          </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-1 text-black"
+            className="appearance-none border border-gray-400 w-full py-2 px-1 text-black placeholder:text-sm"
             {...register("password", {
               required: "비밀번호를 입력해주세요",
               minLength: {
@@ -116,29 +119,56 @@ const Login = ({ closeModal, setModal }: LoginProps) => {
             id="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            placeholder="비밀번호"
+            placeholder="비밀번호를 입력해주세요"
             onKeyUp={(e) => {
               if (e.key === "Enter") {
                 loginBtn(e);
               }
             }}
           />
-          <div className="text-red-600 font-sm mb-6">
+          <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
             {errors?.password?.message}
           </div>
           <div className="flex items-center justify-center">
             <button
-              className="m-1 text-white bg-purple-300 active:bg-purple-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mb-1"
+              className="w-full text-white bg-black font-bold uppercase text-sm px-6 py-3 shadow hover:shadow-lg outline-none focus:outline-none"
               type="submit"
               disabled={isLogin}
               onClick={(e) => loginBtn(e)}
             >
-              로그인
+              로그인하기
             </button>
           </div>
         </form>
       </div>
       <SocialLogin setModal={setModal} />
+      <div className="flex justify-center items-center ">
+        <div className="border-b border-solid border-gray-500 w-[90%]" />
+      </div>
+      <div className="flex items-center justify-center p-2 ">
+        <div className="flex items-center justify-center text-gray-500 text-xs mr-1">
+          비밀번호를 잊어버리셨나요?
+        </div>
+        <button
+          className="text-black underline text-xs font-semibold p-1 outline-none focus:outline-none mr-1 mb-1"
+          type="button"
+          onClick={() => setCategory("FG")}
+        >
+          비밀번호 찾기
+        </button>
+      </div>
+      <div className="flex items-center justify-center p-2 ">
+        <div className="flex items-center justify-center text-gray-500 text-xs mr-1">
+          아직 회원이 아니신가요?
+        </div>
+        <button
+          className="text-black underline text-xs font-semibold p-1 outline-none focus:outline-none mr-1 mb-1"
+          type="button"
+          onClick={registerBtn}
+        >
+          회원가입
+        </button>
+      </div>
     </>
   );
 };
