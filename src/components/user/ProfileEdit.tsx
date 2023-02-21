@@ -90,16 +90,15 @@ const ProfileEdit = ({
     >
       <div className="relative w-full h-3/4 max-w-md md:h-auto">
         {/* modal contents */}
-        <div className="border rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-          <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t ">
-            <h3 className="text-2xl font=semibold">프로필 수정</h3>
+        <div className="border relative flex flex-col w-full bg-white outline-none focus:outline-none">
+          <div className="flex justify-between items-center p-5 rounded-t ">
+            <div></div>
+            <h3 className="text-2xl font-bold">프로필 수정</h3>
             <button
-              className="bg-transparent border-0 text-black float-right"
+              className="bg-transparent border-0 text-gray-400 font-extrabold text-xl"
               onClick={closeModal}
             >
-              <span className="text-black opacity-7 h-6 w-6 text-xl block  py-0 rounded-full">
-                x
-              </span>
+              X
             </button>
           </div>
           <div className="relative p-6 flex-auto">
@@ -112,7 +111,7 @@ const ProfileEdit = ({
               />
             </div>
             <div className="flex justify-center items-center mb-3">
-              <button className="text-sm  px-1 py-1 leading-none border rounded text-black hover:border-transparent hover:bg-blue-200 mt-4 lg:mt-0">
+              <button className="text-sm  px-1 py-1 leading-none border rounded text-black hover:border-transparent hover:text-teal-500 mt-4 lg:mt-0">
                 <label htmlFor="changeimg">사진 선택</label>
               </button>
               <input
@@ -127,7 +126,7 @@ const ProfileEdit = ({
             {/* 닉네임 변경 */}
             <div className="flex justify-center items-center m-3">
               <input
-                className="shadow appearance-none w-3/4 border rounded py-2 px-1 text-black"
+                className="appearance-none border border-gray-400 w-3/4 py-2 px-1 text-black placeholder:text-sm"
                 onChange={editNameHandler}
                 ref={nameRef}
                 value={nickname}
@@ -136,13 +135,13 @@ const ProfileEdit = ({
             {/* 전체 수정 버튼 완료/취소버튼 */}
             <div className="flex justify-center items-center mt-3">
               <button
-                className="text-sm m-2 px-4 py-2 leading-none border rounded text-black border-black hover:border-transparent hover:bg-blue-200 mt-4 lg:mt-0"
+                className="text-white bg-black font-bold m-2 text-sm px-6 py-3 shadow hover:shadow-lg outline-none focus:outline-none"
                 onClick={profileEdit}
               >
                 완료
               </button>
               <button
-                className="text-sm m-2 px-4 py-2 leading-none border rounded text-black border-black hover:border-transparent hover:bg-blue-200 mt-4 lg:mt-0"
+                className="text-white bg-black font-bold m-2 text-sm px-6 py-3 shadow hover:shadow-lg outline-none focus:outline-none"
                 onClick={cancleBtn}
               >
                 취소
