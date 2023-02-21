@@ -59,7 +59,7 @@ const Post = () => {
       cover: uploadCover || galleryCover,
       userID,
       nickname: authService.currentUser?.displayName,
-      createdAt: Date.now(),
+      createdAt: JSON.stringify(new Date()),
       likes: 0,
       likesID: [],
     };

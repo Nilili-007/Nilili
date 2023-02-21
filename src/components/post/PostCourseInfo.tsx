@@ -1,7 +1,6 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import PostCourseDesc from "./PostCourseDesc";
-import PostTextarea from "./PostTextarea";
+import { PostCourseDesc, PostTextarea } from "./index";
 import styled from "styled-components";
 import { TiMinus } from "react-icons/ti";
 import { AiOutlineUp, AiOutlineDown, AiOutlinePlus } from "react-icons/ai";
@@ -119,7 +118,7 @@ const PostCourseInfo = ({
 
 export default PostCourseInfo;
 
-const ItemCard = styled.div`
+export const ItemCard = styled.div`
   border: 1px solid #9ca3af;
   margin-bottom: 32px;
   cursor: pointer;

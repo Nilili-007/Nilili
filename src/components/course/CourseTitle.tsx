@@ -28,7 +28,7 @@ const CourseTitle = ({ setIsEdit, paramId, course }: CourseTitleProps) => {
     <div className="w-full h-screen">
       <div className="flex justify-space">
         <div className="flex w-3/4 gap-5 items-center h-24 ">
-          <div className="w-1/5 sm:w-1/7 md:w-1/11 text-lg md:text-xl text-center">
+          {/* <div className="w-1/5 sm:w-1/7 md:w-1/11 text-lg md:text-xl text-center">
             {course?.location.map((location) => {
               return <p key={location}>{location}</p>;
             })}
@@ -72,7 +72,7 @@ const CourseTitle = ({ setIsEdit, paramId, course }: CourseTitleProps) => {
       ) : null}
       <h3>{course?.nickname} 님의 여행경로</h3>
       <span className="text-md bg-gray-400 rounded-lg px-2 py-1">
-        {course?.isDone === true ? "여행 후" : "여행 전"}
+        {course?.travelStatus === true ? "여행 후" : "여행 전"}
       </span>
     </div>
   );

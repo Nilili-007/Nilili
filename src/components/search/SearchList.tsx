@@ -14,7 +14,7 @@ const SearchList = () => {
     <div className=" my-10 3xl:w-[60%] 2xl:w-[70%] w-[90%] ">
       <ul className="  flex flex-wrap justify-evenly">
         {data
-          ?.filter((item: CourseType) => item.isDone === true)
+          ?.filter((item: CourseType) => item.travelStatus === true)
           .map((item) => (
             <Link to={`/course/${item.id}`} key={item.id}>
               <li className="xl:w-[24%] lg:w-[32%] sm:w-[47%] w-[90%] pt-6 border-t-2 border-black  ">

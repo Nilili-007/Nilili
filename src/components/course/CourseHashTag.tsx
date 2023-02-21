@@ -5,7 +5,6 @@ interface HashTagProps {
 }
 
 const CourseHashTag = ({ course }: HashTagProps) => {
-  console.log(course);
   return (
     <div className="flex gap-3">
       {course?.hashtags.map((hashtag) => {

@@ -20,7 +20,7 @@ const BeforeRecent = () => {
       </p>
       <ul className="overflow-x-auto whitespace-nowrap no-scrollbar">
         {data
-          ?.filter((item: CourseType) => item.isDone === false)
+          ?.filter((item: CourseType) => item.travelStatus === false)
           .slice(0, 4)
           .map((item) => (
             <Link to={`/course/${item.id}`} key={item.id}>
