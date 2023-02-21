@@ -51,16 +51,18 @@ const Login = ({ closeModal, setModal }: LoginProps) => {
 
   return (
     <>
-      <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t ">
-        <h3 className="text-2xl font=semibold">로그인</h3>
+      <div className="flex justify-between items-center p-5 rounded-t ">
+        <div></div>
+        <h3 className="text-2xl font-bold">로그인</h3>
         <button
-          className="bg-transparent border-0 text-black float-right"
+          className="bg-transparent border-0 text-gray-400 font-extrabold text-xl"
           onClick={closeModal}
         >
-          <span className="text-black opacity-7 h-6 w-6 text-xl block  py-0 rounded-full">
-            x
-          </span>
+          X
         </button>
+      </div>
+      <div className="flex justify-center items-center ">
+        <div className="border-b-2 border-solid border-black w-[90%]" />
       </div>
       <div className="relative p-6 flex-auto">
         <form className=" rounded px-8 pt-6 pb-8 w-full">
