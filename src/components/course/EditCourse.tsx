@@ -211,8 +211,9 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
   // update mutation
   const [updateCourse] = useUpdateCourseMutation();
   const updateCourseHandler = (id: string | undefined) => {
-    let selectedRagions = ragions?.map((ragion: any) => ragion.value);
-    let selectedLabels = selectedTags?.map((tag: any) => tag.label);
+    const selectedRagions = ragions?.map((ragion: any) => ragion.value);
+    const selectedLabels = selectedTags?.map((tag: any) => tag.label);
+
     updateCourse({
       courseId: id,
       location: selectedRagions,

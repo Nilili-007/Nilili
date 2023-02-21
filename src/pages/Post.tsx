@@ -40,11 +40,11 @@ const Post = () => {
     event.preventDefault();
     //selectedTags는 오브젝트 배열입니다.
     //hashtag는 데이터베이스에 문자열 배열로 들어가야 하기 때문에, value 값만 추출하여 문자열배열로 바꿉니다.
-    let selectedValues = selectedTags?.map((tag) => tag.label);
+    let selectedLabels = selectedTags?.map((tag) => tag.label);
 
     const newPost = {
       location: ragions,
-      hashtags: selectedValues,
+      hashtags: selectedLabels,
       title: courseTitle,
       image: "/assets/course.jpg",
       createdAt: JSON.stringify(new Date()),

@@ -74,7 +74,10 @@ const CourseTitle = ({ setIsEdit, paramId, course }: CourseTitleProps) => {
           </button>
         </div>
       ) : null}
-      <h3>작성자 : {course?.nickname}</h3>
+      <h3>작성자 : {course?.nickname} </h3>
+      <span className="text-md bg-gray-400 rounded-lg px-2 py-1">
+        {course?.isDone === true ? "여행 후" : "여행 전"}
+      </span>
     </div>
   );
 };

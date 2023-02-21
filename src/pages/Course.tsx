@@ -13,8 +13,7 @@ import { useGetCourseQuery } from "../redux/modules/apiSlice";
 const Course = () => {
   const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(false);
-  const { data } = useGetCourseQuery();
-
+  const { data, isLoading } = useGetCourseQuery();
   const paramId = useParams().id;
 
   const filterData = data?.filter(
@@ -28,14 +27,15 @@ const Course = () => {
       navigate(`/course/${test}`);
     }
   }
+  if (isEdit) {
+    return (
+      <EditCourse course={courseData} setIsEdit={setIsEdit} paramId={paramId} />
+    );
+  }
   return (
     <div>
-      {isEdit ? (
-        <EditCourse
-          course={courseData}
-          setIsEdit={setIsEdit}
-          paramId={paramId}
-        />
+      {isLoading ? (
+        <div className="h-screen m-40 text-3xl">Loading...</div>
       ) : (
         <div className="w-11/12 md:w-3/4 m-auto">
           <CourseTitle
