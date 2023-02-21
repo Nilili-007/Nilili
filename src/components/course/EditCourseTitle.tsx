@@ -7,9 +7,9 @@ import { regionOptions } from "../post/PostTitle";
 interface EditTitleProps {
   setTravelStatus: any;
   travelStatus: any;
-  filterRagion: any;
-  ragions: any;
-  setRagions: any;
+  filterRegion: any;
+  regions: any;
+  setRegions: any;
   courseTitle: any;
   setCourseTitle: any;
   filterTags: any;
@@ -19,9 +19,9 @@ interface EditTitleProps {
 const EditCourseTitle = ({
   setTravelStatus,
   travelStatus,
-  filterRagion,
-  ragions,
-  setRagions,
+  filterRegion,
+  regions,
+  setRegions,
   courseTitle,
   setCourseTitle,
   filterTags,
@@ -39,7 +39,7 @@ const EditCourseTitle = ({
     }
   };
   const handleCategorySelect = (data: any) => {
-    setRagions(data);
+    setRegions(data);
   };
   function handleTagSelect(data: any) {
     setSelectedTags(data);
@@ -75,14 +75,14 @@ const EditCourseTitle = ({
         <div className="w-[50%] xs:w-1/3 xs:text-xs ">
           <Select
             options={regionOptions}
-            defaultValue={filterRagion}
+            defaultValue={filterRegion}
             onChange={handleCategorySelect}
             isMulti
             className="z-20"
             classNamePrefix="select"
             isSearchable={true}
-            isOptionDisabled={(ragion) =>
-              ragions && ragions.length >= regionLimit
+            isOptionDisabled={(region) =>
+              regions && regions.length >= regionLimit
             }
           />
         </div>

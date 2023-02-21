@@ -16,8 +16,8 @@ interface EditCourseProps {
 
 const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
   // 기존 select로 선택했던 내용 불러오기
-  const filterRagion = regionOptions.filter((ragion) =>
-    course?.location.includes(ragion.value)
+  const filterRegion = regionOptions.filter((region) =>
+    course?.location.includes(region.value)
   );
   const filterTags = hashTagOptions.filter((hashTag) =>
     course?.hashtags.includes(hashTag.label)
@@ -26,7 +26,7 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
   const [courseTitle, setCourseTitle] = useState<string | undefined>("");
 
   //지역 선택
-  const [ragions, setRagions] = useState<any | null>([]);
+  const [regions, setRegions] = useState<any | null>([]);
 
   // 여행전/후 선택
   const [travelStatus, setTravelStatus] = useState<boolean | null>(false);
@@ -55,7 +55,7 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
     } else {
       setTravelStatus(false);
     }
-    setRagions(filterRagion);
+    setRegions(filterRegion);
     setSelectedTags(filterTags);
     setLists(tripCourse);
     if (courseList.length < 1) {
@@ -67,11 +67,11 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
   // update mutation
   const [updateCourse] = useUpdateCourseMutation();
   const updateCourseHandler = (id: string | undefined) => {
-    const selectedRagions = ragions?.map((ragion: any) => ragion.value);
+    const selectedRegions = regions?.map((region: any) => region.value);
     const selectedLabels = selectedTags?.map((tag: any) => tag.label);
     updateCourse({
       courseId: id,
-      location: selectedRagions,
+      location: selectedRegions,
       hashtags: selectedLabels,
       title: courseTitle,
       cover: uploadCover || galleryCover,
@@ -95,9 +95,9 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
         <EditCourseTitle
           setTravelStatus={setTravelStatus}
           travelStatus={travelStatus}
-          filterRagion={filterRagion}
-          ragions={ragions}
-          setRagions={setRagions}
+          filterRegion={filterRegion}
+          regions={regions}
+          setRegions={setRegions}
           courseTitle={courseTitle}
           setCourseTitle={setCourseTitle}
           filterTags={filterTags}

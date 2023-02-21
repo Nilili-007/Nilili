@@ -20,20 +20,20 @@ export const regionOptions = [
 ];
 
 interface titleProps {
-  ragions?: any;
-  setRagions?: any;
+  regions?: any;
+  setRegions?: any;
   courseTitle?: string;
   setCourseTitle?: any;
 }
 
 const PostTitle = ({
-  ragions,
-  setRagions,
+  regions,
+  setRegions,
   courseTitle,
   setCourseTitle,
 }: titleProps) => {
   const handleCategorySelect = (data: any) => {
-    setRagions(data);
+    setRegions(data);
   };
   const limit = 4;
   return (
@@ -45,11 +45,11 @@ const PostTitle = ({
           autoFocus={true}
           onChange={handleCategorySelect}
           isMulti
-          value={ragions}
+          value={regions}
           className="basic-multi-select z-20"
           classNamePrefix="select"
           isSearchable={true}
-          isOptionDisabled={(ragion) => ragions && ragions.length >= limit}
+          isOptionDisabled={(region) => regions && regions.length >= limit}
         />
       </div>
       <input

@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useAddCourseMutation } from "../redux/modules/apiSlice";
+import {
+  useAddCourseMutation,
+  useGetCourseQuery,
+} from "../redux/modules/apiSlice";
 import { authService } from "../utils/firebase";
 import {
   PostHashTag,
@@ -20,13 +23,14 @@ export interface optionType {
 const Post = () => {
   const navigate = useNavigate();
   const [addCourse] = useAddCourseMutation();
+  const { data } = useGetCourseQuery();
 
   // 커버
   const [uploadCover, setUploadCover] = useState("");
   const [galleryCover, setGalleryCover] = useState("");
 
   //지역 선택
-  const [ragions, setRagions] = useState<optionType[] | null>([]);
+  const [regions, setRegions] = useState<optionType[] | null>([]);
   const [courseTitle, setCourseTitle] = useState("");
 
   // 여행전/후 선택
@@ -35,20 +39,23 @@ const Post = () => {
   //해시태그 선택
   const [selectedTags, setSelectedTags] = useState<optionType[] | null>([]);
 
+  //navigate할 때 쓸 state
+  const [condition, setCondition] = useState(false);
+
   const userID = authService.currentUser?.uid;
 
   const courseList = useSelector(
     (state: any) => state.temporarySlice.courseList
   );
 
-  const onClickAddPost = (
+  const onClickAddPost = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
     //selectedTags는 오브젝트 배열입니다.
     //hashtag는 데이터베이스에 문자열 배열로 들어가야 하기 때문에, value 값만 추출하여 문자열배열로 바꿉니다.
     let selectedLabels = selectedTags?.map((tag) => tag.label);
-    let selectedRegions = ragions?.map((ragion) => ragion.value);
+    let selectedRegions = regions?.map((region) => region.value);
 
     const newPost = {
       location: selectedRegions,
@@ -67,13 +74,13 @@ const Post = () => {
     if (
       (uploadCover || galleryCover) &&
       travelStatus !== null &&
-      ragions &&
+      regions &&
       courseTitle &&
       courseList.length > 1
     ) {
-      addCourse(newPost);
+      await addCourse(newPost);
+      setCondition(true);
       window.alert("훌륭한 여정이에요! 여행 후 리뷰도 꼭 부탁드려요!");
-      navigate(`/course/1`);
     } else {
       if (!uploadCover || !galleryCover) {
         alert("커버 이미지를 추가해주세요.");
@@ -81,7 +88,7 @@ const Post = () => {
       if (travelStatus === null) {
         alert("여행 전/여행 후 카테고리를 선택해주세요.");
       }
-      if (!ragions) {
+      if (!regions) {
         alert("하나 이상의 지역을 선택해주세요.");
       }
       if (!courseTitle) {
@@ -92,6 +99,13 @@ const Post = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (condition && data) {
+      navigate(`/course/${data[0].id}`);
+      setCondition(false);
+    }
+  }, [data]);
 
   return (
     <div className="max-h-[130vh] mb-[7%]">
@@ -115,8 +129,8 @@ const Post = () => {
           />
         </div>
         <PostTitle
-          ragions={ragions}
-          setRagions={setRagions}
+          regions={regions}
+          setRegions={setRegions}
           courseTitle={courseTitle}
           setCourseTitle={setCourseTitle}
         />
