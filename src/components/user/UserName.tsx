@@ -34,14 +34,18 @@ const UserNameEdit = () => {
       ) : (
         <></>
       )}
-      <div className="w-full bg-black shadow mb-7">
+      <div className="w-full h-360 bg-black shadow mb-7">
         <div className="px-4 mx-auto flex-start lg:max-w-7xl md:items-center md:flex md:px-8">
           <div className="flex-col">
-            <div className="text-white text-2xl m-3">My Page</div>
-            <div className="items-center justify-center  mb-4  space-y-8 md:flex md:space-x-6 md:space-y-0">
-              <img src={userImg} alt="" className="object-fill h-40 w-40" />
+            <div className="text-white text-[32px] m-3">My Page</div>
+            <div className="items-center justify-center  mb-7  space-y-8 md:flex md:space-x-6 md:space-y-0">
+              <img
+                src={userImg}
+                alt=""
+                className="object-fill w-[180px] h-[180px]"
+              />
               <div className="flex-col">
-                <div className="text-white text-2xl mb-7">
+                <div className="text-white text-[45px] mb-5">
                   안녕하세요, <br />
                   {userName}님!
                 </div>
