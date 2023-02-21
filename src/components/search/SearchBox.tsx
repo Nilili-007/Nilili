@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Select from "react-select";
 import { FaSearch } from "react-icons/fa";
+import SearchList from "./SearchList";
+import { useGetCourseQuery } from "../../redux/modules/apiSlice";
 
 const regionOptions = [
   { value: "서울", label: "서울" },
@@ -39,130 +41,205 @@ const hashTagOptions = [
   { value: "#역사", label: "#역사" },
 ];
 
+const travelStatusOptions = [
+  { value: false, label: "여행 전" },
+  { value: true, label: "여행 후" },
+];
+
 const SearchBox = () => {
+  const { data, isLoading, isError } = useGetCourseQuery();
+
   const [category, setCategory] = useState("LC");
-  const [locations, setLocations] = useState<string[]>([]);
-  const [hashtags, sethashtags] = useState<string[]>([]);
+  const [locations, setLocations] = useState<optionType[] | null>([]);
+  const [hashtags, sethashtags] = useState<optionType[] | null>([]);
+  const [words, setWords] = useState("");
+  const [travelStatus, setTravelStatus] = useState<boolean>();
 
-  const onChangeHandler = (event: any) => {
-    console.log(event);
-    setLocations((prev) => [...prev, event.value]);
+  const [filteredList, setFilteredList] = useState<CourseType[]>();
+
+  const locationOnChangeHandler = (data: any) => {
+    setLocations(data);
   };
-  console.log(locations);
+
+  let locationsArr = locations?.map((item) => item.value);
+
+  const hashtagOnChangeHandler = (data: any) => {
+    sethashtags(data);
+  };
+
+  let hashtagsArr = hashtags?.map((item) => item.value);
+
+  const travelStatusOnChangeHandler = (data: any) => {
+    setTravelStatus(data?.value);
+  };
+
+  console.log("travelStatus", travelStatus);
+
+  const isSubsetOf = function (
+    base: string[] | undefined,
+    sample: string[] | undefined
+  ) {
+    return sample?.every((item: any) => base?.includes(item));
+  };
+  const filterData = () => {
+    if (
+      words.length === 0 &&
+      locationsArr?.length === 0 &&
+      hashtagsArr?.length === 0 &&
+      travelStatus === undefined
+    ) {
+      setFilteredList(data);
+    } else {
+      if (travelStatus === undefined) {
+        const filteredData: CourseType[] | undefined = data
+          ?.filter((item) => isSubsetOf(item.location, locationsArr))
+          .filter((item) => isSubsetOf(item.hashtags, hashtagsArr))
+          .filter((item) => item.title.includes(words));
+        setFilteredList(filteredData);
+      } else {
+        const filteredData: CourseType[] | undefined = data
+          ?.filter((item) => isSubsetOf(item.location, locationsArr))
+          .filter((item) => isSubsetOf(item.hashtags, hashtagsArr))
+          .filter((item) => item.title.includes(words))
+          .filter((item) => item.travelStatus === travelStatus);
+        setFilteredList(filteredData);
+      }
+    }
+  };
+  console.log(filteredList);
+
+  useEffect(() => {
+    filterData();
+  }, [locations, hashtags, words, travelStatus, data]);
+
   return (
-    <div className="mb-[2%] 3xl:w-[60%] 2xl:w-[70%] w-[90%] min-w-[370px]">
-      <p className=" w-fit mx-auto xl:text-[55px] lg:text-[45px] sm:text-[35px]  text-2xl font-bold my-[5%]">
-        WHAT ARE YOUR PLANS?
-      </p>
-      <div className="hidden sm:flex justify-evenly text-gray-400 font-bold text-2xl">
-        <button
-          className={`${
-            category === "LC"
-              ? "text-black font-bold border-b-2 border-black"
-              : "text-gray-400 font-medium"
-          } `}
-          onClick={() => setCategory("LC")}
-        >
-          지역 선택하기
-        </button>
-        <button
-          className={`${
-            category === "HT"
-              ? "text-black font-bold border-b-2 border-black"
-              : "text-gray-400 font-medium"
-          }  `}
-          onClick={() => setCategory("HT")}
-        >
-          해시태그 선택하기
-        </button>
-        <button
-          className={`${
-            category === "SC"
-              ? "text-black font-bold border-b-2 border-black"
-              : "text-gray-400 font-medium"
-          } `}
-          onClick={() => setCategory("SC")}
-        >
-          목적지 검색하기
-        </button>
-      </div>
-      <div className="sm:hidden flex justify-evenly text-gray-400 font-bold text-xl">
-        <button
-          className={`${
-            category === "LC"
-              ? "text-black font-bold border-b-2 border-black"
-              : "text-gray-400 font-medium"
-          } `}
-          onClick={() => setCategory("LC")}
-        >
-          지역
-        </button>
-        <button
-          className={`${
-            category === "HT"
-              ? "text-black font-bold border-b-2 border-black"
-              : "text-gray-400 font-medium"
-          }  `}
-          onClick={() => setCategory("HT")}
-        >
-          해시태그
-        </button>
-        <button
-          className={`${
-            category === "SC"
-              ? "text-black font-bold border-b-2 border-black"
-              : "text-gray-400 font-medium"
-          } `}
-          onClick={() => setCategory("SC")}
-        >
-          목적지
-        </button>
-      </div>
-      <div className="border  border-black flex items-center  p-[40px]">
-        <div
-          className={`${
-            category === "LC" ? "block" : "hidden"
-          } indent-2 w-[90%]`}
-        >
-          <Select
-            options={regionOptions}
-            placeholder={"지역명"}
-            autoFocus={true}
-            isMulti
-            isSearchable={true}
-            isClearable={true}
-            onChange={(event) => onChangeHandler(event)}
-          />
+    <>
+      <div className="mb-[2%] 3xl:w-[60%] 2xl:w-[70%] w-[90%] min-w-[370px]">
+        <p className=" w-fit mx-auto xl:text-[55px] lg:text-[45px] sm:text-[35px]  text-2xl font-bold my-[5%]">
+          WHAT ARE YOUR PLANS?
+        </p>
+        <div className="hidden sm:flex justify-evenly text-gray-400 font-bold text-2xl">
+          <button
+            className={`${
+              category === "LC"
+                ? "text-black font-bold border-b-2 border-black"
+                : "text-gray-400 font-medium"
+            } `}
+            onClick={() => setCategory("LC")}
+          >
+            지역 선택하기
+          </button>
+          <button
+            className={`${
+              category === "HT"
+                ? "text-black font-bold border-b-2 border-black"
+                : "text-gray-400 font-medium"
+            }  `}
+            onClick={() => setCategory("HT")}
+          >
+            해시태그 선택하기
+          </button>
+          <button
+            className={`${
+              category === "SC"
+                ? "text-black font-bold border-b-2 border-black"
+                : "text-gray-400 font-medium"
+            } `}
+            onClick={() => setCategory("SC")}
+          >
+            목적지 검색하기
+          </button>
         </div>
-        <div
-          className={`${
-            category === "HT" ? "block" : "hidden"
-          } indent-2 w-[90%]`}
-        >
-          <Select
-            options={hashTagOptions}
-            isMulti
-            isSearchable={true}
-            isClearable={true}
-            placeholder={"#해시태그"}
-          />
+        <div className="sm:hidden flex justify-evenly text-gray-400 font-bold text-xl">
+          <button
+            className={`${
+              category === "LC"
+                ? "text-black font-bold border-b-2 border-black"
+                : "text-gray-400 font-medium"
+            } `}
+            onClick={() => setCategory("LC")}
+          >
+            지역
+          </button>
+          <button
+            className={`${
+              category === "HT"
+                ? "text-black font-bold border-b-2 border-black"
+                : "text-gray-400 font-medium"
+            }  `}
+            onClick={() => setCategory("HT")}
+          >
+            해시태그
+          </button>
+          <button
+            className={`${
+              category === "SC"
+                ? "text-black font-bold border-b-2 border-black"
+                : "text-gray-400 font-medium"
+            } `}
+            onClick={() => setCategory("SC")}
+          >
+            목적지
+          </button>
         </div>
+        <div className="border  border-black flex items-center  p-[40px]">
+          <div className={"indent-2 w-[90%]"}>
+            <Select
+              options={regionOptions}
+              placeholder={"지역명"}
+              autoFocus={true}
+              isMulti
+              isSearchable={true}
+              isClearable={true}
+              onChange={locationOnChangeHandler}
+            />
+          </div>
+          <div className={"indent-2 w-[90%]"}>
+            <Select
+              options={hashTagOptions}
+              isMulti
+              isSearchable={true}
+              isClearable={true}
+              placeholder={"#해시태그"}
+              onChange={hashtagOnChangeHandler}
+            />
+          </div>
 
-        <input
-          className={`${
-            category === "SC" ? "block" : "hidden"
-          } rounded-sm indent-4 border border-gray-300 w-[90%] h-[38px]`}
-          placeholder="입력하세요."
-        />
+          <input
+            className={
+              "rounded-sm indent-4 border border-gray-300 w-[90%] h-[38px]"
+            }
+            placeholder="입력하세요."
+            value={words}
+            onChange={(event) => setWords(event.target.value)}
+          />
 
-        <button className="hidden sm:block bg-black  text-white ml-10 px-20 py-3 text-lg">
-          SEARCH
-        </button>
-        <button className="sm:hidden bg-black  text-white ml-10 p-3 text-lg">
-          <FaSearch />
-        </button>
+          <div className={"indent-2 w-[90%]"}>
+            <Select
+              isClearable={true}
+              options={travelStatusOptions}
+              onChange={travelStatusOnChangeHandler}
+            />
+          </div>
+
+          <button className="hidden sm:block bg-black  text-white ml-10 px-20 py-3 text-lg">
+            SEARCH
+          </button>
+          <button className="sm:hidden bg-black  text-white ml-10 p-3 text-lg">
+            <FaSearch />
+          </button>
+        </div>
       </div>
-    </div>
+      {filteredList?.length === 0 ? (
+        <p>검색결과가 없습니다.</p>
+      ) : isLoading ? (
+        <p>로딩 중입니다.</p>
+      ) : isError ? (
+        <p>에러가 발생했습니다.</p>
+      ) : (
+        <SearchList filteredList={filteredList} />
+      )}
+    </>
   );
 };
 

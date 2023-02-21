@@ -1,19 +1,15 @@
 import { useGetCourseQuery } from "../../redux/modules/apiSlice";
 import { Link } from "react-router-dom";
 
-const SearchList = () => {
-  const { data, isLoading, isError } = useGetCourseQuery();
-  if (isLoading) {
-    return <>로딩중....</>;
-  }
-  if (isError) {
-    return <>에러가 발생했습니다.</>;
-  }
+interface ISearchListProps {
+  filteredList: CourseType[] | undefined;
+}
 
+const SearchList = ({ filteredList }: ISearchListProps) => {
   return (
     <div className=" my-10 3xl:w-[60%] 2xl:w-[70%] w-[90%] ">
       <ul className="flex flex-wrap justify-evenly">
-        {data?.map((item) => (
+        {filteredList?.map((item) => (
           <Link
             to={`/course/${item.id}`}
             key={item.id}

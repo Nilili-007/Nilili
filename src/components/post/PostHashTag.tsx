@@ -1,6 +1,4 @@
-import React from "react";
 import Select from "react-select";
-import { optionType } from "../../pages/Post";
 
 const hashTagOptions = [
   { value: "#가족", label: "#가족" },

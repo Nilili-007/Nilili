@@ -17,7 +17,6 @@ import {
   useGetCourseQuery,
 } from "../redux/modules/apiSlice";
 import { authService } from "../utils/firebase";
-import { Dispatch } from "redux";
 
 //select option의 타입
 export interface optionType {
@@ -30,6 +29,7 @@ const Post = () => {
   const [addCourse] = useAddCourseMutation();
 
   //카테고리 선택
+
   const [category, setCategory] = useState("");
   const [courseTitle, setCourseTitle] = useState("");
 
@@ -40,25 +40,26 @@ const Post = () => {
   const { data } = useGetCourseQuery();
 
   //Hashtag 테스트용 submit handler
-  const submitHandle = async (event: React.FormEvent<HTMLFormElement>) => {
+  const submitHandle = async (event: any) => {
     event.preventDefault();
     //selectedTags는 오브젝트 배열입니다.
     //hashtag는 데이터베이스에 문자열 배열로 들어가야 하기 때문에, value 값만 추출하여 문자열배열로 바꿉니다.
     let selectedValues = selectedTags?.map((tag) => tag.value);
 
     const newPost = {
-      location: category,
-      hashtags: selectedValues,
       title: courseTitle,
-      image: "/assets/course.jpg",
-      createdAt: JSON.stringify(new Date()),
-      likes: 70,
-      likesID: [userID],
+      travelStatus: false,
+      location: ["충청북도", "부산"],
+      hashtags: selectedValues,
+      courseList: [],
+      coverImg: "/assets/course.jpg",
       userID,
-      nickname: "선형",
-      isDone: true,
-      places: [],
+      nickname: authService.currentUser?.displayName,
+      createdAt: JSON.stringify(new Date()),
+      likes: 0,
+      likesID: [],
     };
+
     setCondition(true);
 
     await addCourse(newPost);
@@ -76,7 +77,7 @@ const Post = () => {
   // 게시글 데이터 DB : uuid, createdAt, 카테고리, 제목, 해시태그, initialPlace
 
   return (
-    <form onSubmit={submitHandle}>
+    <div>
       <PostHeader />
       <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0">
         <div className="flex">
@@ -99,9 +100,9 @@ const Post = () => {
           setSelectedTags={setSelectedTags}
         />
         <PostMap />
-        <PostBtn />
+        <PostBtn submitHandle={submitHandle} />
       </div>
-    </form>
+    </div>
   );
 };
 
