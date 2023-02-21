@@ -32,17 +32,17 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
   const userID = authService.currentUser?.uid;
   const [courseTitle, setCourseTitle] = useState<string | undefined>("");
   // 기존 select로 선택했던 내용 불러오기
-  const filterRagion = regionOptions.filter((ragion) =>
-    course?.location.includes(ragion.value)
+  const filterRegion = regionOptions.filter((region) =>
+    course?.location.includes(region.value)
   );
   const filterTags = hashTagOptions.filter((hashTag) =>
     course?.hashtags.includes(hashTag.label)
   );
 
   //지역 선택
-  const [ragions, setRagions] = useState<any | null>([]);
+  const [regions, setRegions] = useState<any | null>([]);
   const handleCategorySelect = (data: any) => {
-    setRagions(data);
+    setRegions(data);
   };
   const regionLimit = 4;
 
@@ -204,19 +204,19 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
     } else {
       setTravelStatus(false);
     }
-    setRagions(filterRagion);
+    setRegions(filterRegion);
     setSelectedTags(filterTags);
   }, []);
 
   // update mutation
   const [updateCourse] = useUpdateCourseMutation();
   const updateCourseHandler = (id: string | undefined) => {
-    const selectedRagions = ragions?.map((ragion: any) => ragion.value);
+    const selectedRegions = regions?.map((region: any) => region.value);
     const selectedLabels = selectedTags?.map((tag: any) => tag.label);
 
     updateCourse({
       courseId: id,
-      location: selectedRagions,
+      location: selectedRegions,
       hashtags: selectedLabels,
       title: courseTitle,
       // image,
@@ -268,14 +268,14 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
           <div className="w-[50%] xs:w-1/3 xs:text-xs ">
             <Select
               options={regionOptions}
-              defaultValue={filterRagion}
+              defaultValue={filterRegion}
               onChange={handleCategorySelect}
               isMulti
               className="z-20"
               classNamePrefix="select"
               isSearchable={true}
-              isOptionDisabled={(ragion) =>
-                ragions && ragions.length >= regionLimit
+              isOptionDisabled={(region) =>
+                regions && regions.length >= regionLimit
               }
             />
           </div>
