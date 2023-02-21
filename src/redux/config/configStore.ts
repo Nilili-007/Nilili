@@ -7,7 +7,9 @@ const store = configureStore({
     temporarySlice,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(courseApi.middleware),
+    getDefaultMiddleware({ serializableCheck: false }).concat(
+      courseApi.middleware
+    ),
 });
 
 export default store;

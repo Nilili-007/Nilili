@@ -21,8 +21,9 @@ const Post = () => {
   const navigate = useNavigate();
   const [addCourse] = useAddCourseMutation();
 
-  // 커버 선택
-  const [coverImg, setCoverImg] = useState("");
+  // 커버
+  const [uploadCover, setUploadCover] = useState("");
+  const [galleryCover, setGalleryCover] = useState("");
 
   //지역 선택
   const [category, setCategory] = useState("");
@@ -54,7 +55,7 @@ const Post = () => {
       location: category,
       hashtags: selectedValues,
       courseList: JSON.stringify(courseList),
-      coverImg,
+      cover: uploadCover || galleryCover,
       userID,
       nickname: authService.currentUser?.displayName,
       createdAt: Date.now(),
@@ -63,18 +64,17 @@ const Post = () => {
     };
 
     if (
-      coverImg &&
-      (travelStatus || !travelStatus) &&
+      (uploadCover || galleryCover) &&
+      travelStatus !== null &&
       category &&
       courseTitle &&
       courseList.length > 1
     ) {
       addCourse(newPost);
-      console.log(newPost);
       window.alert("훌륭한 여정이에요! 여행 후 리뷰도 꼭 부탁드려요!");
       navigate(`/course/1`);
     } else {
-      if (!coverImg) {
+      if (!uploadCover || !galleryCover) {
         alert("커버 이미지를 추가해주세요.");
       }
       if (travelStatus === null) {
@@ -94,7 +94,12 @@ const Post = () => {
 
   return (
     <div className="max-h-[130vh] mb-[7%]">
-      <PostHeader coverImg={coverImg} setCoverImg={setCoverImg} />
+      <PostHeader
+        uploadCover={uploadCover}
+        setUploadCover={setUploadCover}
+        galleryCover={galleryCover}
+        setGalleryCover={setGalleryCover}
+      />
       <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0 ">
         <div className="flex">
           <div className="flex flex-col">

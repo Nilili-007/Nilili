@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Map, MapTypeControl } from "react-kakao-maps-sdk";
-import PostSearchModal from "./PostSearchModal";
-import PostCourseInfo from "./PostCourseInfo";
-import PostMarkers from "./PostMarkers";
+import { PostSearchModal, PostCourseInfo, PostMarkers } from "./index";
 import { useSelector } from "react-redux";
 
 const PostMap = () => {

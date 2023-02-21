@@ -1,39 +1,31 @@
 import React, { Dispatch, SetStateAction, useRef, useState } from "react";
+import { authService } from "../../utils/firebase";
+import {
+  getStorage,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from "@firebase/storage";
+import { galleryLists } from "./index";
 import { GrFormClose } from "react-icons/gr";
 import styled from "styled-components";
-import { authService } from "../../utils/firebase";
 
 interface PostProps {
-  coverImg: string;
-  setCoverImg: Dispatch<SetStateAction<string>>;
+  uploadCover: string;
+  setUploadCover: Dispatch<SetStateAction<any>>;
+  galleryCover: string;
+  setGalleryCover: Dispatch<SetStateAction<any>>;
 }
 
-const PostHeader = ({ coverImg, setCoverImg }: PostProps) => {
-  const [modelOpen, setModalOpen] = useState(false);
+const PostHeader = ({
+  uploadCover,
+  setUploadCover,
+  galleryCover,
+  setGalleryCover,
+}: PostProps) => {
+  const [modalOpen, setModalOpen] = useState(false);
   const [category, setCategory] = useState("업로드");
   const coverRef = useRef<HTMLInputElement>(null);
-  const galleryLists = [
-    "https://cdn.pixabay.com/photo/2020/05/21/11/37/road-5200366_1280.jpg",
-    "https://cdn.pixabay.com/photo/2017/06/20/12/07/castle-2422860_1280.jpg",
-    "https://cdn.pixabay.com/photo/2020/02/09/00/21/jusang-joint-4831628_1280.jpg",
-    "https://cdn.pixabay.com/photo/2019/09/26/23/00/han-river-4507176_1280.jpg",
-    "https://cdn.pixabay.com/photo/2020/07/06/22/55/cornus-5378575_1280.jpg",
-    "https://cdn.pixabay.com/photo/2022/08/31/15/07/seoul-7423593_1280.jpg",
-    "https://cdn.pixabay.com/photo/2018/04/11/00/04/sea-3309231_1280.jpg",
-    "https://cdn.pixabay.com/photo/2019/09/17/02/20/jeju-4482313_1280.jpg",
-    "https://cdn.pixabay.com/photo/2017/01/17/15/18/haeundae-beach-1987193_1280.jpg",
-    "https://cdn.pixabay.com/photo/2022/04/04/13/54/city-7111380_1280.jpg",
-    "https://cdn.pixabay.com/photo/2015/09/10/14/11/jeju-934479_1280.jpg",
-    "https://cdn.pixabay.com/photo/2017/09/14/06/33/jeju-2748098_1280.jpg",
-    "https://cdn.pixabay.com/photo/2020/05/05/07/52/republic-of-korea-5131925_1280.jpg",
-    "https://cdn.pixabay.com/photo/2022/02/08/06/18/bird-7000837_1280.jpg",
-    "https://cdn.pixabay.com/photo/2021/09/01/14/57/gamcheon-culture-village-6591589_1280.jpg",
-    "https://cdn.pixabay.com/photo/2018/09/02/07/07/south-korea-3648252_1280.jpg",
-    "https://cdn.pixabay.com/photo/2017/09/26/17/06/and-thu-2789325_1280.jpg",
-    "https://cdn.pixabay.com/photo/2018/08/01/03/40/autumn-leaves-3576458_1280.jpg",
-    "https://cdn.pixabay.com/photo/2020/01/29/09/36/snow-4801975_1280.jpg",
-    "https://cdn.pixabay.com/photo/2015/10/17/15/54/seoul-olympic-park-992727_1280.jpg",
-  ];
 
   const onClickShowModal = () => {
     setModalOpen(true);
@@ -48,32 +40,54 @@ const PostHeader = ({ coverImg, setCoverImg }: PostProps) => {
     }
   };
 
-  const onChangeUploadCover = (e: any) => {
+  const onChangeUploadCover = () => {
     if (coverRef.current?.files) {
       const file = coverRef.current.files[0];
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = () => {
-        const changeImg = reader.result;
-        setCoverImg(changeImg as any);
+        setUploadCover(reader.result as any);
       };
+    }
+  };
+
+  const onClickUploadCover = async (event: any) => {
+    event.preventDefault();
+    setModalOpen(false);
+
+    if (coverRef.current?.files) {
+      const file = coverRef.current.files[0];
+      const storage = getStorage();
+      const storageRef = ref(storage, `covers/${file.name}`);
+
+      uploadBytes(storageRef, file).then(() => {
+        getDownloadURL(storageRef).then((url: string) => {
+          setUploadCover(url);
+          setGalleryCover(undefined);
+        });
+      });
     }
   };
 
   const onClickSelectCover = (e: any) => {
     if (e.target.currentSrc) {
-      setCoverImg(e.target.currentSrc);
+      setGalleryCover(e.target.currentSrc);
+      setUploadCover(undefined);
     }
   };
 
   const onClickRemoveCover = () => {
-    setCoverImg("");
+    setGalleryCover("");
   };
 
   return (
     <div className="h-[700px] text-white">
       <img
-        src={coverImg !== undefined ? coverImg : ""}
+        src={
+          (uploadCover || galleryCover) !== undefined
+            ? uploadCover || galleryCover
+            : ""
+        }
         className="w-full h-[700px] object-cover z-0"
       />
       <div className="w-full h-[700px] -mt-[700px] absolute z-10 bg-gradient-to-t from-[#00000060]" />
@@ -87,7 +101,7 @@ const PostHeader = ({ coverImg, setCoverImg }: PostProps) => {
             onClick={onClickShowModal}
             className="bg-black px-2 py-1 mt-2 mr-3 z-20"
           >
-            {coverImg ? "Change Cover" : "Add Cover"}
+            {uploadCover || galleryCover ? "Change Cover" : "Add Cover"}
           </button>
           <button
             onClick={() => onClickRemoveCover()}
@@ -97,12 +111,13 @@ const PostHeader = ({ coverImg, setCoverImg }: PostProps) => {
           </button>
         </div>
       </div>
-      {modelOpen && (
+      {modalOpen && (
         <div className="w-[700px] h-[300px] bg-white border border-gray-600 absolute translate-x-[34%] translate-y-[5%] z-[1000]">
           <div className=" w-[95%] m-auto py-1">
             <div className="border-b border-gray-600 mt-10" />
             <GrFormClose
-              onClick={() => setModalOpen(false)}
+              onClick={(event) => onClickUploadCover(event)}
+              // onClick={() => setModalOpen(false)}
               className="cursor-pointer text-4xl ml-auto -mt-10 -mr-1"
             />
             <div className="flex -mt-[26px]">
