@@ -55,35 +55,14 @@ const Modal = ({ modal, setModal, modalOutClick, modalRef }: ModalProps) => {
         className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
       >
         <div className="relative w-auto h-3/4 my-6 mx-auto max-w-3xl">
-          <div className="border-0 shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+          <div className="w-full min-w-full border-0 shadow-lg relative flex flex-col bg-white outline-none focus:outline-none">
             {category === "LG" ? (
-              <>
-                <Login closeModal={closeModal} setModal={setModal} />
-                <div className="flex items-center justify-center p-2 border-t border-solid border-blueGray-200 rounded-b">
-                  <div className="flex items-center justify-center text-gray-500 text-xs mr-5">
-                    비밀번호를 잊어버리셨나요?
-                  </div>
-                  <button
-                    className="text-black border-b border-blue-500 font-bold text-xs p-1 hover:text-blue-600 outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                    onClick={() => setCategory("FG")}
-                  >
-                    비밀번호 찾기
-                  </button>
-                </div>
-                <div className="flex items-center justify-center p-2 rounded-b">
-                  <div className="flex items-center justify-center text-gray-500 text-xs mr-5">
-                    아직 회원이 아니신가요?
-                  </div>
-                  <button
-                    className="text-black border-b border-blue-500 font-bold text-xs p-1 hover:text-blue-600 outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                    onClick={registerBtn}
-                  >
-                    회원가입
-                  </button>
-                </div>
-              </>
+              <Login
+                closeModal={closeModal}
+                setModal={setModal}
+                setCategory={setCategory}
+                registerBtn={registerBtn}
+              />
             ) : category === "SU" ? (
               <>
                 <Register closeModal={closeModal} setModal={setModal} />
