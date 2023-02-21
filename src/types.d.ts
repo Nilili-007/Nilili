@@ -9,12 +9,27 @@ declare interface CourseType {
   location: string[];
   hashtags: string[];
   title: string;
-  cover: string;
+  cover: string | undefined;
   createdAt: date;
   likes: number;
   likesID: any[];
   userID: string;
   nickname: string;
   travelStatus: boolean;
-  courseList: string[];
+  courseList: string;
+}
+declare interface optionType {
+  value: string;
+  label: string;
+}
+
+declare interface CourseListType {
+  memo?: string;
+  name: string;
+  address: string;
+  road: string;
+  phone: string;
+  id: string;
+  bounds: any;
+  position: any;
 }

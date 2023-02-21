@@ -15,6 +15,7 @@ const Header = () => {
   // login modal toggle
   const [modal, setModal] = useState(false);
   const modalRef = useRef<HTMLDivElement | null>(null);
+  const userID = authService.currentUser?.uid;
 
   // modal 띄우기
   const openModal = () => {
@@ -122,7 +123,7 @@ const Header = () => {
                       <li className="text-sm px-4 py-2 leading-none  text-white">
                         <button
                           className="font-bold underline hover:text-teal-500"
-                          onClick={() => navigate(`/user/${userName}`)}
+                          onClick={() => navigate(`/user/${userID}`)}
                         >
                           {userName}
                         </button>

@@ -55,18 +55,18 @@ export const courseApi = createApi({
         location,
         hashtags,
         title,
-        // image,
+        cover,
         isDone,
-        // places,
+        courseList,
       }) {
         try {
           await updateDoc(doc(dbService, "courses", courseId), {
             location,
             hashtags,
             title,
-            // image,
+            cover,
             isDone,
-            // places,
+            courseList,
           });
           return { data: null };
         } catch (error: any) {
@@ -89,8 +89,7 @@ export const courseApi = createApi({
       invalidatesTags: ["Courses"],
     }),
 
-    //list reducer
-    getLikeList: builder.query<CourseType[], void>({
+    getCourseLike: builder.query<CourseType[], void>({
       async queryFn() {
         try {
           const courseQuery = query(
@@ -179,9 +178,9 @@ export const courseApi = createApi({
 export const {
   useAddCourseMutation,
   useGetCourseQuery,
+  useGetCourseLikeQuery,
   useUpdateCourseMutation,
   useDeleteCourseMutation,
-  useGetLikeListQuery,
   useAddCommentMutation,
   useGetCommentQuery,
   useDeleteCommentMutation,
