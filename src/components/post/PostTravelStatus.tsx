@@ -10,14 +10,12 @@ const PostTravelStatus = ({ travelStatus, setTravelStatus }: any) => {
     }
   };
 
-  // 여행전/후 선택 에러
-
   return (
     <div className="ml-auto">
       <div className="flex ">
         <Category
           onClick={(e) => onClickStatus(e)}
-          className={!travelStatus && travelStatus === null ? "" : "clicked"}
+          className={travelStatus || travelStatus === null ? "" : "clicked"}
         >
           여행 전
         </Category>
