@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import Select from "react-select";
-import { FaSearch } from "react-icons/fa";
 import SearchList from "./SearchList";
 import { useGetCourseQuery } from "../../redux/modules/apiSlice";
-import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { changeHashTagNum } from "../../redux/modules/searchSlice";
 
 const regionOptions = [
   { value: "서울", label: "서울" },
@@ -48,7 +48,10 @@ const travelStatusOptions = [
 ];
 
 const SearchBox = () => {
-  const paramId = Number(useParams().id);
+  const linkedHashtagNum = useSelector(
+    (state: any) => state.searchSlice.hashtagNumber
+  );
+  const dispatch = useDispatch();
   const { data, isLoading, isError } = useGetCourseQuery();
 
   const [locations, setLocations] = useState<optionType[] | null>([]);
@@ -95,7 +98,7 @@ const SearchBox = () => {
       setFilteredList(data);
     }
 
-    // 지역, 해시태그, 키워드, 여행 전/후 여부에 따라 필터링한다
+    // 지역, 해시태그, 키워드, 여행 전/후 여부에 따라 필터링
     else {
       const filteredData: CourseType[] | undefined = data
         ?.filter((item) => isSubsetOf(item.location, locationsArr))
@@ -116,13 +119,17 @@ const SearchBox = () => {
   }, [hashtags, locations, travelStatus, words, data]);
 
   //메인페이지에서 해시태그 링크로 들어올 때 자동검색
+  //페이지 나갈 때 해시태그 자동검색 없애기
   useEffect(() => {
-    if (paramId !== undefined) {
+    if (linkedHashtagNum !== null) {
       const linkSetHashtag = () => {
-        sethashtags([hashTagOptions[paramId]]);
+        sethashtags([hashTagOptions[linkedHashtagNum]]);
       };
       linkSetHashtag();
     }
+    return () => {
+      dispatch(changeHashTagNum(null));
+    };
   }, []);
 
   return (

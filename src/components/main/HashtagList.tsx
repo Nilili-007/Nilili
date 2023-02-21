@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { changeHashTagNum } from "../../redux/modules/searchSlice";
 
 const HashtagList = () => {
+  const dispatch = useDispatch();
   return (
     <div className="bg-gray-200 w-full h-[650px]">
       <div className="mx-auto 3xl:w-[60%] 2xl:w-[70%] w-[90%]  ">
@@ -12,97 +15,113 @@ const HashtagList = () => {
         </p>
         <div className="flex flex-wrap justify-between mt-[5%]">
           <Link
-            to={`/search/0`}
+            onClick={() => dispatch(changeHashTagNum(0))}
+            to={"/search"}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #화목하게 가족과
           </Link>
           <Link
-            to={`/search/1`}
+            onClick={() => dispatch(changeHashTagNum(1))}
+            to={"/search"}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #우정충전 친구와
           </Link>
           <Link
-            to={`/search/2`}
+            onClick={() => dispatch(changeHashTagNum(2))}
+            to={"/search"}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #사랑하는 연인과
           </Link>
           <Link
-            to={`/search/3`}
+            onClick={() => dispatch(changeHashTagNum(3))}
+            to={"/search"}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #소중한 아이들과
           </Link>
           <Link
-            to={`/search/4`}
+            onClick={() => dispatch(changeHashTagNum(4))}
+            to={"/search"}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #반려동물과 같이
           </Link>
           <Link
-            to={`/search/5`}
+            onClick={() => dispatch(changeHashTagNum(5))}
+            to={"/search"}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #조용히 나 혼자
           </Link>
           <Link
-            to={`/search/6`}
+            onClick={() => dispatch(changeHashTagNum(6))}
+            to={"/search"}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #다 함께 단체로
           </Link>
           <Link
-            to={`/search/7`}
+            onClick={() => dispatch(changeHashTagNum(7))}
+            to={"/search"}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #일상 속의 휴식
           </Link>
           <Link
-            to={`/search/8`}
+            onClick={() => dispatch(changeHashTagNum(8))}
+            to={"/search"}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #로맨틱한 데이트
           </Link>
           <Link
-            to={`/search/9`}
+            onClick={() => dispatch(changeHashTagNum(9))}
+            to={"/search"}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #FLEX! 쇼핑
           </Link>
           <Link
-            to={`/search/10`}
+            onClick={() => dispatch(changeHashTagNum(10))}
+            to={"/search"}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #나만 알고픈 맛집
           </Link>
           <Link
-            to={`/search/11`}
+            onClick={() => dispatch(changeHashTagNum(11))}
+            to={"/search"}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #감성 충천 카페
           </Link>
           <Link
-            to={`/search/12`}
+            onClick={() => dispatch(changeHashTagNum(12))}
+            to={"/search"}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #교양충전 문화생활
           </Link>
           <Link
-            to={`/search/13`}
+            onClick={() => dispatch(changeHashTagNum(13))}
+            to={"/search"}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #떠나봐요 캠핑
           </Link>
           <Link
-            to={`/search/14`}
+            onClick={() => dispatch(changeHashTagNum(14))}
+            to={"/search"}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #배타고 섬으로
           </Link>
           <Link
-            to={`/search/15`}
+            onClick={() => dispatch(changeHashTagNum(15))}
+            to={"/search"}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #깊은 역사 속으로
