@@ -1,6 +1,7 @@
 import { useGetCourseQuery } from "../../redux/modules/apiSlice";
 import { authService } from "../../utils/firebase";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 type UserListType = {
   category: string;
   done: boolean;
@@ -8,6 +9,23 @@ type UserListType = {
 
 const UserList = ({ category, done }: UserListType) => {
   const { data, isLoading, isError } = useGetCourseQuery();
+  const userID = authService.currentUser?.uid;
+  const [userData, setUserData] = useState<CourseType[]>();
+
+  const filterData = () => {
+    const mypaths = data?.filter(
+      (item) => item.userID === userID && item.travelStatus === done
+    );
+    const mylikes = data?.filter(
+      (item) => item.likesID?.includes(userID) && item.travelStatus === done
+    );
+    category === "MY" ? setUserData(mypaths) : setUserData(mylikes);
+    console.log("내가 좋아요한 것", mylikes);
+  };
+  useEffect(() => {
+    filterData();
+    console.log("필터 데이터 실행");
+  }, [data, category, done]);
 
   if (isLoading) {
     return <>로딩중....</>;
@@ -15,15 +33,6 @@ const UserList = ({ category, done }: UserListType) => {
   if (isError) {
     return <>에러가 발생했습니다.</>;
   }
-
-  const userID = authService.currentUser?.uid;
-  const mypaths = data?.filter(
-    (item) => item.userID === userID && item.travelStatus === done
-  );
-  const mylikes = data?.filter(
-    (item) => item.likesID?.includes(userID) && item.travelStatus === done
-  );
-  let userdata = category === "MY" ? mypaths : mylikes;
 
   return (
     <div className="my-10 3xl:w-[60%] 2xl:w-[70%] w-[90%] ">
@@ -35,12 +44,15 @@ const UserList = ({ category, done }: UserListType) => {
       </p>
 
       <ul>
-        {userdata?.map((item: CourseType) => (
+        {userData?.map((item: CourseType) => (
           <Link to={`/course/${item.id}`} key={item.id}>
-            <li className="md:w-[24%] w-[360px]  inline-block mx-3 pt-6 border-t-2 border-black   ">
-              <img alt="최신순 이미지" src="/assets/course.jpg" />
+            <li className="md:w-[23%] w-[360px]  inline-block mx-3 pt-6 border-t-2 border-black   ">
+              <div className="hover:transition-all w-[300px] h-[300px] bg-no-repeat bg-cover bg-center hover:bg-[url('https://user-images.githubusercontent.com/117059420/219529223-bb81ad92-30cc-4ca2-9ce1-3c7f5dd3a4dc.jpg')] bg-[url('https://user-images.githubusercontent.com/117059420/219529260-5546619d-ed8b-4bc1-86a9-829249a4cd64.jpg')]" />
               <p className="pr-4 ml-1 mt-5 mb-5 sm:text-2xl text-xl overflow-hidden font-black ">
                 {item.title}
+              </p>
+              <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
+                {item.nickname}
               </p>
               <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
                 {item.createdAt}

@@ -31,6 +31,7 @@ export const courseApi = createApi({
     }),
     getCourse: builder.query<CourseType[], void>({
       async queryFn() {
+        console.log("getcourse 실행됌");
         try {
           const courseQuery = query(
             collection(dbService, "courses"),
@@ -172,6 +173,22 @@ export const courseApi = createApi({
       },
       invalidatesTags: ["Courses"],
     }),
+
+    updateLikes: builder.mutation({
+      async queryFn({ likes, likesID, courseId }) {
+        try {
+          await updateDoc(doc(dbService, "courses", courseId), {
+            likes,
+            likesID,
+          });
+          return { data: null };
+        } catch (error: any) {
+          console.error(error.message);
+          return { error: error.message };
+        }
+      },
+      invalidatesTags: ["Courses"],
+    }),
   }),
 });
 
@@ -185,4 +202,5 @@ export const {
   useGetCommentQuery,
   useDeleteCommentMutation,
   useUpdateCommentMutation,
+  useUpdateLikesMutation,
 } = courseApi;

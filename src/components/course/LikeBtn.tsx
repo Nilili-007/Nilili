@@ -1,7 +1,8 @@
-import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
-import { authService, dbService } from "../../utils/firebase";
+import { authService } from "../../utils/firebase";
+
+import { useUpdateLikesMutation } from "../../redux/modules/apiSlice";
 interface LikeProps {
   paramId: string | any;
   course: CourseType | undefined;
@@ -12,8 +13,9 @@ const LikeBtn = ({ paramId, course }: LikeProps) => {
   const courseLikes = course && course?.likes;
   const [likeCount, setLikeCount] = useState<number | any>(0);
   const currentId = authService.currentUser?.uid;
-  const courseRef = doc(dbService, "courses", paramId);
   const submitRef = useRef<HTMLButtonElement | any>();
+  const [updateLikesMutate] = useUpdateLikesMutation();
+
   const submitLike = async () => {
     if (!authService.currentUser) {
       setLike(false);
@@ -28,17 +30,20 @@ const LikeBtn = ({ paramId, course }: LikeProps) => {
       setLikeCount(likeCount + 1);
     }
   };
+
   useEffect(() => {
     const updateLikes = async () => {
-      if (like) {
-        await updateDoc(courseRef, {
+      if (like && course) {
+        await updateLikesMutate({
+          courseId: paramId,
           likes: likeCount || null,
-          likesID: arrayUnion(currentId),
+          likesID: [...course.likesID, currentId],
         });
       } else {
-        await updateDoc(courseRef, {
+        await updateLikesMutate({
+          courseId: paramId,
           likes: likeCount || null,
-          likesID: arrayRemove(currentId),
+          likesID: course?.likesID.filter((item) => item !== currentId),
         });
       }
     };
