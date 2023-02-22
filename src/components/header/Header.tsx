@@ -4,8 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { authService } from "../../utils/firebase";
 import Modal from "../auth/Modal";
 import Weather from "./Weather";
+import { useDispatch } from "react-redux";
+import { replaceAllData } from "../../redux/modules/temporarySlice";
 
 const Header = () => {
+  const dispatch = useDispatch();
+
   // 반응형 header
   const [navbar, setNavbar] = useState(false);
 
@@ -38,6 +42,12 @@ const Header = () => {
       .catch((error) => {
         console.log("error: ", error);
       });
+  };
+
+  // 글쓰기 페이지 이동시 redux/modules/temporarySlice의 courseList 초기화
+  const postBtn = () => {
+    dispatch(replaceAllData([]));
+    navigate("/post");
   };
 
   const auth = getAuth();
@@ -135,9 +145,7 @@ const Header = () => {
                         </button>
                       </li>
                       <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
-                        <button onClick={() => navigate("/post")}>
-                          글쓰기
-                        </button>
+                        <button onClick={() => postBtn()}>글쓰기</button>
                       </li>
                       <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-5000">
                         <button onClick={logoutBtn}>로그아웃</button>
