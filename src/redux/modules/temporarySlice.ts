@@ -60,6 +60,10 @@ const temporarySlice = createSlice({
       );
       state.courseList[i].memo = "";
     },
+    replaceAllData: (state: any, action) => {
+      state.courseList = action.payload;
+      state.filteredId = "";
+    },
   },
 });
 
@@ -71,5 +75,6 @@ export const {
   downCourse,
   editMemo,
   deleteMemo,
+  replaceAllData,
 } = temporarySlice.actions;
 export default temporarySlice.reducer;

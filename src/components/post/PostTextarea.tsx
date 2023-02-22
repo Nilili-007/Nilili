@@ -55,7 +55,7 @@ const PostTextarea = ({ item, text, setText, setBoundsInfo }: any) => {
 
 export default PostTextarea;
 
-const Textarea = styled.textarea`
+export const Textarea = styled.textarea`
   width: 100%;
   height: 80px;
   color: black;

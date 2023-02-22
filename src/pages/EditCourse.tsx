@@ -2,17 +2,14 @@ import React, { useEffect, useState } from "react";
 import { hashTagOptions } from "../components/post/PostHashTag";
 import { regionOptions } from "../components/post/PostTitle";
 import { PostHeader } from "../components/post";
-import { addCourse } from "../redux/modules/temporarySlice";
+import { replaceAllData } from "../redux/modules/temporarySlice";
 import {
   useGetCourseQuery,
   useUpdateCourseMutation,
 } from "../redux/modules/apiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  // EditCourseMap,
-  EditCourseTitle,
-} from "../components/edit";
+import { EditCourseMap, EditCourseTitle } from "../components/edit";
 
 const EditCourse = () => {
   const paramId = useParams().id;
@@ -22,6 +19,10 @@ const EditCourse = () => {
   );
   const course = filterData?.pop();
   const navigate = useNavigate();
+
+  const editedList = useSelector(
+    (state: any) => state.temporarySlice.courseList
+  );
 
   // 기존 select로 선택했던 내용 불러오기
   const filterRegion = regionOptions.filter((region) =>
@@ -48,12 +49,9 @@ const EditCourse = () => {
 
   //코스
   const dispatch = useDispatch();
-  const courseList = useSelector(
-    (state: any) => state.temporarySlice.courseList
-  );
+
   const prevCourseLists: any = course?.courseList;
   const tripCourse = JSON.parse(prevCourseLists);
-  const [lists, setLists] = useState(courseList);
 
   // 수정 전 내용 불러오기
   useEffect(() => {
@@ -65,30 +63,35 @@ const EditCourse = () => {
     }
     setRagions(filterRegion);
     setSelectedTags(filterTags);
-    setLists(tripCourse);
-    if (courseList.length < 1) {
-      tripCourse.forEach((course: any) => dispatch(addCourse(course)));
-    }
     setGalleryCover(course?.cover);
+    dispatch(replaceAllData(tripCourse));
   }, []);
 
   // update mutation
   const [updateCourse] = useUpdateCourseMutation();
-  const updateCourseHandler = (id: string | undefined) => {
+
+  const updateCourseHandler = () => {
     const selectedRegions = ragions?.map((region: any) => region.value);
     const selectedLabels = selectedTags?.map((tag: any) => tag.label);
     updateCourse({
-      courseId: id,
+      courseId: paramId,
       location: selectedRegions,
       hashtags: selectedLabels,
       title: courseTitle,
       cover: uploadCover || galleryCover,
-      courseList: JSON.stringify(courseList),
+      courseList: JSON.stringify(editedList),
       travelStatus,
     });
     alert("정상적으로 수정이 완료되었습니다.");
-    setLists("");
     navigate(`/course/${course?.id}`);
+    dispatch(replaceAllData([]));
+  };
+
+  const onClickCancel = () => {
+    if (window.confirm("이 페이지에서 나가시겠습니까?")) {
+      navigate("/");
+      dispatch(replaceAllData([]));
+    }
   };
 
   return (
@@ -112,14 +115,22 @@ const EditCourse = () => {
           setSelectedTags={setSelectedTags}
           selectedTags={selectedTags}
         />
-        {/* <EditCourseMap
-          lists={lists}
+        <EditCourseMap
           updateCourseHandler={updateCourseHandler}
           paramId={paramId}
-          setLists={setLists}
-          courseList={courseList}
-        /> */}
-        <button>취소</button>
+        />
+        <button
+          onClick={() => updateCourseHandler()}
+          className="w-[280px] bg-black text-white text-lg py-3 mx-auto"
+        >
+          수정
+        </button>
+        <button
+          onClick={onClickCancel}
+          className="w-[280px] bg-black text-white text-lg py-3 mx-auto"
+        >
+          취소
+        </button>
       </div>
     </div>
   );

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Map, MapTypeControl } from "react-kakao-maps-sdk";
-import { PostSearchModal, PostCourseInfo, PostMarkers } from "./index";
+import { PostCourseInfo, PostMarkers, PostSearchModal } from "../post";
+import { EditCourseInfo } from "./index";
 import { useSelector } from "react-redux";
 import { displayPagination } from "../../utils/kakao";
 
-const PostMap = () => {
+const EditCourseMap = ({ lists }: any) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [searchList, setSearchList] = useState([]);
@@ -12,8 +13,8 @@ const PostMap = () => {
   const [boundsInfo, setBoundsInfo] = useState({});
   const [map, setMap] = useState();
 
-  const filteredId = useSelector(
-    (state: any) => state.temporarySlice.filteredId
+  const courseList = useSelector(
+    (state: any) => state.temporarySlice.courseList
   );
 
   useEffect(() => {
@@ -42,7 +43,7 @@ const PostMap = () => {
         }
 
         // @ts-ignore
-        map.panTo(bounds);
+        // map.panTo(bounds);
         displayPagination(pagination);
         // @ts-ignore
         setSearchList(data);
@@ -53,13 +54,6 @@ const PostMap = () => {
     });
   }, [searchKeyword]);
 
-  useEffect(() => {
-    if (map !== undefined) {
-      // @ts-ignore
-      map.panTo(boundsInfo);
-    }
-  }, [filteredId]);
-
   return (
     <div className="w-full flex h-[70vh]">
       <Map
@@ -69,17 +63,13 @@ const PostMap = () => {
         }}
         level={8}
         // @ts-ignore
-        onCreate={setMap}
+        // onCreate={setMap}
         className="w-[65%] h-full z-0"
       >
         <PostMarkers />
         <MapTypeControl position={kakao.maps.ControlPosition.TOPRIGHT} />
       </Map>
-      <PostCourseInfo
-        modalOpen={modalOpen}
-        setModalOpen={setModalOpen}
-        setBoundsInfo={setBoundsInfo}
-      />
+      <EditCourseInfo modalOpen={modalOpen} setModalOpen={setModalOpen} />
       {modalOpen && (
         <PostSearchModal
           setModalOpen={setModalOpen}
@@ -94,4 +84,4 @@ const PostMap = () => {
   );
 };
 
-export default PostMap;
+export default EditCourseMap;
