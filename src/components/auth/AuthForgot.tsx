@@ -1,6 +1,7 @@
 import { getAuth, sendPasswordResetEmail } from "@firebase/auth";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 interface ForgotProps {
   category: string;
@@ -38,13 +39,27 @@ const AuthForgot = ({
 
     await sendPasswordResetEmail(auth, email)
       .then(() => {
-        alert("이메일에 링크를 보냈습니다");
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "이메일에 링크를 전송했습니다",
+          text: "전송된 링크를 클릭해 비밀번호를 재설정해주세요.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         setSent(true);
         setSending(false);
         setModal(false);
       })
       .catch((error) => {
-        alert("이메일 보내기 실패");
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "이메일 전송에 실패했습니다",
+          text: "다시 시도해주세요.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         setError(error.message);
         setSending(false);
       });
