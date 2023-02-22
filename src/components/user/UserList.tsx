@@ -2,12 +2,13 @@ import { useGetCourseQuery } from "../../redux/modules/apiSlice";
 import { authService } from "../../utils/firebase";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+
 type UserListType = {
-  category: string;
   done: boolean;
+  category: string;
 };
 
-const UserList = ({ category, done }: UserListType) => {
+const UserList = ({ done, category }: UserListType) => {
   const { data, isLoading, isError } = useGetCourseQuery();
   const userID = authService.currentUser?.uid;
   const [userData, setUserData] = useState<CourseType[]>();
@@ -20,7 +21,6 @@ const UserList = ({ category, done }: UserListType) => {
       (item) => item.likesID?.includes(userID) && item.travelStatus === done
     );
     category === "MY" ? setUserData(mypaths) : setUserData(mylikes);
-    console.log("내가 좋아요한 것", mylikes);
   };
   useEffect(() => {
     filterData();
