@@ -79,7 +79,14 @@ const Register = ({ setModal, closeModal, loginBtn }: RegisterProps) => {
           return;
         }
         setIsRegister(false);
-        alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "회원가입에 실패했습니다.",
+          text: "다시 시도해주세요.",
+          showConfirmButton: false,
+          timer: 3000,
+        });
       });
   };
 
