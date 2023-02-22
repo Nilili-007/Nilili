@@ -9,7 +9,10 @@ import {
 } from "../redux/modules/apiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { EditCourseMap, EditCourseTitle } from "../components/edit";
+import {
+  // EditCourseMap,
+  EditCourseTitle,
+} from "../components/edit";
 
 const EditCourse = () => {
   const paramId = useParams().id;
@@ -109,13 +112,13 @@ const EditCourse = () => {
           setSelectedTags={setSelectedTags}
           selectedTags={selectedTags}
         />
-        <EditCourseMap
+        {/* <EditCourseMap
           lists={lists}
           updateCourseHandler={updateCourseHandler}
           paramId={paramId}
           setLists={setLists}
           courseList={courseList}
-        />
+        /> */}
         <button>취소</button>
       </div>
     </div>
