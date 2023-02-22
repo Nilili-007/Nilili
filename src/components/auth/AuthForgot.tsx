@@ -1,11 +1,16 @@
 import { getAuth, sendPasswordResetEmail } from "@firebase/auth";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 interface ForgotProps {
   category: string;
   setCategory: React.Dispatch<React.SetStateAction<string>>;
   closeModal: any;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+interface AuthForgotForm {
+  email: string;
 }
 
 const AuthForgot = ({
@@ -21,7 +26,12 @@ const AuthForgot = ({
 
   const auth = getAuth();
 
-  const sendEmailBtn = async () => {
+  const {
+    register,
+    formState: { errors },
+  } = useForm<AuthForgotForm>({ mode: "onBlur" });
+
+  const sendEmailBtn = async (e: React.FormEvent) => {
     if (error !== "") setError("");
 
     setSending(true);
@@ -66,26 +76,44 @@ const AuthForgot = ({
               가입한 아이디(이메일)를 입력해주세요.
             </div>
           </div>
-          <div className="m-2">
-            <input
-              className="appearance-none border border-gray-400 w-full py-2 px-1 text-black placeholder:text-sm"
-              type="email"
-              name="email"
-              id="email"
-              placeholder="아이디(이메일)을 입력해주세요."
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="flex items-center justify-center">
-            <button
-              disabled={sending}
-              className="w-full m-2 text-white bg-black font-bold uppercase text-sm px-6 py-3 shadow hover:shadow-lg outline-none focus:outline-none mb-1"
-              type="button"
-              onClick={() => sendEmailBtn()}
-            >
-              이메일 전송
-            </button>
+          <div className="relative p-6 flex-auto">
+            <form className="px-8 pt-6 pb-8 w-full">
+              <input
+                className="appearance-none border border-gray-400 w-full py-2 px-1 text-black placeholder:text-sm"
+                {...register("email", {
+                  required: "이메일을 올바르게 입력해주세요.",
+                  pattern: {
+                    value:
+                      /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i,
+                    message: "이메일 형식에 맞게 입력해주세요,",
+                  },
+                })}
+                name="email"
+                type="email"
+                id="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                placeholder="아이디(이메일)을 입력해주세요"
+                onKeyUp={(e) => {
+                  if (e.key === "Enter") {
+                    sendEmailBtn(e);
+                  }
+                }}
+              />
+              <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
+                {errors?.email?.message}
+              </div>
+              <div className="flex items-center justify-center">
+                <button
+                  disabled={sending}
+                  className="w-full m-2 text-white bg-black font-bold uppercase text-sm px-6 py-3 shadow hover:shadow-lg outline-none focus:outline-none mb-1"
+                  type="submit"
+                  onClick={(e) => sendEmailBtn(e)}
+                >
+                  이메일 전송
+                </button>
+              </div>
+            </form>
           </div>
           <div className="flex items-center justify-center p-6 ">
             <button
