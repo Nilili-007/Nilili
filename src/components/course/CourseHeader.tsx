@@ -5,6 +5,7 @@ interface CourseProps {
 }
 
 const CourseHeader = ({ course }: CourseProps) => {
+  console.log(course);
   return (
     <>
       <div className="h-[700px]">
@@ -27,7 +28,7 @@ const CourseHeader = ({ course }: CourseProps) => {
           {course?.location.map((location: any) => {
             return (
               <p className="pr-2" key={location}>
-                {location.value}
+                #{location}
               </p>
             );
           })}{" "}
