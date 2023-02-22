@@ -73,12 +73,6 @@ const EditCourse = () => {
     const selectedRegions = ragions?.map((region: any) => region.value);
     const selectedLabels = selectedTags?.map((tag: any) => tag.label);
 
-  const onClickCancel = () => {
-    if (window.confirm("이 페이지에서 나가시겠습니까?")) {
-      navigate(`/course/${paramId}`);
-      dispatch(replaceAllData([]));
-      }
-
     if (selectedRegions?.length === 0) {
       alert("하나 이상의 지역을 선택해주세요.");
       ragionsRef.current?.focus();
@@ -92,17 +86,25 @@ const EditCourse = () => {
       //   alert("2개 이상의 코스를 등록해주세요.");
     } else {
       updateCourse({
-      courseId: paramId,
-      location: selectedRegions,
-      hashtags: selectedLabels,
-      title: courseTitle,
-      cover: uploadCover || galleryCover,
-      courseList: JSON.stringify(editedList),
-      travelStatus,
-    });
-    alert("정상적으로 수정이 완료되었습니다.");
-    navigate(`/course/${course?.id}`);
-    dispatch(replaceAllData([]));
+        courseId: paramId,
+        location: selectedRegions,
+        hashtags: selectedLabels,
+        title: courseTitle,
+        cover: uploadCover || galleryCover,
+        courseList: JSON.stringify(editedList),
+        travelStatus,
+      });
+
+      alert("정상적으로 수정이 완료되었습니다.");
+      navigate(`/course/${course?.id}`);
+      dispatch(replaceAllData([]));
+    }
+  };
+
+  const onClickCancel = () => {
+    if (window.confirm("이 페이지에서 나가시겠습니까?")) {
+      navigate(`/course/${paramId}`);
+      dispatch(replaceAllData([]));
     }
   };
 

@@ -20,8 +20,6 @@ const EditCourseInfo = ({ modalOpen, setModalOpen }: any) => {
     (state: any) => state.temporarySlice.filteredId
   );
 
-  // console.log("EditCourseInfo filteredId", filteredId);
-
   const showModal = () => {
     setModalOpen(!modalOpen);
   };

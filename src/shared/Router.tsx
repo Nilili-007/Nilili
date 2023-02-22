@@ -1,8 +1,15 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
-import { Main, Post, User, Course, Search, NotFound } from "../pages";
-import EditCourse from "../pages/EditCourse";
+import {
+  Main,
+  Post,
+  User,
+  Course,
+  Search,
+  NotFound,
+  EditCourse,
+} from "../pages";
 
 const Router = () => {
   return (
