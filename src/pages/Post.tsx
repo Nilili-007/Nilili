@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
@@ -24,6 +24,9 @@ const Post = () => {
   const navigate = useNavigate();
   const [addCourse] = useAddCourseMutation();
   const { data } = useGetCourseQuery();
+
+  const titleRef = useRef<HTMLInputElement>(null);
+  const ragionsRef = useRef<HTMLSelectElement>(null);
 
   // 커버
   const [uploadCover, setUploadCover] = useState("");
@@ -75,24 +78,28 @@ const Post = () => {
       (uploadCover || galleryCover) &&
       travelStatus !== null &&
       regions &&
-      courseTitle &&
+      courseTitle.trim() &&
       courseList.length > 1
     ) {
       await addCourse(newPost);
       setCondition(true);
       window.alert("훌륭한 여정이에요! 여행 후 리뷰도 꼭 부탁드려요!");
     } else {
-      if (!uploadCover || !galleryCover) {
+      if (!uploadCover && !galleryCover) {
         alert("커버 이미지를 추가해주세요.");
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }
       if (travelStatus === null) {
         alert("여행 전/여행 후 카테고리를 선택해주세요.");
+        window.scrollTo({ top: 450, behavior: "smooth" });
       }
       if (!regions) {
         alert("하나 이상의 지역을 선택해주세요.");
+        ragionsRef.current?.focus();
       }
-      if (!courseTitle) {
+      if (!courseTitle?.trim()) {
         alert("제목을 입력해주세요.");
+        titleRef.current?.focus();
       }
       if (courseList.length < 2) {
         alert("2개 이상의 코스를 등록해주세요.");
@@ -129,6 +136,8 @@ const Post = () => {
           />
         </div>
         <PostTitle
+          titleRef={titleRef}
+          ragionsRef={ragionsRef}
           regions={regions}
           setRegions={setRegions}
           courseTitle={courseTitle}

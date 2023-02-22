@@ -81,13 +81,13 @@ const EditCourse = () => {
     const selectedRegions = ragions?.map((region: any) => region.value);
     const selectedLabels = selectedTags?.map((tag: any) => tag.label);
     if (selectedRegions?.length === 0) {
-      alert("지역을 1곳 이상 선택해 주세요");
+      alert("하나 이상의 지역을 선택해주세요.");
       ragionsRef.current?.focus();
     } else if (!courseTitle?.trim()) {
       alert("제목을 입력해주세요");
       titleRef.current?.focus();
     } else if (!uploadCover && !galleryCover) {
-      alert("커버이미지를 선택해주세요.");
+      alert("커버 이미지를 추가해주세요.");
       window.scrollTo({ top: 0, behavior: "smooth" });
       // } else if (courseList.length < 2) {
       //   alert("2개 이상의 코스를 등록해주세요.");
