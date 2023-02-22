@@ -5,15 +5,15 @@ import { hashTagOptions } from "../post/PostHashTag";
 import { regionOptions } from "../post/PostTitle";
 
 interface EditTitleProps {
-  setTravelStatus: any;
-  travelStatus: any;
-  filterRagion: any;
+  setTravelStatus: React.Dispatch<React.SetStateAction<boolean | null>>;
+  travelStatus: boolean | null;
+  filterRagion: optionType[];
   ragions: any;
-  setRagions: any;
-  courseTitle: any;
-  setCourseTitle: any;
-  filterTags: any;
-  setSelectedTags: any;
+  setRagions: React.Dispatch<React.SetStateAction<optionType[] | null>>;
+  courseTitle: string | undefined;
+  setCourseTitle: React.Dispatch<React.SetStateAction<string | undefined>>;
+  filterTags: optionType[];
+  setSelectedTags: React.Dispatch<React.SetStateAction<optionType[] | null>>;
   selectedTags: any;
 }
 const EditCourseTitle = ({

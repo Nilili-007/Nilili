@@ -56,7 +56,7 @@ export const courseApi = createApi({
         hashtags,
         title,
         cover,
-        isDone,
+        travelStatus,
         courseList,
       }) {
         try {
@@ -65,7 +65,7 @@ export const courseApi = createApi({
             hashtags,
             title,
             cover,
-            isDone,
+            travelStatus,
             courseList,
           });
           return { data: null };

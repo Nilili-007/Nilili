@@ -8,17 +8,15 @@ import {
   CommentDesc,
   CourseHeader,
   CourseMap,
-  EditCourse,
 } from "../components/course";
 import { useGetCourseQuery } from "../redux/modules/apiSlice";
 
 const Course = () => {
-  const [isEdit, setIsEdit] = useState(false);
   const { data, isLoading } = useGetCourseQuery();
   const paramId = useParams().id;
   let date;
-  let time;
-
+  let hours;
+  let seconds;
   const filterData = data?.filter(
     (course: CourseType) => course.id === paramId
   );
@@ -26,14 +24,10 @@ const Course = () => {
 
   if (courseData?.createdAt !== undefined) {
     date = JSON.parse(courseData?.createdAt).substr(0, 10);
-    time = JSON.parse(courseData?.createdAt).substr(11, 5);
+    hours = Number(JSON.parse(courseData?.createdAt).substr(11, 2)) + 9;
+    seconds = JSON.parse(courseData?.createdAt).substr(14, 2);
   }
 
-  if (isEdit) {
-    return (
-      <EditCourse course={courseData} setIsEdit={setIsEdit} paramId={paramId} />
-    );
-  }
   return (
     <div>
       {isLoading ? (
@@ -42,16 +36,12 @@ const Course = () => {
         <div>
           <CourseHeader course={courseData} />
           <div className="w-[70%] m-auto">
-            <CourseTitle
-              course={courseData}
-              paramId={paramId}
-              setIsEdit={setIsEdit}
-            />
+            <CourseTitle course={courseData} paramId={paramId} />
             <h3 className="mt-20 text-3xl font-bold">
               {courseData?.nickname}님의 여행경로
             </h3>
             <p className="mt-2 text-lg text-gray-400">
-              {date} {time}
+              {date} {hours}:{seconds}
             </p>
             <CourseMap course={courseData} />
             <CourseHashTag course={courseData} />

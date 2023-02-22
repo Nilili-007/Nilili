@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { hashTagOptions } from "../post/PostHashTag";
-import { regionOptions } from "../post/PostTitle";
-import { PostHeader } from "../post";
-import { addCourse } from "../../redux/modules/temporarySlice";
-import { useUpdateCourseMutation } from "../../redux/modules/apiSlice";
-import EditCourseTitle from "./EditCourseTitle";
+import { hashTagOptions } from "../components/post/PostHashTag";
+import { regionOptions } from "../components/post/PostTitle";
+import { PostHeader } from "../components/post";
+import { addCourse } from "../redux/modules/temporarySlice";
+import {
+  useGetCourseQuery,
+  useUpdateCourseMutation,
+} from "../redux/modules/apiSlice";
 import { useDispatch, useSelector } from "react-redux";
-import EditCourseMap from "./EditCourseMap";
+import { useNavigate, useParams } from "react-router-dom";
+import { EditCourseMap, EditCourseTitle } from "../components/edit";
 
-interface EditCourseProps {
-  setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
-  paramId: string | undefined;
-  course: CourseType | undefined;
-}
+const EditCourse = () => {
+  const paramId = useParams().id;
+  const { data } = useGetCourseQuery();
+  const filterData = data?.filter(
+    (course: CourseType) => course.id === paramId
+  );
+  const course = filterData?.pop();
+  const navigate = useNavigate();
 
-const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
   // 기존 select로 선택했던 내용 불러오기
   const filterRagion = regionOptions.filter((ragion) =>
     course?.location.includes(ragion.value)
@@ -26,13 +31,13 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
   const [courseTitle, setCourseTitle] = useState<string | undefined>("");
 
   //지역 선택
-  const [ragions, setRagions] = useState<any | null>([]);
+  const [ragions, setRagions] = useState<optionType[] | null>([]);
 
   // 여행전/후 선택
   const [travelStatus, setTravelStatus] = useState<boolean | null>(false);
 
   //해시태그 선택
-  const [selectedTags, setSelectedTags] = useState<any | null>([]);
+  const [selectedTags, setSelectedTags] = useState<optionType[] | null>([]);
 
   // 커버
   const [uploadCover, setUploadCover] = useState<any>("");
@@ -79,8 +84,8 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
       travelStatus,
     });
     alert("정상적으로 수정이 완료되었습니다.");
-    setIsEdit(false);
     setLists("");
+    navigate(`/course/${course?.id}`);
   };
 
   return (
@@ -111,7 +116,7 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
           setLists={setLists}
           courseList={courseList}
         />
-        <button onClick={() => setIsEdit(false)}>취소</button>
+        <button>취소</button>
       </div>
     </div>
   );

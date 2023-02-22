@@ -4,12 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { useDeleteCourseMutation } from "../../redux/modules/apiSlice";
 
 interface CourseTitleProps {
-  setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
   paramId: string | undefined;
   course: CourseType | undefined;
 }
 
-const CourseTitle = ({ setIsEdit, paramId, course }: CourseTitleProps) => {
+const CourseTitle = ({ paramId, course }: CourseTitleProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -43,7 +42,7 @@ const CourseTitle = ({ setIsEdit, paramId, course }: CourseTitleProps) => {
           />
           <button
             className="bg-gray-300 px-4 sm:px-5 py-1 rounded-xl hidden sm:flex justify-center"
-            onClick={() => setIsEdit(true)}
+            onClick={() => navigate(`/edit/${course?.id}`)}
           >
             수정
           </button>
@@ -59,7 +58,7 @@ const CourseTitle = ({ setIsEdit, paramId, course }: CourseTitleProps) => {
         <div className="absolute right-8 top-16 flex flex-col gap-y-1">
           <button
             className="bg-gray-300 px-4 sm:px-5 py-1 rounded-xl sm:hidden"
-            onClick={() => setIsEdit(true)}
+            onClick={() => navigate(`/edit/${course?.id}`)}
           >
             수정
           </button>
