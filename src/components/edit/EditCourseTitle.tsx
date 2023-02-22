@@ -5,6 +5,8 @@ import { hashTagOptions } from "../post/PostHashTag";
 import { regionOptions } from "../post/PostTitle";
 
 interface EditTitleProps {
+  ragionsRef: any;
+  titleRef: React.RefObject<HTMLInputElement>;
   setTravelStatus: React.Dispatch<React.SetStateAction<boolean | null>>;
   travelStatus: boolean | null;
   filterRagion: optionType[];
@@ -17,6 +19,8 @@ interface EditTitleProps {
   selectedTags: any;
 }
 const EditCourseTitle = ({
+  titleRef,
+  ragionsRef,
   setTravelStatus,
   travelStatus,
   filterRagion,
@@ -74,10 +78,12 @@ const EditCourseTitle = ({
       <div className="flex items-center h-16 gap-4">
         <div className="w-[50%] xs:w-1/3 xs:text-xs ">
           <Select
+            ref={ragionsRef}
             options={regionOptions}
             defaultValue={filterRagion}
             onChange={handleCategorySelect}
             isMulti
+            placeholder="지역을 선택해주세요."
             className="z-20"
             classNamePrefix="select"
             isSearchable={true}
@@ -88,7 +94,9 @@ const EditCourseTitle = ({
         </div>
         <input
           className="w-full px-2 py-1.5 border border-gray-400"
+          placeholder="제목을 입력해주세요."
           value={courseTitle}
+          ref={titleRef}
           onChange={(event) => {
             setCourseTitle(event.target.value);
           }}
@@ -98,7 +106,7 @@ const EditCourseTitle = ({
         <Select
           isMulti
           defaultValue={filterTags}
-          placeholder={"#해시태그"}
+          placeholder={"#해시태그를 선택해주세요"}
           options={hashTagOptions}
           onChange={handleTagSelect}
           className="z-10"
