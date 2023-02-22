@@ -24,7 +24,6 @@ const UserList = ({ done, category }: UserListType) => {
   };
   useEffect(() => {
     filterData();
-    console.log("필터 데이터 실행");
   }, [data, category, done]);
 
   if (isLoading) {

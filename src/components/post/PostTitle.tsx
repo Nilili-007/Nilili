@@ -24,6 +24,8 @@ interface titleProps {
   setRegions?: any;
   courseTitle?: string;
   setCourseTitle?: any;
+  regionsRef: any;
+  titleRef: React.RefObject<HTMLInputElement>;
 }
 
 const PostTitle = ({
@@ -31,6 +33,8 @@ const PostTitle = ({
   setRegions,
   courseTitle,
   setCourseTitle,
+  titleRef,
+  regionsRef,
 }: titleProps) => {
   const handleCategorySelect = (data: any) => {
     setRegions(data);
@@ -40,6 +44,7 @@ const PostTitle = ({
     <div className="flex items-center h-16 gap-4">
       <div className="w-full xs:w-1/3 xs:text-xs ">
         <Select
+          ref={regionsRef}
           options={regionOptions}
           placeholder={"지역"}
           autoFocus={true}
@@ -54,6 +59,7 @@ const PostTitle = ({
       </div>
       <input
         className="w-full px-2 py-1.5 border border-gray-400 focus:outline-none"
+        ref={titleRef}
         value={courseTitle}
         onChange={(event) => {
           setCourseTitle(event.target.value);

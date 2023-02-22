@@ -7,6 +7,7 @@ import {
   useUpdateCommentMutation,
 } from "../../redux/modules/apiSlice";
 import { authService } from "../../utils/firebase";
+import Swal from "sweetalert2";
 
 interface CommentProps {
   comment: CommentType;
@@ -18,6 +19,7 @@ const Comment = ({ comment, index }: CommentProps) => {
   const [edit, setEdit] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const currentUserId = authService.currentUser?.uid;
+  const userImg: any = authService.currentUser?.photoURL;
 
   // 작성시간 나타내기
   const createdTime: any = comment.createdAt;
@@ -44,9 +46,26 @@ const Comment = ({ comment, index }: CommentProps) => {
   // 댓글 삭제
   const [deleteComment] = useDeleteCommentMutation();
   const deleteCommentHandler = (id: string | undefined) => {
-    deleteComment(id);
-    setModalOpen(false);
-    alert("삭제되었습니다.");
+    Swal.fire({
+      title: "댓글 삭제",
+      text: "정말 댓글을 삭제하시겠어요?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#B3261E",
+      cancelButtonColor: "#50AA72",
+      confirmButtonText: "네, 삭제할래요",
+      cancelButtonText: "아니요, 취소할래요",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: "success",
+          title: "댓글이 삭제되었습니다.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        deleteComment(id);
+      }
+    });
   };
 
   // 댓글 수정
@@ -54,66 +73,54 @@ const Comment = ({ comment, index }: CommentProps) => {
   const [editComment, setEditComment] = useState<string | undefined>("");
   const updateCommentHandler = (id: string | undefined) => {
     updateComment({ commentId: id, newComment: editComment });
+    Swal.fire({
+      icon: "success",
+      title: "댓글이 수정되었습니다.",
+      showConfirmButton: false,
+      timer: 1500,
+    });
     setEdit(false);
-    alert("수정되었습니다.");
   };
 
   return (
     <div
-      className="border-b px-2 py-4"
+      className="border-b p-5"
       style={index % 2 === 0 ? { backgroundColor: "#ebebeb" } : undefined}
     >
-      {/* 댓글삭제 확인 모달 */}
-      {modalOpen === true ? (
-        <div className="bg-white fixed inset-y-[35%] inset-x-[10%] sm:inset-x-[20%] xl:inset-x-[30%] h-64 rounded-lg border-2 flex flex-col justify-center gap-y-10">
-          <div className="flex items-center justify-center">
-            <span className="text-lg">댓글을 정말 삭제하시겠습니까?</span>
-          </div>
-          <div className="flex justify-center gap-4">
-            <button
-              className="bg-gray-300 px-4 sm:px-8 py-1 rounded-xl"
-              onClick={() => deleteCommentHandler(comment.id)}
-            >
-              삭제
-            </button>
-            <button
-              className="bg-gray-300 px-4 sm:px-8 py-1 rounded-xl"
-              onClick={() => {
-                setModalOpen(false);
-                alert("취소되었습니다.");
-              }}
-            >
-              취소
-            </button>
-          </div>
+      <div className="flex justify-between">
+        <div className="flex items-center gap-5 mb-5">
+          <img
+            src={userImg}
+            alt="profile Image"
+            className="object-fill w-[36px] h-[36px]"
+          />
+          <h3 className="text-[28px] leading-9 font-bold">
+            {authService.currentUser?.displayName}
+          </h3>
         </div>
-      ) : null}
-
-      <div className="flex justify-between mb-2">
-        <p className="text-md">
-          <span className="font-bold mr-3">{comment.nickname}</span> {nowTime}
-        </p>
         {/* 작성자만 보이는 메뉴 */}
         {currentUserId === comment.userId ? (
-          <div className="flex gap-3 justify-end w-1/3 items-center ">
+          <div className="flex gap-5 justify-end w-1/3 items-start ">
             <MdOutlineMoreVert
               className="sm:hidden cursor-pointer"
               size={24}
               onClick={() => setMenuToggle(!menuToggle)}
             />
-            <AiOutlineEdit
+            <button
               onClick={() => {
                 setEdit(!edit);
                 setEditComment(comment.comment);
               }}
-              size={20}
-              className="hidden sm:flex"
-            />
-            <MdDelete
-              size={20}
-              className="hidden sm:flex"
-              onClick={() => setModalOpen(true)}
-            />
+              className="hidden sm:flex font-semibold text-[#A0A4A8] hover:text-black"
+            >
+              수정
+            </button>
+            <button
+              className="hidden sm:flex font-semibold text-[#A0A4A8] hover:text-black"
+              onClick={() => deleteCommentHandler(comment.id)}
+            >
+              삭제
+            </button>
           </div>
         ) : null}
       </div>
@@ -132,7 +139,7 @@ const Comment = ({ comment, index }: CommentProps) => {
             </button>
             <button
               onClick={() => {
-                setModalOpen(true);
+                deleteCommentHandler(comment.id);
                 setMenuToggle(false);
               }}
             >
@@ -144,9 +151,10 @@ const Comment = ({ comment, index }: CommentProps) => {
       {/* 수정할 때 input창 토글 */}
       {edit === false ? (
         <div className="w-full">
-          <p className="w-30 text-md whitespace-pre-wrap break-words">
+          <p className="w-30 text-[22px] whitespace-pre-wrap break-words mb-5">
             {comment.comment}
           </p>
+          <p>{nowTime}</p>
         </div>
       ) : (
         <div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
@@ -24,8 +24,9 @@ const Post = () => {
   const navigate = useNavigate();
   const [addCourse] = useAddCourseMutation();
   const { data } = useGetCourseQuery();
-  //리렌더 할 때 쓸 state
-  const [condition, setCondition] = useState(false);
+
+  const titleRef = useRef<HTMLInputElement>(null);
+  const regionsRef = useRef<HTMLSelectElement>(null);
 
   // 커버
   const [uploadCover, setUploadCover] = useState("");
@@ -40,6 +41,9 @@ const Post = () => {
 
   //해시태그 선택
   const [selectedTags, setSelectedTags] = useState<optionType[] | null>([]);
+
+  //navigate할 때 쓸 state
+  const [condition, setCondition] = useState(false);
 
   const userID = authService.currentUser?.uid;
 
@@ -74,24 +78,28 @@ const Post = () => {
       (uploadCover || galleryCover) &&
       travelStatus !== null &&
       regions &&
-      courseTitle &&
+      courseTitle.trim() &&
       courseList.length > 1
     ) {
-      setCondition(true);
       await addCourse(newPost);
-      window.alert("게시물이 등록되었습니다");
+      setCondition(true);
+      window.alert("훌륭한 여정이에요! 여행 후 리뷰도 꼭 부탁드려요!");
     } else {
-      if (!uploadCover || !galleryCover) {
+      if (!uploadCover && !galleryCover) {
         alert("커버 이미지를 추가해주세요.");
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }
       if (travelStatus === null) {
         alert("여행 전/여행 후 카테고리를 선택해주세요.");
+        window.scrollTo({ top: 450, behavior: "smooth" });
       }
       if (!regions) {
         alert("하나 이상의 지역을 선택해주세요.");
+        regionsRef.current?.focus();
       }
-      if (!courseTitle) {
+      if (!courseTitle?.trim()) {
         alert("제목을 입력해주세요.");
+        titleRef.current?.focus();
       }
       if (courseList.length < 2) {
         alert("2개 이상의 코스를 등록해주세요.");
@@ -100,9 +108,8 @@ const Post = () => {
   };
 
   useEffect(() => {
-    if (condition) {
-      console.log(data);
-      navigate(`/course/${data && data[0].id}`);
+    if (condition && data) {
+      navigate(`/course/${data[0].id}`);
       setCondition(false);
     }
   }, [data]);
@@ -129,6 +136,8 @@ const Post = () => {
           />
         </div>
         <PostTitle
+          titleRef={titleRef}
+          regionsRef={regionsRef}
           regions={regions}
           setRegions={setRegions}
           courseTitle={courseTitle}

@@ -4,4 +4,5 @@ import User from "./User";
 import Post from "./Post";
 import Search from "./Search";
 import NotFound from "./NotFound";
-export { Course, Main, User, Post, Search, NotFound };
+import EditCourse from "./EditCourse";
+export { Course, Main, User, Post, Search, NotFound, EditCourse };

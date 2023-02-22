@@ -69,11 +69,14 @@ const LikeBtn = ({ paramId, course }: LikeProps) => {
 
   return (
     <div className="my-4">
-      <div className="flex items-center gap-3 text-white hover:text-gray-400 ">
+      <div className="flex justify-end items-center gap-3 text-white hover:text-gray-400 ">
+        <p className="text-black text-[20px] font-medium">
+          {!likeCount ? 0 : likeCount}
+        </p>
         {like === true ? (
           <button
             ref={submitRef}
-            className="text-rose-600 disabled:opacity-30"
+            className="text-[#EC6762] disabled:opacity-30"
             disabled
           >
             <IoHeartSharp size={40} onClick={() => submitLike()} />
@@ -81,13 +84,12 @@ const LikeBtn = ({ paramId, course }: LikeProps) => {
         ) : (
           <button
             ref={submitRef}
-            className="text-rose-600 disabled:opacity-30 disabled:cursor-auto"
+            className="text-[#EC6762] disabled:opacity-30 disabled:cursor-auto"
             disabled
           >
             <IoHeartOutline size={40} onClick={() => submitLike()} />
           </button>
         )}
-        <p className="text-black">{likeCount}</p>
       </div>
     </div>
   );

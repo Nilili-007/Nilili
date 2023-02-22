@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useGetCommentQuery } from "../../redux/modules/apiSlice";
 import Comment from "./Comment";
+import CommentInput from "./CommentInput";
 import Pagenation from "./Pagenation";
+import { BiComment } from "react-icons/bi";
 
 export interface CommentProps {
   paramId: string | undefined;
@@ -31,22 +33,27 @@ const CommentDesc = ({ paramId }: CommentProps) => {
   }
   return (
     <div className="mb-40">
-      <div className="mb-10">
-        <div>
+      <h2 className="text-[32px] font-bold flex items-center gap-8 mb-10">
+        <BiComment size={33} />
+        {filterData?.length}
+      </h2>
+      <CommentInput paramId={paramId} />
+      <div className="mb-10 flex">
+        <div className="mb-4 text-[20px] font-semibold flex gap-2">
           <input
             id="desc"
             type="button"
             onClick={() => {
               setDesc(true);
             }}
-            value="최신순"
+            value="최신 순"
             style={
               desc === true
-                ? { fontWeight: 600, textDecoration: "underline" }
+                ? { fontWeight: 700, textDecoration: "underline" }
                 : undefined
             }
-            className="mr-2 mb-4"
           />
+          <span>/</span>
           <input
             id="asc"
             type="button"
@@ -56,13 +63,12 @@ const CommentDesc = ({ paramId }: CommentProps) => {
             value="오래된 순"
             style={
               desc === false
-                ? { fontWeight: 600, textDecoration: "underline" }
+                ? { fontWeight: 700, textDecoration: "underline" }
                 : undefined
             }
           />
         </div>
       </div>
-      <h2 className="text-xl font-bold">댓글({filterData?.length})</h2>
       {isLoading ? (
         <h3 className="text-xl">댓글을 불러오고 있습니다 :-) </h3>
       ) : null}

@@ -40,10 +40,8 @@ const Login = ({
     setIsLogin(true);
     await signInWithEmailAndPassword(authService, email, password)
       .then(() => {
-        alert("로그인 성공");
         setModal(false);
         document.body.style.overflow = "unset";
-        localStorage.setItem("User", JSON.stringify(authService.currentUser));
       })
       .catch((error) => {
         if (error.code.includes("auth/user-not-found")) {
