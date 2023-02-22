@@ -29,6 +29,7 @@ const ProfileEdit = ({
   const user = auth.currentUser;
   const userName = user?.displayName;
   const userImg: any = user?.photoURL;
+  const userID = authService.currentUser?.uid;
 
   const [img, setImg] = useState(userImg);
   const [nickname, setNickname] = useState<any>(userName);
@@ -72,7 +73,7 @@ const ProfileEdit = ({
           timer: 1500,
         });
         setModal(false);
-        navigate("/user/:id");
+        navigate(`/user/${userID}`);
       })
       .catch((error) => {
         console.log("error: ", error);
@@ -95,7 +96,7 @@ const ProfileEdit = ({
       onClick={(e) => modalOutClick(e)}
       ref={modalRef}
     >
-      <div className="relative w-full h-3/4 max-w-md md:h-auto">
+      <div className="relative w-full h-3/4 border border-gray-200 max-w-md md:h-auto">
         {/* modal contents */}
         <div className="border relative flex flex-col w-full bg-white outline-none focus:outline-none">
           <div className="flex justify-between items-center p-5 rounded-t ">
@@ -108,30 +109,40 @@ const ProfileEdit = ({
               X
             </button>
           </div>
+          <div className="flex justify-center items-center ">
+            <div className="border-b-2 border-solid border-black w-[90%]" />
+          </div>
           <div className="relative p-6 flex-auto">
             {/* 프로필 수정란 */}
-            <div className="flex justify-center items-center">
-              <img
-                className="object-fill h-40 w-40 rounded-full m-2"
-                src={img}
-                alt=""
-              />
+            <div className="w-full flex justify-between items-center m-3">
+              <div className="font-bold mr-4">사진</div>
+              <div>
+                <img className="object-fill h-28 w-28 m-1" src={img} alt="" />
+                <div className="text-[10px]">
+                  회원님을 알릴 수 있는 사진을 등록해주세요. <br />
+                  등록된 사진은 회원님의 게시물이나 댓글 등에 사용됩니다.
+                </div>
+              </div>
+              <div className="flex justify-center items-center mb-3">
+                <button className="text-sm  px-1 py-1 leading-none border border-black text-black hover:border-transparent hover:text-teal-500 mt-4 lg:mt-0">
+                  <label htmlFor="changeimg">파일선택</label>
+                </button>
+                <input
+                  hidden
+                  id="changeimg"
+                  type="file"
+                  placeholder="파일선택"
+                  ref={imgRef}
+                  onChange={changeImgFile}
+                />
+              </div>
             </div>
-            <div className="flex justify-center items-center mb-3">
-              <button className="text-sm  px-1 py-1 leading-none border rounded text-black hover:border-transparent hover:text-teal-500 mt-4 lg:mt-0">
-                <label htmlFor="changeimg">사진 선택</label>
-              </button>
-              <input
-                hidden
-                id="changeimg"
-                type="file"
-                placeholder="파일선택"
-                ref={imgRef}
-                onChange={changeImgFile}
-              />
+            <div className="flex justify-center items-center m-3">
+              <div className="border-b-2 border-solid border-gray-200 w-full" />
             </div>
             {/* 닉네임 변경 */}
-            <div className="flex justify-center items-center m-3">
+            <div className="flex justify-between items-center m-4">
+              <div className="font-bold">닉네임</div>
               <input
                 className="appearance-none border border-gray-400 w-3/4 py-2 px-1 text-black placeholder:text-sm"
                 onChange={editNameHandler}
@@ -139,19 +150,22 @@ const ProfileEdit = ({
                 value={nickname}
               />
             </div>
+            <div className="flex justify-center items-center m-3">
+              <div className="border-b-2 border-solid border-gray-200 w-full" />
+            </div>
             {/* 전체 수정 버튼 완료/취소버튼 */}
-            <div className="flex justify-center items-center mt-3">
+            <div className="flex justify-center items-center mb-2 mt-5">
               <button
-                className="text-white bg-black font-bold m-2 text-sm px-6 py-3 shadow hover:shadow-lg outline-none focus:outline-none"
+                className="w-full text-white bg-black font-bold m-2 text-sm px-6 py-3 outline-none focus:outline-none"
                 onClick={profileEdit}
               >
-                완료
+                완료하기
               </button>
               <button
-                className="text-white bg-black font-bold m-2 text-sm px-6 py-3 shadow hover:shadow-lg outline-none focus:outline-none"
+                className="w-full text-gray-500 bg-white border border-gray-600 font-bold m-2 text-sm px-6 py-3 outline-none focus:outline-none"
                 onClick={cancleBtn}
               >
-                취소
+                취소하기
               </button>
             </div>
           </div>
