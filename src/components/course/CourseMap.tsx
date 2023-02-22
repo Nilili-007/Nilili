@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Map, MapTypeControl } from "react-kakao-maps-sdk";
 import { CourseInfo, CourseMapMarker } from "./index";
 
@@ -14,8 +14,10 @@ const CourseMap = ({ course }: any) => {
 
   courseList.map((item: any) => {
     if (item.id === filteredId) {
-      bounds = item.bounds;
-      bounds = Object.setPrototypeOf(bounds, kakao.maps.LatLngBounds.prototype);
+      bounds = Object.setPrototypeOf(
+        item.bounds,
+        kakao.maps.LatLngBounds.prototype
+      );
     }
   });
 

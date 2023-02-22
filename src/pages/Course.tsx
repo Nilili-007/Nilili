@@ -45,7 +45,7 @@ const Course = () => {
                   {date} {hours}:{seconds}
                 </p>
               </div>
-              <CourseManageButton paramId={paramId} />
+              <CourseManageButton paramId={paramId} course={courseData} />
             </div>
             <CourseMap course={courseData} />
             <CourseHashTag course={courseData} />
