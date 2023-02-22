@@ -57,7 +57,7 @@ export const courseApi = createApi({
         title,
         cover,
         travelStatus,
-        courseList,
+        // courseList,
       }) {
         try {
           await updateDoc(doc(dbService, "courses", courseId), {
@@ -66,7 +66,7 @@ export const courseApi = createApi({
             title,
             cover,
             travelStatus,
-            courseList,
+            // courseList,
           });
           return { data: null };
         } catch (error: any) {

@@ -7,6 +7,7 @@ import {
   useUpdateCommentMutation,
 } from "../../redux/modules/apiSlice";
 import { authService } from "../../utils/firebase";
+import Swal from "sweetalert2";
 
 interface CommentProps {
   comment: CommentType;
@@ -44,9 +45,26 @@ const Comment = ({ comment, index }: CommentProps) => {
   // 댓글 삭제
   const [deleteComment] = useDeleteCommentMutation();
   const deleteCommentHandler = (id: string | undefined) => {
-    deleteComment(id);
-    setModalOpen(false);
-    alert("삭제되었습니다.");
+    Swal.fire({
+      title: "댓글 삭제",
+      text: "정말 댓글을 삭제하시겠어요?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          position: "center-end",
+          icon: "success",
+          title: "댓글이 삭제되었습니다.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        deleteComment(id);
+      }
+    });
   };
 
   // 댓글 수정

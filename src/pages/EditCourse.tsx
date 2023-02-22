@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { hashTagOptions } from "../components/post/PostHashTag";
 import { regionOptions } from "../components/post/PostTitle";
 import { PostHeader } from "../components/post";
@@ -31,10 +31,13 @@ const EditCourse = () => {
     course?.hashtags.includes(hashTag.label)
   );
 
+  //제목
   const [courseTitle, setCourseTitle] = useState<string | undefined>("");
+  const titleRef = useRef<HTMLInputElement>(null);
 
   //지역 선택
   const [ragions, setRagions] = useState<optionType[] | null>([]);
+  const ragionsRef = useRef<HTMLSelectElement>(null);
 
   // 여행전/후 선택
   const [travelStatus, setTravelStatus] = useState<boolean | null>(false);
@@ -77,18 +80,31 @@ const EditCourse = () => {
   const updateCourseHandler = (id: string | undefined) => {
     const selectedRegions = ragions?.map((region: any) => region.value);
     const selectedLabels = selectedTags?.map((tag: any) => tag.label);
-    updateCourse({
-      courseId: id,
-      location: selectedRegions,
-      hashtags: selectedLabels,
-      title: courseTitle,
-      cover: uploadCover || galleryCover,
-      courseList: JSON.stringify(courseList),
-      travelStatus,
-    });
-    alert("정상적으로 수정이 완료되었습니다.");
-    setLists("");
-    navigate(`/course/${course?.id}`);
+    if (selectedRegions?.length === 0) {
+      alert("지역을 1곳 이상 선택해 주세요");
+      ragionsRef.current?.focus();
+    } else if (!courseTitle?.trim()) {
+      alert("제목을 입력해주세요");
+      titleRef.current?.focus();
+    } else if (!uploadCover && !galleryCover) {
+      alert("커버이미지를 선택해주세요.");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      // } else if (courseList.length < 2) {
+      //   alert("2개 이상의 코스를 등록해주세요.");
+    } else {
+      updateCourse({
+        courseId: id,
+        location: selectedRegions,
+        hashtags: selectedLabels,
+        title: courseTitle,
+        cover: uploadCover || galleryCover,
+        courseList: JSON.stringify(courseList),
+        travelStatus,
+      });
+      alert("정상적으로 수정이 완료되었습니다.");
+      setLists("");
+      navigate(`/course/${course?.id}`);
+    }
   };
 
   return (
@@ -101,6 +117,8 @@ const EditCourse = () => {
       />
       <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0 ">
         <EditCourseTitle
+          ragionsRef={ragionsRef}
+          titleRef={titleRef}
           setTravelStatus={setTravelStatus}
           travelStatus={travelStatus}
           filterRagion={filterRegion}
@@ -119,7 +137,8 @@ const EditCourse = () => {
           setLists={setLists}
           courseList={courseList}
         /> */}
-        <button>취소</button>
+        <button onClick={() => navigate(`/course/${paramId}`)}>취소</button>
+        <button onClick={() => updateCourseHandler(paramId)}>수정</button>
       </div>
     </div>
   );
