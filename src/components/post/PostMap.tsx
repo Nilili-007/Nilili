@@ -36,9 +36,9 @@ const PostMap = () => {
           // @ts-ignore
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
           // @ts-ignore
-          bounds.ha = bounds.ha - 0.01;
+          // bounds.ha = bounds.ha - 0.01;
           // @ts-ignore
-          bounds.oa = bounds.oa + 0.01;
+          // bounds.oa = bounds.oa + 0.01;
         }
 
         // @ts-ignore
@@ -48,7 +48,6 @@ const PostMap = () => {
         setSearchList(data);
         setSearchCnt(pagination.totalCount);
         setBoundsInfo(bounds);
-        // @ts-ignore
       }
     });
   }, [searchKeyword]);
@@ -67,7 +66,7 @@ const PostMap = () => {
           lat: 37.566826,
           lng: 126.9786567,
         }}
-        level={8}
+        level={5}
         // @ts-ignore
         onCreate={setMap}
         className="w-[65%] h-full z-0"

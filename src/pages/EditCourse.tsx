@@ -50,9 +50,6 @@ const EditCourse = () => {
   //코스
   const dispatch = useDispatch();
 
-  const prevCourseLists: any = course?.courseList;
-  const tripCourse = JSON.parse(prevCourseLists);
-
   // 수정 전 내용 불러오기
   useEffect(() => {
     setCourseTitle(course?.title);
@@ -64,7 +61,6 @@ const EditCourse = () => {
     setRagions(filterRegion);
     setSelectedTags(filterTags);
     setGalleryCover(course?.cover);
-    dispatch(replaceAllData(tripCourse));
   }, []);
 
   // update mutation
@@ -89,7 +85,7 @@ const EditCourse = () => {
 
   const onClickCancel = () => {
     if (window.confirm("이 페이지에서 나가시겠습니까?")) {
-      navigate("/");
+      navigate(`/course/${paramId}`);
       dispatch(replaceAllData([]));
     }
   };
@@ -115,10 +111,7 @@ const EditCourse = () => {
           setSelectedTags={setSelectedTags}
           selectedTags={selectedTags}
         />
-        <EditCourseMap
-          updateCourseHandler={updateCourseHandler}
-          paramId={paramId}
-        />
+        <EditCourseMap initLists={course} />
         <button
           onClick={() => updateCourseHandler()}
           className="w-[280px] bg-black text-white text-lg py-3 mx-auto"

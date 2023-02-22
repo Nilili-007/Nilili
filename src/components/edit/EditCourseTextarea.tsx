@@ -35,7 +35,6 @@ const EditCourseTextarea = ({ item, filteredId, text, setText }: any) => {
 
   return (
     <Textarea
-      autoFocus
       placeholder={item.memo ? item.memo : "자유롭게 메모를 남겨보세요."}
       className={item.memo ? "memo" : "null"}
       value={item.id === filteredId ? text : null}
