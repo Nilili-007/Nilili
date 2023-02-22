@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useAddCourseMutation } from "../redux/modules/apiSlice";
+import {
+  useAddCourseMutation,
+  useGetCourseQuery,
+} from "../redux/modules/apiSlice";
 import { authService } from "../utils/firebase";
 import {
   PostHashTag,
@@ -20,6 +23,9 @@ export interface optionType {
 const Post = () => {
   const navigate = useNavigate();
   const [addCourse] = useAddCourseMutation();
+  const { data } = useGetCourseQuery();
+  //리렌더 할 때 쓸 state
+  const [condition, setCondition] = useState(false);
 
   // 커버
   const [uploadCover, setUploadCover] = useState("");
@@ -41,7 +47,7 @@ const Post = () => {
     (state: any) => state.temporarySlice.courseList
   );
 
-  const onClickAddPost = (
+  const onClickAddPost = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
@@ -71,9 +77,9 @@ const Post = () => {
       courseTitle &&
       courseList.length > 1
     ) {
-      addCourse(newPost);
-      window.alert("훌륭한 여정이에요! 여행 후 리뷰도 꼭 부탁드려요!");
-      navigate(`/course/1`);
+      setCondition(true);
+      await addCourse(newPost);
+      window.alert("게시물이 등록되었습니다");
     } else {
       if (!uploadCover || !galleryCover) {
         alert("커버 이미지를 추가해주세요.");
@@ -92,6 +98,14 @@ const Post = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (condition) {
+      console.log(data);
+      navigate(`/course/${data && data[0].id}`);
+      setCondition(false);
+    }
+  }, [data]);
 
   return (
     <div className="max-h-[130vh] mb-[7%]">
