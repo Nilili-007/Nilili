@@ -81,7 +81,7 @@ const EditCourseTitle = ({
             className="z-20"
             classNamePrefix="select"
             isSearchable={true}
-            isOptionDisabled={(ragion) =>
+            isOptionDisabled={(region) =>
               ragions && ragions.length >= regionLimit
             }
           />

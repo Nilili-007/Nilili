@@ -1,7 +1,7 @@
 import Comment from "./Comment";
 import CommentInput from "./CommentInput";
 import CourseHashTag from "./CourseHashTag";
-import CourseTitle from "./CourseTitle";
+import CourseManageButton from "./CourseManageButton";
 import CommentDesc from "./CommentDesc";
 import LikeBtn from "./LikeBtn";
 import CourseHeader from "./CourseHeader";
@@ -14,7 +14,7 @@ export {
   CommentInput,
   CommentDesc,
   CourseHashTag,
-  CourseTitle,
+  CourseManageButton,
   CourseHeader,
   CourseMap,
   CourseMapMarker,

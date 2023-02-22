@@ -21,8 +21,8 @@ const EditCourse = () => {
   const navigate = useNavigate();
 
   // 기존 select로 선택했던 내용 불러오기
-  const filterRagion = regionOptions.filter((ragion) =>
-    course?.location.includes(ragion.value)
+  const filterRegion = regionOptions.filter((region) =>
+    course?.location.includes(region.value)
   );
   const filterTags = hashTagOptions.filter((hashTag) =>
     course?.hashtags.includes(hashTag.label)
@@ -60,7 +60,7 @@ const EditCourse = () => {
     } else {
       setTravelStatus(false);
     }
-    setRagions(filterRagion);
+    setRagions(filterRegion);
     setSelectedTags(filterTags);
     setLists(tripCourse);
     if (courseList.length < 1) {
@@ -72,11 +72,11 @@ const EditCourse = () => {
   // update mutation
   const [updateCourse] = useUpdateCourseMutation();
   const updateCourseHandler = (id: string | undefined) => {
-    const selectedRagions = ragions?.map((ragion: any) => ragion.value);
+    const selectedRegions = ragions?.map((region: any) => region.value);
     const selectedLabels = selectedTags?.map((tag: any) => tag.label);
     updateCourse({
       courseId: id,
-      location: selectedRagions,
+      location: selectedRegions,
       hashtags: selectedLabels,
       title: courseTitle,
       cover: uploadCover || galleryCover,
@@ -100,7 +100,7 @@ const EditCourse = () => {
         <EditCourseTitle
           setTravelStatus={setTravelStatus}
           travelStatus={travelStatus}
-          filterRagion={filterRagion}
+          filterRagion={filterRegion}
           ragions={ragions}
           setRagions={setRagions}
           courseTitle={courseTitle}
