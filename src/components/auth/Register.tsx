@@ -33,7 +33,6 @@ const Register = ({ setModal, closeModal, loginBtn }: RegisterProps) => {
 
   const onSubmit = async (data: AuthForm) => {
     if (data.password !== data.confirm) {
-      alert("비밀번호가 일치하지 않습니다.");
       setError("비밀번호가 일치하지 않습니다.");
       return;
     }
