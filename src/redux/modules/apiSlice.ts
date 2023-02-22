@@ -173,12 +173,27 @@ export const courseApi = createApi({
       invalidatesTags: ["Comments"],
     }),
 
+    //extraUpdates
     updateLikes: builder.mutation({
       async queryFn({ likes, likesID, courseId }) {
         try {
           await updateDoc(doc(dbService, "courses", courseId), {
             likes,
             likesID,
+          });
+          return { data: null };
+        } catch (error: any) {
+          console.error(error.message);
+          return { error: error.message };
+        }
+      },
+      invalidatesTags: ["Courses"],
+    }),
+    updateTravelStatus: builder.mutation({
+      async queryFn({ travelStatus, courseId }) {
+        try {
+          await updateDoc(doc(dbService, "courses", courseId), {
+            travelStatus,
           });
           return { data: null };
         } catch (error: any) {
@@ -202,4 +217,5 @@ export const {
   useDeleteCommentMutation,
   useUpdateCommentMutation,
   useUpdateLikesMutation,
+  useUpdateTravelStatusMutation,
 } = courseApi;

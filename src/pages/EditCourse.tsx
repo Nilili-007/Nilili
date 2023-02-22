@@ -13,7 +13,7 @@ import { EditCourseMap, EditCourseTitle } from "../components/edit";
 
 const EditCourse = () => {
   const paramId = useParams().id;
-  const { data } = useGetCourseQuery();
+  const { data, refetch } = useGetCourseQuery();
   const filterData = data?.filter(
     (course: CourseType) => course.id === paramId
   );
@@ -55,6 +55,7 @@ const EditCourse = () => {
 
   // 수정 전 내용 불러오기
   useEffect(() => {
+    refetch();
     setCourseTitle(course?.title);
     if (course?.travelStatus === true) {
       setTravelStatus(true);
@@ -64,7 +65,7 @@ const EditCourse = () => {
     setRegions(filterRegion);
     setSelectedTags(filterTags);
     setGalleryCover(course?.cover);
-  }, []);
+  }, [data]);
 
   // update mutation
   const [updateCourse] = useUpdateCourseMutation();
