@@ -1,8 +1,6 @@
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useGetCourseQuery } from "../redux/modules/apiSlice";
 import {
-  CommentInput,
   CourseHashTag,
   CourseManageButton,
   LikeBtn,
@@ -10,10 +8,12 @@ import {
   CourseHeader,
   CourseMap,
 } from "../components/course";
+import { authService } from "../utils/firebase";
 
 const Course = () => {
   const { data, isLoading } = useGetCourseQuery();
   const paramId = useParams().id;
+  const userImg: any = authService.currentUser?.photoURL;
   let date;
   let hours;
   let seconds;
@@ -36,21 +36,25 @@ const Course = () => {
         <div>
           <CourseHeader course={courseData} />
           <div className="w-[70%] py-10 m-auto">
+            <CourseManageButton paramId={paramId} />
             <div className="flex items-center">
-              <div className="flex flex-col">
-                <h3 className="text-3xl font-bold">
-                  {courseData?.nickname}님의 여행경로
+              <div className="flex items-center gap-1">
+                <img
+                  src={userImg}
+                  alt="profile Image"
+                  className="object-fill w-[32px] h-[32px]"
+                />
+                <h3 className="text-3xl font-normal text-[#474C51]">
+                  {courseData?.nickname}
                 </h3>
-                <p className="mt-2 text-lg text-gray-400">
-                  {date} {hours}:{seconds}
-                </p>
               </div>
-              <CourseManageButton paramId={paramId} course={courseData} />
             </div>
+            <p className="mt-6 text-lg text-gray-400">
+              {date} {hours}:{seconds}
+            </p>
             <CourseMap course={courseData} />
             <CourseHashTag course={courseData} />
             <LikeBtn paramId={paramId} course={courseData} />
-            <CommentInput paramId={paramId} />
             <CommentDesc paramId={paramId} />
           </div>
         </div>
