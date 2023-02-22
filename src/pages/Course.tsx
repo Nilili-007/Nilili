@@ -37,10 +37,6 @@ const Course = () => {
           <CourseHeader course={courseData} />
           <div className="w-[70%] py-10 m-auto">
             <CourseManageButton paramId={paramId} />
-
-            {/* <h3 className="text-[32px] font-bold leading-10 mb-2">
-              {courseData?.travelStatus === true ? "여행 후" : "여행 전"}
-            </h3> */}
             <div className="flex items-center">
               <div className="flex items-center gap-1">
                 <img
