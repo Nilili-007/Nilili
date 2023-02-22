@@ -2,6 +2,7 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { authService } from "../../utils/firebase";
+import Swal from "sweetalert2";
 
 interface RegisterProps {
   closeModal: (e: any) => void;
@@ -42,7 +43,14 @@ const Register = ({ setModal, closeModal, loginBtn }: RegisterProps) => {
     setIsRegister(true);
     await createUserWithEmailAndPassword(authService, data.email, data.password)
       .then((data) => {
-        alert("회원가입 성공");
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "회원가입을 축하드립니다!",
+          text: "이제 NILILI의 서비스를 즐겨보세요",
+          showConfirmButton: false,
+          timer: 3000,
+        });
         setModal(false);
         updateProfile(data.user, {
           displayName: userName,
@@ -52,7 +60,6 @@ const Register = ({ setModal, closeModal, loginBtn }: RegisterProps) => {
         return data.user;
       })
       .then((item) => {
-        console.log(item);
         const userData = {
           photoURL:
             "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
@@ -60,8 +67,6 @@ const Register = ({ setModal, closeModal, loginBtn }: RegisterProps) => {
           displayName: userName,
           email: item.email,
         };
-        console.log(userData);
-        localStorage.setItem("User", JSON.stringify(userData));
         setModal(false);
       })
       .catch((error) => {
