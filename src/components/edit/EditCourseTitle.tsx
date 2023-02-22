@@ -5,23 +5,23 @@ import { hashTagOptions } from "../post/PostHashTag";
 import { regionOptions } from "../post/PostTitle";
 
 interface EditTitleProps {
-  setTravelStatus: any;
-  travelStatus: any;
-  filterRegion: any;
-  regions: any;
-  setRegions: any;
-  courseTitle: any;
-  setCourseTitle: any;
-  filterTags: any;
-  setSelectedTags: any;
+  setTravelStatus: React.Dispatch<React.SetStateAction<boolean | null>>;
+  travelStatus: boolean | null;
+  filterRagion: optionType[];
+  ragions: any;
+  setRagions: React.Dispatch<React.SetStateAction<optionType[] | null>>;
+  courseTitle: string | undefined;
+  setCourseTitle: React.Dispatch<React.SetStateAction<string | undefined>>;
+  filterTags: optionType[];
+  setSelectedTags: React.Dispatch<React.SetStateAction<optionType[] | null>>;
   selectedTags: any;
 }
 const EditCourseTitle = ({
   setTravelStatus,
   travelStatus,
-  filterRegion,
-  regions,
-  setRegions,
+  filterRagion,
+  ragions,
+  setRagions,
   courseTitle,
   setCourseTitle,
   filterTags,
@@ -39,7 +39,7 @@ const EditCourseTitle = ({
     }
   };
   const handleCategorySelect = (data: any) => {
-    setRegions(data);
+    setRagions(data);
   };
   function handleTagSelect(data: any) {
     setSelectedTags(data);
@@ -75,14 +75,14 @@ const EditCourseTitle = ({
         <div className="w-[50%] xs:w-1/3 xs:text-xs ">
           <Select
             options={regionOptions}
-            defaultValue={filterRegion}
+            defaultValue={filterRagion}
             onChange={handleCategorySelect}
             isMulti
             className="z-20"
             classNamePrefix="select"
             isSearchable={true}
             isOptionDisabled={(region) =>
-              regions && regions.length >= regionLimit
+              ragions && ragions.length >= regionLimit
             }
           />
         </div>

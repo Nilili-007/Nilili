@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { hashTagOptions } from "../post/PostHashTag";
-import { regionOptions } from "../post/PostTitle";
-import { PostHeader } from "../post";
-import { addCourse } from "../../redux/modules/temporarySlice";
-import { useUpdateCourseMutation } from "../../redux/modules/apiSlice";
-import EditCourseTitle from "./EditCourseTitle";
+import { hashTagOptions } from "../components/post/PostHashTag";
+import { regionOptions } from "../components/post/PostTitle";
+import { PostHeader } from "../components/post";
+import { addCourse } from "../redux/modules/temporarySlice";
+import {
+  useGetCourseQuery,
+  useUpdateCourseMutation,
+} from "../redux/modules/apiSlice";
 import { useDispatch, useSelector } from "react-redux";
-import EditCourseMap from "./EditCourseMap";
+import { useNavigate, useParams } from "react-router-dom";
+import { EditCourseMap, EditCourseTitle } from "../components/edit";
 
-interface EditCourseProps {
-  setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
-  paramId: string | undefined;
-  course: CourseType | undefined;
-}
+const EditCourse = () => {
+  const paramId = useParams().id;
+  const { data } = useGetCourseQuery();
+  const filterData = data?.filter(
+    (course: CourseType) => course.id === paramId
+  );
+  const course = filterData?.pop();
+  const navigate = useNavigate();
 
-const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
   // 기존 select로 선택했던 내용 불러오기
   const filterRegion = regionOptions.filter((region) =>
     course?.location.includes(region.value)
@@ -26,13 +31,13 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
   const [courseTitle, setCourseTitle] = useState<string | undefined>("");
 
   //지역 선택
-  const [regions, setRegions] = useState<any | null>([]);
+  const [ragions, setRagions] = useState<optionType[] | null>([]);
 
   // 여행전/후 선택
   const [travelStatus, setTravelStatus] = useState<boolean | null>(false);
 
   //해시태그 선택
-  const [selectedTags, setSelectedTags] = useState<any | null>([]);
+  const [selectedTags, setSelectedTags] = useState<optionType[] | null>([]);
 
   // 커버
   const [uploadCover, setUploadCover] = useState<any>("");
@@ -55,7 +60,7 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
     } else {
       setTravelStatus(false);
     }
-    setRegions(filterRegion);
+    setRagions(filterRegion);
     setSelectedTags(filterTags);
     setLists(tripCourse);
     if (courseList.length < 1) {
@@ -67,7 +72,7 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
   // update mutation
   const [updateCourse] = useUpdateCourseMutation();
   const updateCourseHandler = (id: string | undefined) => {
-    const selectedRegions = regions?.map((region: any) => region.value);
+    const selectedRegions = ragions?.map((region: any) => region.value);
     const selectedLabels = selectedTags?.map((tag: any) => tag.label);
     updateCourse({
       courseId: id,
@@ -79,8 +84,8 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
       travelStatus,
     });
     alert("정상적으로 수정이 완료되었습니다.");
-    setIsEdit(false);
     setLists("");
+    navigate(`/course/${course?.id}`);
   };
 
   return (
@@ -95,9 +100,9 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
         <EditCourseTitle
           setTravelStatus={setTravelStatus}
           travelStatus={travelStatus}
-          filterRegion={filterRegion}
-          regions={regions}
-          setRegions={setRegions}
+          filterRagion={filterRegion}
+          ragions={ragions}
+          setRagions={setRagions}
           courseTitle={courseTitle}
           setCourseTitle={setCourseTitle}
           filterTags={filterTags}
@@ -111,7 +116,7 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
           setLists={setLists}
           courseList={courseList}
         />
-        <button onClick={() => setIsEdit(false)}>취소</button>
+        <button>취소</button>
       </div>
     </div>
   );

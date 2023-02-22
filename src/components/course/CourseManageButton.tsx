@@ -5,14 +5,10 @@ import { useDeleteCourseMutation } from "../../redux/modules/apiSlice";
 import styled from "styled-components";
 
 interface CourseManageButtonProps {
-  setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
   paramId: string | undefined;
 }
 
-const CourseManageButton = ({
-  setIsEdit,
-  paramId,
-}: CourseManageButtonProps) => {
+const CourseManageButton = ({ paramId }: CourseManageButtonProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -36,13 +32,13 @@ const CourseManageButton = ({
           size={24}
           onClick={() => setMenuOpen(!menuOpen)}
         />
-        <Button onClick={() => setIsEdit(true)}>수정</Button>
+        <Button onClick={() => navigate(`/edit/${paramId}`)}>수정</Button>
         <div className="border-r border-gray-600 h-8 mx-0.5" />
         <Button onClick={() => deleteCommentHandler(paramId)}>삭제</Button>
       </div>
       {menuOpen === true ? (
         <div className="absolute right-8 top-16 flex flex-col gap-y-1">
-          <Button onClick={() => setIsEdit(true)}>수정</Button>
+          <Button onClick={() => navigate(`/edit/${paramId}`)}>수정</Button>
           <div className="border-r border-gray-600 h-8 mx-0.5" />
           <Button onClick={() => deleteCommentHandler(paramId)}>삭제</Button>
         </div>
