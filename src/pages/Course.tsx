@@ -36,7 +36,7 @@ const Course = () => {
         <div>
           <CourseHeader course={courseData} />
           <div className="w-[70%] py-10 m-auto">
-            <CourseManageButton paramId={paramId} />
+            <CourseManageButton paramId={paramId} course={courseData} />
             <div className="flex items-center">
               <div className="flex items-center gap-1">
                 <img
