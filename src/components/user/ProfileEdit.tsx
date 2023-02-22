@@ -114,17 +114,11 @@ const ProfileEdit = ({
           </div>
           <div className="relative p-6 flex-auto">
             {/* 프로필 수정란 */}
-            <div className="w-full flex justify-between items-center m-3">
-              <div className="font-bold mr-4">사진</div>
-              <div>
-                <img className="object-fill h-28 w-28 m-1" src={img} alt="" />
-                <div className="text-[10px]">
-                  회원님을 알릴 수 있는 사진을 등록해주세요. <br />
-                  등록된 사진은 회원님의 게시물이나 댓글 등에 사용됩니다.
-                </div>
-              </div>
-              <div className="flex justify-center items-center mb-3">
-                <button className="text-sm  px-1 py-1 leading-none border border-black text-black hover:border-transparent hover:text-teal-500 mt-4 lg:mt-0">
+            <div className="w-full flex justify-between mb-2">
+              <div className="font-bold ml-2">사진</div>
+              <div className="justify-between">
+                <img className="object-fill h-28 w-28 mb-2" src={img} alt="" />
+                <button className="text-sm  px-1 py-1 leading-none border border-black text-black hover:bg-gray-100 mt-4 lg:mt-0">
                   <label htmlFor="changeimg">파일선택</label>
                 </button>
                 <input
@@ -136,6 +130,15 @@ const ProfileEdit = ({
                   onChange={changeImgFile}
                 />
               </div>
+              <div></div>
+              <div></div>
+            </div>
+            <div className="w-full flex justify-between items-center">
+              <div></div>
+              <div className="text-[11px]">
+                회원님을 알릴 수 있는 사진을 등록해주세요. <br />
+                등록된 사진은 회원님의 게시물이나 댓글 등에 사용됩니다.
+              </div>
             </div>
             <div className="flex justify-center items-center m-3">
               <div className="border-b-2 border-solid border-gray-200 w-full" />
@@ -144,7 +147,7 @@ const ProfileEdit = ({
             <div className="flex justify-between items-center m-4">
               <div className="font-bold">닉네임</div>
               <input
-                className="appearance-none border border-gray-400 w-3/4 py-2 px-1 text-black placeholder:text-sm"
+                className="appearance-none border border-gray-400 w-3/4 py-2 px-1 text-gray-500 text-center placeholder:text-center"
                 onChange={editNameHandler}
                 ref={nameRef}
                 value={nickname}
