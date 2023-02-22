@@ -32,7 +32,6 @@ const Header = () => {
   const logoutBtn = () => {
     signOut(authService)
       .then(() => {
-        alert("로그아웃");
         navigate("/");
       })
       .catch((error) => {

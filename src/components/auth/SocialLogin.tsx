@@ -15,7 +15,6 @@ const SocialLogin = ({ setModal }: SocialProps) => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(authService, provider)
       .then((result) => {
-        alert("로그인 성공");
         setModal(false);
       })
       .catch((error) => {
@@ -28,7 +27,6 @@ const SocialLogin = ({ setModal }: SocialProps) => {
     const provider = new FacebookAuthProvider();
     signInWithPopup(authService, provider)
       .then((result) => {
-        alert("로그인 성공");
         setModal(false);
       })
       .catch((error) => {
