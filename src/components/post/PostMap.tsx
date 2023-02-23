@@ -4,8 +4,7 @@ import { PostSearchModal, PostCourseInfo, PostMarkers } from "./index";
 import { useSelector } from "react-redux";
 import { displayPagination } from "../../utils/kakao";
 
-const PostMap = () => {
-  const [modalOpen, setModalOpen] = useState(false);
+const PostMap = ({ modalOpen, setModalOpen }: any) => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [searchList, setSearchList] = useState([]);
   const [searchCnt, setSearchCnt] = useState<number | null>();

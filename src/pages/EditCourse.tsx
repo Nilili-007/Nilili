@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { hashTagOptions } from "../components/post/PostHashTag";
-import { regionOptions } from "../components/post/PostTitle";
+import { regionOptions } from "../components/post/PostCategories";
 import { PostHeader } from "../components/post";
 import { replaceAllData } from "../redux/modules/temporarySlice";
 import {
@@ -12,6 +12,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { EditCourseMap, EditCourseTitle } from "../components/edit";
 import { authService } from "../utils/firebase";
 
+
 const EditCourse = () => {
   const paramId = useParams().id;
   const { data } = useGetCourseQuery();
@@ -20,10 +21,7 @@ const EditCourse = () => {
   );
   const course = filterData?.pop();
   const navigate = useNavigate();
-
-  const editedList = useSelector(
-    (state: any) => state.temporarySlice.courseList
-  );
+  const [modalOpen, setModalOpen] = useState(false);
 
   // 기존 select로 선택했던 내용 불러오기
   const filterRegion = regionOptions.filter((region) =>
@@ -54,6 +52,11 @@ const EditCourse = () => {
   //코스
   const dispatch = useDispatch();
 
+  // 수정한 내용
+  const editedList = useSelector(
+    (state: any) => state.temporarySlice.courseList
+  );
+
   // 수정 전 내용 불러오기
   useEffect(() => {
     setCourseTitle(course?.title);
@@ -65,6 +68,7 @@ const EditCourse = () => {
     setRagions(filterRegion);
     setSelectedTags(filterTags);
     setGalleryCover(course?.cover);
+    dispatch(replaceAllData(JSON.parse(course?.courseList)));
   }, []);
 
   // update mutation
@@ -122,7 +126,7 @@ const EditCourse = () => {
         setCourseTitle={setCourseTitle}
       />
       <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0 ">
-        <EditCourseTitle
+        <EditCourseCategories
           ragionsRef={ragionsRef}
           setTravelStatus={setTravelStatus}
           travelStatus={travelStatus}
@@ -132,18 +136,24 @@ const EditCourse = () => {
           filterTags={filterTags}
           setSelectedTags={setSelectedTags}
           selectedTags={selectedTags}
+          modalOpen={modalOpen}
+          setModalOpen={setModalOpen}
         />
-        <EditCourseMap initLists={course} />
-        <div className="flex w-full justify-end gap-[15%] my-10">
+        <EditCourseMap
+          initLists={course}
+          modalOpen={modalOpen}
+          setModalOpen={setModalOpen}
+        />
+        <div className="flex w-full justify-center gap-[5%] my-10">
           <button
             onClick={() => updateCourseHandler()}
-            className="w-[40%] bg-black border-black border-2 text-white text-lg py-3 hover:text-black hover:bg-white "
+            className="w-[25%] bg-black border-black border-2 text-white text-lg py-3 hover:text-black hover:bg-white "
           >
             게시물 수정하기
           </button>
           <button
             onClick={onClickCancel}
-            className="w-[15%] bg-black border-black border-2 text-white text-lg py-3 hover:text-black hover:bg-white "
+            className="w-[25%] bg-black border-black border-2 text-white text-lg py-3 hover:text-black hover:bg-white "
           >
             취소
           </button>
