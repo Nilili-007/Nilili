@@ -64,6 +64,7 @@ const EditCourse = () => {
     setRagions(filterRegion);
     setSelectedTags(filterTags);
     setGalleryCover(course?.cover);
+    dispatch(replaceAllData(JSON.parse(course?.courseList)));
   }, []);
 
   // update mutation
@@ -132,16 +133,16 @@ const EditCourse = () => {
           selectedTags={selectedTags}
         />
         <EditCourseMap initLists={course} />
-        <div className="flex w-full justify-end gap-[15%] my-10">
+        <div className="flex w-full justify-center gap-[5%] my-10">
           <button
             onClick={() => updateCourseHandler()}
-            className="w-[40%] bg-black border-black border-2 text-white text-lg py-3 hover:text-black hover:bg-white "
+            className="w-[25%] bg-black border-black border-2 text-white text-lg py-3 hover:text-black hover:bg-white "
           >
             게시물 수정하기
           </button>
           <button
             onClick={onClickCancel}
-            className="w-[15%] bg-black border-black border-2 text-white text-lg py-3 hover:text-black hover:bg-white "
+            className="w-[25%] bg-black border-black border-2 text-white text-lg py-3 hover:text-black hover:bg-white "
           >
             취소
           </button>

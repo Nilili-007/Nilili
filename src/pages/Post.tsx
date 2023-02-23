@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   useAddCourseMutation,
   useGetCourseQuery,
@@ -13,6 +13,7 @@ import {
   PostHeader,
   PostTravelStatus,
 } from "../components/post/index";
+import { replaceAllData } from "../redux/modules/temporarySlice";
 
 //select option의 타입
 export interface optionType {
@@ -21,6 +22,7 @@ export interface optionType {
 }
 
 const Post = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [addCourse] = useAddCourseMutation();
   const { data } = useGetCourseQuery();
@@ -107,6 +109,13 @@ const Post = () => {
     }
   };
 
+  const onClickCancel = () => {
+    if (window.confirm("이 페이지에서 나가시겠습니까?")) {
+      navigate(`/`);
+      dispatch(replaceAllData([]));
+    }
+  };
+
   useEffect(() => {
     if (condition && data) {
       navigate(`/course/${data[0].id}`);
@@ -148,12 +157,18 @@ const Post = () => {
           setSelectedTags={setSelectedTags}
         />
         <PostMap />
-        <div className="flex justify-center mt-7 ">
+        <div className="flex w-full justify-center gap-[5%] my-10">
           <button
             onClick={(e) => onClickAddPost(e)}
-            className="w-[280px] bg-black text-white text-lg py-3 mx-auto"
+            className="w-[25%] bg-black border-black border-2 text-white text-lg py-3 hover:text-black hover:bg-white "
           >
             게시물 등록하기
+          </button>
+          <button
+            onClick={onClickCancel}
+            className="w-[25%] bg-black border-black border-2 text-white text-lg py-3 hover:text-black hover:bg-white "
+          >
+            취소
           </button>
         </div>
       </div>
