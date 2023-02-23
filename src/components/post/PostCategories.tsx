@@ -22,10 +22,10 @@ export const regionOptions = [
 interface titleProps {
   regions?: any;
   setRegions?: any;
-  ragionsRef: any;
+  regionsRef: any;
 }
 
-const PostCategories = ({ regions, setRegions, ragionsRef }: titleProps) => {
+const PostCategories = ({ regions, setRegions, regionsRef }: titleProps) => {
   const handleCategorySelect = (data: any) => {
     setRegions(data);
   };
@@ -34,7 +34,7 @@ const PostCategories = ({ regions, setRegions, ragionsRef }: titleProps) => {
     <div className="flex w-[85%] items-center h-16 gap-4">
       <div className="w-full xs:w-1/3 xs:text-xs ">
         <Select
-          ref={ragionsRef}
+          ref={regionsRef}
           options={regionOptions}
           placeholder={"지역"}
           autoFocus={true}

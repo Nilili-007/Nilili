@@ -5,12 +5,12 @@ import { hashTagOptions } from "../post/PostHashTag";
 import { regionOptions } from "../post/PostCategories";
 
 interface EditTitleProps {
-  ragionsRef: any;
+  regionsRef: any;
   setTravelStatus: React.Dispatch<React.SetStateAction<boolean | null>>;
   travelStatus: boolean | null;
-  filterRagion: optionType[];
-  ragions: any;
-  setRagions: React.Dispatch<React.SetStateAction<optionType[] | null>>;
+  filterRegion: optionType[];
+  regions: any;
+  setRegions: React.Dispatch<React.SetStateAction<optionType[] | null>>;
   filterTags: optionType[];
   setSelectedTags: React.Dispatch<React.SetStateAction<optionType[] | null>>;
   selectedTags: any;
@@ -18,12 +18,12 @@ interface EditTitleProps {
   setModalOpen: React.Dispatch<React.SetStateAction<any | null>>;
 }
 const EditCourseCategories = ({
-  ragionsRef,
+  regionsRef,
   setTravelStatus,
   travelStatus,
-  filterRagion,
-  ragions,
-  setRagions,
+  filterRegion,
+  regions,
+  setRegions,
   filterTags,
   setSelectedTags,
   selectedTags,
@@ -41,7 +41,7 @@ const EditCourseCategories = ({
     }
   };
   const handleCategorySelect = (data: any) => {
-    setRagions(data);
+    setRegions(data);
   };
   const showModal = () => {
     setModalOpen(!modalOpen);
@@ -78,9 +78,9 @@ const EditCourseCategories = ({
       <div className="flex items-center h-16 gap-4">
         <div className="w-full flex justify-between xs:w-1/3 xs:text-xs ">
           <Select
-            ref={ragionsRef}
+            ref={regionsRef}
             options={regionOptions}
-            defaultValue={filterRagion}
+            defaultValue={filterRegion}
             onChange={handleCategorySelect}
             isMulti
             placeholder="지역을 선택해주세요."
@@ -88,7 +88,7 @@ const EditCourseCategories = ({
             classNamePrefix="select"
             isSearchable={true}
             isOptionDisabled={(region) =>
-              ragions && ragions.length >= regionLimit
+              regions && regions.length >= regionLimit
             }
           />
           <button

@@ -14,7 +14,7 @@ import { dbService } from "../../utils/firebase";
 
 export const courseApi = createApi({
   baseQuery: fetchBaseQuery(),
-  tagTypes: ["Courses"],
+  tagTypes: ["Courses", "Comments"],
   endpoints: (builder) => ({
     //Course reducer
     addCourse: builder.mutation({
@@ -124,7 +124,7 @@ export const courseApi = createApi({
           return { error: error.message };
         }
       },
-      invalidatesTags: ["Courses"],
+      invalidatesTags: ["Comments"],
     }),
     getComment: builder.query<CommentType[], void>({
       async queryFn() {
@@ -144,7 +144,7 @@ export const courseApi = createApi({
           return { error: error.message };
         }
       },
-      providesTags: ["Courses"],
+      providesTags: ["Comments"],
     }),
     updateComment: builder.mutation({
       async queryFn({ commentId, newComment, profileImage }) {
@@ -159,12 +159,43 @@ export const courseApi = createApi({
           return { error: error.message };
         }
       },
-      invalidatesTags: ["Courses"],
+      invalidatesTags: ["Comments"],
     }),
     deleteComment: builder.mutation({
       async queryFn(commentId) {
         try {
           await deleteDoc(doc(dbService, "comments", commentId));
+          return { data: null };
+        } catch (error: any) {
+          console.error(error.message);
+          return { error: error.message };
+        }
+      },
+      invalidatesTags: ["Comments"],
+    }),
+
+    //extraUpdates
+    updateLikes: builder.mutation({
+      async queryFn({ likes, likesID, courseId }) {
+        try {
+          await updateDoc(doc(dbService, "courses", courseId), {
+            likes,
+            likesID,
+          });
+          return { data: null };
+        } catch (error: any) {
+          console.error(error.message);
+          return { error: error.message };
+        }
+      },
+      invalidatesTags: ["Courses"],
+    }),
+    updateTravelStatus: builder.mutation({
+      async queryFn({ travelStatus, courseId }) {
+        try {
+          await updateDoc(doc(dbService, "courses", courseId), {
+            travelStatus,
+          });
           return { data: null };
         } catch (error: any) {
           console.error(error.message);
@@ -186,4 +217,6 @@ export const {
   useGetCommentQuery,
   useDeleteCommentMutation,
   useUpdateCommentMutation,
+  useUpdateLikesMutation,
+  useUpdateTravelStatusMutation,
 } = courseApi;

@@ -1,5 +1,5 @@
 import Router from "./shared/Router";
-import { TopButton } from "./components/main";
+import { TopButton } from "./components/shared";
 
 function App() {
   return (

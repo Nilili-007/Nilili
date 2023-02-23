@@ -30,7 +30,7 @@ const Post = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const titleRef = useRef<HTMLInputElement>(null);
-  const ragionsRef = useRef<HTMLSelectElement>(null);
+  const regionsRef = useRef<HTMLSelectElement>(null);
 
   // 커버
   const [uploadCover, setUploadCover] = useState("");
@@ -124,7 +124,7 @@ const Post = () => {
           text: "하나 이상의 지역을 선택해주세요.",
           icon: "warning",
           didClose: () => {
-            ragionsRef.current?.focus();
+            regionsRef.current?.focus();
           },
         });
       } else if (!courseTitle?.trim()) {
@@ -209,7 +209,7 @@ const Post = () => {
         </div>
         <div className="flex items-center">
           <PostCategories
-            ragionsRef={ragionsRef}
+            regionsRef={regionsRef}
             regions={regions}
             setRegions={setRegions}
           />

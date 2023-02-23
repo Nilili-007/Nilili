@@ -40,7 +40,11 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
             key={item.id}
             className="xl:w-[24%] lg:w-[32%] sm:w-[47%] w-[90%] pt-6 border-t-2 border-black  "
           >
-            <img alt="지역별 최다 좋아요" src="/assets/course.jpg" />
+            <img
+              src={item.cover}
+              alt="대표 사진"
+              className=" border-t-2 h-[200px] w-[300px]"
+            />
             <p className="pr-4 ml-1 mt-5 sm:h-16 h-14 sm:text-2xl text-xl overflow-hidden font-black ">
               {item.title}
             </p>

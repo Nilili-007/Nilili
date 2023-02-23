@@ -15,7 +15,7 @@ import Swal from "sweetalert2";
 
 const EditCourse = () => {
   const paramId = useParams().id;
-  const { data } = useGetCourseQuery();
+  const { data, refetch } = useGetCourseQuery();
   const filterData = data?.filter(
     (course: CourseType) => course.id === paramId
   );
@@ -36,8 +36,8 @@ const EditCourse = () => {
   const titleRef = useRef<HTMLInputElement>(null);
 
   //지역 선택
-  const [ragions, setRagions] = useState<optionType[] | null>([]);
-  const ragionsRef = useRef<HTMLSelectElement>(null);
+  const [regions, setRegions] = useState<optionType[] | null>([]);
+  const regionsRef = useRef<HTMLSelectElement>(null);
 
   // 여행전/후 선택
   const [travelStatus, setTravelStatus] = useState<boolean | null>(false);
@@ -59,23 +59,24 @@ const EditCourse = () => {
 
   // 수정 전 내용 불러오기
   useEffect(() => {
+    refetch();
     setCourseTitle(course?.title);
     if (course?.travelStatus === true) {
       setTravelStatus(true);
     } else {
       setTravelStatus(false);
     }
-    setRagions(filterRegion);
+    setRegions(filterRegion);
     setSelectedTags(filterTags);
     setGalleryCover(course?.cover);
     dispatch(replaceAllData(JSON.parse(course?.courseList)));
-  }, []);
+  }, [data]);
 
   // update mutation
   const [updateCourse] = useUpdateCourseMutation();
 
   const updateCourseHandler = () => {
-    const selectedRegions = ragions?.map((region: any) => region.value);
+    const selectedRegions = regions?.map((region: any) => region.value);
     const selectedLabels = selectedTags?.map((tag: any) => tag.label);
 
     if (selectedRegions?.length === 0) {
@@ -84,7 +85,7 @@ const EditCourse = () => {
         text: "하나 이상의 지역을 선택해주세요.",
         icon: "warning",
         didClose: () => {
-          ragionsRef.current?.focus();
+          regionsRef.current?.focus();
         },
       });
     } else if (!courseTitle?.trim()) {
@@ -173,12 +174,12 @@ const EditCourse = () => {
       />
       <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0 ">
         <EditCourseCategories
-          ragionsRef={ragionsRef}
+          regionsRef={regionsRef}
           setTravelStatus={setTravelStatus}
           travelStatus={travelStatus}
-          filterRagion={filterRegion}
-          ragions={ragions}
-          setRagions={setRagions}
+          filterRegion={filterRegion}
+          regions={regions}
+          setRegions={setRegions}
           filterTags={filterTags}
           setSelectedTags={setSelectedTags}
           selectedTags={selectedTags}

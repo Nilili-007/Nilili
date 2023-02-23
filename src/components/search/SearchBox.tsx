@@ -42,7 +42,7 @@ const SearchBox = () => {
   //섹렉트된 데이터 형태 object에서 string[]으로 바꾸기
   let locationsArr = locations?.map((item) => item.value);
 
-  let hashtagsArr = hashtags?.map((item) => item.value);
+  let hashtagsArr = hashtags?.map((item) => item.label);
 
   //sample 배열이 base배열의 부분 함수인지 여부 true, false로 반환하는 함수
   const isSubsetOf = function (
