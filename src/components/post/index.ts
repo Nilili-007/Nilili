@@ -4,7 +4,7 @@ import PostHashTag from "./PostHashTag";
 import PostMap from "./PostMap";
 import PostSearchModal from "./PostSearchModal";
 import PostTextarea from "./PostTextarea";
-import PostTitle from "./PostTitle";
+import PostCategories from "./PostCategories";
 import PostHeader from "./PostHeader";
 import PostTravelStatus from "./PostTravelStatus";
 import PostMarkers from "./PostMarkers";
@@ -39,7 +39,7 @@ export {
   PostMap,
   PostSearchModal,
   PostTextarea,
-  PostTitle,
+  PostCategories,
   PostHeader,
   PostTravelStatus,
   PostMarkers,

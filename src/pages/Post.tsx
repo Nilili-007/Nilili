@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   useAddCourseMutation,
   useGetCourseQuery,
@@ -8,11 +8,12 @@ import {
 import { authService } from "../utils/firebase";
 import {
   PostHashTag,
-  PostTitle,
+  PostCategories,
   PostMap,
   PostHeader,
   PostTravelStatus,
 } from "../components/post/index";
+import { replaceAllData } from "../redux/modules/temporarySlice";
 
 //select option의 타입
 export interface optionType {
@@ -21,9 +22,11 @@ export interface optionType {
 }
 
 const Post = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [addCourse] = useAddCourseMutation();
   const { data } = useGetCourseQuery();
+  const [modalOpen, setModalOpen] = useState(false);
 
   const titleRef = useRef<HTMLInputElement>(null);
   const ragionsRef = useRef<HTMLSelectElement>(null);
@@ -50,6 +53,10 @@ const Post = () => {
   const courseList = useSelector(
     (state: any) => state.temporarySlice.courseList
   );
+
+  const showModal = () => {
+    setModalOpen(!modalOpen);
+  };
 
   const onClickAddPost = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -107,6 +114,13 @@ const Post = () => {
     }
   };
 
+  const onClickCancel = () => {
+    if (window.confirm("이 페이지에서 나가시겠습니까?")) {
+      navigate(`/`);
+      dispatch(replaceAllData([]));
+    }
+  };
+
   useEffect(() => {
     if (condition && data) {
       navigate(`/course/${data[0].id}`);
@@ -115,12 +129,14 @@ const Post = () => {
   }, [data]);
 
   return (
-    <div className="max-h-[130vh] mb-[7%]">
+    <div className="mb-[7%]">
       <PostHeader
         uploadCover={uploadCover}
         setUploadCover={setUploadCover}
         galleryCover={galleryCover}
         setGalleryCover={setGalleryCover}
+        courseTitle={courseTitle}
+        setCourseTitle={setCourseTitle}
       />
       <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0 ">
         <div className="flex">
@@ -135,25 +151,36 @@ const Post = () => {
             setTravelStatus={setTravelStatus}
           />
         </div>
-        <PostTitle
-          titleRef={titleRef}
-          ragionsRef={ragionsRef}
-          regions={regions}
-          setRegions={setRegions}
-          courseTitle={courseTitle}
-          setCourseTitle={setCourseTitle}
-        />
+        <div className="flex items-center">
+          <PostCategories
+            ragionsRef={ragionsRef}
+            regions={regions}
+            setRegions={setRegions}
+          />
+          <button
+            onClick={() => showModal()}
+            className="w-[14%] bg-black text-white text-lg px-4 py-1 ml-auto hover:text-black hover:border-black hover:border-2 hover:bg-white"
+          >
+            목적지 추가하기
+          </button>
+        </div>
         <PostHashTag
           selectedTags={selectedTags}
           setSelectedTags={setSelectedTags}
         />
-        <PostMap />
-        <div className="flex justify-center mt-7 ">
+        <PostMap modalOpen={modalOpen} setModalOpen={setModalOpen} />
+        <div className="flex w-full justify-center gap-[5%] my-10">
           <button
             onClick={(e) => onClickAddPost(e)}
-            className="w-[280px] bg-black text-white text-lg py-3 mx-auto"
+            className="w-[25%] bg-black border-black border-2 text-white text-lg py-3 hover:text-black hover:bg-white "
           >
             게시물 등록하기
+          </button>
+          <button
+            onClick={onClickCancel}
+            className="w-[25%] bg-black border-black border-2 text-white text-lg py-3 hover:text-black hover:bg-white "
+          >
+            취소
           </button>
         </div>
       </div>

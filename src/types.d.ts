@@ -16,7 +16,7 @@ declare interface CourseType {
   userID: string;
   nickname: string;
   travelStatus: boolean;
-  courseList: string;
+  courseList: any;
 }
 declare interface optionType {
   value: string;

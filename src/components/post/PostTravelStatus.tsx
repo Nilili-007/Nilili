@@ -19,7 +19,6 @@ const PostTravelStatus = ({ travelStatus, setTravelStatus }: any) => {
         >
           여행 전
         </Category>
-        <div className="border-r border-gray-600 h-8 mx-3" />
         <Category
           onClick={(e) => onClickStatus(e)}
           className={travelStatus ? "clicked" : ""}
@@ -34,11 +33,13 @@ const PostTravelStatus = ({ travelStatus, setTravelStatus }: any) => {
 export default PostTravelStatus;
 
 const Category = styled.button`
-  height: 32px;
-  padding: 0 8px;
+  height: 40px;
+  padding: 6px 12px;
   border: 1px solid #4b5563;
   margin-bottom: 32px;
   cursor: pointer;
+  color: #4b5563;
+  font-size: 18px;
 
   &.clicked {
     background: black;

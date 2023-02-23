@@ -5,7 +5,6 @@ interface CourseProps {
 }
 
 const CourseHeader = ({ course }: CourseProps) => {
-  console.log(course);
   return (
     <>
       <div className="h-[700px]">
@@ -32,7 +31,7 @@ const CourseHeader = ({ course }: CourseProps) => {
               </p>
             );
           })}{" "}
-          여행 코스를 소개해드릴게요!
+          코스를 소개해드릴게요!
         </div>
       </div>
     </>
