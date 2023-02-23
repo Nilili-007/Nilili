@@ -19,6 +19,7 @@ const UserList = ({ done, category }: UserListType) => {
   const [userData, setUserData] = useState<CourseType[]>();
   const navigate = useNavigate();
   const [updateTravelStatus] = useUpdateTravelStatusMutation();
+  const [show, setShow] = useState(true);
 
   const filterData = () => {
     const mypaths = data?.filter(
@@ -90,45 +91,90 @@ const UserList = ({ done, category }: UserListType) => {
   }
 
   return (
-    <div className="my-10 3xl:w-[60%] 2xl:w-[70%] w-[90%] ">
-      <p className=" ml-4 my-[2%] w-fit xl:text-[55px] lg:text-[45px] sm:text-[35px] text-2xl font-bold  ">
-        WHAT'S NEW?
-      </p>
-      <p className=" hidden sm:block ml-4 pb-5 w-fit text-xl text-[#999999]">
-        NILILI 사용자가 가장 최근 올린 일정을 함께해보세요.
-      </p>
-
-      <ul>
+    <div className=" my-10 3xl:w-[60%] 2xl:w-[70%] w-[90%] ">
+      <ul className="flex flex-wrap justify-evenly">
         {userData?.map((item: CourseType) => (
-          <div key={item.id}>
-            <li className="md:w-[23%] w-[360px]  inline-block mx-3 pt-6 border-t-2 border-black   ">
-              <div>
-                <ListMap course={item} />
-                <div className="hover:transition-all w-[300px] h-[300px] bg-no-repeat bg-cover bg-center hover:bg-[url('https://user-images.githubusercontent.com/117059420/219529223-bb81ad92-30cc-4ca2-9ce1-3c7f5dd3a4dc.jpg')] bg-[url('https://user-images.githubusercontent.com/117059420/219529260-5546619d-ed8b-4bc1-86a9-829249a4cd64.jpg')]" />
-                {item.travelStatus ? (
-                  <button onClick={() => changeTravelStatusFalse(item.id)}>
-                    여행 전으로 토글
-                  </button>
-                ) : (
-                  <button onClick={() => changeTravelStatusTrue(item.id)}>
-                    여행 후로 토글
-                  </button>
-                )}
-              </div>
-              <p className="pr-4 ml-1 mt-5 mb-5 sm:text-2xl text-xl overflow-hidden font-black ">
-                {item.title}
-              </p>
-              <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
-                {item.nickname}
-              </p>
-              <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
-                {item.createdAt}
-              </p>
-            </li>
-          </div>
+          <Link
+            to={`/course/${item.id}`}
+            key={item.id}
+            className="xl:w-[31%] lg:w-[32%] sm:w-[47%] w-[90%]  "
+          >
+            <img
+              src={item.cover}
+              alt="대표 사진"
+              className=" pt-6 border-t-2 border-black h-[400px] w-[400px]"
+            />
+            <ListMap course={item} />
+
+            {item.travelStatus ? (
+              <button onClick={() => changeTravelStatusFalse(item.id)}>
+                여행 전으로 토글
+              </button>
+            ) : (
+              <button onClick={() => changeTravelStatusTrue(item.id)}>
+                여행 후로 토글
+              </button>
+            )}
+
+            <p className="pr-4 ml-1 mt-5 sm:h-16 h-14 sm:text-2xl text-xl overflow-hidden font-black ">
+              {item.title}
+            </p>
+            <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
+              {item.nickname}
+            </p>
+            <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
+              {item.createdAt}
+            </p>
+          </Link>
         ))}
       </ul>
     </div>
+
+    // <div className="my-10 3xl:w-[60%] 2xl:w-[70%] w-[90%] ">
+    //   <p className=" ml-4 my-[2%] w-fit xl:text-[55px] lg:text-[45px] sm:text-[35px] text-2xl font-bold  ">
+    //     WHAT'S NEW?
+    //   </p>
+    //   <p className=" hidden sm:block ml-4 pb-5 w-fit text-xl text-[#999999]">
+    //     NILILI 사용자가 가장 최근 올린 일정을 함께해보세요.
+    //   </p>
+
+    //   <ul className="flex  w-[360px]">
+    //     {userData?.map((item: CourseType) => (
+    //       <div key={item.id}>
+    //         <li className="  mx-3 pt-6 border-t-2 border-black   ">
+    //           <div>
+    //             <img
+    //               src={item.cover}
+    //               alt="대표 사진"
+    //               className=" border-t-2 h-[400px] w-[400px]"
+    //             />
+
+    //           </div>
+
+    //           {item.travelStatus ? (
+    //             <button onClick={() => changeTravelStatusFalse(item.id)}>
+    //               여행 전으로 토글
+    //             </button>
+    //           ) : (
+    //             <button onClick={() => changeTravelStatusTrue(item.id)}>
+    //               여행 후로 토글
+    //             </button>
+    //           )}
+
+    //           <p className="pr-4 ml-1 mt-5 mb-5 sm:text-2xl text-xl overflow-hidden font-black ">
+    //             {item.title}
+    //           </p>
+    //           <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
+    //             {item.nickname}
+    //           </p>
+    //           <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
+    //             {item.createdAt}
+    //           </p>
+    //         </li>
+    //       </div>
+    //     ))}
+    //   </ul>
+    // </div>
   );
 };
 

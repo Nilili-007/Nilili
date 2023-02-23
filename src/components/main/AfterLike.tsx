@@ -23,11 +23,11 @@ const AfterLike = () => {
           .slice(0, 3)
           .map((item) => (
             <Link to={`/course/${item.id}`} key={item.id}>
-              <li className="md:w-[31%] w-[360px]  inline-block mx-3  ">
+              <li className="md:w-[31%] w-[360px]  inline-block mx-3 pt-6 border-t-2 border-black ">
                 <img
-                  alt="지역별 좋아요 이미지"
-                  src="/assets/saryangdo.jpg"
-                  className=" border-t-2 border-black pt-6"
+                  src={item.cover}
+                  alt="대표 사진"
+                  className=" border-t-2 h-[400px] w-[400px]"
                 />
                 <p className="pr-4 ml-1 mt-5 mb-5  sm:text-2xl text-xl overflow-hidden font-black ">
                   {item.title}

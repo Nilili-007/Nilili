@@ -35,8 +35,8 @@ const ListMapMarker = ({ courseList }: CourseMapMarkerProps) => {
 export default ListMapMarker;
 
 export const Marker = styled.div`
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   border-radius: 50px;
   color: white;
   display: flex;

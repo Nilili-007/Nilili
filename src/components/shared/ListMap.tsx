@@ -1,6 +1,5 @@
-import { Map, MapTypeControl } from "react-kakao-maps-sdk";
-import { CourseMapMarker } from "../course";
-import { useEffect, useState } from "react";
+import { Map } from "react-kakao-maps-sdk";
+
 import ListMapMarker from "./ListMapMarker";
 
 interface ListProps {
@@ -8,10 +7,7 @@ interface ListProps {
 }
 
 const ListMap = ({ course }: ListProps) => {
-  const [map, setMap] = useState();
-  const [filteredId, setFilteredId] = useState("");
   const courseList = JSON.parse(course.courseList);
-  let bounds: any;
 
   return (
     <Map // 지도를 표시할 Container
@@ -22,10 +18,11 @@ const ListMap = ({ course }: ListProps) => {
       }}
       style={{
         // 지도의 크기
-        width: "100%",
+        display: "none",
+        width: "300px",
         height: "300px",
       }}
-      level={10} // 지도의 확대 레벨
+      level={11} // 지도의 확대 레벨
       draggable={false} //드래그 금지
       zoomable={false} //줌 금지
     >
