@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { hashTagOptions } from "../components/post/PostHashTag";
-import { regionOptions } from "../components/post/PostTitle";
+import { regionOptions } from "../components/post/PostCategories";
 import { PostHeader } from "../components/post";
 import { replaceAllData } from "../redux/modules/temporarySlice";
 import {
@@ -9,7 +9,8 @@ import {
 } from "../redux/modules/apiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { EditCourseMap, EditCourseTitle } from "../components/edit";
+import { EditCourseCategories, EditCourseMap } from "../components/edit";
+import { authService } from "../utils/firebase";
 
 const EditCourse = () => {
   const paramId = useParams().id;
@@ -19,10 +20,7 @@ const EditCourse = () => {
   );
   const course = filterData?.pop();
   const navigate = useNavigate();
-
-  const editedList = useSelector(
-    (state: any) => state.temporarySlice.courseList
-  );
+  const [modalOpen, setModalOpen] = useState(false);
 
   // 기존 select로 선택했던 내용 불러오기
   const filterRegion = regionOptions.filter((region) =>
@@ -53,6 +51,11 @@ const EditCourse = () => {
   //코스
   const dispatch = useDispatch();
 
+  // 수정한 내용
+  const editedList = useSelector(
+    (state: any) => state.temporarySlice.courseList
+  );
+
   // 수정 전 내용 불러오기
   useEffect(() => {
     refetch();
@@ -65,6 +68,7 @@ const EditCourse = () => {
     setRegions(filterRegion);
     setSelectedTags(filterTags);
     setGalleryCover(course?.cover);
+    dispatch(replaceAllData(JSON.parse(course?.courseList)));
   }, [data]);
 
   // update mutation
@@ -83,8 +87,8 @@ const EditCourse = () => {
     } else if (!uploadCover && !galleryCover) {
       alert("커버 이미지를 추가해주세요.");
       window.scrollTo({ top: 0, behavior: "smooth" });
-      // } else if (courseList.length < 2) {
-      //   alert("2개 이상의 코스를 등록해주세요.");
+    } else if (editedList.length < 2) {
+      alert("2개 이상의 코스를 등록해주세요.");
     } else {
       updateCourse({
         courseId: paramId,
@@ -94,6 +98,7 @@ const EditCourse = () => {
         cover: uploadCover || galleryCover,
         courseList: JSON.stringify(editedList),
         travelStatus,
+        profileImage: authService.currentUser?.photoURL,
       });
 
       alert("정상적으로 수정이 완료되었습니다.");
@@ -116,35 +121,43 @@ const EditCourse = () => {
         setUploadCover={setUploadCover}
         galleryCover={galleryCover}
         setGalleryCover={setGalleryCover}
+        courseTitle={courseTitle}
+        titleRef={titleRef}
+        setCourseTitle={setCourseTitle}
       />
       <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0 ">
-        <EditCourseTitle
+        <EditCourseCategories
           regionsRef={regionsRef}
-          titleRef={titleRef}
           setTravelStatus={setTravelStatus}
           travelStatus={travelStatus}
           filterRegion={filterRegion}
           regions={regions}
           setRegions={setRegions}
-          courseTitle={courseTitle}
-          setCourseTitle={setCourseTitle}
           filterTags={filterTags}
           setSelectedTags={setSelectedTags}
           selectedTags={selectedTags}
+          modalOpen={modalOpen}
+          setModalOpen={setModalOpen}
         />
-        <EditCourseMap initLists={course} />
-        <button
-          onClick={() => updateCourseHandler()}
-          className="w-[280px] bg-black text-white text-lg py-3 mx-auto"
-        >
-          수정
-        </button>
-        <button
-          onClick={onClickCancel}
-          className="w-[280px] bg-black text-white text-lg py-3 mx-auto"
-        >
-          취소
-        </button>
+        <EditCourseMap
+          initLists={course}
+          modalOpen={modalOpen}
+          setModalOpen={setModalOpen}
+        />
+        <div className="flex w-full justify-center gap-[5%] my-10">
+          <button
+            onClick={() => updateCourseHandler()}
+            className="w-[25%] bg-black border-black border-2 text-white text-lg py-3 hover:text-black hover:bg-white "
+          >
+            게시물 수정하기
+          </button>
+          <button
+            onClick={onClickCancel}
+            className="w-[25%] bg-black border-black border-2 text-white text-lg py-3 hover:text-black hover:bg-white "
+          >
+            취소
+          </button>
+        </div>
       </div>
     </div>
   );

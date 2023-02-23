@@ -52,7 +52,7 @@ const PostSearchModal = ({
   };
 
   return (
-    <div className="w-[800px] pb-5 bg-white border border-black absolute translate-x-[10%] -translate-y-[20%] xs:w-11/12 xs:h-auto xs:h-max-5/6 xs:translate-x-0 xs:-translate-y-64 z-[999]">
+    <div className="w-[800px] pb-5 bg-white border border-black absolute -translate-x-[20%] -translate-y-[40%] xs:w-11/12 xs:h-auto xs:h-max-5/6 xs:translate-x-0 xs:-translate-y-64 z-[999]">
       <div className="px-8 py-4">
         <div className="flex items-center border-b border-gray-600 mb-5 pb-3">
           <h3 className="text-2xl font-bold ">여행지 찾기</h3>

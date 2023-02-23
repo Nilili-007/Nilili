@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
-import { optionType } from "../../pages/Post";
 import { authService } from "../../utils/firebase";
 import { hashTagOptions } from "../post/PostHashTag";
-import { regionOptions } from "../post/PostTitle";
+import { regionOptions } from "../post/PostCategories";
 import { Map, MapTypeControl } from "react-kakao-maps-sdk";
 import PostMarkers from "../post/PostMarkers";
 import { PostCourseDesc, PostSearchModal, PostTextarea } from "../post";

@@ -5,8 +5,7 @@ import { EditCourseInfo, EditCourseMarkers } from "./index";
 import { useSelector } from "react-redux";
 import { displayPagination } from "../../utils/kakao";
 
-const EditCourseMap = ({ initLists }: any) => {
-  const [modalOpen, setModalOpen] = useState(false);
+const EditCourseMap = ({ initLists, modalOpen, setModalOpen }: any) => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [searchList, setSearchList] = useState([]);
   const [searchCnt, setSearchCnt] = useState<number | null>();

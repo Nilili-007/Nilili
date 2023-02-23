@@ -10,6 +10,7 @@ export interface CommentType {
   postId?: string;
   nickname?: string;
   comment?: string | undefined;
+  profileImage: string;
 }
 
 const CommentInput = ({ paramId }: CommentProps) => {
@@ -35,6 +36,7 @@ const CommentInput = ({ paramId }: CommentProps) => {
       postId: paramId,
       nickname: authService.currentUser?.displayName,
       comment: commentValue,
+      profileImage: authService.currentUser?.photoURL,
     };
     addComment(newComment);
     setComment("");

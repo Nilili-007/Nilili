@@ -5,7 +5,7 @@ import { useGetCourseQuery } from "../../redux/modules/apiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { changeHashTagNum } from "../../redux/modules/searchSlice";
 import { hashTagOptions } from "../post/PostHashTag";
-import { regionOptions } from "../post/PostTitle";
+import { regionOptions } from "../post/PostCategories";
 
 const travelStatusOptions = [
   { value: false, label: "여행 전" },

@@ -7,7 +7,7 @@ interface HashTagProps {
 const CourseHashTag = ({ course }: HashTagProps) => {
   return (
     <div className="py-5 border-b-2 border-[#A0A4A8]">
-      <h3 className="text-[28px] font-bold mb-5">관련 해시태그</h3>
+      {/* <h3 className="text-[28px] font-bold mb-5">관련 해시태그</h3> */}
       <div className="flex gap-3">
         {course?.hashtags.map((hashtag) => {
           return (

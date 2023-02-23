@@ -19,7 +19,7 @@ const Comment = ({ comment, index }: CommentProps) => {
   const [edit, setEdit] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const currentUserId = authService.currentUser?.uid;
-  const userImg: any = authService.currentUser?.photoURL;
+  const userImg: any = comment.profileImage;
 
   // 작성시간 나타내기
   const createdTime: any = comment.createdAt;
@@ -72,7 +72,11 @@ const Comment = ({ comment, index }: CommentProps) => {
   const [updateComment] = useUpdateCommentMutation();
   const [editComment, setEditComment] = useState<string | undefined>("");
   const updateCommentHandler = (id: string | undefined) => {
-    updateComment({ commentId: id, newComment: editComment });
+    updateComment({
+      commentId: id,
+      newComment: editComment,
+      profileImage: authService.currentUser?.photoURL,
+    });
     Swal.fire({
       icon: "success",
       title: "댓글이 수정되었습니다.",
@@ -90,12 +94,16 @@ const Comment = ({ comment, index }: CommentProps) => {
       <div className="flex justify-between">
         <div className="flex items-center gap-5 mb-5">
           <img
-            src={userImg}
+            src={
+              userImg
+                ? userImg
+                : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+            }
             alt="profile Image"
             className="object-fill w-[36px] h-[36px]"
           />
           <h3 className="text-[28px] leading-9 font-bold">
-            {authService.currentUser?.displayName}
+            {comment.nickname}
           </h3>
         </div>
         {/* 작성자만 보이는 메뉴 */}

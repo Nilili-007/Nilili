@@ -13,7 +13,6 @@ import { authService } from "../utils/firebase";
 const Course = () => {
   const { data, isLoading } = useGetCourseQuery();
   const paramId = useParams().id;
-  const userImg: any = authService.currentUser?.photoURL;
   let date;
   let hours;
   let seconds;
@@ -36,11 +35,13 @@ const Course = () => {
         <div>
           <CourseHeader course={courseData} />
           <div className="w-[70%] py-10 m-auto">
-            <CourseManageButton paramId={paramId} course={courseData} />
+            {courseData?.userID === authService.currentUser?.uid ? (
+              <CourseManageButton paramId={paramId} course={courseData} />
+            ) : null}
             <div className="flex items-center">
               <div className="flex items-center gap-1">
                 <img
-                  src={userImg}
+                  src={courseData?.profileImage}
                   alt="profile Image"
                   className="object-fill w-[32px] h-[32px]"
                 />

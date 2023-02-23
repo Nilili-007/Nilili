@@ -1,12 +1,12 @@
 import EditCourseMap from "./EditCourseMap";
-import EditCourseTitle from "./EditCourseTitle";
+import EditCourseCategories from "./EditCourseCategories";
 import EditCourseInfo from "./EditCourseInfo";
 import EditCourseTextarea from "./EditCourseTextarea";
 import EditCourseMarkers from "./EditCourseMarkers";
 
 export {
   EditCourseMap,
-  EditCourseTitle,
+  EditCourseCategories,
   EditCourseInfo,
   EditCourseTextarea,
   EditCourseMarkers,

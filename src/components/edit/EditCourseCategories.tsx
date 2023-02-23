@@ -2,35 +2,33 @@ import React, { useState } from "react";
 import Select from "react-select";
 import styled from "styled-components";
 import { hashTagOptions } from "../post/PostHashTag";
-import { regionOptions } from "../post/PostTitle";
+import { regionOptions } from "../post/PostCategories";
 
 interface EditTitleProps {
   regionsRef: any;
-  titleRef: React.RefObject<HTMLInputElement>;
   setTravelStatus: React.Dispatch<React.SetStateAction<boolean | null>>;
   travelStatus: boolean | null;
   filterRegion: optionType[];
   regions: any;
   setRegions: React.Dispatch<React.SetStateAction<optionType[] | null>>;
-  courseTitle: string | undefined;
-  setCourseTitle: React.Dispatch<React.SetStateAction<string | undefined>>;
   filterTags: optionType[];
   setSelectedTags: React.Dispatch<React.SetStateAction<optionType[] | null>>;
   selectedTags: any;
+  modalOpen: boolean | null;
+  setModalOpen: React.Dispatch<React.SetStateAction<any | null>>;
 }
-const EditCourseTitle = ({
-  titleRef,
+const EditCourseCategories = ({
   regionsRef,
   setTravelStatus,
   travelStatus,
   filterRegion,
   regions,
   setRegions,
-  courseTitle,
-  setCourseTitle,
   filterTags,
   setSelectedTags,
   selectedTags,
+  modalOpen,
+  setModalOpen,
 }: EditTitleProps) => {
   const regionLimit = 4;
   const tagLimit = 5;
@@ -45,6 +43,9 @@ const EditCourseTitle = ({
   const handleCategorySelect = (data: any) => {
     setRegions(data);
   };
+  const showModal = () => {
+    setModalOpen(!modalOpen);
+  };
   function handleTagSelect(data: any) {
     setSelectedTags(data);
   }
@@ -58,14 +59,13 @@ const EditCourseTitle = ({
           </p>
         </div>
         <div className="ml-auto">
-          <div className="flex ">
+          <div className="flex">
             <Category
               onClick={(e) => onClickStatus(e)}
               className={travelStatus === false ? "clicked" : ""}
             >
               여행 전
             </Category>
-            <div className="border-r border-gray-600 h-8 mx-3" />
             <Category
               onClick={(e) => onClickStatus(e)}
               className={travelStatus === true ? "clicked" : ""}
@@ -76,7 +76,7 @@ const EditCourseTitle = ({
         </div>
       </div>
       <div className="flex items-center h-16 gap-4">
-        <div className="w-[50%] xs:w-1/3 xs:text-xs ">
+        <div className="w-full flex justify-between xs:w-1/3 xs:text-xs ">
           <Select
             ref={regionsRef}
             options={regionOptions}
@@ -84,23 +84,20 @@ const EditCourseTitle = ({
             onChange={handleCategorySelect}
             isMulti
             placeholder="지역을 선택해주세요."
-            className="z-20"
+            className="z-20 w-[85%] leading-7 text-[22px]"
             classNamePrefix="select"
             isSearchable={true}
             isOptionDisabled={(region) =>
               regions && regions.length >= regionLimit
             }
           />
+          <button
+            onClick={() => showModal()}
+            className="w-[14%] bg-black text-white text-lg  hover:text-black hover:border-black hover:border-2 hover:bg-white"
+          >
+            목적지 추가하기
+          </button>
         </div>
-        <input
-          className="w-full px-2 py-1.5 border border-gray-400"
-          placeholder="제목을 입력해주세요."
-          value={courseTitle}
-          ref={titleRef}
-          onChange={(event) => {
-            setCourseTitle(event.target.value);
-          }}
-        />
       </div>
       <div className="mb-8">
         <Select
@@ -109,7 +106,7 @@ const EditCourseTitle = ({
           placeholder={"#해시태그를 선택해주세요"}
           options={hashTagOptions}
           onChange={handleTagSelect}
-          className="z-10"
+          className="z-10 leading-7 text-[22px]"
           isSearchable={true}
           isOptionDisabled={(selectedTag) =>
             selectedTags && selectedTags.length >= tagLimit
@@ -120,14 +117,16 @@ const EditCourseTitle = ({
   );
 };
 
-export default EditCourseTitle;
+export default EditCourseCategories;
 
 const Category = styled.button`
-  height: 32px;
-  padding: 0 8px;
+  height: 40px;
+  padding: 6px 12px;
   border: 1px solid #4b5563;
   margin-bottom: 32px;
   cursor: pointer;
+  color: #4b5563;
+  font-size: 18px;
 
   &.clicked {
     background: black;
