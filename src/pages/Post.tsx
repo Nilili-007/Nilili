@@ -150,10 +150,6 @@ const Post = () => {
   };
 
   const onClickCancel = () => {
-    if (window.confirm("이 페이지에서 나가시겠습니까?")) {
-      navigate(`/`);
-      dispatch(replaceAllData([]));
-    }
     Swal.fire({
       title: "작성 취소",
       text: "이 페이지에서 나가시겠습니까?",
