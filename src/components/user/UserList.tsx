@@ -122,7 +122,7 @@ const UserList = ({ done, category }: UserListType) => {
             />
             <ListMap course={item} />
 
-            {item.travelStatus ? (
+            {category !== "MY" ? null : item.travelStatus ? (
               <button onClick={() => changeTravelStatusFalse(item.id)}>
                 여행 전으로 토글
               </button>

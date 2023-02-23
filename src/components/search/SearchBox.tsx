@@ -88,7 +88,7 @@ const SearchBox = () => {
   //맨 처음 렌더링, 새로고침 할 때 전체 데이터 보여주기
   useEffect(() => {
     filterData();
-  }, [hashtags, locations, travelStatus, words, data]);
+  }, [hashtags, locations, travelStatus, data]);
 
   //메인페이지에서 해시태그 링크로 들어올 때 자동검색
   //페이지 나갈 때 해시태그 자동검색 없애기
@@ -111,7 +111,7 @@ const SearchBox = () => {
           WHAT ARE YOUR PLANS?
         </p>
         <div className="border  border-black flex flex-col items-center gap-5  p-[40px]">
-          <div className="flex flex-row indent-2 bg-red-300">
+          <div className="flex flex-row indent-2">
             <div>지역</div>
             <Select
               options={regionOptions}
@@ -155,6 +155,7 @@ const SearchBox = () => {
               value={words}
               onChange={(event) => setWords(event.target.value)}
             />
+            <button onClick={filterData}>검색</button>
           </div>
         </div>
       </div>
