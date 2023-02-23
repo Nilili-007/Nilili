@@ -22,26 +22,16 @@ export const regionOptions = [
 interface titleProps {
   regions?: any;
   setRegions?: any;
-  courseTitle?: string;
-  setCourseTitle?: any;
   ragionsRef: any;
-  titleRef: React.RefObject<HTMLInputElement>;
 }
 
-const PostTitle = ({
-  regions,
-  setRegions,
-  courseTitle,
-  setCourseTitle,
-  titleRef,
-  ragionsRef,
-}: titleProps) => {
+const PostCategories = ({ regions, setRegions, ragionsRef }: titleProps) => {
   const handleCategorySelect = (data: any) => {
     setRegions(data);
   };
   const limit = 4;
   return (
-    <div className="flex items-center h-16 gap-4">
+    <div className="flex w-[85%] items-center h-16 gap-4">
       <div className="w-full xs:w-1/3 xs:text-xs ">
         <Select
           ref={ragionsRef}
@@ -57,16 +47,8 @@ const PostTitle = ({
           isOptionDisabled={(region) => regions && regions.length >= limit}
         />
       </div>
-      <input
-        className="w-full px-2 py-1.5 border border-gray-400 focus:outline-none"
-        ref={titleRef}
-        value={courseTitle}
-        onChange={(event) => {
-          setCourseTitle(event.target.value);
-        }}
-      />
     </div>
   );
 };
 
-export default PostTitle;
+export default PostCategories;

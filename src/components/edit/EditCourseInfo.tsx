@@ -88,12 +88,6 @@ const EditCourseInfo = ({ modalOpen, setModalOpen }: any) => {
             </ItemCard>
           );
         })}
-        <button
-          onClick={showModal}
-          className="w-full border border-gray-400 py-2 flex justify-center"
-        >
-          <AiOutlinePlus className="text-5xl text-gray-300" />
-        </button>
       </div>
     </div>
   );

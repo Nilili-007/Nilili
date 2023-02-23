@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Select from "react-select";
 import styled from "styled-components";
 import { hashTagOptions } from "../post/PostHashTag";
-import { regionOptions } from "../post/PostTitle";
+import { regionOptions } from "../post/PostCategories";
 
 interface EditTitleProps {
   ragionsRef: any;
@@ -14,8 +14,10 @@ interface EditTitleProps {
   filterTags: optionType[];
   setSelectedTags: React.Dispatch<React.SetStateAction<optionType[] | null>>;
   selectedTags: any;
+  modalOpen: boolean | null;
+  setModalOpen: React.Dispatch<React.SetStateAction<any | null>>;
 }
-const EditCourseTitle = ({
+const EditCourseCategories = ({
   ragionsRef,
   setTravelStatus,
   travelStatus,
@@ -25,6 +27,8 @@ const EditCourseTitle = ({
   filterTags,
   setSelectedTags,
   selectedTags,
+  modalOpen,
+  setModalOpen,
 }: EditTitleProps) => {
   const regionLimit = 4;
   const tagLimit = 5;
@@ -38,6 +42,9 @@ const EditCourseTitle = ({
   };
   const handleCategorySelect = (data: any) => {
     setRagions(data);
+  };
+  const showModal = () => {
+    setModalOpen(!modalOpen);
   };
   function handleTagSelect(data: any) {
     setSelectedTags(data);
@@ -84,7 +91,10 @@ const EditCourseTitle = ({
               ragions && ragions.length >= regionLimit
             }
           />
-          <button className="w-[14%] bg-black text-white text-lg  hover:text-black hover:border-black hover:border-2 hover:bg-white">
+          <button
+            onClick={() => showModal()}
+            className="w-[14%] bg-black text-white text-lg  hover:text-black hover:border-black hover:border-2 hover:bg-white"
+          >
             목적지 추가하기
           </button>
         </div>
@@ -107,7 +117,7 @@ const EditCourseTitle = ({
   );
 };
 
-export default EditCourseTitle;
+export default EditCourseCategories;
 
 const Category = styled.button`
   height: 40px;

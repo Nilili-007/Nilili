@@ -34,10 +34,6 @@ const PostCourseInfo = ({
   const [lists, setLists] = useState(courseList);
   const [text, setText] = useState("");
 
-  const showModal = () => {
-    setModalOpen(!modalOpen);
-  };
-
   const onClickDeleteCourse = (item: any) => {
     // 모달로 변경
     if (window.confirm("일정에서 삭제하시겠습니까?")) {
@@ -105,12 +101,6 @@ const PostCourseInfo = ({
             </ItemCard>
           );
         })}
-        <button
-          onClick={showModal}
-          className="w-full border border-gray-400 py-2 flex justify-center"
-        >
-          <AiOutlinePlus className="text-5xl text-gray-300" />
-        </button>
       </div>
     </div>
   );

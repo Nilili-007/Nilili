@@ -8,7 +8,7 @@ import {
 import { authService } from "../utils/firebase";
 import {
   PostHashTag,
-  PostTitle,
+  PostCategories,
   PostMap,
   PostHeader,
   PostTravelStatus,
@@ -26,6 +26,7 @@ const Post = () => {
   const navigate = useNavigate();
   const [addCourse] = useAddCourseMutation();
   const { data } = useGetCourseQuery();
+  const [modalOpen, setModalOpen] = useState(false);
 
   const titleRef = useRef<HTMLInputElement>(null);
   const ragionsRef = useRef<HTMLSelectElement>(null);
@@ -52,6 +53,10 @@ const Post = () => {
   const courseList = useSelector(
     (state: any) => state.temporarySlice.courseList
   );
+
+  const showModal = () => {
+    setModalOpen(!modalOpen);
+  };
 
   const onClickAddPost = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -124,12 +129,14 @@ const Post = () => {
   }, [data]);
 
   return (
-    <div className="max-h-[130vh] mb-[7%]">
+    <div className="mb-[7%]">
       <PostHeader
         uploadCover={uploadCover}
         setUploadCover={setUploadCover}
         galleryCover={galleryCover}
         setGalleryCover={setGalleryCover}
+        courseTitle={courseTitle}
+        setCourseTitle={setCourseTitle}
       />
       <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0 ">
         <div className="flex">
@@ -144,19 +151,24 @@ const Post = () => {
             setTravelStatus={setTravelStatus}
           />
         </div>
-        <PostTitle
-          titleRef={titleRef}
-          ragionsRef={ragionsRef}
-          regions={regions}
-          setRegions={setRegions}
-          courseTitle={courseTitle}
-          setCourseTitle={setCourseTitle}
-        />
+        <div className="flex items-center">
+          <PostCategories
+            ragionsRef={ragionsRef}
+            regions={regions}
+            setRegions={setRegions}
+          />
+          <button
+            onClick={() => showModal()}
+            className="w-[14%] bg-black text-white text-lg px-4 py-1 ml-auto hover:text-black hover:border-black hover:border-2 hover:bg-white"
+          >
+            목적지 추가하기
+          </button>
+        </div>
         <PostHashTag
           selectedTags={selectedTags}
           setSelectedTags={setSelectedTags}
         />
-        <PostMap />
+        <PostMap modalOpen={modalOpen} setModalOpen={setModalOpen} />
         <div className="flex w-full justify-center gap-[5%] my-10">
           <button
             onClick={(e) => onClickAddPost(e)}
