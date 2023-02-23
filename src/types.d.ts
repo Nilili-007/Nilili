@@ -17,6 +17,7 @@ declare interface CourseType {
   nickname: string;
   travelStatus: boolean;
   courseList: string;
+  profileImage: string;
 }
 declare interface optionType {
   value: string;

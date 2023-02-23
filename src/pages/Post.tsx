@@ -72,6 +72,7 @@ const Post = () => {
       createdAt: JSON.stringify(new Date()),
       likes: 0,
       likesID: [],
+      profileImage: authService.currentUser?.photoURL,
     };
 
     if (

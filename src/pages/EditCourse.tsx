@@ -10,6 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { EditCourseMap, EditCourseTitle } from "../components/edit";
+import { authService } from "../utils/firebase";
 
 const EditCourse = () => {
   const paramId = useParams().id;
@@ -93,6 +94,7 @@ const EditCourse = () => {
         cover: uploadCover || galleryCover,
         courseList: JSON.stringify(editedList),
         travelStatus,
+        profileImage: authService.currentUser?.photoURL,
       });
 
       alert("정상적으로 수정이 완료되었습니다.");
