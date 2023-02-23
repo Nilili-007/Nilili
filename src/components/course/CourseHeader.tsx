@@ -5,7 +5,6 @@ interface CourseProps {
 }
 
 const CourseHeader = ({ course }: CourseProps) => {
-  console.log(course);
   return (
     <>
       <div className="h-[700px]">
