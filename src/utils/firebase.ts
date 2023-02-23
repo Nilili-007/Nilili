@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
-import { CONFIG_KEY } from "./config";
+// import { CONFIG_KEY } from "./config";
 
 const {
   apiKey,
