@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetCourseQuery } from "../../redux/modules/apiSlice";
-import Pagenation from "./Pagenation";
+import SearchPagenation from "./SearchPagenation";
 
 interface ISearchListProps {
   filteredList: CourseType[] | undefined;
@@ -54,7 +54,7 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
         ))}
       </ul>
       {/* pagenation */}
-      <Pagenation
+      <SearchPagenation
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
         pages={pages}

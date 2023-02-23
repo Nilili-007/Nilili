@@ -4,7 +4,7 @@ interface PagenationProps {
   pages: number[];
 }
 
-const Pagenation = ({
+const SearchPagenation = ({
   setCurrentPage,
   currentPage,
   pages,
@@ -27,4 +27,4 @@ const Pagenation = ({
   );
 };
 
-export default Pagenation;
+export default SearchPagenation;
