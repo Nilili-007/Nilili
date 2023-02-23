@@ -9,9 +9,8 @@ import {
 } from "../redux/modules/apiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { EditCourseMap, EditCourseTitle } from "../components/edit";
+import { EditCourseCategories, EditCourseMap } from "../components/edit";
 import { authService } from "../utils/firebase";
-
 
 const EditCourse = () => {
   const paramId = useParams().id;
