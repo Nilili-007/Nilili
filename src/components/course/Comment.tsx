@@ -64,6 +64,13 @@ const Comment = ({ comment, index }: CommentProps) => {
           timer: 1500,
         });
         deleteComment(id);
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire({
+          icon: "error",
+          title: "삭제가 취소되었습니다.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
     });
   };
@@ -121,7 +128,7 @@ const Comment = ({ comment, index }: CommentProps) => {
               }}
               className="hidden sm:flex font-semibold text-[#A0A4A8] hover:text-black"
             >
-              수정
+              {edit ? "취소" : "수정"}
             </button>
             <button
               className="hidden sm:flex font-semibold text-[#A0A4A8] hover:text-black"

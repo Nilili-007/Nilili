@@ -45,20 +45,23 @@ const CommentInput = ({ paramId }: CommentProps) => {
     <>
       <form className="mb-20" onSubmit={commentSubmitHandler}>
         <div className="p-5">
-          <div className="flex items-middle gap-5 mb-5">
-            <img
-              src={userImg}
-              alt="profile Image"
-              className="object-fill w-[36px] h-[36px]"
-            />
-            <h3 className="text-[28px] font-bold">
-              {authService.currentUser?.displayName}
-            </h3>
-          </div>
+          {authService.currentUser ? (
+            <div className="flex items-middle gap-5 mb-5">
+              <img
+                src={userImg}
+                alt="profile Image"
+                className="object-fill w-[36px] h-[36px]"
+              />
+              <h3 className="text-[28px] font-bold">
+                {authService.currentUser?.displayName}
+              </h3>
+            </div>
+          ) : null}
+
           <textarea
             wrap="hard"
             cols={20}
-            className="border-2 resize-none px-2 py-1 w-full h-28 text-[22px]"
+            className="border-2 resize-none px-2 py-1 w-full h-28 text-[22px] focus:outline-black "
             placeholder={
               authService.currentUser
                 ? "댓글을 입력해 주세요."

@@ -14,6 +14,7 @@ import {
   PostTravelStatus,
 } from "../components/post/index";
 import { replaceAllData } from "../redux/modules/temporarySlice";
+import Swal from "sweetalert2";
 
 //select option의 타입
 export interface optionType {
@@ -85,32 +86,65 @@ const Post = () => {
     if (
       (uploadCover || galleryCover) &&
       travelStatus !== null &&
-      regions &&
+      regions?.length !== 0 &&
       courseTitle.trim() &&
       courseList.length > 1
     ) {
       await addCourse(newPost);
       setCondition(true);
-      window.alert("훌륭한 여정이에요! 여행 후 리뷰도 꼭 부탁드려요!");
+      Swal.fire({
+        icon: "success",
+        title: "훌륭한 여정이에요!",
+        text: "여행 후 리뷰도 꼭 부탁드려요!",
+        showConfirmButton: true,
+        timer: 3000,
+      });
     } else {
       if (!uploadCover && !galleryCover) {
-        alert("커버 이미지를 추가해주세요.");
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-      if (travelStatus === null) {
-        alert("여행 전/여행 후 카테고리를 선택해주세요.");
-        window.scrollTo({ top: 450, behavior: "smooth" });
-      }
-      if (!regions) {
-        alert("하나 이상의 지역을 선택해주세요.");
-        regionsRef.current?.focus();
-      }
-      if (!courseTitle?.trim()) {
-        alert("제목을 입력해주세요.");
-        titleRef.current?.focus();
-      }
-      if (courseList.length < 2) {
-        alert("2개 이상의 코스를 등록해주세요.");
+        Swal.fire({
+          title: "등록 실패",
+          text: "커버 이미지를 추가해주세요.",
+          icon: "warning",
+          didClose: () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          },
+        });
+      } else if (travelStatus === null) {
+        Swal.fire({
+          title: "등록 실패",
+          text: "여행 전/여행 후 카테고리를 선택해주세요.",
+          icon: "warning",
+          didClose: () => {
+            window.scrollTo({ top: 450, behavior: "smooth" });
+          },
+        });
+      } else if (regions?.length === 0) {
+        Swal.fire({
+          title: "등록 실패",
+          text: "하나 이상의 지역을 선택해주세요.",
+          icon: "warning",
+          didClose: () => {
+            regionsRef.current?.focus();
+          },
+        });
+      } else if (!courseTitle?.trim()) {
+        Swal.fire({
+          title: "등록 실패",
+          text: "제목을 입력해주세요",
+          icon: "warning",
+          didClose: () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          },
+        });
+      } else if (courseList.length < 2) {
+        Swal.fire({
+          title: "등록 실패",
+          text: "2개 이상의 코스를 등록해주세요.",
+          icon: "warning",
+          didClose: () => {
+            window.scrollTo({ top: 600, behavior: "smooth" });
+          },
+        });
       }
     }
   };
@@ -120,6 +154,27 @@ const Post = () => {
       navigate(`/`);
       dispatch(replaceAllData([]));
     }
+    Swal.fire({
+      title: "작성 취소",
+      text: "이 페이지에서 나가시겠습니까?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#50AA72",
+      cancelButtonColor: "#B3261E",
+      confirmButtonText: "확인",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: "success",
+          title: "여행 코스 수정이 취소되었습니다.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate(`/`);
+        dispatch(replaceAllData([]));
+      }
+    });
   };
 
   useEffect(() => {

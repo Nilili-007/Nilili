@@ -46,6 +46,13 @@ const CourseManageButton = ({ paramId, course }: CourseManageButtonProps) => {
         });
         deleteCourse(id);
         navigate("/");
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire({
+          icon: "error",
+          title: "삭제가 취소되었습니다.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
     });
   };
