@@ -82,8 +82,8 @@ const EditCourse = () => {
     } else if (!uploadCover && !galleryCover) {
       alert("커버 이미지를 추가해주세요.");
       window.scrollTo({ top: 0, behavior: "smooth" });
-      // } else if (courseList.length < 2) {
-      //   alert("2개 이상의 코스를 등록해주세요.");
+    } else if (editedList.length < 2) {
+      alert("2개 이상의 코스를 등록해주세요.");
     } else {
       updateCourse({
         courseId: paramId,
@@ -115,35 +115,37 @@ const EditCourse = () => {
         setUploadCover={setUploadCover}
         galleryCover={galleryCover}
         setGalleryCover={setGalleryCover}
+        courseTitle={courseTitle}
+        titleRef={titleRef}
+        setCourseTitle={setCourseTitle}
       />
       <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0 ">
         <EditCourseTitle
           ragionsRef={ragionsRef}
-          titleRef={titleRef}
           setTravelStatus={setTravelStatus}
           travelStatus={travelStatus}
           filterRagion={filterRegion}
           ragions={ragions}
           setRagions={setRagions}
-          courseTitle={courseTitle}
-          setCourseTitle={setCourseTitle}
           filterTags={filterTags}
           setSelectedTags={setSelectedTags}
           selectedTags={selectedTags}
         />
         <EditCourseMap initLists={course} />
-        <button
-          onClick={() => updateCourseHandler()}
-          className="w-[280px] bg-black text-white text-lg py-3 mx-auto"
-        >
-          수정
-        </button>
-        <button
-          onClick={onClickCancel}
-          className="w-[280px] bg-black text-white text-lg py-3 mx-auto"
-        >
-          취소
-        </button>
+        <div className="flex w-full justify-end gap-[15%] my-10">
+          <button
+            onClick={() => updateCourseHandler()}
+            className="w-[40%] bg-black border-black border-2 text-white text-lg py-3 hover:text-black hover:bg-white "
+          >
+            게시물 수정하기
+          </button>
+          <button
+            onClick={onClickCancel}
+            className="w-[15%] bg-black border-black border-2 text-white text-lg py-3 hover:text-black hover:bg-white "
+          >
+            취소
+          </button>
+        </div>
       </div>
     </div>
   );
