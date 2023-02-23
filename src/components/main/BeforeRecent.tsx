@@ -13,7 +13,7 @@ const BeforeRecent = () => {
   return (
     <div className=" my-10 3xl:w-[60%] 2xl:w-[70%] w-[90%] ">
       <p className=" ml-4 my-[2%] w-fit xl:text-[55px] lg:text-[45px] sm:text-[35px] text-2xl font-bold  ">
-        여행 전 최신글
+        NOW PLANS
       </p>
       <p className=" hidden sm:block ml-4 pb-5 w-fit text-xl text-[#999999]">
         아직 고민 중이신가요? 이런 일정은 어떠세요?
