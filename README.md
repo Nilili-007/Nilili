@@ -1,46 +1,42 @@
-# Getting Started with Create React App
+# NILILI
+### [바로가기](https://nilili-007.vercel.app/)
+<br/>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 기획 의도
+국내 여행 코스를 직접 만들어 공유할 수 있으며, 다른 사람들의 코스를 참고 하고 상호 작용할 수도 있는 커뮤니티입니다. 지역 별로 , 해시태그 별로 각자의 요구에 맞는 여행 코스를 쉽게 접할 수 있습니다. 코스와 장소에 리뷰를 남겨 각자의 경험을 공유하여 보다 나은 여행 경험을 만들기 위해 제작되었습니다.
+<br/>
+<br/>
 
-## Available Scripts
+## Contributor
+||깃허브|블로그|
+|------|---|---|
+|정서연(리더)|https://github.com/seoyeon-jung|https://daydream-sy.tistory.com/|
+|김선형(부리더)|https://github.com/hobak12|https://seonchoco.tistory.com/|
+|조희현|https://github.com/hiheecho|https://velog.io/@jhh7929|
+|변시윤|https://github.com/cinephi1e|https://velog.io/@cinephile|
+<br/>
 
-In the project directory, you can run:
+## Tech Stack
+- React + Typescript
+- 전역적으로 state를 관리하기 위해 **redux**를 사용했습니다
+- Redux Toolkit에 내장되어 있어 별도의 설치 없이 서버 state를 관리하기 위해 **RTK Query**를 사용했습니다
+- 일관성 있는 디자인 시스템을 적용하기 위해 **tailwind css**를 사용했습니다
+- 하나의 라이브러리로 데이터 베이스까지 관리할 수 있어 빠른 백엔드 시스템 구축을 위해 **firebase**를 사용했습니다
+- 간편한 배포를 위해 배포 시스템인 **Vercel**을 이용했습니다
+<br/>
+<br/>
 
-### `npm start`
+## 서비스 아키텍처
+![nilili-서비스 아키텍처 drawio](https://user-images.githubusercontent.com/95006849/221066852-694415c8-2295-4cc4-b9ff-1bc8f9775d67.png)
+<br/>
+<br/>
+<br/>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 실제 구현된 페이지
+|메인 페이지|검색 페이지|
+|------|---|
+|<img src="https://user-images.githubusercontent.com/95006849/221067188-eb7ad7f9-1c15-4656-b79d-44f78aa1f4d0.png" width="800" />|<img src="https://user-images.githubusercontent.com/95006849/221068968-8e874428-0f30-47bf-9241-c585dd4564c6.png" width="800" />|
+|글쓰기 페이지|디테일 페이지|
+|<img src="https://user-images.githubusercontent.com/95006849/221067885-49afa90d-7258-49d7-9abc-da6adf46cd1e.png" width="800" />|<img src="https://user-images.githubusercontent.com/95006849/221068174-44fd1a26-e090-49cb-90a3-830ac66302b2.png" width="800" />|
+|유저 페이지||
+|<img src="https://user-images.githubusercontent.com/95006849/221067954-7779343f-e1bf-4f09-9403-607fbf3960d2.png" width="800" />||
