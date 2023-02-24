@@ -18,9 +18,10 @@
 
 ## Tech Stack
 - React + Typescript
-- 전역적으로 state를 관리하기 위해 **redux**를 사용했습니다
+- 전역적으로 state를 관리하기 위해 **Redux Toolkit**를 사용했습니다
 - Redux Toolkit에 내장되어 있어 별도의 설치 없이 서버 state를 관리하기 위해 **RTK Query**를 사용했습니다
 - 일관성 있는 디자인 시스템을 적용하기 위해 **tailwind css**를 사용했습니다
+- 하나의 컴포넌트 안에 유동적인 className을 지정해서 className이 변할 때마다 스타일을 다르게 처리해줘야 하는 작업이 필요해서 **styled-components**를 부분적으로 사용했습니다
 - 하나의 라이브러리로 데이터 베이스까지 관리할 수 있어 빠른 백엔드 시스템 구축을 위해 **firebase**를 사용했습니다
 - 간편한 배포를 위해 배포 시스템인 **Vercel**을 이용했습니다
 <br/>
