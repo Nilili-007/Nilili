@@ -105,7 +105,7 @@ const EditCourseMap = ({ initLists, modalOpen, setModalOpen }: any) => {
         <EditCourseMarkers />
         <MapTypeControl position={kakao.maps.ControlPosition.TOPRIGHT} />
       </Map>
-      <EditCourseInfo modalOpen={modalOpen} setModalOpen={setModalOpen} />
+      <EditCourseInfo />
       {modalOpen && (
         <PostSearchModal
           setModalOpen={setModalOpen}

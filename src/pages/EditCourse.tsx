@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { EditCourseCategories, EditCourseMap } from "../components/edit";
 import { authService } from "../utils/firebase";
+import Swal from "sweetalert2";
 
 const EditCourse = () => {
   const paramId = useParams().id;
@@ -78,35 +79,66 @@ const EditCourse = () => {
     const selectedLabels = selectedTags?.map((tag: any) => tag.label);
 
     if (selectedRegions?.length === 0) {
-      alert("하나 이상의 지역을 선택해주세요.");
+      Swal.fire({
+        icon: "error",
+        title: "하나 이상의 지역을 선택해주세요!",
+      });
       ragionsRef.current?.focus();
     } else if (!courseTitle?.trim()) {
-      alert("제목을 입력해주세요");
+      Swal.fire({
+        icon: "error",
+        title: "제목을 입력해주세요!",
+      });
       titleRef.current?.focus();
     } else if (!uploadCover && !galleryCover) {
-      alert("커버 이미지를 추가해주세요.");
+      Swal.fire({
+        icon: "error",
+        title: "커버 이미지를 추가해주세요!",
+      });
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else if (editedList.length < 2) {
-      alert("2개 이상의 코스를 등록해주세요.");
+      Swal.fire({
+        icon: "error",
+        title: "2개 이상의 여행지를 추가해주세요!",
+      });
     } else {
-      if (window.confirm("게시글을 수정하시겠습니까?")) {
-        updateCourse({
-          courseId: paramId,
-          location: selectedRegions,
-          hashtags: selectedLabels,
-          title: courseTitle,
-          cover: uploadCover || galleryCover,
-          courseList: JSON.stringify(editedList),
-          travelStatus,
-          profileImage: authService.currentUser?.photoURL,
-        });
-
-        navigate(`/course/${course?.id}`);
-        dispatch(replaceAllData([]));
-        if (!travelStatus) {
-          alert("수정이 완료되었습니다. 여행 후 리뷰도 꼭 부탁드려요!");
+      Swal.fire({
+        title: "게시글을 수정하시겠습니까?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#B3261E",
+        cancelButtonColor: "#50AA72",
+        confirmButtonText: "네",
+        cancelButtonText: "아니요",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          updateCourse({
+            courseId: paramId,
+            location: selectedRegions,
+            hashtags: selectedLabels,
+            title: courseTitle,
+            cover: uploadCover || galleryCover,
+            courseList: JSON.stringify(editedList),
+            travelStatus,
+            profileImage: authService.currentUser?.photoURL,
+          });
+          navigate(`/course/${course?.id}`);
+          dispatch(replaceAllData([]));
+          if (!travelStatus) {
+            Swal.fire({
+              icon: "success",
+              title: "수정이 완료되었습니다! 여행 후 리뷰도 꼭 부탁드려요!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          } else {
+            Swal.fire({
+              icon: "success",
+              title: `${authService.currentUser?.displayName}님의 여정을 공유해주셔서 감사합니다!`,
+            });
+          }
         }
-      }
+      });
     }
   };
 

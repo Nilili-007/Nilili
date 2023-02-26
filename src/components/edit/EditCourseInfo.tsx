@@ -11,8 +11,9 @@ import {
   upCourse,
 } from "../../redux/modules/temporarySlice";
 import { EditCourseTextarea } from "./index";
+import Swal from "sweetalert2";
 
-const EditCourseInfo = ({ modalOpen, setModalOpen }: any) => {
+const EditCourseInfo = () => {
   const [text, setText] = useState<any>("");
   const dispatch = useDispatch();
   const lists = useSelector((state: any) => state.temporarySlice.courseList);
@@ -20,16 +21,22 @@ const EditCourseInfo = ({ modalOpen, setModalOpen }: any) => {
     (state: any) => state.temporarySlice.filteredId
   );
 
-  const showModal = () => {
-    setModalOpen(!modalOpen);
-  };
-
   const onClickDeleteCourse = (item: any) => {
-    if (window.confirm("일정에서 삭제하시겠습니까?")) {
-      dispatch(deleteCourse(item.id));
-      dispatch(deleteMemo(item.id));
-      setText("");
-    }
+    Swal.fire({
+      title: "일정에서 삭제하시겠습니까?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#B3261E",
+      cancelButtonColor: "#50AA72",
+      confirmButtonText: "네, 삭제할래요",
+      cancelButtonText: "아니요, 취소할래요",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteCourse(item.id));
+        dispatch(deleteMemo(item.id));
+        setText("");
+      }
+    });
   };
 
   const onClickUpCourse = (item: any) => {

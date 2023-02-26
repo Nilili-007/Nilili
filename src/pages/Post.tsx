@@ -14,6 +14,7 @@ import {
   PostTravelStatus,
 } from "../components/post/index";
 import { replaceAllData } from "../redux/modules/temporarySlice";
+import Swal from "sweetalert2";
 
 //select option의 타입
 export interface optionType {
@@ -36,7 +37,7 @@ const Post = () => {
   const [galleryCover, setGalleryCover] = useState("");
 
   //지역 선택
-  const [regions, setRegions] = useState<optionType[] | null>([]);
+  const [regions, setRegions] = useState<optionType[] | any>([]);
   const [courseTitle, setCourseTitle] = useState("");
 
   // 여행전/후 선택
@@ -58,6 +59,8 @@ const Post = () => {
     setModalOpen(!modalOpen);
   };
 
+  console.log(regions.length);
+
   const onClickAddPost = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -65,7 +68,7 @@ const Post = () => {
     //selectedTags는 오브젝트 배열입니다.
     //hashtag는 데이터베이스에 문자열 배열로 들어가야 하기 때문에, value 값만 추출하여 문자열배열로 바꿉니다.
     let selectedLabels = selectedTags?.map((tag) => tag.label);
-    let selectedRegions = regions?.map((region) => region.value);
+    let selectedRegions = regions?.map((region: any) => region.value);
 
     const newPost = {
       location: selectedRegions,
@@ -85,36 +88,72 @@ const Post = () => {
     if (
       (uploadCover || galleryCover) &&
       travelStatus !== null &&
-      regions &&
+      regions.length > 0 &&
       courseTitle.trim() &&
       courseList.length > 1
     ) {
-      if (window.confirm("게시글을 등록하시겠습니까?")) {
-        await addCourse(newPost);
-        setCondition(true);
-        if (!travelStatus) {
-          alert("훌륭한 여정이에요! 여행 후 리뷰도 꼭 부탁드려요!");
+      Swal.fire({
+        title: "게시글을 등록하시겠습니까?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#B3261E",
+        cancelButtonColor: "#50AA72",
+        confirmButtonText: "네",
+        cancelButtonText: "아니요",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          addCourse(newPost);
+          setCondition(true);
+          if (!travelStatus) {
+            Swal.fire({
+              icon: "success",
+              title: "훌륭한 여정이에요! 여행 후 리뷰도 꼭 부탁드려요!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          } else {
+            Swal.fire({
+              icon: "success",
+              title: `${authService.currentUser?.displayName}님의 여정을 공유해주셔서 감사합니다!`,
+            });
+          }
         }
-      }
+      });
     } else {
       if (!uploadCover && !galleryCover) {
-        alert("커버 이미지를 추가해주세요.");
+        Swal.fire({
+          icon: "error",
+          title: "커버 이미지를 추가해주세요!",
+        });
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
       if (travelStatus === null) {
-        alert("여행 전/여행 후 카테고리를 선택해주세요.");
+        Swal.fire({
+          icon: "error",
+          title: "여행 전/후 카테고리를 선택해주세요!",
+        });
         window.scrollTo({ top: 450, behavior: "smooth" });
       }
-      if (!regions) {
-        alert("하나 이상의 지역을 선택해주세요.");
+      if (regions.length === 0) {
+        Swal.fire({
+          icon: "error",
+          title: "하나 이상의 지역을 선택해주세요!",
+        });
         ragionsRef.current?.focus();
       }
       if (!courseTitle?.trim()) {
-        alert("제목을 입력해주세요.");
+        Swal.fire({
+          icon: "error",
+          title: "제목을 입력해주세요!",
+        });
         titleRef.current?.focus();
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }
       if (courseList.length < 2) {
-        alert("2개 이상의 코스를 등록해주세요.");
+        Swal.fire({
+          icon: "error",
+          title: "2개 이상의 여행지를 추가해주세요!",
+        });
       }
     }
   };

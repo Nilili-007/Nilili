@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Swal from "sweetalert2";
 
 const initialState = {
   courseList: [],
@@ -30,7 +31,10 @@ const temporarySlice = createSlice({
         state.courseList[i] = state.courseList[i - 1];
         state.courseList[i - 1] = temp;
       } else {
-        alert("첫 번째 코스입니다.");
+        Swal.fire({
+          icon: "error",
+          title: "첫 번째 코스입니다.",
+        });
       }
     },
     downCourse: (state: any, action) => {
@@ -43,7 +47,10 @@ const temporarySlice = createSlice({
         state.courseList[i] = state.courseList[i + 1];
         state.courseList[i + 1] = temp;
       } else {
-        alert("마지막 코스입니다.");
+        Swal.fire({
+          icon: "error",
+          title: "마지막 코스입니다.",
+        });
       }
     },
     editMemo: (state: any, action) => {

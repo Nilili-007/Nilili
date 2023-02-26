@@ -4,6 +4,7 @@ import { PostCourseDesc, PostTextarea } from "./index";
 import styled from "styled-components";
 import { TiMinus } from "react-icons/ti";
 import { AiOutlineUp, AiOutlineDown } from "react-icons/ai";
+import Swal from "sweetalert2";
 import {
   deleteCourse,
   deleteMemo,
@@ -31,11 +32,21 @@ const PostCourseInfo = ({ setBoundsInfo }: PostProps) => {
   const [text, setText] = useState("");
 
   const onClickDeleteCourse = (item: any) => {
-    if (window.confirm("일정에서 삭제하시겠습니까?")) {
-      dispatch(deleteCourse(item.id));
-      dispatch(deleteMemo(item.id));
-      setText("");
-    }
+    Swal.fire({
+      title: "일정에서 삭제하시겠습니까?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#B3261E",
+      cancelButtonColor: "#50AA72",
+      confirmButtonText: "네, 삭제할래요",
+      cancelButtonText: "아니요, 취소할래요",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteCourse(item.id));
+        dispatch(deleteMemo(item.id));
+        setText("");
+      }
+    });
   };
 
   const onClickUpCourse = (item: any) => {
@@ -83,14 +94,24 @@ const PostCourseInfo = ({ setBoundsInfo }: PostProps) => {
                   className="-mt-2 text-3xl text-gray-400 hover:text-black"
                 />
               </div>
-              <div className="flex text-2xl p-3 -mt-5 float-right">
-                {courseList[0] === item ? null : (
-                  <AiOutlineUp onClick={() => onClickUpCourse(item)} />
-                )}
-                {courseList[courseList.length - 1] === item ? null : (
-                  <AiOutlineDown onClick={() => onClickDownCourse(item)} />
-                )}
-              </div>
+              {courseList.length < 2 ? null : (
+                <div className="flex text-2xl p-3 -mt-5 float-right">
+                  <ItemBtn
+                    className={courseList[0] === item ? "non-clicked" : ""}
+                  >
+                    <AiOutlineUp onClick={() => onClickUpCourse(item)} />
+                  </ItemBtn>
+                  <ItemBtn
+                    className={
+                      courseList[courseList.length - 1] === item
+                        ? "non-clicked"
+                        : ""
+                    }
+                  >
+                    <AiOutlineDown onClick={() => onClickDownCourse(item)} />
+                  </ItemBtn>
+                </div>
+              )}
             </ItemCard>
           );
         })}
@@ -108,5 +129,11 @@ export const ItemCard = styled.div`
   &.clicked {
     background: black;
     color: white;
+  }
+`;
+
+const ItemBtn = styled.span`
+  &.non-clicked {
+    color: #cccccc;
   }
 `;
