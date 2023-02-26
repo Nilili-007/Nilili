@@ -89,9 +89,13 @@ const Post = () => {
       courseTitle.trim() &&
       courseList.length > 1
     ) {
-      await addCourse(newPost);
-      setCondition(true);
-      window.alert("훌륭한 여정이에요! 여행 후 리뷰도 꼭 부탁드려요!");
+      if (window.confirm("게시글을 등록하시겠습니까?")) {
+        await addCourse(newPost);
+        setCondition(true);
+        if (!travelStatus) {
+          alert("훌륭한 여정이에요! 여행 후 리뷰도 꼭 부탁드려요!");
+        }
+      }
     } else {
       if (!uploadCover && !galleryCover) {
         alert("커버 이미지를 추가해주세요.");

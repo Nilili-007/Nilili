@@ -89,20 +89,24 @@ const EditCourse = () => {
     } else if (editedList.length < 2) {
       alert("2개 이상의 코스를 등록해주세요.");
     } else {
-      updateCourse({
-        courseId: paramId,
-        location: selectedRegions,
-        hashtags: selectedLabels,
-        title: courseTitle,
-        cover: uploadCover || galleryCover,
-        courseList: JSON.stringify(editedList),
-        travelStatus,
-        profileImage: authService.currentUser?.photoURL,
-      });
+      if (window.confirm("게시글을 수정하시겠습니까?")) {
+        updateCourse({
+          courseId: paramId,
+          location: selectedRegions,
+          hashtags: selectedLabels,
+          title: courseTitle,
+          cover: uploadCover || galleryCover,
+          courseList: JSON.stringify(editedList),
+          travelStatus,
+          profileImage: authService.currentUser?.photoURL,
+        });
 
-      alert("정상적으로 수정이 완료되었습니다.");
-      navigate(`/course/${course?.id}`);
-      dispatch(replaceAllData([]));
+        navigate(`/course/${course?.id}`);
+        dispatch(replaceAllData([]));
+        if (!travelStatus) {
+          alert("수정이 완료되었습니다. 여행 후 리뷰도 꼭 부탁드려요!");
+        }
+      }
     }
   };
 
