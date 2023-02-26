@@ -29,7 +29,6 @@ const EditCourseMap = ({ initLists, modalOpen, setModalOpen }: any) => {
         item.bounds,
         kakao.maps.LatLngBounds.prototype
       );
-      reduxBounds = undefined;
     }
   });
 
@@ -37,7 +36,6 @@ const EditCourseMap = ({ initLists, modalOpen, setModalOpen }: any) => {
     reduxLists.map((item: any) => {
       if (item.id === filteredId) {
         reduxBounds = item.bounds;
-        fbBounds = undefined;
       }
     });
   }

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { PostCourseDesc, PostTextarea } from "./index";
 import styled from "styled-components";
 import { TiMinus } from "react-icons/ti";
-import { AiOutlineUp, AiOutlineDown, AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineUp, AiOutlineDown } from "react-icons/ai";
 import {
   deleteCourse,
   deleteMemo,
@@ -18,11 +18,7 @@ interface PostProps {
   setBoundsInfo: Dispatch<SetStateAction<object>>;
 }
 
-const PostCourseInfo = ({
-  modalOpen,
-  setModalOpen,
-  setBoundsInfo,
-}: PostProps) => {
+const PostCourseInfo = ({ setBoundsInfo }: PostProps) => {
   const dispatch = useDispatch();
   const courseList = useSelector(
     (state: any) => state.temporarySlice.courseList
@@ -35,7 +31,6 @@ const PostCourseInfo = ({
   const [text, setText] = useState("");
 
   const onClickDeleteCourse = (item: any) => {
-    // 모달로 변경
     if (window.confirm("일정에서 삭제하시겠습니까?")) {
       dispatch(deleteCourse(item.id));
       dispatch(deleteMemo(item.id));
@@ -88,15 +83,13 @@ const PostCourseInfo = ({
                   className="-mt-2 text-3xl text-gray-400 hover:text-black"
                 />
               </div>
-              <div className="flex text-3xl p-3 -mt-5">
-                <AiOutlineUp
-                  onClick={() => onClickUpCourse(item)}
-                  className="hover:text-gray-400"
-                />
-                <AiOutlineDown
-                  onClick={() => onClickDownCourse(item)}
-                  className="hover:text-gray-400 ml-auto"
-                />
+              <div className="flex text-2xl p-3 -mt-5 float-right">
+                {courseList[0] === item ? null : (
+                  <AiOutlineUp onClick={() => onClickUpCourse(item)} />
+                )}
+                {courseList[courseList.length - 1] === item ? null : (
+                  <AiOutlineDown onClick={() => onClickDownCourse(item)} />
+                )}
               </div>
             </ItemCard>
           );

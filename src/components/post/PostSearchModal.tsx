@@ -1,6 +1,6 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { GrFormClose } from "react-icons/gr";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addCourse } from "../../redux/modules/temporarySlice";
 
 interface PostProps {
@@ -22,6 +22,7 @@ const PostSearchModal = ({
 }: PostProps) => {
   const dispatch = useDispatch();
   const [text, setText] = useState("");
+  const lists = useSelector((state: any) => state.temporarySlice.courseList);
 
   const closeModal = () => {
     setModalOpen(false);
@@ -48,7 +49,31 @@ const PostSearchModal = ({
       bounds: boundsInfo,
       memo: "",
     };
+
+    // lists가 업데이트 되지 않는 이슈
+    // lists의 position과 targetItem의 position이 불일치하는 이슈
+
     dispatch(addCourse(targetItem));
+
+    lists.filter((course: any) => {
+      if (course.id === targetItem.id) {
+        if (
+          window.confirm("이미 등록한 여행지입니다. 그래도 추가하시겠습니까?")
+        ) {
+          dispatch(addCourse(targetItem));
+        }
+      }
+    });
+
+    // if (!lists.includes(targetItem)) {
+    //   dispatch(addCourse(targetItem));
+    // } else {
+    //   if (
+    //     window.confirm("이미 등록한 여행지입니다. 그래도 추가하시겠습니까?")
+    //   ) {
+    //     dispatch(addCourse(targetItem));
+    //   }
+    // }
   };
 
   return (

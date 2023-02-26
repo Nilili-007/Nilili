@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Map, MapTypeControl } from "react-kakao-maps-sdk";
+import { Map, MapTypeControl, ZoomControl } from "react-kakao-maps-sdk";
 import { PostSearchModal, PostCourseInfo, PostMarkers } from "./index";
 import { useSelector } from "react-redux";
 import { displayPagination } from "../../utils/kakao";
@@ -71,7 +71,8 @@ const PostMap = ({ modalOpen, setModalOpen }: any) => {
         className="w-[65%] h-full z-0"
       >
         <PostMarkers />
-        <MapTypeControl position={kakao.maps.ControlPosition.TOPRIGHT} />
+        <MapTypeControl position={kakao.maps.ControlPosition.TOPLEFT} />
+        <ZoomControl />
       </Map>
       <PostCourseInfo
         modalOpen={modalOpen}
