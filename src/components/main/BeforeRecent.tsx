@@ -1,11 +1,9 @@
 import { useGetCourseQuery } from "../../redux/modules/apiSlice";
 import { Link } from "react-router-dom";
+import { SyncLoader } from "react-spinners";
 
 const BeforeRecent = () => {
   const { data, isLoading, isError } = useGetCourseQuery();
-  if (isLoading) {
-    return <>로딩중....</>;
-  }
   if (isError) {
     return <>에러가 발생했습니다.</>;
   }
@@ -18,6 +16,11 @@ const BeforeRecent = () => {
       <p className=" hidden sm:block ml-4 pb-5 w-fit text-xl text-[#999999]">
         아직 고민 중이신가요? 이런 일정은 어떠세요?
       </p>
+      {isLoading ? (
+        <div className="w-full h-[388px] flex justify-center items-center">
+          <SyncLoader color="#A0A4A8" margin={10} size={18} />
+        </div>
+      ) : null}
       <ul className="overflow-x-auto whitespace-nowrap no-scrollbar">
         {data
           ?.filter((item: CourseType) => item.travelStatus === false)

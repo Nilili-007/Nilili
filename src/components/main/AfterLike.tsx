@@ -1,10 +1,8 @@
 import { useGetCourseLikeQuery } from "../../redux/modules/apiSlice";
 import { Link } from "react-router-dom";
+import { SyncLoader } from "react-spinners";
 const AfterLike = () => {
   const { data, isLoading, isError } = useGetCourseLikeQuery();
-  if (isLoading) {
-    return <>로딩중....</>;
-  }
   if (isError) {
     return <>에러가 발생했습니다.</>;
   }
@@ -18,6 +16,11 @@ const AfterLike = () => {
         아직 고민 중이신가요? 이런 일정은 어떠세요?
       </p>
       <ul className="overflow-x-auto whitespace-nowrap no-scrollbar">
+        {isLoading ? (
+          <div className="w-full h-[589px] flex justify-center items-center">
+            <SyncLoader color="#A0A4A8" margin={10} size={18} />
+          </div>
+        ) : null}
         {data
           ?.filter((item: CourseType) => item.travelStatus === true)
           .slice(0, 3)
