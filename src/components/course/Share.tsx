@@ -26,7 +26,7 @@ const Share = () => {
         title: "NILILI의 여행 코스를 공유합니다",
         description: "NILILI의 여행 코스로 여행을 다녀오세요!",
         imageUrl:
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+          "https://user-images.githubusercontent.com/117059420/217982337-b6b4d259-e3d2-4535-8e62-ca8d5d27082f.jpg",
         link: {
           webUrl: currentURL,
           mobileWebUrl: currentURL,
@@ -35,9 +35,9 @@ const Share = () => {
       itemContent: {
         profileText: "NILILI",
         profileImageUrl:
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+          "https://user-images.githubusercontent.com/117059420/217982337-b6b4d259-e3d2-4535-8e62-ca8d5d27082f.jpg",
         titleImageUrl:
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+          "https://user-images.githubusercontent.com/117059420/217982337-b6b4d259-e3d2-4535-8e62-ca8d5d27082f.jpg",
       },
       buttons: [
         {
@@ -55,20 +55,19 @@ const Share = () => {
   const status = useScript("https://developers.kakao.com/sdk/js/kakao.js");
 
   // kakao sdk 초기화하기
-  // status가 변경될 때마다 실행되며, status가 ready일 때 초기화를 시도합니다.
+  // status가 변경될 때마다 실행되며, status가 ready일 때 초기화를 시도
   useEffect(() => {
     if (status === "ready" && window.Kakao) {
       // 중복 initialization 방지
       if (!window.Kakao.isInitialized()) {
-        // 두번째 step 에서 가져온 javascript key 를 이용하여 initialize
-        window.Kakao.init(process.env.REACT_APP_KAKAO);
+        window.Kakao.init("48bbfc6b192bda8667b971cc07bdee12");
       }
     }
   }, [status]);
 
   return (
-    <div>
-      <h1>공유하기</h1>
+    <div className="flex justify-end items-center gap-3 mt-2">
+      <div className="text-black text-[20px] font-medium">공유하기</div>
       <div>
         <FacebookShareButton url={currentURL}>
           <FacebookIcon size={40} round={true} borderRadius={24} />
@@ -77,13 +76,18 @@ const Share = () => {
           <TwitterIcon size={40} round={true} borderRadius={24} />
         </TwitterShareButton>
         <CopyToClipboard text={currentURL}>
-          <button className="w-[40px] h-[40px] text-white borde-none rounded-full text-base bg-[#7362ff] hover:bg-[#a99fee]">
-            URL
+          <button>
+            <img
+              className="w-[40px] h-[40px] border rounded-full bg-white"
+              src="https://cdn.icon-icons.com/icons2/3510/PNG/512/link_share_url_hyperlink_icon_220890.png"
+              alt="링크복사"
+            />
           </button>
         </CopyToClipboard>
         <button onClick={handleKakaoBtn}>
           <img
-            src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"
+            className="w-[40px] h-[40px]"
+            src="https://miro.medium.com/v2/resize:fit:288/format:webp/1*IsSbRIzHF8qqFQGTl3bNMg.png"
             alt="카카오링크 보내기 버튼"
           />
         </button>
