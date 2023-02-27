@@ -139,7 +139,10 @@ const UserList = ({ done, category }: UserListType) => {
               {item.nickname}
             </p>
             <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
-              {item.createdAt}
+              {JSON.parse(item.createdAt).substr(0, 10)}{" "}
+              {Number(JSON.parse(item.createdAt).substr(11, 2)) + 9}
+              {":"}
+              {JSON.parse(item.createdAt).substr(14, 2)}
             </p>
           </Link>
         ))}
