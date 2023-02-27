@@ -19,6 +19,19 @@ const Share = () => {
   // window 객체에서 현재 url 가져오기
   const currentURL = window.location.href;
 
+  // mobile web share api
+  const shareHandle = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: "NILILI",
+        text: "NILILI의 여행코스를 공유해보세요",
+        url: currentURL,
+      });
+    } else {
+      alert("공유하기가 지원되지 않는 환경입니다");
+    }
+  };
+
   const handleKakaoBtn = () => {
     window.Kakao.Share.sendDefault({
       objectType: "feed",
@@ -92,6 +105,7 @@ const Share = () => {
           />
         </button>
       </div>
+      <button onClick={shareHandle}>모바일 공유하기</button>
     </div>
   );
 };
