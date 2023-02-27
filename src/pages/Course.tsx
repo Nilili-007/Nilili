@@ -9,6 +9,7 @@ import {
   CourseMap,
 } from "../components/course";
 import { authService } from "../utils/firebase";
+import { useEffect } from "react";
 
 const Course = () => {
   const { data, isLoading } = useGetCourseQuery();
@@ -26,6 +27,9 @@ const Course = () => {
     hours = Number(JSON.parse(courseData?.createdAt).substr(11, 2)) + 9;
     seconds = JSON.parse(courseData?.createdAt).substr(14, 2);
   }
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  });
 
   return (
     <div>

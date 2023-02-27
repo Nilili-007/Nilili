@@ -58,6 +58,8 @@ export const courseApi = createApi({
         cover,
         travelStatus,
         courseList,
+        nickname,
+        profileImage,
       }) {
         try {
           await updateDoc(doc(dbService, "courses", courseId), {
@@ -67,6 +69,8 @@ export const courseApi = createApi({
             cover,
             travelStatus,
             courseList,
+            nickname,
+            profileImage,
           });
           return { data: null };
         } catch (error: any) {
@@ -147,10 +151,11 @@ export const courseApi = createApi({
       providesTags: ["Comments"],
     }),
     updateComment: builder.mutation({
-      async queryFn({ commentId, newComment, profileImage }) {
+      async queryFn({ commentId, newComment, nickname, profileImage }) {
         try {
           await updateDoc(doc(dbService, "comments", commentId), {
             comment: newComment,
+            nickname,
             profileImage,
           });
           return { data: null };

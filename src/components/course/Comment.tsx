@@ -82,6 +82,7 @@ const Comment = ({ comment, index }: CommentProps) => {
     updateComment({
       commentId: id,
       newComment: editComment,
+      nickname: authService.currentUser?.displayName,
       profileImage: authService.currentUser?.photoURL,
     });
     Swal.fire({

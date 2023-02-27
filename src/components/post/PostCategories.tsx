@@ -37,7 +37,6 @@ const PostCategories = ({ regions, setRegions, regionsRef }: titleProps) => {
           ref={regionsRef}
           options={regionOptions}
           placeholder={"지역"}
-          autoFocus={true}
           onChange={handleCategorySelect}
           isMulti
           value={regions}
