@@ -59,8 +59,6 @@ const Post = () => {
     setModalOpen(!modalOpen);
   };
 
-  console.log(regions.length);
-
   const onClickAddPost = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -159,10 +157,20 @@ const Post = () => {
   };
 
   const onClickCancel = () => {
-    if (window.confirm("이 페이지에서 나가시겠습니까?")) {
-      navigate(`/`);
-      dispatch(replaceAllData([]));
-    }
+    Swal.fire({
+      title: "게시글 작성을 취소하시겠습니까?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#B3261E",
+      cancelButtonColor: "#50AA72",
+      confirmButtonText: "네, 다음 번에 쓸게요.",
+      cancelButtonText: "아니요, 마저 쓸게요.",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate(`/`);
+        dispatch(replaceAllData([]));
+      }
+    });
   };
 
   useEffect(() => {
@@ -171,6 +179,24 @@ const Post = () => {
       setCondition(false);
     }
   }, [data]);
+
+  window.addEventListener("popstate", () =>
+    window.history.pushState(null, "", window.location.href)
+  );
+
+  useEffect(() => {
+    // 새로고침 방지
+    const preventClose = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = "";
+    };
+
+    window.addEventListener("beforeunload", preventClose);
+
+    return () => {
+      window.addEventListener("beforeunload", preventClose);
+    };
+  }, []);
 
   return (
     <div className="mb-[7%]">

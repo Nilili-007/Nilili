@@ -143,10 +143,20 @@ const EditCourse = () => {
   };
 
   const onClickCancel = () => {
-    if (window.confirm("이 페이지에서 나가시겠습니까?")) {
-      navigate(`/course/${paramId}`);
-      dispatch(replaceAllData([]));
-    }
+    Swal.fire({
+      title: "게시글 수정을 취소하시겠습니까?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#B3261E",
+      cancelButtonColor: "#50AA72",
+      confirmButtonText: "네, 다음 번에 쓸게요.",
+      cancelButtonText: "아니요, 마저 쓸게요.",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate(`/course/${paramId}`);
+        dispatch(replaceAllData([]));
+      }
+    });
   };
 
   return (
