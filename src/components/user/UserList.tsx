@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useUpdateTravelStatusMutation } from "../../redux/modules/apiSlice";
 import { ListMap } from "../shared";
 import SearchPagenation from "../search/SearchPagenation";
+import { SyncLoader } from "react-spinners";
 
 type UserListType = {
   done: boolean;
@@ -100,7 +101,11 @@ const UserList = ({ done, category }: UserListType) => {
   }, [data, category, done]);
 
   if (isLoading) {
-    return <>로딩중....</>;
+    return (
+      <div className="h-[608px] w-full flex justify-center items-center">
+        <SyncLoader color="#A0A4A8" margin={12} size={18} />
+      </div>
+    );
   }
   if (isError) {
     return <>에러가 발생했습니다.</>;
@@ -139,7 +144,10 @@ const UserList = ({ done, category }: UserListType) => {
               {item.nickname}
             </p>
             <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
-              {item.createdAt}
+              {JSON.parse(item.createdAt).substr(0, 10)}{" "}
+              {Number(JSON.parse(item.createdAt).substr(11, 2)) + 9}
+              {":"}
+              {JSON.parse(item.createdAt).substr(14, 2)}
             </p>
           </Link>
         ))}

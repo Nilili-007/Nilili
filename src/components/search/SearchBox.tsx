@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeHashTagNum } from "../../redux/modules/searchSlice";
 import { hashTagOptions } from "../post/PostHashTag";
 import { regionOptions } from "../post/PostCategories";
+import { SyncLoader } from "react-spinners";
 
 const travelStatusOptions = [
   { value: false, label: "여행 전" },
@@ -164,7 +165,9 @@ const SearchBox = () => {
       {filteredList?.length === 0 ? (
         <p>검색결과가 없습니다.</p>
       ) : isLoading ? (
-        <p>로딩 중입니다.</p>
+        <div className="w-full h-[600px] flex justify-center items-center">
+          <SyncLoader color="#A0A4A8" margin={10} size={18} />
+        </div>
       ) : isError ? (
         <p>에러가 발생했습니다.</p>
       ) : (
