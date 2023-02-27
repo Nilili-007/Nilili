@@ -79,34 +79,38 @@ const Share = () => {
   }, [status]);
 
   return (
-    <div className="flex justify-end items-center gap-3 mt-2">
-      <div className="text-black text-[20px] font-medium">공유하기</div>
-      <div>
-        <FacebookShareButton url={currentURL}>
-          <FacebookIcon size={40} round={true} borderRadius={24} />
-        </FacebookShareButton>
-        <TwitterShareButton url={currentURL}>
-          <TwitterIcon size={40} round={true} borderRadius={24} />
-        </TwitterShareButton>
-        <CopyToClipboard text={currentURL}>
-          <button>
+    <>
+      <div className="flex justify-end items-center gap-3 mt-2 xs">
+        <div className="text-black text-[20px] font-medium">공유하기</div>
+        <div>
+          <FacebookShareButton url={currentURL}>
+            <FacebookIcon size={40} round={true} borderRadius={24} />
+          </FacebookShareButton>
+          <TwitterShareButton url={currentURL}>
+            <TwitterIcon size={40} round={true} borderRadius={24} />
+          </TwitterShareButton>
+          <CopyToClipboard text={currentURL}>
+            <button>
+              <img
+                className="w-[40px] h-[40px] border rounded-full bg-white"
+                src="https://cdn.icon-icons.com/icons2/3510/PNG/512/link_share_url_hyperlink_icon_220890.png"
+                alt="링크복사"
+              />
+            </button>
+          </CopyToClipboard>
+          <button onClick={handleKakaoBtn}>
             <img
-              className="w-[40px] h-[40px] border rounded-full bg-white"
-              src="https://cdn.icon-icons.com/icons2/3510/PNG/512/link_share_url_hyperlink_icon_220890.png"
-              alt="링크복사"
+              className="w-[40px] h-[40px]"
+              src="https://miro.medium.com/v2/resize:fit:288/format:webp/1*IsSbRIzHF8qqFQGTl3bNMg.png"
+              alt="카카오링크 보내기 버튼"
             />
           </button>
-        </CopyToClipboard>
-        <button onClick={handleKakaoBtn}>
-          <img
-            className="w-[40px] h-[40px]"
-            src="https://miro.medium.com/v2/resize:fit:288/format:webp/1*IsSbRIzHF8qqFQGTl3bNMg.png"
-            alt="카카오링크 보내기 버튼"
-          />
-        </button>
+        </div>
       </div>
-      <button onClick={shareHandle}>모바일 공유하기</button>
-    </div>
+      <div className="md:hidden">
+        <button onClick={shareHandle}>모바일 공유하기</button>
+      </div>
+    </>
   );
 };
 
