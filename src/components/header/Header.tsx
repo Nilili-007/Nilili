@@ -182,7 +182,6 @@ const Header = () => {
                       <li className="text-sm px-4 py-2 leading-none  text-white">
                         <button
                           className="font-bold underline hover:text-teal-500"
-                          // onClick={() => navigate(`/user/${userID}`)}
                           onClick={leavePresentPage}
                         >
                           {userName}
@@ -196,12 +195,7 @@ const Header = () => {
                         <button onClick={leavePresentPage}>글쓰기</button>
                       </li>
                       <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-5000">
-                        <button
-                          onClick={leavePresentPage}
-                          // onClick={logoutBtn}
-                        >
-                          로그아웃
-                        </button>
+                        <button onClick={leavePresentPage}>로그아웃</button>
                       </li>
                     </>
                   ) : (

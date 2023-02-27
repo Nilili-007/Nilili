@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ItemCard } from "../post/PostCourseInfo";
+import { ItemBtn, ItemCard } from "../post/PostCourseInfo";
 import { TiMinus } from "react-icons/ti";
 import { AiOutlineUp, AiOutlineDown, AiOutlinePlus } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
@@ -82,15 +82,23 @@ const EditCourseInfo = () => {
                   className="-mt-2 mr-2 text-3xl text-gray-400"
                 />
               </div>
-              <div className="flex text-3xl p-3 -mt-5">
-                <AiOutlineUp
-                  onClick={() => onClickUpCourse(item)}
-                  className="hover:text-gray-400"
-                />
-                <AiOutlineDown
-                  onClick={() => onClickDownCourse(item)}
-                  className="hover:text-gray-400 ml-auto"
-                />
+              <div className="flex text-2xl p-3 -mt-5 float-right">
+                <ItemBtn className={lists[0] === item ? "non-clicked" : ""}>
+                  <AiOutlineUp
+                    onClick={() => onClickUpCourse(item)}
+                    className="hover:text-gray-400"
+                  />
+                </ItemBtn>
+                <ItemBtn
+                  className={
+                    lists[lists.length - 1] === item ? "non-clicked" : ""
+                  }
+                >
+                  <AiOutlineDown
+                    onClick={() => onClickDownCourse(item)}
+                    className="hover:text-gray-400 ml-auto"
+                  />
+                </ItemBtn>
               </div>
             </ItemCard>
           );

@@ -159,6 +159,20 @@ const EditCourse = () => {
     });
   };
 
+  // 새로고침, 페이지 닫기 확인
+  useEffect(() => {
+    const preventClose = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = "";
+    };
+
+    window.addEventListener("beforeunload", preventClose);
+
+    return () => {
+      window.addEventListener("beforeunload", preventClose);
+    };
+  }, []);
+
   return (
     <div className="mb-64">
       <PostHeader

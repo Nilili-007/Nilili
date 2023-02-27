@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { editMemo, filterCourse } from "../../redux/modules/temporarySlice";
 import styled from "styled-components";
+import TextareaAutosize from "react-textarea-autosize";
 
 const PostTextarea = ({ item, text, setText, setBoundsInfo }: any) => {
   const dispatch = useDispatch();
@@ -37,8 +38,9 @@ const PostTextarea = ({ item, text, setText, setBoundsInfo }: any) => {
   };
 
   return (
-    <Textarea
+    <TextareaAutosize
       autoFocus
+      rows={1}
       placeholder={item.memo ? item.memo : "자유롭게 메모를 남겨보세요."}
       value={item.id === filteredId ? text : null}
       onChange={
@@ -48,31 +50,33 @@ const PostTextarea = ({ item, text, setText, setBoundsInfo }: any) => {
         item.memo ? () => onFocusEditMemo(item) : () => onFocusGetId(item)
       }
       onBlur={() => onBlurAddMemo(item)}
-      className={item.memo ? "memo" : "null"}
+      className="w-full mt-3 ml-3 py-1 resize-none text-black focus:outline-none placeholder:text-gray-400"
     />
   );
 };
 
 export default PostTextarea;
 
-export const Textarea = styled.textarea`
-  width: 100%;
-  height: 80px;
-  color: black;
-  margin: 12px 0 0 12px;
-  padding: 4px 0;
-  font-size: 14px;
-  &:focus {
-    outline: none;
-  }
-  &.memo {
-    ::placeholder {
-      color: black;
-    }
-  }
-  &.null {
-    ::placeholder {
-      color: gray;
-    }
-  }
-`;
+// export const Textarea = styled.textarea`
+//   width: 100%;
+//   min-height: 14px;
+//   overflow-y: hidden;
+//   resize: none;
+//   color: black;
+//   margin: 12px 0 0 12px;
+//   padding: 4px 0;
+//   font-size: 14px;
+//   &:focus {
+//     outline: none;
+//   }
+//   &.memo {
+//     ::placeholder {
+//       color: black;
+//     }
+//   }
+//   &.null {
+//     ::placeholder {
+//       color: gray;
+//     }
+//   }
+// `;

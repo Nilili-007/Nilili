@@ -132,7 +132,7 @@ export const ItemCard = styled.div`
   }
 `;
 
-const ItemBtn = styled.span`
+export const ItemBtn = styled.span`
   &.non-clicked {
     color: #cccccc;
   }

@@ -22,10 +22,10 @@ const CourseInfo = ({ courseList, filteredId, setFilteredId }: any) => {
                     <h4 className="font-bold text-2xl">
                       #{key + 1} {item.name}
                     </h4>
-                    <p className="mt-1.5">{item.address}</p>
-                    <p>{item.road}</p>
-                    <p>{item.phone}</p>
-                    <p className="mt-1.5 text-gray-400">{item.memo}</p>
+                    <p className="mt-1.5 text-sm">{item.address}</p>
+                    <p className="text-sm">{item.road}</p>
+                    <p className="text-sm">{item.phone}</p>
+                    <p className="mt-1.5">{item.memo}</p>
                   </div>
                 </div>
               </ItemCard>

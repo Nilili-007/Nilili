@@ -184,8 +184,8 @@ const Post = () => {
     window.history.pushState(null, "", window.location.href)
   );
 
+  // 새로고침, 페이지 닫기 확인
   useEffect(() => {
-    // 새로고침 방지
     const preventClose = (e: BeforeUnloadEvent) => {
       e.preventDefault();
       e.returnValue = "";
