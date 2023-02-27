@@ -62,8 +62,7 @@ const Course = () => {
             </p>
             <CourseMap course={courseData} />
             <CourseHashTag course={courseData} />
-            <LikeBtn paramId={paramId} course={courseData} />
-            <CommentDesc paramId={paramId} />
+            <CommentDesc paramId={paramId} courseData={courseData} />
           </div>
         </div>
       )}
