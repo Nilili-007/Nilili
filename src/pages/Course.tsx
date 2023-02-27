@@ -7,6 +7,7 @@ import {
   CommentDesc,
   CourseHeader,
   CourseMap,
+  Share,
 } from "../components/course";
 import { authService } from "../utils/firebase";
 
@@ -55,6 +56,7 @@ const Course = () => {
             </p>
             <CourseMap course={courseData} />
             <CourseHashTag course={courseData} />
+            <Share />
             <LikeBtn paramId={paramId} course={courseData} />
             <CommentDesc paramId={paramId} />
           </div>

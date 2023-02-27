@@ -8,6 +8,7 @@ import CourseHeader from "./CourseHeader";
 import CourseMap from "./CourseMap";
 import CourseMapMarker from "./CourseMapMarker";
 import CourseInfo from "./CourseInfo";
+import Share from "./Share";
 
 export {
   Comment,
@@ -20,4 +21,5 @@ export {
   CourseMapMarker,
   CourseInfo,
   LikeBtn,
+  Share,
 };
