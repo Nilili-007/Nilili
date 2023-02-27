@@ -11,7 +11,7 @@ export interface CommentProps {
 
 const CommentDesc = ({ paramId }: CommentProps) => {
   const [desc, setDesc] = useState(true);
-  const { data, isLoading, isError, error } = useGetCommentQuery();
+  const { data, isError, error } = useGetCommentQuery();
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
   const filterData = data?.filter((comment) => comment.postId === paramId);
@@ -69,9 +69,6 @@ const CommentDesc = ({ paramId }: CommentProps) => {
           />
         </div>
       </div>
-      {isLoading ? (
-        <h3 className="text-xl">댓글을 불러오고 있습니다 :-) </h3>
-      ) : null}
       {desc === true
         ? currentPosts?.map((comment, index) => {
             return <Comment key={comment.id} comment={comment} index={index} />;

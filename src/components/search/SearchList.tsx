@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { SyncLoader } from "react-spinners";
 import { useGetCourseQuery } from "../../redux/modules/apiSlice";
 import SearchPagenation from "./SearchPagenation";
 
@@ -11,7 +12,7 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(12);
 
-  const { isLoading, isError, error } = useGetCourseQuery();
+  const { isError, error } = useGetCourseQuery();
 
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
@@ -31,9 +32,8 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
   }
 
   return (
-    <div className=" my-10 3xl:w-[60%] 2xl:w-[70%] w-[90%] ">
+    <div className="my-10 3xl:w-[60%] 2xl:w-[70%] w-[90%]">
       <ul className="flex flex-wrap justify-evenly">
-        {isLoading ? <h2>데이터를 불러오고 있습니다</h2> : null}
         {currentPosts?.map((item) => (
           <Link
             to={`/course/${item.id}`}

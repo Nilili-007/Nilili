@@ -10,6 +10,7 @@ import {
 } from "../components/course";
 import { authService } from "../utils/firebase";
 import { useEffect } from "react";
+import { SyncLoader } from "react-spinners";
 
 const Course = () => {
   const { data, isLoading } = useGetCourseQuery();
@@ -34,7 +35,9 @@ const Course = () => {
   return (
     <div>
       {isLoading ? (
-        <div className="h-screen m-40 text-3xl">Loading...</div>
+        <div className="h-screen flex justify-center items-center">
+          <SyncLoader color="#A0A4A8" margin={10} size={18} />
+        </div>
       ) : (
         <div>
           <CourseHeader course={courseData} />
