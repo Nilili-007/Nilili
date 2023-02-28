@@ -87,7 +87,7 @@ const Share = () => {
 
   return (
     <>
-      <div className="flex justify-end items-center gap-3 mt-2 xs">
+      <div className="flex justify-end items-center gap-3 mt-2 xs:hidden">
         <div className="text-black text-[20px] font-medium">공유하기</div>
         <div>
           <FacebookShareButton url={currentURL}>
@@ -114,8 +114,15 @@ const Share = () => {
           </button>
         </div>
       </div>
-      <div className="md:hidden">
-        <button onClick={shareHandle}>모바일 공유하기</button>
+      <div className="md:hidden flex m-2">
+        <div className="text-black text-[20px] font-medium">공유하기</div>
+        <button onClick={shareHandle}>
+          <img
+            className="w-[40px] h-[40px] object-fill"
+            src="https://cdn-icons-png.flaticon.com/512/157/157960.png"
+            alt="공유"
+          />
+        </button>
       </div>
     </>
   );
