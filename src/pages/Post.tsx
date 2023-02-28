@@ -15,6 +15,7 @@ import {
 } from "../components/post/index";
 import { replaceAllData } from "../redux/modules/temporarySlice";
 import Swal from "sweetalert2";
+import * as amplitude from "@amplitude/analytics-browser";
 
 //select option의 타입
 export interface optionType {
@@ -23,6 +24,9 @@ export interface optionType {
 }
 
 const Post = () => {
+  useEffect(() => {
+    amplitude.track("글쓰기페이지 접속");
+  }, []);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [addCourse] = useAddCourseMutation();
@@ -99,6 +103,7 @@ const Post = () => {
         showConfirmButton: true,
         timer: 3000,
       });
+      amplitude.track("게시물 등록");
     } else {
       if (!uploadCover && !galleryCover) {
         Swal.fire({

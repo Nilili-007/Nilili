@@ -3,6 +3,7 @@ import { authService } from "../../utils/firebase";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import SocialLogin from "./SocialLogin";
+import { setAmplitudeUserId } from "../../utils/amplitude";
 
 interface LoginProps {
   closeModal: any;
@@ -40,6 +41,7 @@ const Login = ({
     setIsLogin(true);
     await signInWithEmailAndPassword(authService, email, password)
       .then(() => {
+        setAmplitudeUserId(authService.currentUser?.uid);
         setModal(false);
         document.body.style.overflow = "unset";
       })
