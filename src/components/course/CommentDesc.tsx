@@ -6,6 +6,7 @@ import Pagenation from "./Pagenation";
 import { BiComment } from "react-icons/bi";
 import LikeBtn from "./LikeBtn";
 import Share from "./Share";
+import { CommentType } from "./CommentInput";
 
 export interface CommentProps {
   paramId: string | undefined;
@@ -17,7 +18,9 @@ const CommentDesc = ({ paramId, courseData }: CommentProps) => {
   const { data, isError, error } = useGetCommentQuery();
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
-  const filterData = data?.filter((comment: any) => comment.postId === paramId);
+  const filterData = data?.filter(
+    (comment: CommentType) => comment.postId === paramId
+  );
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
   const currentPosts = filterData
