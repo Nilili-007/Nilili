@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import { replaceAllData } from "../../redux/modules/temporarySlice";
 import { useDeleteCourseMutation } from "../../redux/modules/apiSlice";
 import { storage } from "../../utils/firebase";
-import { ref, deleteObject } from "firebase/storage";
 import styled from "styled-components";
 import { MdOutlineMoreVert } from "react-icons/md";
 import Swal from "sweetalert2";
@@ -48,7 +47,13 @@ const CourseManageButton = ({ paramId, course }: CourseManageButtonProps) => {
         });
         deleteCourse(id);
         navigate("/");
-        deleteObject(ref(storage, `covers/${course?.cover}`));
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire({
+          icon: "error",
+          title: "삭제가 취소되었습니다.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
     });
   };

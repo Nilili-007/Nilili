@@ -1,8 +1,8 @@
 import Landing from "./Landing";
 import Path from "./Path";
-import TopButton from "./TopButton";
+
 import HashtagList from "./HashtagList";
 import BeforeRecent from "./BeforeRecent";
 import AfterLike from "./AfterLike";
 
-export { Landing, Path, TopButton, HashtagList, BeforeRecent, AfterLike };
+export { Landing, Path, HashtagList, BeforeRecent, AfterLike };

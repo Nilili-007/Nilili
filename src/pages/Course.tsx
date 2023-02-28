@@ -3,12 +3,13 @@ import { useGetCourseQuery } from "../redux/modules/apiSlice";
 import {
   CourseHashTag,
   CourseManageButton,
-  LikeBtn,
   CommentDesc,
   CourseHeader,
   CourseMap,
 } from "../components/course";
 import { authService } from "../utils/firebase";
+import { useEffect } from "react";
+import { SyncLoader } from "react-spinners";
 
 const Course = () => {
   const { data, isLoading } = useGetCourseQuery();
@@ -26,11 +27,16 @@ const Course = () => {
     hours = Number(JSON.parse(courseData?.createdAt).substr(11, 2)) + 9;
     seconds = JSON.parse(courseData?.createdAt).substr(14, 2);
   }
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
 
   return (
     <div>
       {isLoading ? (
-        <div className="h-screen m-40 text-3xl">Loading...</div>
+        <div className="h-screen flex justify-center items-center">
+          <SyncLoader color="#A0A4A8" margin={10} size={18} />
+        </div>
       ) : (
         <div>
           <CourseHeader course={courseData} />
@@ -55,8 +61,7 @@ const Course = () => {
             </p>
             <CourseMap course={courseData} />
             <CourseHashTag course={courseData} />
-            <LikeBtn paramId={paramId} course={courseData} />
-            <CommentDesc paramId={paramId} />
+            <CommentDesc paramId={paramId} courseData={courseData} />
           </div>
         </div>
       )}

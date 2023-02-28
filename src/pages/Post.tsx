@@ -31,7 +31,7 @@ const Post = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const titleRef = useRef<HTMLInputElement>(null);
-  const ragionsRef = useRef<HTMLSelectElement>(null);
+  const regionsRef = useRef<HTMLSelectElement>(null);
 
   // 커버
   const [uploadCover, setUploadCover] = useState("");
@@ -117,12 +117,16 @@ const Post = () => {
             });
           }
         }
+
       });
     } else {
       if (!uploadCover && !galleryCover) {
         Swal.fire({
           icon: "error",
           title: "커버 이미지를 추가해주세요!",
+          didClose: () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          },
         });
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
@@ -130,6 +134,9 @@ const Post = () => {
         Swal.fire({
           icon: "error",
           title: "여행 전/후 카테고리를 선택해주세요!",
+          didClose: () => {
+            window.scrollTo({ top: 450, behavior: "smooth" });
+          },
         });
         window.scrollTo({ top: 450, behavior: "smooth" });
       }
@@ -137,13 +144,18 @@ const Post = () => {
         Swal.fire({
           icon: "error",
           title: "하나 이상의 지역을 선택해주세요!",
+          didClose: () => {
+            regionsRef.current?.focus();
+          },
         });
-        ragionsRef.current?.focus();
       }
       if (!courseTitle?.trim()) {
         Swal.fire({
           icon: "error",
           title: "제목을 입력해주세요!",
+          didClose: () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          },
         });
         titleRef.current?.focus();
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -152,6 +164,9 @@ const Post = () => {
         Swal.fire({
           icon: "error",
           title: "2개 이상의 여행지를 추가해주세요!",
+          didClose: () => {
+            window.scrollTo({ top: 600, behavior: "smooth" });
+          },
         });
       }
     }
@@ -224,7 +239,7 @@ const Post = () => {
         </div>
         <div className="flex items-center">
           <PostCategories
-            ragionsRef={ragionsRef}
+            regionsRef={regionsRef}
             regions={regions}
             setRegions={setRegions}
           />

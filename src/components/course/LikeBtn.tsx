@@ -1,7 +1,8 @@
-import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
-import { authService, dbService } from "../../utils/firebase";
+import { authService } from "../../utils/firebase";
+
+import { useUpdateLikesMutation } from "../../redux/modules/apiSlice";
 interface LikeProps {
   paramId: string | any;
   course: CourseType | undefined;
@@ -12,8 +13,9 @@ const LikeBtn = ({ paramId, course }: LikeProps) => {
   const courseLikes = course && course?.likes;
   const [likeCount, setLikeCount] = useState<number | any>(0);
   const currentId = authService.currentUser?.uid;
-  const courseRef = doc(dbService, "courses", paramId);
   const submitRef = useRef<HTMLButtonElement | any>();
+  const [updateLikesMutate] = useUpdateLikesMutation();
+
   const submitLike = async () => {
     if (!authService.currentUser) {
       setLike(false);
@@ -28,17 +30,20 @@ const LikeBtn = ({ paramId, course }: LikeProps) => {
       setLikeCount(likeCount + 1);
     }
   };
+
   useEffect(() => {
     const updateLikes = async () => {
-      if (like) {
-        await updateDoc(courseRef, {
+      if (like && course) {
+        await updateLikesMutate({
+          courseId: paramId,
           likes: likeCount || null,
-          likesID: arrayUnion(currentId),
+          likesID: [...course.likesID, currentId],
         });
       } else {
-        await updateDoc(courseRef, {
+        await updateLikesMutate({
+          courseId: paramId,
           likes: likeCount || null,
-          likesID: arrayRemove(currentId),
+          likesID: course?.likesID.filter((item) => item !== currentId),
         });
       }
     };
@@ -63,11 +68,8 @@ const LikeBtn = ({ paramId, course }: LikeProps) => {
   }, [courseLikes, authService.currentUser]);
 
   return (
-    <div className="my-4">
-      <div className="flex justify-end items-center gap-3 text-white hover:text-gray-400 ">
-        <p className="text-black text-[20px] font-medium">
-          {!likeCount ? 0 : likeCount}
-        </p>
+    <div className="my-4 mr-2">
+      <div className="flex items-center gap-3 text-white hover:text-gray-400 ">
         {like === true ? (
           <button
             ref={submitRef}
@@ -85,6 +87,12 @@ const LikeBtn = ({ paramId, course }: LikeProps) => {
             <IoHeartOutline size={40} onClick={() => submitLike()} />
           </button>
         )}
+        <p className="text-black text-[20px] font-medium">
+          {!likeCount
+            ? 0
+            : likeCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+          개
+        </p>
       </div>
     </div>
   );
