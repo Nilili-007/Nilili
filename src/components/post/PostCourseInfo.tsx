@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PostCourseDesc, PostTextarea } from "./index";
 import styled from "styled-components";
@@ -24,28 +24,34 @@ const PostCourseInfo = ({ setBoundsInfo }: PostProps) => {
   const courseList = useSelector(
     (state: any) => state.temporarySlice.courseList
   );
-  const filteredId = useSelector(
-    (state: any) => state.temporarySlice.filteredId
+  const filteredIdx = useSelector(
+    (state: any) => state.temporarySlice.filteredIdx
   );
 
   const [text, setText] = useState("");
 
-  // courseList[클릭한 아이템]번째 아이템의 정보가 클릭한 아이템과 일치시
   const onClickGetId = (item: any, idx: number) => {
-    dispatch(filterCourse(item.id));
+    const newInfo = {
+      id: item.id,
+      idx,
+    };
+    dispatch(filterCourse(newInfo));
     setBoundsInfo(item.bounds);
-    console.log(courseList[idx]);
   };
 
-  const onClickUpCourse = (item: any) => {
-    dispatch(upCourse(item));
+  const onClickUpCourse = (idx: number) => {
+    dispatch(upCourse(idx));
   };
 
-  const onClickDownCourse = (item: any) => {
-    dispatch(downCourse(item));
+  const onClickDownCourse = (idx: number) => {
+    dispatch(downCourse(idx));
   };
 
-  const onClickDeleteCourse = (item: any) => {
+  const onClickDeleteCourse = (item: any, idx: number) => {
+    const newInfo = {
+      id: item.id,
+      idx,
+    };
     Swal.fire({
       title: "일정에서 삭제하시겠습니까?",
       icon: "question",
@@ -56,7 +62,8 @@ const PostCourseInfo = ({ setBoundsInfo }: PostProps) => {
       cancelButtonText: "아니요, 취소할래요",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteCourse(item.id));
+        dispatch(filterCourse(newInfo));
+        dispatch(deleteCourse(idx));
         dispatch(deleteMemo(item.id));
         setText("");
       }
@@ -69,9 +76,9 @@ const PostCourseInfo = ({ setBoundsInfo }: PostProps) => {
         {courseList?.map((item: any, idx: number) => {
           return (
             <ItemCard
-              key={item.id + idx}
+              key={idx}
               onClick={() => onClickGetId(item, idx)}
-              className={item.id === filteredId ? "clicked" : " "}
+              className={idx === filteredIdx ? "clicked" : " "}
             >
               <div className="w-full px-2 py-3 flex">
                 <div className="w-full">
@@ -80,6 +87,7 @@ const PostCourseInfo = ({ setBoundsInfo }: PostProps) => {
                   </h4>
                   <PostCourseDesc item={item} />
                   <PostTextarea
+                    idx={idx}
                     item={item}
                     text={text}
                     setText={setText}
@@ -87,7 +95,7 @@ const PostCourseInfo = ({ setBoundsInfo }: PostProps) => {
                   />
                 </div>
                 <TiMinus
-                  onClick={() => onClickDeleteCourse(item)}
+                  onClick={() => onClickDeleteCourse(item, idx)}
                   className="-mt-2 text-3xl text-gray-400 hover:text-black"
                 />
               </div>
@@ -98,7 +106,7 @@ const PostCourseInfo = ({ setBoundsInfo }: PostProps) => {
                   <ItemBtn
                     className={courseList[0] === item ? "non-clicked" : ""}
                   >
-                    <AiOutlineUp onClick={() => onClickUpCourse(item)} />
+                    <AiOutlineUp onClick={() => onClickUpCourse(idx)} />
                   </ItemBtn>
                   <ItemBtn
                     className={
@@ -107,7 +115,7 @@ const PostCourseInfo = ({ setBoundsInfo }: PostProps) => {
                         : ""
                     }
                   >
-                    <AiOutlineDown onClick={() => onClickDownCourse(item)} />
+                    <AiOutlineDown onClick={() => onClickDownCourse(idx)} />
                   </ItemBtn>
                 </div>
               )}

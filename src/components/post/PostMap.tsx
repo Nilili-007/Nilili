@@ -14,6 +14,9 @@ const PostMap = ({ modalOpen, setModalOpen }: any) => {
   const filteredId = useSelector(
     (state: any) => state.temporarySlice.filteredId
   );
+  const filteredIdx = useSelector(
+    (state: any) => state.temporarySlice.filteredIdx
+  );
 
   useEffect(() => {
     const ps = new kakao.maps.services.Places();
@@ -56,7 +59,7 @@ const PostMap = ({ modalOpen, setModalOpen }: any) => {
       // @ts-ignore
       map.panTo(boundsInfo);
     }
-  }, [filteredId]);
+  }, [filteredIdx]);
 
   return (
     <div className="w-full flex h-[70vh]">

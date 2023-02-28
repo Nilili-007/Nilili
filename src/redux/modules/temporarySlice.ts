@@ -1,9 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import Swal from "sweetalert2";
 
 const initialState = {
   courseList: [],
   filteredId: "",
+  filteredIdx: "",
 };
 
 const temporarySlice = createSlice({
@@ -14,18 +15,17 @@ const temporarySlice = createSlice({
       state.courseList = [...state.courseList, action.payload];
     },
     filterCourse: (state: any, action) => {
-      state.filteredId = action.payload;
+      state.courseList = [...state.courseList];
+      state.filteredId = action.payload.id;
+      state.filteredIdx = action.payload.idx;
     },
     deleteCourse: (state: any, action) => {
-      state.courseList = state.courseList.filter((item: any) => {
-        return item.id !== action.payload;
-      });
+      state.courseList = [...current(state).courseList];
+      state.courseList.splice(action.payload, 1);
     },
     upCourse: (state: any, action) => {
-      state.courseList = [...state.courseList];
-      const i = state.courseList.findIndex(
-        (item: any) => item.id === action.payload.id
-      );
+      state.courseList = [...current(state).courseList];
+      const i = action.payload;
       if (i > 0) {
         let temp = state.courseList[i];
         state.courseList[i] = state.courseList[i - 1];
@@ -38,10 +38,8 @@ const temporarySlice = createSlice({
       }
     },
     downCourse: (state: any, action) => {
-      state.courseList = [...state.courseList];
-      const i = state.courseList.findIndex(
-        (item: any) => item.id === action.payload.id
-      );
+      state.courseList = [...current(state).courseList];
+      const i = action.payload;
       if (i + 1 < state.courseList.length) {
         let temp = state.courseList[i];
         state.courseList[i] = state.courseList[i + 1];
@@ -55,10 +53,7 @@ const temporarySlice = createSlice({
     },
     editMemo: (state: any, action) => {
       state.courseList = [...state.courseList];
-      const i = state.courseList.findIndex(
-        (item: any) => item.id === action.payload.id
-      );
-      state.courseList[i].memo = action.payload.memo;
+      state.courseList[action.payload.idx].memo = action.payload.memo;
     },
     deleteMemo: (state: any, action) => {
       state.courseList = [...state.courseList];
@@ -71,6 +66,7 @@ const temporarySlice = createSlice({
     replaceAllData: (state: any, action) => {
       state.courseList = action.payload;
       state.filteredId = "";
+      state.filteredIdx = "";
     },
   },
 });

@@ -22,15 +22,19 @@ const PostMarkers = () => {
     polyline.push(item.position);
   });
 
-  const onClickGetId = (item: any) => {
-    dispatch(filterCourse(item.id));
+  const onClickGetId = (item: any, idx: number) => {
+    const newInfo = {
+      id: item.id,
+      idx,
+    };
+    dispatch(filterCourse(newInfo));
   };
 
   return (
     <>
-      {courseList.map((item: any, index: number) => (
-        <div key={index}>
-          <div onClick={() => onClickGetId(item)}>
+      {courseList.map((item: any, idx: number) => (
+        <div key={idx}>
+          <div onClick={() => onClickGetId(item, idx)}>
             <CustomOverlayMap position={item.position}>
               <InfoWindow className={item.id === filteredId ? "clicked" : " "}>
                 <MdLocationOn className="mt-1 -ml-1 mr-1" /> {item.name}
@@ -38,7 +42,7 @@ const PostMarkers = () => {
             </CustomOverlayMap>
             <CustomOverlayMap position={item.position}>
               <Marker className={item.id === filteredId ? "clicked" : " "}>
-                <span className="font-bold">#{index + 1}</span>
+                <span className="font-bold">#{idx + 1}</span>
               </Marker>
             </CustomOverlayMap>
           </div>
@@ -65,47 +69,36 @@ export const InfoWindow = styled.div`
   padding: 9px 15px;
   font-size: 20px;
   font-weight: bold;
-  opacity: 0.6;
+  opacity: 0.58;
   display: flex;
-  /* &:after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border: 7px solid transparent;
-    border-top-color: white;
-    border-bottom: 0;
-    margin-left: -7px;
-    margin-bottom: -7px;
-  } */
   &.clicked {
     opacity: 1;
   }
 `;
 
 export const Marker = styled.div`
-  width: 45px;
-  height: 45px;
+  width: 48px;
+  height: 48px;
   border-radius: 50px;
   background: black;
   color: white;
-  opacity: 0.6;
+  opacity: 0.58;
   display: flex;
   justify-content: center;
   align-items: center;
   &.clicked {
     background: black;
-    width: 45px;
-    height: 45px;
+    width: 48px;
+    height: 48px;
     opacity: 1;
-  }
-  &:after {
-    width: 60px;
-    height: 60px;
-    border-radius: 50px;
-    background: black;
-    color: white;
+    &:after {
+      content: "";
+      position: absolute;
+      background: black;
+      border-radius: 50px;
+      width: 80px;
+      height: 80px;
+      opacity: 0.6;
+    }
   }
 `;
