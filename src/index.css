@@ -1,11 +1,160 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap");
 @layer utilities {
   html {
     overflow: -moz-scrollbars-vertical;
     overflow-y: scroll;
   }
+
+  .display1 {
+    font-weight: 700;
+    font-size: 100px;
+    line-height: 100px;
+    letter-spacing: -0.25px;
+  }
+  .display2 {
+    font-weight: 700;
+    font-size: 57px;
+    line-height: 80px;
+    letter-spacing: -0.25px;
+  }
+
+  .title1 {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -0.25px;
+  }
+
+  .title2 {
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -0.25px;
+  }
+  .title3 {
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 28px;
+    letter-spacing: -0.25px;
+  }
+  .body1 {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.25px;
+  }
+
+  .body2 {
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 28px;
+    letter-spacing: -0.25px;
+  }
+  .body3 {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.25px;
+  }
+  .badge {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.25px;
+  }
+  .button1 {
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 28px;
+    letter-spacing: -0.25px;
+  }
+  .button2 {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: -0.25px;
+  }
+
+  .eng-display1 {
+    font-weight: 700;
+    font-size: 100px;
+    line-height: 100px;
+    letter-spacing: -0.25px;
+  }
+
+  .eng-display2 {
+    font-weight: 700;
+    font-size: 57px;
+    line-height: 80px;
+    letter-spacing: -0.25px;
+  }
+
+  .eng-title1 {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -0.25px;
+  }
+
+  .eng-title2 {
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -0.25px;
+  }
+
+  .eng-title3 {
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 28px;
+    letter-spacing: -0.25px;
+  }
+
+  .eng-body1 {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.25px;
+  }
+
+  .eng-body2 {
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 28px;
+    letter-spacing: -0.25px;
+  }
+
+  .eng-body3 {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.25px;
+  }
+
+  .eng-badge {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.25px;
+  }
+
+  .eng-button1 {
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 28px;
+    letter-spacing: -0.25px;
+  }
+
+  .eng-button2 {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: -0.25px;
+  }
+
   @variants responsive {
     /* Hide scrollbar for Chrome, Safari and Opera */
     .no-scrollbar::-webkit-scrollbar {
@@ -16,6 +165,15 @@
     .no-scrollbar {
       -ms-overflow-style: none; /* IE and Edge */
       scrollbar-width: none; /* Firefox */
+    }
+
+    .loading {
+      filter: blur(10px);
+      clip-path: inset(0);
+    }
+    .loaded {
+      filter: blur(0px);
+      transition: filter 0.5s linear;
     }
   }
 }
