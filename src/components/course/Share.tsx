@@ -8,6 +8,7 @@ import {
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useScript } from "../../hooks/useScript";
 import { useEffect } from "react";
+import Swal from "sweetalert2";
 
 declare global {
   interface Window {
@@ -28,7 +29,13 @@ const Share = () => {
         url: currentURL,
       });
     } else {
-      alert("공유하기가 지원되지 않는 환경입니다");
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "공유하기가 지원되지 않는 환경입니다",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
   };
 
