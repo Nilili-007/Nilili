@@ -8,7 +8,7 @@ import { useUpdateTravelStatusMutation } from "../../redux/modules/apiSlice";
 import { ListMap } from "../shared";
 import SearchPagenation from "../search/SearchPagenation";
 import styled from "styled-components";
-import { SyncLoader } from "react-spinners";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 type UserListType = {
   done: boolean;
@@ -103,8 +103,19 @@ const UserList = ({ done, category }: UserListType) => {
 
   if (isLoading) {
     return (
-      <div className="h-[608px] w-full flex justify-center items-center">
-        <SyncLoader color="#A0A4A8" margin={12} size={18} />
+      <div className="flex justify-between w-[45%] flex-wrap">
+        {new Array(9).fill(null).map((_, idx) => (
+          <SkeletonTheme baseColor="#202020" highlightColor="#444" key={idx}>
+            <div className=" mb-3 ">
+              <Skeleton width={300} height={300} />
+              <div className="mt-3">
+                <Skeleton width={200} height={30} />
+                <Skeleton width={50} height={25} />
+                <Skeleton width={150} height={15} />
+              </div>
+            </div>
+          </SkeletonTheme>
+        ))}
       </div>
     );
   }
@@ -122,7 +133,7 @@ const UserList = ({ done, category }: UserListType) => {
             className="xl:w-[31%] lg:w-[32%] sm:w-[47%] w-[90%]  "
           >
             <Stdiv>
-              <StMap>
+              <StMap category={category}>
                 <ListMap course={item} />
               </StMap>
               <StButtonDiv>
@@ -136,7 +147,6 @@ const UserList = ({ done, category }: UserListType) => {
                   </button>
                 )}
               </StButtonDiv>
-
               <StImg
                 src={item.cover}
                 alt="대표 사진"
@@ -153,7 +163,6 @@ const UserList = ({ done, category }: UserListType) => {
             <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
               {JSON.parse(item.createdAt).substr(0, 10)}{" "}
               {Number(JSON.parse(item.createdAt).substr(11, 2)) + 9}
-              {":"}
               {JSON.parse(item.createdAt).substr(14, 2)}
             </p>
           </Link>
@@ -189,9 +198,9 @@ const StImg = styled.img`
   bottom: 24px;
 `;
 
-const StMap = styled.div`
+const StMap = styled.div<{ category: string }>`
   opacity: 0%;
-  filter: brightness(20%);
+  ${(props) => (props.category === "MY" ? "filter: Brightness(20%)" : null)};
 `;
 
 const Stdiv = styled.div`

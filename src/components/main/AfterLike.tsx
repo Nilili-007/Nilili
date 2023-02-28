@@ -2,7 +2,7 @@ import { useGetCourseLikeQuery } from "../../redux/modules/apiSlice";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { ListMap } from "../shared";
-import { SyncLoader } from "react-spinners";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 const AfterLike = () => {
   const { data, isLoading, isError } = useGetCourseLikeQuery();
   if (isError) {
@@ -17,12 +17,24 @@ const AfterLike = () => {
       <p className=" hidden sm:block ml-4 pb-5 w-fit text-xl text-[#999999]">
         아직 고민 중이신가요? 이런 일정은 어떠세요?
       </p>
-      <ul className="overflow-x-auto whitespace-nowrap no-scrollbar">
-        {isLoading ? (
-          <div className="w-full h-[589px] flex justify-center items-center">
-            <SyncLoader color="#A0A4A8" margin={10} size={18} />
-          </div>
-        ) : null}
+
+      {isLoading ? (
+        <div className="flex justify-between">
+          {new Array(3).fill(null).map((_, idx) => (
+            <SkeletonTheme baseColor="#202020" highlightColor="#444" key={idx}>
+              <div className=" mb-3 ">
+                <Skeleton width={300} height={300} />
+                <div className="mt-3">
+                  <Skeleton width={200} height={30} />
+                  <Skeleton width={50} height={25} />
+                  <Skeleton width={150} height={15} />
+                </div>
+              </div>
+            </SkeletonTheme>
+          ))}
+        </div>
+      ) : null}
+      <ul className=" overflow-x-auto whitespace-nowrap no-scrollbar">
         {data
           ?.filter((item: CourseType) => item.travelStatus === true)
           .slice(0, 3)

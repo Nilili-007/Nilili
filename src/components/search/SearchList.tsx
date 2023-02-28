@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { SyncLoader } from "react-spinners";
-import { useGetCourseQuery } from "../../redux/modules/apiSlice";
 import SearchPagenation from "./SearchPagenation";
-
 import { ListMap } from "../shared";
 import styled from "styled-components";
 
@@ -14,8 +11,6 @@ interface ISearchListProps {
 const SearchList = ({ filteredList }: ISearchListProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(12);
-
-  const { isError, error } = useGetCourseQuery();
 
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
@@ -30,12 +25,8 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
     pages.push(i);
   }
 
-  if (isError) {
-    console.log(error);
-  }
-
   return (
-    <div className="my-10 3xl:w-[60%] 2xl:w-[70%] w-[90%]">
+    <div className="my-10 3xl:w-[60%] 2xl:w-[70%] w-[90%] min-h-[1500px]">
       <ul className="flex flex-wrap justify-evenly">
         {currentPosts?.map((item) => (
           <Link
@@ -63,7 +54,6 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
             <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
               {JSON.parse(item.createdAt).substr(0, 10)}{" "}
               {Number(JSON.parse(item.createdAt).substr(11, 2)) + 9}
-              {":"}
               {JSON.parse(item.createdAt).substr(14, 2)}
             </p>
           </Link>
