@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { logEvent } from "../../utils/amplitude";
 
 const Path = () => {
   const navigate = useNavigate();
@@ -16,6 +17,9 @@ const Path = () => {
         <button
           onClick={() => {
             navigate("/search");
+            logEvent("button click : 비회원 검색페이지 이동", {
+              from: "메인페이지 Path",
+            });
           }}
           className=" absolute right-0 bottom-0 bg-black  text-white  sm:px-10 py-5 sm:text-2xl text-base px-5 "
         >

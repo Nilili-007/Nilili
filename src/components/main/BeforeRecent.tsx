@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ListMap } from "../shared";
 import styled from "styled-components";
 import { SyncLoader } from "react-spinners";
+import { logEvent } from "../../utils/amplitude";
 
 const BeforeRecent = () => {
   const { data, isLoading, isError } = useGetCourseQuery();
@@ -28,7 +29,13 @@ const BeforeRecent = () => {
           ?.filter((item: CourseType) => item.travelStatus === false)
           .slice(0, 4)
           .map((item) => (
-            <Link to={`/course/${item.id}`} key={item.id}>
+            <Link
+              to={`/course/${item.id}`}
+              key={item.id}
+              onClick={() =>
+                logEvent("post click", { from: "메인페이지 BeforeRecent" })
+              }
+            >
               <li className="md:w-[23%] w-[360px]  inline-block mx-3 pt-6 border-t-2 border-black   ">
                 <Stdiv>
                   <StMap>

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { ListMap } from "../shared";
 import { SyncLoader } from "react-spinners";
+import { logEvent } from "../../utils/amplitude";
 const AfterLike = () => {
   const { data, isLoading, isError } = useGetCourseLikeQuery();
   if (isError) {
@@ -27,7 +28,13 @@ const AfterLike = () => {
           ?.filter((item: CourseType) => item.travelStatus === true)
           .slice(0, 3)
           .map((item) => (
-            <Link to={`/course/${item.id}`} key={item.id}>
+            <Link
+              to={`/course/${item.id}`}
+              key={item.id}
+              onClick={() =>
+                logEvent("post click", { from: "메인페이지 AfterLike" })
+              }
+            >
               <li className="md:w-[31%] w-[360px]  inline-block mx-3 pt-6 border-t-2 border-black ">
                 <Stdiv>
                   <StMap>
