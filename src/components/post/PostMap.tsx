@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { displayPagination } from "../../utils/kakao";
 
 const PostMap = ({ modalOpen, setModalOpen }: any) => {
-  const [searchKeyword, setSearchKeyword] = useState("");
+  const [searchKeyword, setSearchKeyword] = useState<any | null>("");
   const [searchList, setSearchList] = useState([]);
   const [searchCnt, setSearchCnt] = useState<number | null>();
   const [boundsInfo, setBoundsInfo] = useState({});
@@ -82,6 +82,7 @@ const PostMap = ({ modalOpen, setModalOpen }: any) => {
       {modalOpen && (
         <PostSearchModal
           setModalOpen={setModalOpen}
+          searchKeyword={searchKeyword}
           setSearchKeyword={setSearchKeyword}
           searchList={searchList}
           setSearchList={setSearchList}

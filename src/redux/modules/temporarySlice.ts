@@ -62,10 +62,11 @@ const temporarySlice = createSlice({
     },
     deleteMemo: (state: any, action) => {
       state.courseList = [...state.courseList];
-      const i = state.courseList.findIndex(
-        (item: any) => item.id === action.payload
-      );
-      state.courseList[i].memo = "";
+      // const i = state.courseList.findIndex(
+      //   (item: any) => item.id === action.payload
+      // );
+      // console.log(state.courseList[i].memo);
+      // state.courseList[i].memo = "";
     },
     replaceAllData: (state: any, action) => {
       state.courseList = action.payload;

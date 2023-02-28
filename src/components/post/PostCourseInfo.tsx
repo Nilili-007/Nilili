@@ -28,8 +28,22 @@ const PostCourseInfo = ({ setBoundsInfo }: PostProps) => {
     (state: any) => state.temporarySlice.filteredId
   );
 
-  const [lists, setLists] = useState(courseList);
   const [text, setText] = useState("");
+
+  // courseList[클릭한 아이템]번째 아이템의 정보가 클릭한 아이템과 일치시
+  const onClickGetId = (item: any, idx: number) => {
+    dispatch(filterCourse(item.id));
+    setBoundsInfo(item.bounds);
+    console.log(courseList[idx]);
+  };
+
+  const onClickUpCourse = (item: any) => {
+    dispatch(upCourse(item));
+  };
+
+  const onClickDownCourse = (item: any) => {
+    dispatch(downCourse(item));
+  };
 
   const onClickDeleteCourse = (item: any) => {
     Swal.fire({
@@ -49,37 +63,20 @@ const PostCourseInfo = ({ setBoundsInfo }: PostProps) => {
     });
   };
 
-  const onClickUpCourse = (item: any) => {
-    dispatch(upCourse(item));
-  };
-
-  const onClickDownCourse = (item: any) => {
-    dispatch(downCourse(item));
-  };
-
-  const onClickGetId = (item: any) => {
-    dispatch(filterCourse(item.id));
-    setBoundsInfo(item.bounds);
-  };
-
-  useEffect(() => {
-    setLists(courseList);
-  }, [courseList]);
-
   return (
     <div className="w-[35%] max-h-[70vh] pl-7 float-right">
       <div className="flex flex-col h-full overflow-y-scroll ">
-        {lists?.map((item: any, key: any) => {
+        {courseList?.map((item: any, idx: number) => {
           return (
             <ItemCard
-              key={key}
-              onClick={() => onClickGetId(item)}
+              key={item.id + idx}
+              onClick={() => onClickGetId(item, idx)}
               className={item.id === filteredId ? "clicked" : " "}
             >
               <div className="w-full px-2 py-3 flex">
                 <div className="w-full">
                   <h4 className="pl-3 font-bold text-xl">
-                    #{key + 1} {item.name}
+                    #{idx + 1} {item.name}
                   </h4>
                   <PostCourseDesc item={item} />
                   <PostTextarea
@@ -94,7 +91,9 @@ const PostCourseInfo = ({ setBoundsInfo }: PostProps) => {
                   className="-mt-2 text-3xl text-gray-400 hover:text-black"
                 />
               </div>
-              {courseList.length < 2 ? null : (
+              {courseList.length < 2 ? (
+                <div className="p-3.5" />
+              ) : (
                 <div className="flex text-2xl p-3 -mt-5 float-right">
                   <ItemBtn
                     className={courseList[0] === item ? "non-clicked" : ""}

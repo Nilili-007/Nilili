@@ -23,6 +23,7 @@ export interface optionType {
 }
 
 const Post = () => {
+  // console.log("post");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [addCourse] = useAddCourseMutation();

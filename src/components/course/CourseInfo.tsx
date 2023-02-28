@@ -11,25 +11,23 @@ const CourseInfo = ({ courseList, filteredId, setFilteredId }: any) => {
       <div className="flex flex-col h-full overflow-y-scroll">
         {courseList?.map((item: any, key: any) => {
           return (
-            <>
-              <ItemCard
-                key={item.id}
-                onClick={() => onClickGetId(item)}
-                className={item.id === filteredId ? "clicked" : ""}
-              >
-                <div className="w-full px-2 py-3 flex">
-                  <div className="w-full px-3 text-lg">
-                    <h4 className="font-bold text-2xl">
-                      #{key + 1} {item.name}
-                    </h4>
-                    <p className="mt-1.5 text-sm">{item.address}</p>
-                    <p className="text-sm">{item.road}</p>
-                    <p className="text-sm">{item.phone}</p>
-                    <p className="mt-1.5">{item.memo}</p>
-                  </div>
+            <ItemCard
+              key={item.id}
+              onClick={() => onClickGetId(item)}
+              className={item.id === filteredId ? "clicked" : ""}
+            >
+              <div className="w-full px-2 py-3 flex">
+                <div className="w-full px-3 text-lg">
+                  <h4 className="font-bold text-2xl">
+                    #{key + 1} {item.name}
+                  </h4>
+                  <p className="mt-1.5 text-sm">{item.address}</p>
+                  <p className="text-sm">{item.road}</p>
+                  <p className="text-sm">{item.phone}</p>
+                  <p className="mt-1.5">{item.memo}</p>
                 </div>
-              </ItemCard>
-            </>
+              </div>
+            </ItemCard>
           );
         })}
       </div>

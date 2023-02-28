@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { editMemo, filterCourse } from "../../redux/modules/temporarySlice";
-import styled from "styled-components";
 import TextareaAutosize from "react-textarea-autosize";
 
 const PostTextarea = ({ item, text, setText, setBoundsInfo }: any) => {
@@ -42,7 +41,7 @@ const PostTextarea = ({ item, text, setText, setBoundsInfo }: any) => {
       autoFocus
       rows={1}
       placeholder={item.memo ? item.memo : "자유롭게 메모를 남겨보세요."}
-      value={item.id === filteredId ? text : null}
+      value={item.id === filteredId ? text : ""}
       onChange={
         item.id === filteredId ? (e) => setText(e.target.value) : undefined
       }
@@ -56,27 +55,3 @@ const PostTextarea = ({ item, text, setText, setBoundsInfo }: any) => {
 };
 
 export default PostTextarea;
-
-// export const Textarea = styled.textarea`
-//   width: 100%;
-//   min-height: 14px;
-//   overflow-y: hidden;
-//   resize: none;
-//   color: black;
-//   margin: 12px 0 0 12px;
-//   padding: 4px 0;
-//   font-size: 14px;
-//   &:focus {
-//     outline: none;
-//   }
-//   &.memo {
-//     ::placeholder {
-//       color: black;
-//     }
-//   }
-//   &.null {
-//     ::placeholder {
-//       color: gray;
-//     }
-//   }
-// `;
