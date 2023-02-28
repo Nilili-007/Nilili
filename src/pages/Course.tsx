@@ -3,11 +3,9 @@ import { useGetCourseQuery } from "../redux/modules/apiSlice";
 import {
   CourseHashTag,
   CourseManageButton,
-  LikeBtn,
   CommentDesc,
   CourseHeader,
   CourseMap,
-  Share,
 } from "../components/course";
 import { authService } from "../utils/firebase";
 import { useEffect } from "react";
@@ -63,7 +61,6 @@ const Course = () => {
             </p>
             <CourseMap course={courseData} />
             <CourseHashTag course={courseData} />
-            <Share />
             <CommentDesc paramId={paramId} courseData={courseData} />
           </div>
         </div>

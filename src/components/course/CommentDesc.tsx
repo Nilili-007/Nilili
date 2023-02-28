@@ -5,6 +5,7 @@ import CommentInput from "./CommentInput";
 import Pagenation from "./Pagenation";
 import { BiComment } from "react-icons/bi";
 import LikeBtn from "./LikeBtn";
+import Share from "./Share";
 
 export interface CommentProps {
   paramId: string | undefined;
@@ -16,7 +17,7 @@ const CommentDesc = ({ paramId, courseData }: CommentProps) => {
   const { data, isError, error } = useGetCommentQuery();
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
-  const filterData = data?.filter((comment) => comment.postId === paramId);
+  const filterData = data?.filter((comment: any) => comment.postId === paramId);
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
   const currentPosts = filterData
@@ -40,12 +41,15 @@ const CommentDesc = ({ paramId, courseData }: CommentProps) => {
   }
   return (
     <div className="mb-40">
-      <div className="items-center gap-8 sm:flex">
-        <LikeBtn paramId={paramId} course={courseData} />
-        <h2 className="text-[20px] flex items-center gap-3 font-medium">
-          <BiComment size={40} />
-          {commentLength} 개
-        </h2>
+      <div className="justify-between items-center gap-8 sm:flex">
+        <div className="flex justify-between mt-2">
+          <LikeBtn paramId={paramId} course={courseData} />
+          <h2 className="text-[20px] flex items-center gap-3 font-medium">
+            <BiComment size={40} />
+            {commentLength} 개
+          </h2>
+        </div>
+        <Share />
       </div>
       <CommentInput paramId={paramId} />
       <div className="mb-10 flex">
