@@ -1,9 +1,15 @@
 import { useNavigate } from "react-router-dom";
 
+import ProgressiveImg from "./ProgressiveImg";
+import { authService } from "../../utils/firebase";
+
 const Path = () => {
   const navigate = useNavigate();
+  const userID = authService.currentUser?.uid;
+  console.log(userID);
+
   return (
-    <div className=" my-10  3xl:w-[60%] 2xl:w-[70%] w-[90%] ">
+    <div className=" my-10  3xl:w-[60%] 2xl:w-[70%] w-[90%] min-h-[400px] ">
       <p className=" ml-4 my-[2%] w-fit xl:text-[55px] lg:text-[45px] sm:text-[35px] text-2xl font-bold  ">
         FIND MY PATH
       </p>
@@ -12,10 +18,15 @@ const Path = () => {
       </p>
 
       <div className=" pt-6  border-t-2 border-black relative ">
-        <img alt="검색 페이지로" src="/assets/path.png" className="w-full" />
+        <ProgressiveImg
+          src="/assets/path.png"
+          placeholderSrc="/assets/smallpath.png"
+          alt="글쓰기 페이지로"
+          className="w-full"
+        />
         <button
           onClick={() => {
-            navigate("/search");
+            userID ? navigate("/post") : navigate("/search");
           }}
           className=" absolute right-0 bottom-0 bg-black  text-white  sm:px-10 py-5 sm:text-2xl text-base px-5 "
         >
