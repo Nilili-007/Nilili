@@ -2,6 +2,7 @@ import { CustomOverlayMap, Polyline } from "react-kakao-maps-sdk";
 import { useDispatch, useSelector } from "react-redux";
 import { filterCourse } from "../../redux/modules/temporarySlice";
 import styled from "styled-components";
+import { MdLocationOn } from "react-icons/md";
 
 // 1. 마커 or 카드 클릭시 해당 아이템의 id dispatch
 // 2. courseList 중 좌표 정보가 일치하는 아이템의 id를 filteredId 저장
@@ -21,23 +22,27 @@ const PostMarkers = () => {
     polyline.push(item.position);
   });
 
-  const onClickGetId = (item: any) => {
-    dispatch(filterCourse(item.id));
+  const onClickGetId = (item: any, idx: number) => {
+    const newInfo = {
+      id: item.id,
+      idx,
+    };
+    dispatch(filterCourse(newInfo));
   };
 
   return (
     <>
-      {courseList.map((item: any, index: number) => (
-        <div key={index}>
-          <div onClick={() => onClickGetId(item)}>
+      {courseList.map((item: any, idx: number) => (
+        <div key={idx}>
+          <div onClick={() => onClickGetId(item, idx)}>
             <CustomOverlayMap position={item.position}>
               <InfoWindow className={item.id === filteredId ? "clicked" : " "}>
-                {item.name}
+                <MdLocationOn className="mt-1 -ml-1 mr-1" /> {item.name}
               </InfoWindow>
             </CustomOverlayMap>
             <CustomOverlayMap position={item.position}>
               <Marker className={item.id === filteredId ? "clicked" : " "}>
-                <span className="font-bold">#{index + 1}</span>
+                <span className="font-bold">#{idx + 1}</span>
               </Marker>
             </CustomOverlayMap>
           </div>
@@ -58,45 +63,42 @@ export default PostMarkers;
 
 export const InfoWindow = styled.div`
   position: relative;
-  background: white;
-  color: gray;
-  border-radius: 0.4em;
-  margin-top: -70px;
-  padding: 3px 10px;
+  background: black;
+  color: white;
+  margin-top: -75px;
+  padding: 9px 15px;
   font-size: 20px;
   font-weight: bold;
-  box-shadow: 5px 5px 8px gray;
-
-  &:after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border: 7px solid transparent;
-    border-top-color: white;
-    border-bottom: 0;
-    margin-left: -7px;
-    margin-bottom: -7px;
-  }
+  opacity: 0.58;
+  display: flex;
   &.clicked {
-    color: black;
+    opacity: 1;
   }
 `;
 
 export const Marker = styled.div`
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   border-radius: 50px;
-  background: gray;
+  background: black;
   color: white;
+  opacity: 0.58;
   display: flex;
   justify-content: center;
   align-items: center;
   &.clicked {
     background: black;
-    width: 45px;
-    height: 45px;
+    width: 48px;
+    height: 48px;
+    opacity: 1;
+    &:after {
+      content: "";
+      position: absolute;
+      background: black;
+      border-radius: 50px;
+      width: 80px;
+      height: 80px;
+      opacity: 0.6;
+    }
   }
 `;

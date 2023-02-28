@@ -1,31 +1,36 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { GrFormClose } from "react-icons/gr";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addCourse } from "../../redux/modules/temporarySlice";
+import Swal from "sweetalert2";
 
-interface PostProps {
-  setModalOpen: Dispatch<SetStateAction<boolean>>;
-  setSearchKeyword: Dispatch<SetStateAction<string>>;
-  searchList: object[];
-  setSearchList: Dispatch<SetStateAction<any>>;
-  searchCnt: any;
-  boundsInfo: object;
-}
+// interface PostProps {
+//   setModalOpen: Dispatch<SetStateAction<boolean>>;
+//   searchKeyword: any;
+//   setSearchKeyword: Dispatch<SetStateAction<string>>;
+//   searchList: object[];
+//   setSearchList: Dispatch<SetStateAction<any>>;
+//   searchCnt: any;
+//   boundsInfo: object;
+// }
 
 const PostSearchModal = ({
   setModalOpen,
+  searchKeyword,
   setSearchKeyword,
   searchList,
   setSearchList,
   searchCnt,
   boundsInfo,
-}: PostProps) => {
+}: any) => {
   const dispatch = useDispatch();
   const [text, setText] = useState("");
+  const lists = useSelector((state: any) => state.temporarySlice.courseList);
 
   const closeModal = () => {
     setModalOpen(false);
     setSearchList([]);
+    setSearchKeyword("");
   };
 
   const onSubmitSearch = (e: any) => {
@@ -34,7 +39,7 @@ const PostSearchModal = ({
     setText("");
   };
 
-  const onClickAddCourse = (e: any, item: any) => {
+  const onClickAddCourse = (item: any) => {
     const targetItem = {
       name: item.place_name,
       address: item.address_name,
@@ -48,7 +53,24 @@ const PostSearchModal = ({
       bounds: boundsInfo,
       memo: "",
     };
-    dispatch(addCourse(targetItem));
+
+    if (lists.some((course: any) => course.id === targetItem.id)) {
+      Swal.fire({
+        title: `이미 등록한 여행지입니다. \n 그래도 추가하시겠습니까?`,
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#B3261E",
+        cancelButtonColor: "#50AA72",
+        confirmButtonText: "네",
+        cancelButtonText: "아니오",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch(addCourse(targetItem));
+        }
+      });
+    } else {
+      dispatch(addCourse(targetItem));
+    }
   };
 
   return (
@@ -66,7 +88,7 @@ const PostSearchModal = ({
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="여행지를 입력해주세요."
-            className="w-[85%] h-11 p-1.5 text-lg xs:w-5/6"
+            className="w-[85%] h-11 p-1.5 border border-gray-400 text-lg focus:outline-none xs:w-5/6"
           />
           <button className="bg-black text-white shadow-lg px-9 ml-2">
             검색
@@ -76,7 +98,7 @@ const PostSearchModal = ({
       <div className="overflow-y-scroll max-h-[1000px]">
         {searchList.length > 0 ? (
           <h4 className="my-3 font-bold text-xl px-8 ">
-            검색결과({searchCnt})
+            '{searchKeyword}' 검색결과({searchCnt})
           </h4>
         ) : (
           ""
@@ -84,18 +106,15 @@ const PostSearchModal = ({
 
         {searchList?.map((item: any) => {
           return (
-            <>
-              <div
-                key={item.id}
-                onClick={(e) => onClickAddCourse(e, item)}
-                className="pt-3 cursor-pointer hover:border-white hover:bg-black hover:text-white"
-              >
-                <h5 className="font-bold text-2xl px-8 ">{item.place_name}</h5>
-                <p className="px-8  mt-2 text-xl">{item.address_name}</p>
-                <div className="w-[92%] flex mx-auto mt-3 border-b border-black" />
-              </div>
-              <div className="" />
-            </>
+            <div
+              key={item.id}
+              onClick={() => onClickAddCourse(item)}
+              className="pt-3 cursor-pointer hover:border-white hover:bg-black hover:text-white"
+            >
+              <h5 className="font-bold text-2xl px-8 ">{item.place_name}</h5>
+              <p className="px-8  mt-2 text-xl">{item.address_name}</p>
+              <div className="w-[92%] flex mx-auto mt-3 border-b border-black" />
+            </div>
           );
         })}
       </div>

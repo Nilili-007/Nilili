@@ -68,7 +68,7 @@ const LikeBtn = ({ paramId, course }: LikeProps) => {
   }, [courseLikes, authService.currentUser]);
 
   return (
-    <div className="my-4">
+    <div className="my-4 mr-2">
       <div className="flex items-center gap-3 text-white hover:text-gray-400 ">
         {like === true ? (
           <button

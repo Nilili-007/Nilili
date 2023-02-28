@@ -23,6 +23,7 @@ export interface optionType {
 }
 
 const Post = () => {
+  // console.log("post");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [addCourse] = useAddCourseMutation();
@@ -37,7 +38,7 @@ const Post = () => {
   const [galleryCover, setGalleryCover] = useState("");
 
   //지역 선택
-  const [regions, setRegions] = useState<optionType[] | null>([]);
+  const [regions, setRegions] = useState<optionType[] | any>([]);
   const [courseTitle, setCourseTitle] = useState("");
 
   // 여행전/후 선택
@@ -66,7 +67,7 @@ const Post = () => {
     //selectedTags는 오브젝트 배열입니다.
     //hashtag는 데이터베이스에 문자열 배열로 들어가야 하기 때문에, value 값만 추출하여 문자열배열로 바꿉니다.
     let selectedLabels = selectedTags?.map((tag) => tag.label);
-    let selectedRegions = regions?.map((region) => region.value);
+    let selectedRegions = regions?.map((region: any) => region.value);
 
     const newPost = {
       location: selectedRegions,
@@ -86,61 +87,83 @@ const Post = () => {
     if (
       (uploadCover || galleryCover) &&
       travelStatus !== null &&
-      regions?.length !== 0 &&
+      regions.length > 0 &&
       courseTitle.trim() &&
       courseList.length > 1
     ) {
-      await addCourse(newPost);
-      setCondition(true);
       Swal.fire({
-        icon: "success",
-        title: "훌륭한 여정이에요!",
-        text: "여행 후 리뷰도 꼭 부탁드려요!",
-        showConfirmButton: true,
-        timer: 3000,
+        title: "게시글을 등록하시겠습니까?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#B3261E",
+        cancelButtonColor: "#50AA72",
+        confirmButtonText: "네",
+        cancelButtonText: "아니요",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          addCourse(newPost);
+          setCondition(true);
+          if (!travelStatus) {
+            Swal.fire({
+              icon: "success",
+              title: "훌륭한 여정이에요! 여행 후 리뷰도 꼭 부탁드려요!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          } else {
+            Swal.fire({
+              icon: "success",
+              title: `${authService.currentUser?.displayName}님의 여정을 공유해주셔서 감사합니다!`,
+            });
+          }
+        }
+
       });
     } else {
       if (!uploadCover && !galleryCover) {
         Swal.fire({
-          title: "등록 실패",
-          text: "커버 이미지를 추가해주세요.",
-          icon: "warning",
+          icon: "error",
+          title: "커버 이미지를 추가해주세요!",
           didClose: () => {
             window.scrollTo({ top: 0, behavior: "smooth" });
           },
         });
-      } else if (travelStatus === null) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      if (travelStatus === null) {
         Swal.fire({
-          title: "등록 실패",
-          text: "여행 전/여행 후 카테고리를 선택해주세요.",
-          icon: "warning",
+          icon: "error",
+          title: "여행 전/후 카테고리를 선택해주세요!",
           didClose: () => {
             window.scrollTo({ top: 450, behavior: "smooth" });
           },
         });
-      } else if (regions?.length === 0) {
+        window.scrollTo({ top: 450, behavior: "smooth" });
+      }
+      if (regions.length === 0) {
         Swal.fire({
-          title: "등록 실패",
-          text: "하나 이상의 지역을 선택해주세요.",
-          icon: "warning",
+          icon: "error",
+          title: "하나 이상의 지역을 선택해주세요!",
           didClose: () => {
             regionsRef.current?.focus();
           },
         });
-      } else if (!courseTitle?.trim()) {
+      }
+      if (!courseTitle?.trim()) {
         Swal.fire({
-          title: "등록 실패",
-          text: "제목을 입력해주세요",
-          icon: "warning",
+          icon: "error",
+          title: "제목을 입력해주세요!",
           didClose: () => {
             window.scrollTo({ top: 0, behavior: "smooth" });
           },
         });
-      } else if (courseList.length < 2) {
+        titleRef.current?.focus();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      if (courseList.length < 2) {
         Swal.fire({
-          title: "등록 실패",
-          text: "2개 이상의 코스를 등록해주세요.",
-          icon: "warning",
+          icon: "error",
+          title: "2개 이상의 여행지를 추가해주세요!",
           didClose: () => {
             window.scrollTo({ top: 600, behavior: "smooth" });
           },
@@ -151,22 +174,15 @@ const Post = () => {
 
   const onClickCancel = () => {
     Swal.fire({
-      title: "작성 취소",
-      text: "이 페이지에서 나가시겠습니까?",
-      icon: "warning",
+      title: "게시글 작성을 취소하시겠습니까?",
+      icon: "question",
       showCancelButton: true,
-      confirmButtonColor: "#50AA72",
-      cancelButtonColor: "#B3261E",
-      confirmButtonText: "확인",
-      cancelButtonText: "취소",
+      confirmButtonColor: "#B3261E",
+      cancelButtonColor: "#50AA72",
+      confirmButtonText: "네, 다음 번에 쓸게요.",
+      cancelButtonText: "아니요, 마저 쓸게요.",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          icon: "success",
-          title: "여행 코스 수정이 취소되었습니다.",
-          showConfirmButton: false,
-          timer: 1500,
-        });
         navigate(`/`);
         dispatch(replaceAllData([]));
       }
@@ -179,6 +195,24 @@ const Post = () => {
       setCondition(false);
     }
   }, [data]);
+
+  window.addEventListener("popstate", () =>
+    window.history.pushState(null, "", window.location.href)
+  );
+
+  // 새로고침, 페이지 닫기 확인
+  useEffect(() => {
+    const preventClose = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = "";
+    };
+
+    window.addEventListener("beforeunload", preventClose);
+
+    return () => {
+      window.addEventListener("beforeunload", preventClose);
+    };
+  }, []);
 
   return (
     <div className="mb-[7%]">

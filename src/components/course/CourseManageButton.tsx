@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { MdOutlineMoreVert } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { useDeleteCourseMutation } from "../../redux/modules/apiSlice";
-import styled from "styled-components";
-import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { replaceAllData } from "../../redux/modules/temporarySlice";
+import { useDeleteCourseMutation } from "../../redux/modules/apiSlice";
+import { storage } from "../../utils/firebase";
+import styled from "styled-components";
+import { MdOutlineMoreVert } from "react-icons/md";
+import Swal from "sweetalert2";
 
 interface CourseManageButtonProps {
   paramId: string | undefined;
