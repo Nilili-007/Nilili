@@ -85,86 +85,109 @@ const EditCourse = () => {
 
     if (selectedRegions?.length === 0) {
       Swal.fire({
-        title: "수정 실패",
-        text: "하나 이상의 지역을 선택해주세요.",
-        icon: "warning",
+        icon: "error",
+        title: "하나 이상의 지역을 선택해주세요!",
         didClose: () => {
           regionsRef.current?.focus();
         },
       });
     } else if (!courseTitle?.trim()) {
       Swal.fire({
-        title: "수정 실패",
-        text: "제목을 입력해주세요",
-        icon: "warning",
+        icon: "error",
+        title: "제목을 입력해주세요!",
         didClose: () => {
           titleRef.current?.focus();
         },
       });
+      titleRef.current?.focus();
     } else if (!uploadCover && !galleryCover) {
       Swal.fire({
-        title: "수정 실패",
-        text: "커버 이미지를 추가해주세요.",
-        icon: "warning",
+        icon: "error",
+        title: "커버 이미지를 추가해주세요!",
         didClose: () => {
           window.scrollTo({ top: 0, behavior: "smooth" });
         },
       });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } else if (editedList.length < 2) {
       Swal.fire({
-        title: "수정 실패",
-        text: "2개 이상의 코스를 등록해주세요.",
-        icon: "warning",
+        icon: "error",
+        title: "2개 이상의 여행지를 추가해주세요!",
         didClose: () => {
           window.scrollTo({ top: 600, behavior: "smooth" });
         },
       });
     } else {
-      updateCourse({
-        courseId: paramId,
-        location: selectedRegions,
-        hashtags: selectedLabels,
-        title: courseTitle,
-        cover: uploadCover || galleryCover,
-        courseList: JSON.stringify(editedList),
-        travelStatus,
-        nickname: authService.currentUser?.displayName,
-        profileImage: authService.currentUser?.photoURL,
-      });
       Swal.fire({
-        icon: "success",
-        title: "정상적으로 수정이 완료되었습니다.",
-        showConfirmButton: false,
-        timer: 1500,
+        title: "게시글을 수정하시겠습니까?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#B3261E",
+        cancelButtonColor: "#50AA72",
+        confirmButtonText: "네",
+        cancelButtonText: "아니요",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          updateCourse({
+            courseId: paramId,
+            location: selectedRegions,
+            hashtags: selectedLabels,
+            title: courseTitle,
+            cover: uploadCover || galleryCover,
+            courseList: JSON.stringify(editedList),
+            travelStatus,
+            profileImage: authService.currentUser?.photoURL,
+          });
+          navigate(`/course/${course?.id}`);
+          dispatch(replaceAllData([]));
+          if (!travelStatus) {
+            Swal.fire({
+              icon: "success",
+              title: "수정이 완료되었습니다! 여행 후 리뷰도 꼭 부탁드려요!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          } else {
+            Swal.fire({
+              icon: "success",
+              title: `${authService.currentUser?.displayName}님의 여정을 공유해주셔서 감사합니다!`,
+            });
+          }
+        }
       });
-      navigate(`/course/${course?.id}`);
-      dispatch(replaceAllData([]));
     }
   };
 
   const onClickCancel = () => {
     Swal.fire({
-      title: "수정 취소",
-      text: "이 페이지에서 나가시겠습니까?",
-      icon: "warning",
+      title: "게시글 수정을 취소하시겠습니까?",
+      icon: "question",
       showCancelButton: true,
-      confirmButtonColor: "#50AA72",
-      cancelButtonColor: "#B3261E",
-      confirmButtonText: "확인",
-      cancelButtonText: "취소",
+      confirmButtonColor: "#B3261E",
+      cancelButtonColor: "#50AA72",
+      confirmButtonText: "네, 다음 번에 쓸게요.",
+      cancelButtonText: "아니요, 마저 쓸게요.",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          icon: "success",
-          title: "여행 코스 수정이 취소되었습니다.",
-          showConfirmButton: false,
-          timer: 1500,
-        });
         navigate(`/course/${paramId}`);
         dispatch(replaceAllData([]));
       }
     });
   };
+
+  // 새로고침, 페이지 닫기 확인
+  useEffect(() => {
+    const preventClose = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = "";
+    };
+
+    window.addEventListener("beforeunload", preventClose);
+
+    return () => {
+      window.addEventListener("beforeunload", preventClose);
+    };
+  }, []);
 
   return (
     <div className="mb-64">

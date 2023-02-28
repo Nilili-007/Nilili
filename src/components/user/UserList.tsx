@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useUpdateTravelStatusMutation } from "../../redux/modules/apiSlice";
 import { ListMap } from "../shared";
 import SearchPagenation from "../search/SearchPagenation";
+import styled from "styled-components";
 import { SyncLoader } from "react-spinners";
 
 type UserListType = {
@@ -120,22 +121,28 @@ const UserList = ({ done, category }: UserListType) => {
             key={item.id}
             className="xl:w-[31%] lg:w-[32%] sm:w-[47%] w-[90%]  "
           >
-            <img
-              src={item.cover}
-              alt="대표 사진"
-              className=" pt-6 border-t-2 border-black h-[400px] w-[400px]"
-            />
-            <ListMap course={item} />
+            <Stdiv>
+              <StMap>
+                <ListMap course={item} />
+              </StMap>
+              <StButtonDiv>
+                {category !== "MY" ? null : item.travelStatus ? (
+                  <button onClick={() => changeTravelStatusFalse(item.id)}>
+                    여행 전으로 토글
+                  </button>
+                ) : (
+                  <button onClick={() => changeTravelStatusTrue(item.id)}>
+                    여행 후로 토글
+                  </button>
+                )}
+              </StButtonDiv>
 
-            {category !== "MY" ? null : item.travelStatus ? (
-              <button onClick={() => changeTravelStatusFalse(item.id)}>
-                여행 전으로 토글
-              </button>
-            ) : (
-              <button onClick={() => changeTravelStatusTrue(item.id)}>
-                여행 후로 토글
-              </button>
-            )}
+              <StImg
+                src={item.cover}
+                alt="대표 사진"
+                className=" border-black h-[324px] w-[300px]"
+              />
+            </Stdiv>
 
             <p className="pr-4 ml-1 mt-5 sm:h-16 h-14 sm:text-2xl text-xl overflow-hidden font-black ">
               {item.title}
@@ -162,3 +169,43 @@ const UserList = ({ done, category }: UserListType) => {
   );
 };
 export default UserList;
+
+const StButtonDiv = styled.div`
+  color: white;
+  position: relative;
+  z-index: 1;
+  opacity: 0%;
+  bottom: 150px;
+  left: 70px;
+  font-size: 25px;
+
+  &:hover {
+    font-weight: 700;
+  }
+`;
+
+const StImg = styled.img`
+  position: absolute;
+  bottom: 24px;
+`;
+
+const StMap = styled.div`
+  opacity: 0%;
+  filter: brightness(20%);
+`;
+
+const Stdiv = styled.div`
+  position: relative;
+
+  &:hover {
+    ${StImg} {
+      display: none;
+    }
+    ${StMap} {
+      opacity: 100%;
+    }
+    ${StButtonDiv} {
+      opacity: 100%;
+    }
+  }
+`;

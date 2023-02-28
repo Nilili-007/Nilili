@@ -4,6 +4,9 @@ import { SyncLoader } from "react-spinners";
 import { useGetCourseQuery } from "../../redux/modules/apiSlice";
 import SearchPagenation from "./SearchPagenation";
 
+import { ListMap } from "../shared";
+import styled from "styled-components";
+
 interface ISearchListProps {
   filteredList: CourseType[] | undefined;
 }
@@ -40,11 +43,17 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
             key={item.id}
             className="xl:w-[24%] lg:w-[32%] sm:w-[47%] w-[90%] pt-6 border-t-2 border-black  "
           >
-            <img
-              src={item.cover}
-              alt="대표 사진"
-              className=" border-t-2 h-[200px] w-[300px]"
-            />
+            <Stdiv>
+              <StMap>
+                <ListMap course={item} />
+              </StMap>
+              <StImg
+                src={item.cover}
+                alt="대표 사진"
+                className=" border-black h-[324px] w-[300px]"
+              />
+            </Stdiv>
+
             <p className="pr-4 ml-1 mt-5 sm:h-16 h-14 sm:text-2xl text-xl overflow-hidden font-black ">
               {item.title}
             </p>
@@ -71,3 +80,25 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
 };
 
 export default SearchList;
+
+const StImg = styled.img`
+  position: absolute;
+  bottom: 0px;
+`;
+
+const StMap = styled.div`
+  opacity: 0%;
+`;
+
+const Stdiv = styled.div`
+  position: relative;
+
+  &:hover {
+    ${StImg} {
+      display: none;
+    }
+    ${StMap} {
+      opacity: 100%;
+    }
+  }
+`;

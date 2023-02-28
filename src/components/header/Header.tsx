@@ -6,6 +6,7 @@ import Modal from "../auth/Modal";
 import Weather from "./Weather";
 import { useDispatch } from "react-redux";
 import { replaceAllData } from "../../redux/modules/temporarySlice";
+import Swal from "sweetalert2";
 import { resetAmplitude } from "../../utils/amplitude";
 
 const Header = () => {
@@ -45,10 +46,59 @@ const Header = () => {
       });
   };
 
-  // 글쓰기 페이지 이동시 redux/modules/temporarySlice의 courseList 초기화
-  const postBtn = () => {
-    dispatch(replaceAllData([]));
-    navigate("/post");
+  // 글쓰기 페이지 & 수정 페이지 이탈시 확인 모달
+  const leavePresentPage = (e: any) => {
+    const text = e.target.innerText;
+    if (
+      window.location.pathname === "/post" ||
+      window.location.pathname === `/edit/${window.location.pathname.slice(6)}`
+    ) {
+      Swal.fire({
+        title: "이 페이지를 나가시겠습니까?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#B3261E",
+        cancelButtonColor: "#50AA72",
+        confirmButtonText: "네",
+        cancelButtonText: "아니오",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          if (text === "Nilili") {
+            navigate(`/`);
+          }
+          if (text === userName) {
+            navigate(`/user/${userID}`);
+          }
+          if (text === "검색하기") {
+            navigate("/search");
+          }
+          if (text === "글쓰기") {
+            dispatch(replaceAllData([]));
+            navigate("/post");
+          }
+          if (text === "로그아웃") {
+            logoutBtn();
+          }
+        }
+      });
+    } else {
+      if (text === "Nilili") {
+        navigate(`/`);
+      }
+      if (text === userName) {
+        navigate(`/user/${userID}`);
+      }
+      if (text === "검색하기") {
+        navigate("/search");
+      }
+      if (text === "글쓰기") {
+        dispatch(replaceAllData([]));
+        navigate("/post");
+      }
+      if (text === "로그아웃") {
+        logoutBtn();
+      }
+    }
   };
 
   const auth = getAuth();
@@ -80,7 +130,7 @@ const Header = () => {
         <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
           <div>
             <div className="flex items-center justify-between py-3 md:py-5 md:block">
-              <button onClick={() => navigate("/")}>
+              <button onClick={leavePresentPage}>
                 <h2 className="text-2xl text-white font-bold">Nilili</h2>
               </button>
               <div className="md:hidden">
@@ -134,30 +184,26 @@ const Header = () => {
                       <li className="text-sm px-4 py-2 leading-none  text-white">
                         <button
                           className="font-bold underline hover:text-teal-500"
-                          onClick={() => navigate(`/user/${userID}`)}
+                          onClick={leavePresentPage}
                         >
                           {userName}
                         </button>
                         님 오늘은 어디로 떠나볼까요?
                       </li>
                       <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
-                        <button onClick={() => navigate("/search")}>
-                          검색하기
-                        </button>
+                        <button onClick={leavePresentPage}>검색하기</button>
                       </li>
                       <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
-                        <button onClick={() => postBtn()}>글쓰기</button>
+                        <button onClick={leavePresentPage}>글쓰기</button>
                       </li>
                       <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-5000">
-                        <button onClick={logoutBtn}>로그아웃</button>
+                        <button onClick={leavePresentPage}>로그아웃</button>
                       </li>
                     </>
                   ) : (
                     <>
                       <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
-                        <button onClick={() => navigate("/search")}>
-                          검색하기
-                        </button>
+                        <button onClick={leavePresentPage}>검색하기</button>
                       </li>
                       <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
                         <button onClick={openModal}>로그인</button>

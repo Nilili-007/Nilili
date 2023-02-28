@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ItemCard } from "../post/PostCourseInfo";
+import { ItemBtn, ItemCard } from "../post/PostCourseInfo";
 import { TiMinus } from "react-icons/ti";
 import { AiOutlineUp, AiOutlineDown, AiOutlinePlus } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,8 +11,9 @@ import {
   upCourse,
 } from "../../redux/modules/temporarySlice";
 import { EditCourseTextarea } from "./index";
+import Swal from "sweetalert2";
 
-const EditCourseInfo = ({ modalOpen, setModalOpen }: any) => {
+const EditCourseInfo = () => {
   const [text, setText] = useState<any>("");
   const dispatch = useDispatch();
   const lists = useSelector((state: any) => state.temporarySlice.courseList);
@@ -20,16 +21,22 @@ const EditCourseInfo = ({ modalOpen, setModalOpen }: any) => {
     (state: any) => state.temporarySlice.filteredId
   );
 
-  const showModal = () => {
-    setModalOpen(!modalOpen);
-  };
-
   const onClickDeleteCourse = (item: any) => {
-    if (window.confirm("일정에서 삭제하시겠습니까?")) {
-      dispatch(deleteCourse(item.id));
-      dispatch(deleteMemo(item.id));
-      setText("");
-    }
+    Swal.fire({
+      title: "일정에서 삭제하시겠습니까?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#B3261E",
+      cancelButtonColor: "#50AA72",
+      confirmButtonText: "네, 삭제할래요",
+      cancelButtonText: "아니요, 취소할래요",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteCourse(item.id));
+        dispatch(deleteMemo(item.id));
+        setText("");
+      }
+    });
   };
 
   const onClickUpCourse = (item: any) => {
@@ -75,15 +82,23 @@ const EditCourseInfo = ({ modalOpen, setModalOpen }: any) => {
                   className="-mt-2 mr-2 text-3xl text-gray-400"
                 />
               </div>
-              <div className="flex text-3xl p-3 -mt-5">
-                <AiOutlineUp
-                  onClick={() => onClickUpCourse(item)}
-                  className="hover:text-gray-400"
-                />
-                <AiOutlineDown
-                  onClick={() => onClickDownCourse(item)}
-                  className="hover:text-gray-400 ml-auto"
-                />
+              <div className="flex text-2xl p-3 -mt-5 float-right">
+                <ItemBtn className={lists[0] === item ? "non-clicked" : ""}>
+                  <AiOutlineUp
+                    onClick={() => onClickUpCourse(item)}
+                    className="hover:text-gray-400"
+                  />
+                </ItemBtn>
+                <ItemBtn
+                  className={
+                    lists[lists.length - 1] === item ? "non-clicked" : ""
+                  }
+                >
+                  <AiOutlineDown
+                    onClick={() => onClickDownCourse(item)}
+                    className="hover:text-gray-400 ml-auto"
+                  />
+                </ItemBtn>
               </div>
             </ItemCard>
           );
