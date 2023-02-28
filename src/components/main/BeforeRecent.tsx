@@ -2,12 +2,10 @@ import { useGetCourseQuery } from "../../redux/modules/apiSlice";
 import { Link } from "react-router-dom";
 import { ListMap } from "../shared";
 import styled from "styled-components";
+import { SyncLoader } from "react-spinners";
 
 const BeforeRecent = () => {
   const { data, isLoading, isError } = useGetCourseQuery();
-  if (isLoading) {
-    return <>로딩중....</>;
-  }
   if (isError) {
     return <>에러가 발생했습니다.</>;
   }
@@ -20,6 +18,11 @@ const BeforeRecent = () => {
       <p className=" hidden sm:block ml-4 pb-5 w-fit text-xl text-[#999999]">
         아직 고민 중이신가요? 이런 일정은 어떠세요?
       </p>
+      {isLoading ? (
+        <div className="w-full h-[388px] flex justify-center items-center">
+          <SyncLoader color="#A0A4A8" margin={10} size={18} />
+        </div>
+      ) : null}
       <ul className="overflow-x-auto whitespace-nowrap no-scrollbar">
         {data
           ?.filter((item: CourseType) => item.travelStatus === false)
@@ -44,7 +47,10 @@ const BeforeRecent = () => {
                   {item.nickname}
                 </p>
                 <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
-                  {item.createdAt}
+                  {JSON.parse(item.createdAt).substr(0, 10)}{" "}
+                  {Number(JSON.parse(item.createdAt).substr(11, 2)) + 9}
+                  {":"}
+                  {JSON.parse(item.createdAt).substr(14, 2)}
                 </p>
               </li>
             </Link>

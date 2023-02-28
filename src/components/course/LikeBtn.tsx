@@ -69,10 +69,7 @@ const LikeBtn = ({ paramId, course }: LikeProps) => {
 
   return (
     <div className="my-4">
-      <div className="flex justify-end items-center gap-3 text-white hover:text-gray-400 ">
-        <p className="text-black text-[20px] font-medium">
-          {!likeCount ? 0 : likeCount}
-        </p>
+      <div className="flex items-center gap-3 text-white hover:text-gray-400 ">
         {like === true ? (
           <button
             ref={submitRef}
@@ -90,6 +87,12 @@ const LikeBtn = ({ paramId, course }: LikeProps) => {
             <IoHeartOutline size={40} onClick={() => submitLike()} />
           </button>
         )}
+        <p className="text-black text-[20px] font-medium">
+          {!likeCount
+            ? 0
+            : likeCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+          개
+        </p>
       </div>
     </div>
   );

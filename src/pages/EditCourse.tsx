@@ -124,6 +124,7 @@ const EditCourse = () => {
         cover: uploadCover || galleryCover,
         courseList: JSON.stringify(editedList),
         travelStatus,
+        nickname: authService.currentUser?.displayName,
         profileImage: authService.currentUser?.photoURL,
       });
       Swal.fire({
