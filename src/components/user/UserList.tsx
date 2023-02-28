@@ -123,7 +123,7 @@ const UserList = ({ done, category }: UserListType) => {
               <StImg
                 src={item.cover}
                 alt="대표 사진"
-                className=" pt-6 border-t-2 border-black h-[400px] w-[400px]"
+                className=" pt-6 border-t-2 border-black h-[324px] w-[300px]"
               />
             </Stdiv>
 
@@ -171,7 +171,6 @@ const StMap = styled.div`
 
 const Stdiv = styled.div`
   position: relative;
-  background-color: aqua;
 
   &:hover {
     ${StImg} {

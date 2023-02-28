@@ -1,5 +1,7 @@
 import { useGetCourseQuery } from "../../redux/modules/apiSlice";
 import { Link } from "react-router-dom";
+import { ListMap } from "../shared";
+import styled from "styled-components";
 
 const BeforeRecent = () => {
   const { data, isLoading, isError } = useGetCourseQuery();
@@ -25,11 +27,16 @@ const BeforeRecent = () => {
           .map((item) => (
             <Link to={`/course/${item.id}`} key={item.id}>
               <li className="md:w-[23%] w-[360px]  inline-block mx-3 pt-6 border-t-2 border-black   ">
-                <img
-                  src={item.cover}
-                  alt="대표 사진"
-                  className=" border-t-2 h-[200px] w-[300px]"
-                />
+                <Stdiv>
+                  <StMap>
+                    <ListMap course={item} />
+                  </StMap>
+                  <StImg
+                    src={item.cover}
+                    alt="대표 사진"
+                    className=" pt-6 border-t-2 border-black h-[324px] w-[300px]"
+                  />
+                </Stdiv>
                 <p className="pr-4 ml-1 mt-5 mb-5 sm:text-2xl text-xl overflow-hidden font-black ">
                   {item.title}
                 </p>
@@ -48,3 +55,25 @@ const BeforeRecent = () => {
 };
 
 export default BeforeRecent;
+
+const StImg = styled.img`
+  position: absolute;
+  bottom: 0px;
+`;
+
+const StMap = styled.div`
+  opacity: 0%;
+`;
+
+const Stdiv = styled.div`
+  position: relative;
+
+  &:hover {
+    ${StImg} {
+      display: none;
+    }
+    ${StMap} {
+      opacity: 100%;
+    }
+  }
+`;

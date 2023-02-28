@@ -32,7 +32,7 @@ declare interface CourseListType {
   phone: string;
   id: string;
   bounds: any;
-  position: any;
+  position: PositionType;
 }
 
 declare interface PositionType {
