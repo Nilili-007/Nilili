@@ -34,3 +34,8 @@ declare interface CourseListType {
   bounds: any;
   position: any;
 }
+
+declare interface PositionType {
+  lng: string;
+  lat: string;
+}

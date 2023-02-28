@@ -10,7 +10,7 @@ const ListMapMarker = ({ courseList }: CourseMapMarkerProps) => {
   return (
     <>
       {courseList.map((item: any, index: number) => (
-        <>
+        <div key={item.id}>
           <div>
             <CustomOverlayMap position={item.position}></CustomOverlayMap>
             <CustomOverlayMap position={item.position}>
@@ -26,7 +26,7 @@ const ListMapMarker = ({ courseList }: CourseMapMarkerProps) => {
             strokeOpacity={1}
             strokeStyle={"solid"}
           />
-        </>
+        </div>
       ))}
     </>
   );

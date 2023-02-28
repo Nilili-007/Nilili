@@ -15,7 +15,7 @@ const CourseMapMarker = ({ courseList, filteredId, setFilteredId }: any) => {
   return (
     <>
       {courseList.map((item: any, index: number) => (
-        <>
+        <div key={item.id}>
           <div onClick={() => onClickGetId(item)}>
             <CustomOverlayMap position={item.position}>
               <InfoWindow className={item.id === filteredId ? "clicked" : " "}>
@@ -35,7 +35,7 @@ const CourseMapMarker = ({ courseList, filteredId, setFilteredId }: any) => {
             strokeOpacity={1}
             strokeStyle={"solid"}
           />
-        </>
+        </div>
       ))}
     </>
   );

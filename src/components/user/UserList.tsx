@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useUpdateTravelStatusMutation } from "../../redux/modules/apiSlice";
 import { ListMap } from "../shared";
 import SearchPagenation from "../search/SearchPagenation";
+import styled from "styled-components";
 
 type UserListType = {
   done: boolean;
@@ -115,12 +116,16 @@ const UserList = ({ done, category }: UserListType) => {
             key={item.id}
             className="xl:w-[31%] lg:w-[32%] sm:w-[47%] w-[90%]  "
           >
-            <img
-              src={item.cover}
-              alt="대표 사진"
-              className=" pt-6 border-t-2 border-black h-[400px] w-[400px]"
-            />
-            <ListMap course={item} />
+            <Stdiv>
+              <StMap>
+                <ListMap course={item} />
+              </StMap>
+              <StImg
+                src={item.cover}
+                alt="대표 사진"
+                className=" pt-6 border-t-2 border-black h-[400px] w-[400px]"
+              />
+            </Stdiv>
 
             {category !== "MY" ? null : item.travelStatus ? (
               <button onClick={() => changeTravelStatusFalse(item.id)}>
@@ -154,3 +159,26 @@ const UserList = ({ done, category }: UserListType) => {
   );
 };
 export default UserList;
+
+const StImg = styled.img`
+  position: absolute;
+  bottom: 0px;
+`;
+
+const StMap = styled.div`
+  opacity: 0%;
+`;
+
+const Stdiv = styled.div`
+  position: relative;
+  background-color: aqua;
+
+  &:hover {
+    ${StImg} {
+      display: none;
+    }
+    ${StMap} {
+      opacity: 100%;
+    }
+  }
+`;
