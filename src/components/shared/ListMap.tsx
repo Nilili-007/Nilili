@@ -1,7 +1,7 @@
 import { Map } from "react-kakao-maps-sdk";
 
 import ListMapMarker from "./ListMapMarker";
-import { useEffect, useState, useMemo, useRef } from "react";
+import { useEffect, useState, useMemo } from "react";
 
 interface ListProps {
   course: CourseType;
