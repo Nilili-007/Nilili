@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Map, MapTypeControl } from "react-kakao-maps-sdk";
+import { Map, MapTypeControl, ZoomControl } from "react-kakao-maps-sdk";
 import { PostSearchModal, PostCourseInfo, PostMarkers } from "./index";
 import { useSelector } from "react-redux";
 import { displayPagination } from "../../utils/kakao";
 
 const PostMap = ({ modalOpen, setModalOpen }: any) => {
-  const [searchKeyword, setSearchKeyword] = useState("");
+  const [searchKeyword, setSearchKeyword] = useState<any | null>("");
   const [searchList, setSearchList] = useState([]);
   const [searchCnt, setSearchCnt] = useState<number | null>();
   const [boundsInfo, setBoundsInfo] = useState({});
@@ -13,6 +13,9 @@ const PostMap = ({ modalOpen, setModalOpen }: any) => {
 
   const filteredId = useSelector(
     (state: any) => state.temporarySlice.filteredId
+  );
+  const filteredIdx = useSelector(
+    (state: any) => state.temporarySlice.filteredIdx
   );
 
   useEffect(() => {
@@ -56,7 +59,7 @@ const PostMap = ({ modalOpen, setModalOpen }: any) => {
       // @ts-ignore
       map.panTo(boundsInfo);
     }
-  }, [filteredId]);
+  }, [filteredIdx]);
 
   return (
     <div className="w-full flex h-[70vh]">
@@ -71,7 +74,8 @@ const PostMap = ({ modalOpen, setModalOpen }: any) => {
         className="w-[65%] h-full z-0"
       >
         <PostMarkers />
-        <MapTypeControl position={kakao.maps.ControlPosition.TOPRIGHT} />
+        <MapTypeControl position={kakao.maps.ControlPosition.TOPLEFT} />
+        <ZoomControl />
       </Map>
       <PostCourseInfo
         modalOpen={modalOpen}
@@ -81,6 +85,7 @@ const PostMap = ({ modalOpen, setModalOpen }: any) => {
       {modalOpen && (
         <PostSearchModal
           setModalOpen={setModalOpen}
+          searchKeyword={searchKeyword}
           setSearchKeyword={setSearchKeyword}
           searchList={searchList}
           setSearchList={setSearchList}

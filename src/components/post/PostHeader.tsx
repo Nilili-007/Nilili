@@ -1,11 +1,5 @@
 import React, { Dispatch, SetStateAction, useRef, useState } from "react";
 import { authService } from "../../utils/firebase";
-import {
-  getStorage,
-  getDownloadURL,
-  ref,
-  uploadBytes,
-} from "@firebase/storage";
 import { galleryLists } from "./index";
 import { GrFormClose } from "react-icons/gr";
 import styled from "styled-components";
@@ -32,6 +26,7 @@ const PostHeader = ({
   const [modalOpen, setModalOpen] = useState(false);
   const [category, setCategory] = useState("업로드");
   const coverRef = useRef<HTMLInputElement>(null);
+  let file: any;
 
   const onClickShowModal = () => {
     setModalOpen(true);
@@ -48,30 +43,12 @@ const PostHeader = ({
 
   const onChangeUploadCover = () => {
     if (coverRef.current?.files) {
-      const file = coverRef.current.files[0];
+      file = coverRef.current.files[0];
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = () => {
         setUploadCover(reader.result as any);
       };
-    }
-  };
-
-  const onClickUploadCover = async (event: any) => {
-    event.preventDefault();
-    setModalOpen(false);
-
-    if (coverRef.current?.files) {
-      const file = coverRef.current.files[0];
-      const storage = getStorage();
-      const storageRef = ref(storage, `covers/${file.name}`);
-
-      uploadBytes(storageRef, file).then(() => {
-        getDownloadURL(storageRef).then((url: string) => {
-          setUploadCover(url);
-          setGalleryCover(undefined);
-        });
-      });
     }
   };
 
@@ -82,7 +59,7 @@ const PostHeader = ({
     }
   };
 
-  const onClickRemoveCover = () => {
+  const onClickRemoveCover = async () => {
     setUploadCover("");
     setGalleryCover("");
   };
@@ -99,7 +76,6 @@ const PostHeader = ({
       />
       <div className="w-full h-[700px] -mt-[700px] absolute z-10 bg-gradient-to-t from-[#00000060]" />
       <div className="w-[70%] pt-36 m-auto -mt-[350px]">
-        {/* <h1 className="text-5xl font-bold z-20 absolute">DRAW MY PATH</h1> */}
         <input
           className="w-[70%] px-2 py-1.5 text-5xl font-bold z-40 absolute bg-transparent -mt-4 placholder:text-white zinc-50 focus:outline-0"
           placeholder="제목을 입력해주세요."
@@ -133,8 +109,7 @@ const PostHeader = ({
           <div className=" w-[95%] m-auto py-1">
             <div className="border-b border-gray-600 mt-10" />
             <GrFormClose
-              onClick={(event) => onClickUploadCover(event)}
-              // onClick={() => setModalOpen(false)}
+              onClick={() => setModalOpen(false)}
               className="cursor-pointer text-4xl ml-auto -mt-10 -mr-1"
             />
             <div className="flex -mt-[26px]">
