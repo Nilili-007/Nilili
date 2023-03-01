@@ -49,7 +49,8 @@ const UserList = ({ done, category }: UserListType) => {
     category === "MY" ? setUserData(mypaths) : setUserData(mylikes);
   };
 
-  const changeTravelStatusTrue = (id: string | undefined) => {
+  const changeTravelStatusTrue = (event: any, id: string | undefined) => {
+    event.stopPropagation();
     Swal.fire({
       title: "리뷰를 남기시겠습니까?",
       text: "NILILI에 소중한 리뷰를 남겨주세요 ♥",
@@ -77,10 +78,10 @@ const UserList = ({ done, category }: UserListType) => {
     });
   };
 
-  const changeTravelStatusFalse = (id: string | undefined) => {
+  const changeTravelStatusFalse = (event: any, id: string | undefined) => {
+    event.stopPropagation();
     Swal.fire({
       title: "여행 전으로 변경하시겠습니까?",
-      text: "You won't be able to revert this!",
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -95,6 +96,11 @@ const UserList = ({ done, category }: UserListType) => {
         Swal.fire("변경 완료!", "여행 전으로 변경되었습니다.", "success");
       }
     });
+  };
+
+  const handleNavigate = (event: any, id: string) => {
+    event.stopPropagation();
+    navigate(`/course/${id}`);
   };
 
   useEffect(() => {
@@ -127,8 +133,8 @@ const UserList = ({ done, category }: UserListType) => {
     <div className=" my-10 3xl:w-[60%] 2xl:w-[70%] w-[90%] ">
       <ul className="flex flex-wrap justify-evenly">
         {currentPosts?.map((item: CourseType) => (
-          <Link
-            to={`/course/${item.id}`}
+          <div
+            onClick={(event: any) => handleNavigate(event, item.id)}
             key={item.id}
             className="xl:w-[31%] lg:w-[32%] sm:w-[47%] w-[90%]  "
           >
@@ -138,11 +144,19 @@ const UserList = ({ done, category }: UserListType) => {
               </StMap>
               <StButtonDiv>
                 {category !== "MY" ? null : item.travelStatus ? (
-                  <button onClick={() => changeTravelStatusFalse(item.id)}>
+                  <button
+                    onClick={(event: any) =>
+                      changeTravelStatusFalse(event, item.id)
+                    }
+                  >
                     여행 전으로 토글
                   </button>
                 ) : (
-                  <button onClick={() => changeTravelStatusTrue(item.id)}>
+                  <button
+                    onClick={(event: any) =>
+                      changeTravelStatusTrue(event, item.id)
+                    }
+                  >
                     여행 후로 토글
                   </button>
                 )}
@@ -165,7 +179,7 @@ const UserList = ({ done, category }: UserListType) => {
               {Number(JSON.parse(item.createdAt).substr(11, 2)) + 9}
               {JSON.parse(item.createdAt).substr(14, 2)}
             </p>
-          </Link>
+          </div>
         ))}
       </ul>
       {/* pagenation */}
