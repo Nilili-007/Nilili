@@ -7,6 +7,7 @@ import { changeHashTagNum } from "../../redux/modules/searchSlice";
 import { hashTagOptions } from "../post/PostHashTag";
 import { regionOptions } from "../post/PostCategories";
 import { SyncLoader } from "react-spinners";
+import { logEvent } from "../../utils/amplitude";
 
 const travelStatusOptions = [
   { value: false, label: "여행 전" },
@@ -40,7 +41,7 @@ const SearchBox = () => {
     setTravelStatus(data?.value);
   };
 
-  //섹렉트된 데이터 형태 object에서 string[]으로 바꾸기
+  //셀렉트된 데이터 형태 object에서 string[]으로 바꾸기
   let locationsArr = locations?.map((item) => item.value);
 
   let hashtagsArr = hashtags?.map((item) => item.label);
@@ -84,6 +85,15 @@ const SearchBox = () => {
         );
       setFilteredList(filteredData);
     }
+    logEvent("게시물 검색", {
+      from: "검색페이지",
+      filter: {
+        해시태그: hashtagsArr,
+        지역: locationsArr,
+        여행여부: travelStatus,
+        검색어: words,
+      },
+    });
   };
 
   //맨 처음 렌더링, 새로고침 할 때 전체 데이터 보여주기

@@ -16,6 +16,7 @@ import {
 import { replaceAllData } from "../redux/modules/temporarySlice";
 import Swal from "sweetalert2";
 import * as amplitude from "@amplitude/analytics-browser";
+import { logEvent } from "../utils/amplitude";
 
 //select option의 타입
 export interface optionType {
@@ -122,7 +123,14 @@ const Post = () => {
           }
         }
       });
-      amplitude.track("게시물 등록");
+      logEvent("게시물 등록", {
+        from: "글쓰기 페이지",
+        information: {
+          지역: selectedRegions,
+          해시태그: selectedLabels,
+          여행여부: travelStatus,
+        },
+      });
     } else {
       if (!uploadCover && !galleryCover) {
         Swal.fire({

@@ -9,6 +9,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useScript } from "../../hooks/useScript";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
+import { logEvent } from "../../utils/amplitude";
 
 declare global {
   interface Window {
@@ -37,6 +38,10 @@ const Share = () => {
         timer: 1500,
       });
     }
+  };
+
+  const shareAmplitudeEvent = () => {
+    logEvent("게시물 공유", { from: "상세페이지" });
   };
 
   const handleKakaoBtn = () => {
@@ -90,13 +95,22 @@ const Share = () => {
       <div className="flex justify-end items-center gap-3 mt-2 xs:hidden">
         <div className="text-black text-[20px] font-medium">공유하기</div>
         <div>
-          <FacebookShareButton url={currentURL}>
+          <FacebookShareButton
+            url={currentURL}
+            onClick={() => shareAmplitudeEvent()}
+          >
             <FacebookIcon size={40} round={true} borderRadius={24} />
           </FacebookShareButton>
-          <TwitterShareButton url={currentURL}>
+          <TwitterShareButton
+            url={currentURL}
+            onClick={() => shareAmplitudeEvent()}
+          >
             <TwitterIcon size={40} round={true} borderRadius={24} />
           </TwitterShareButton>
-          <CopyToClipboard text={currentURL}>
+          <CopyToClipboard
+            text={currentURL}
+            onClick={() => shareAmplitudeEvent()}
+          >
             <button>
               <img
                 className="w-[40px] h-[40px] border rounded-full bg-white"
@@ -105,7 +119,12 @@ const Share = () => {
               />
             </button>
           </CopyToClipboard>
-          <button onClick={handleKakaoBtn}>
+          <button
+            onClick={() => {
+              handleKakaoBtn();
+              shareAmplitudeEvent();
+            }}
+          >
             <img
               className="w-[40px] h-[40px]"
               src="https://miro.medium.com/v2/resize:fit:288/format:webp/1*IsSbRIzHF8qqFQGTl3bNMg.png"
@@ -116,7 +135,12 @@ const Share = () => {
       </div>
       <div className="md:hidden flex m-2">
         <div className="text-black text-[20px] font-medium">공유하기</div>
-        <button onClick={shareHandle}>
+        <button
+          onClick={() => {
+            shareHandle();
+            shareAmplitudeEvent();
+          }}
+        >
           <img
             className="w-[40px] h-[40px] object-fill"
             src="https://cdn-icons-png.flaticon.com/512/157/157960.png"

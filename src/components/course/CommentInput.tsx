@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useAddCommentMutation } from "../../redux/modules/apiSlice";
+import { logEvent } from "../../utils/amplitude";
 import { authService } from "../../utils/firebase";
 import { CommentProps } from "./CommentDesc";
 
@@ -40,6 +41,7 @@ const CommentInput = ({ paramId }: CommentProps) => {
     };
     addComment(newComment);
     setComment("");
+    logEvent("댓글등록", { from: "상세페이지" });
   };
   return (
     <>
