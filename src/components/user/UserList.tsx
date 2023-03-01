@@ -8,7 +8,7 @@ import { useUpdateTravelStatusMutation } from "../../redux/modules/apiSlice";
 import { ListMap } from "../shared";
 import SearchPagenation from "../search/SearchPagenation";
 import styled from "styled-components";
-import { SyncLoader } from "react-spinners";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 type UserListType = {
   done: boolean;
@@ -49,7 +49,8 @@ const UserList = ({ done, category }: UserListType) => {
     category === "MY" ? setUserData(mypaths) : setUserData(mylikes);
   };
 
-  const changeTravelStatusTrue = (id: string | undefined) => {
+  const changeTravelStatusTrue = (event: any, id: string | undefined) => {
+    event.stopPropagation();
     Swal.fire({
       title: "리뷰를 남기시겠습니까?",
       text: "NILILI에 소중한 리뷰를 남겨주세요 ♥",
@@ -77,10 +78,10 @@ const UserList = ({ done, category }: UserListType) => {
     });
   };
 
-  const changeTravelStatusFalse = (id: string | undefined) => {
+  const changeTravelStatusFalse = (event: any, id: string | undefined) => {
+    event.stopPropagation();
     Swal.fire({
       title: "여행 전으로 변경하시겠습니까?",
-      text: "You won't be able to revert this!",
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -97,14 +98,30 @@ const UserList = ({ done, category }: UserListType) => {
     });
   };
 
+  const handleNavigate = (event: any, id: string) => {
+    event.stopPropagation();
+    navigate(`/course/${id}`);
+  };
+
   useEffect(() => {
     filterData();
   }, [data, category, done]);
 
   if (isLoading) {
     return (
-      <div className="h-[608px] w-full flex justify-center items-center">
-        <SyncLoader color="#A0A4A8" margin={12} size={18} />
+      <div className="flex justify-between w-[45%] flex-wrap">
+        {new Array(9).fill(null).map((_, idx) => (
+          <SkeletonTheme baseColor="#202020" highlightColor="#444" key={idx}>
+            <div className=" mb-3 ">
+              <Skeleton width={300} height={300} />
+              <div className="mt-3">
+                <Skeleton width={200} height={30} />
+                <Skeleton width={50} height={25} />
+                <Skeleton width={150} height={15} />
+              </div>
+            </div>
+          </SkeletonTheme>
+        ))}
       </div>
     );
   }
@@ -116,27 +133,34 @@ const UserList = ({ done, category }: UserListType) => {
     <div className=" my-10 3xl:w-[60%] 2xl:w-[70%] w-[90%] ">
       <ul className="flex flex-wrap justify-evenly">
         {currentPosts?.map((item: CourseType) => (
-          <Link
-            to={`/course/${item.id}`}
+          <div
+            onClick={(event: any) => handleNavigate(event, item.id)}
             key={item.id}
             className="xl:w-[31%] lg:w-[32%] sm:w-[47%] w-[90%]  "
           >
             <Stdiv>
-              <StMap>
+              <StMap category={category}>
                 <ListMap course={item} />
               </StMap>
               <StButtonDiv>
                 {category !== "MY" ? null : item.travelStatus ? (
-                  <button onClick={() => changeTravelStatusFalse(item.id)}>
+                  <button
+                    onClick={(event: any) =>
+                      changeTravelStatusFalse(event, item.id)
+                    }
+                  >
                     여행 전으로 토글
                   </button>
                 ) : (
-                  <button onClick={() => changeTravelStatusTrue(item.id)}>
+                  <button
+                    onClick={(event: any) =>
+                      changeTravelStatusTrue(event, item.id)
+                    }
+                  >
                     여행 후로 토글
                   </button>
                 )}
               </StButtonDiv>
-
               <StImg
                 src={item.cover}
                 alt="대표 사진"
@@ -153,10 +177,9 @@ const UserList = ({ done, category }: UserListType) => {
             <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
               {JSON.parse(item.createdAt).substr(0, 10)}{" "}
               {Number(JSON.parse(item.createdAt).substr(11, 2)) + 9}
-              {":"}
               {JSON.parse(item.createdAt).substr(14, 2)}
             </p>
-          </Link>
+          </div>
         ))}
       </ul>
       {/* pagenation */}
@@ -189,9 +212,9 @@ const StImg = styled.img`
   bottom: 24px;
 `;
 
-const StMap = styled.div`
+const StMap = styled.div<{ category: string }>`
   opacity: 0%;
-  filter: brightness(20%);
+  ${(props) => (props.category === "MY" ? "filter: Brightness(20%)" : null)};
 `;
 
 const Stdiv = styled.div`
