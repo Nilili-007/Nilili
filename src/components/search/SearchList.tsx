@@ -45,8 +45,14 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
             className="xl:w-[24%] lg:w-[32%] sm:w-[47%] w-[90%] pt-6 border-t-2 border-black  "
             onClick={() =>
               item.travelStatus === true
-                ? logEvent("여행 후 post click", { from: "검색페이지" })
-                : logEvent("여행 전 post click", { from: "검색페이지" })
+                ? logEvent("post click", {
+                    from: "검색페이지",
+                    여행여부: "여행 후",
+                  })
+                : logEvent("post click", {
+                    from: "검색페이지",
+                    여행여부: "여행 전",
+                  })
             }
           >
             <Stdiv>

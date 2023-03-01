@@ -32,7 +32,7 @@ const AfterLike = () => {
               to={`/course/${item.id}`}
               key={item.id}
               onClick={() =>
-                logEvent("post click", { from: "메인페이지 AfterLike" })
+                logEvent("post click : AfterLike", { from: "메인페이지" })
               }
             >
               <li className="md:w-[31%] w-[360px]  inline-block mx-3 pt-6 border-t-2 border-black ">

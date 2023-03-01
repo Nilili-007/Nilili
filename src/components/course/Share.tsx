@@ -107,11 +107,8 @@ const Share = () => {
           >
             <TwitterIcon size={40} round={true} borderRadius={24} />
           </TwitterShareButton>
-          <CopyToClipboard
-            text={currentURL}
-            onClick={() => shareAmplitudeEvent()}
-          >
-            <button>
+          <CopyToClipboard text={currentURL}>
+            <button onClick={() => shareAmplitudeEvent()}>
               <img
                 className="w-[40px] h-[40px] border rounded-full bg-white"
                 src="https://cdn.icon-icons.com/icons2/3510/PNG/512/link_share_url_hyperlink_icon_220890.png"

@@ -33,7 +33,9 @@ const BeforeRecent = () => {
               to={`/course/${item.id}`}
               key={item.id}
               onClick={() =>
-                logEvent("post click", { from: "메인페이지 BeforeRecent" })
+                logEvent("post click : BeforeRecent", {
+                  from: "메인페이지",
+                })
               }
             >
               <li className="md:w-[23%] w-[360px]  inline-block mx-3 pt-6 border-t-2 border-black   ">

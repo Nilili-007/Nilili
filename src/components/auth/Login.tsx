@@ -3,6 +3,7 @@ import { authService } from "../../utils/firebase";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import SocialLogin from "./SocialLogin";
+import * as amplitude from "@amplitude/analytics-browser";
 import { setAmplitudeUserId } from "../../utils/amplitude";
 
 interface LoginProps {
@@ -42,6 +43,7 @@ const Login = ({
     await signInWithEmailAndPassword(authService, email, password)
       .then(() => {
         setAmplitudeUserId(authService.currentUser?.uid);
+        amplitude.track("회원 로그인");
         setModal(false);
         document.body.style.overflow = "unset";
       })

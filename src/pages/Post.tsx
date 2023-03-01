@@ -170,7 +170,6 @@ const Post = () => {
           },
         });
         titleRef.current?.focus();
-        window.scrollTo({ top: 0, behavior: "smooth" });
       }
       if (courseList.length < 2) {
         Swal.fire({
