@@ -28,6 +28,7 @@ module.exports = {
     fontFamily: {
       sans: ["noto-sans-cjk-kr", "sans-serif"],
       eng: ["Montserrat", "sans-serif"],
+      hashtags: ["GmarketSansMedium"],
     },
   },
   variants: {
