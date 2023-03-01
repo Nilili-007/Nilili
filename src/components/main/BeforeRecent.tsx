@@ -2,8 +2,8 @@ import { useGetCourseQuery } from "../../redux/modules/apiSlice";
 import { Link } from "react-router-dom";
 import { ListMap } from "../shared";
 import styled from "styled-components";
-import { SyncLoader } from "react-spinners";
 import { logEvent } from "../../utils/amplitude";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const BeforeRecent = () => {
   const { data, isLoading, isError } = useGetCourseQuery();
@@ -13,22 +13,37 @@ const BeforeRecent = () => {
 
   return (
     <div className=" my-10 3xl:w-[60%] 2xl:w-[70%] w-[90%] ">
-      <p className=" ml-4 my-[2%] w-fit xl:text-[55px] lg:text-[45px] sm:text-[35px] text-2xl font-bold  ">
+      <p className=" ml-4 my-[2%] w-fit xl:text-[55px] lg:text-[45px] sm:text-[35px] text-2xl font-bold font-eng  ">
         NOW PLANS
       </p>
       <p className=" hidden sm:block ml-4 pb-5 w-fit text-xl text-[#999999]">
         아직 고민 중이신가요? 이런 일정은 어떠세요?
       </p>
-      {isLoading ? (
-        <div className="w-full h-[388px] flex justify-center items-center">
-          <SyncLoader color="#A0A4A8" margin={10} size={18} />
-        </div>
-      ) : null}
       <ul className="overflow-x-auto whitespace-nowrap no-scrollbar">
+        {isLoading ? (
+          <div className="flex justify-between">
+            {new Array(4).fill(null).map((_, idx) => (
+              <SkeletonTheme
+                baseColor="#202020"
+                highlightColor="#444"
+                key={idx}
+              >
+                <div className=" mb-3 ">
+                  <Skeleton width={300} height={300} />
+                  <div className="mt-3">
+                    <Skeleton width={200} height={30} />
+                    <Skeleton width={50} height={25} />
+                    <Skeleton width={150} height={15} />
+                  </div>
+                </div>
+              </SkeletonTheme>
+            ))}
+          </div>
+        ) : null}
         {data
           ?.filter((item: CourseType) => item.travelStatus === false)
           .slice(0, 4)
-          .map((item) => (
+          .map((item: CourseType) => (
             <Link
               to={`/course/${item.id}`}
               key={item.id}

@@ -13,13 +13,13 @@ const HashtagList = () => {
   return (
     <div className="bg-gray-200 w-full h-[650px]">
       <div className="mx-auto 3xl:w-[60%] 2xl:w-[70%] w-[90%]  ">
-        <p className="mt-[5%] mb-[2%] ml-4 w-fit xl:text-[55px] lg:text-[45px] sm:text-[35px] text-2xl font-bold">
+        <p className="mt-[5%] mb-[2%] ml-4 w-fit xl:text-[55px] lg:text-[45px] sm:text-[35px] text-2xl font-bold ">
           HASHTAG IN KOREA
         </p>
         <p className=" hidden sm:block ml-4 pb-5 w-fit text-xl text-[#999999]">
           NILILI 사용자가 가장 최근 올린 일정을 함께해보세요.
         </p>
-        <div className="flex flex-wrap justify-between mt-[5%]">
+        <div className="flex flex-wrap justify-between mt-[5%] font-hashtags">
           <Link
             onClick={() => {
               dispatch(changeHashTagNum(0));

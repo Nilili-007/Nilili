@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeHashTagNum } from "../../redux/modules/searchSlice";
 import { hashTagOptions } from "../post/PostHashTag";
 import { regionOptions } from "../post/PostCategories";
-import { SyncLoader } from "react-spinners";
 import { logEvent } from "../../utils/amplitude";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const travelStatusOptions = [
   { value: false, label: "여행 전" },
@@ -175,9 +175,26 @@ const SearchBox = () => {
       {filteredList?.length === 0 ? (
         <p>검색결과가 없습니다.</p>
       ) : isLoading ? (
-        <div className="w-full h-[600px] flex justify-center items-center">
-          <SyncLoader color="#A0A4A8" margin={10} size={18} />
-        </div>
+        <>
+          <div className="flex justify-between w-[60%] flex-wrap">
+            {new Array(12).fill(null).map((_, idx) => (
+              <SkeletonTheme
+                baseColor="#202020"
+                highlightColor="#444"
+                key={idx}
+              >
+                <div className=" mb-3 ">
+                  <Skeleton width={300} height={300} />
+                  <div className="mt-3">
+                    <Skeleton width={200} height={30} />
+                    <Skeleton width={50} height={25} />
+                    <Skeleton width={150} height={15} />
+                  </div>
+                </div>
+              </SkeletonTheme>
+            ))}
+          </div>
+        </>
       ) : isError ? (
         <p>에러가 발생했습니다.</p>
       ) : (
