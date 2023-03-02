@@ -3,6 +3,7 @@ import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import { authService } from "../../utils/firebase";
 
 import { useUpdateLikesMutation } from "../../redux/modules/apiSlice";
+import { logEvent } from "../../utils/amplitude";
 interface LikeProps {
   paramId: string | any;
   course: CourseType | undefined;
@@ -29,6 +30,7 @@ const LikeBtn = ({ paramId, course }: LikeProps) => {
       setLike(true);
       setLikeCount(likeCount + 1);
     }
+    logEvent("좋아요 클릭", { from: "상세페이지" });
   };
 
   useEffect(() => {

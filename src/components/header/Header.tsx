@@ -7,6 +7,7 @@ import Weather from "./Weather";
 import { useDispatch } from "react-redux";
 import { replaceAllData } from "../../redux/modules/temporarySlice";
 import Swal from "sweetalert2";
+import { resetAmplitude } from "../../utils/amplitude";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const Header = () => {
     signOut(authService)
       .then(() => {
         navigate("/");
+        resetAmplitude();
       })
       .catch((error) => {
         console.log("error: ", error);

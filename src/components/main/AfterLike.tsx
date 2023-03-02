@@ -2,7 +2,9 @@ import { useGetCourseLikeQuery } from "../../redux/modules/apiSlice";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { ListMap } from "../shared";
+import { logEvent } from "../../utils/amplitude";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+
 const AfterLike = () => {
   const { data, isLoading, isError } = useGetCourseLikeQuery();
   if (isError) {
@@ -39,7 +41,13 @@ const AfterLike = () => {
           ?.filter((item: CourseType) => item.travelStatus === true)
           .slice(0, 3)
           .map((item) => (
-            <Link to={`/course/${item.id}`} key={item.id}>
+            <Link
+              to={`/course/${item.id}`}
+              key={item.id}
+              onClick={() =>
+                logEvent("post click : AfterLike", { from: "메인페이지" })
+              }
+            >
               <li className="md:w-[31%] w-[360px]  inline-block mx-3 pt-6 border-t-2 border-black ">
                 <Stdiv>
                   <StMap>

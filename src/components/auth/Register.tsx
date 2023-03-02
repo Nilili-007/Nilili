@@ -3,7 +3,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { authService } from "../../utils/firebase";
 import Swal from "sweetalert2";
-
+import * as amplitude from "@amplitude/analytics-browser";
+import { setAmplitudeUserId } from "../../utils/amplitude";
 interface RegisterProps {
   closeModal: (e: any) => void;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -51,6 +52,7 @@ const Register = ({ setModal, closeModal, loginBtn }: RegisterProps) => {
           timer: 3000,
         });
         setModal(false);
+        amplitude.track("회원가입");
         updateProfile(data.user, {
           displayName: userName,
           photoURL:
@@ -67,6 +69,8 @@ const Register = ({ setModal, closeModal, loginBtn }: RegisterProps) => {
           email: item.email,
         };
         setModal(false);
+        setAmplitudeUserId(item.uid);
+        amplitude.track("로그인");
       })
       .catch((error) => {
         if (error.code.includes("auth/email-already-in-use")) {

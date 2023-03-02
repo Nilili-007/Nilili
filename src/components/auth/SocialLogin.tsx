@@ -3,6 +3,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
+import { setAmplitudeUserId } from "../../utils/amplitude";
 import { authService } from "../../utils/firebase";
 
 interface SocialProps {
@@ -15,6 +16,7 @@ const SocialLogin = ({ setModal }: SocialProps) => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(authService, provider)
       .then((result) => {
+        setAmplitudeUserId(authService.currentUser?.uid);
         setModal(false);
       })
       .catch((error) => {
@@ -27,6 +29,7 @@ const SocialLogin = ({ setModal }: SocialProps) => {
     const provider = new FacebookAuthProvider();
     signInWithPopup(authService, provider)
       .then((result) => {
+        setAmplitudeUserId(authService.currentUser?.uid);
         setModal(false);
       })
       .catch((error) => {

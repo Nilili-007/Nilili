@@ -8,6 +8,7 @@ import { useUpdateTravelStatusMutation } from "../../redux/modules/apiSlice";
 import { ListMap } from "../shared";
 import SearchPagenation from "../search/SearchPagenation";
 import styled from "styled-components";
+import { logEvent } from "../../utils/amplitude";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 type UserListType = {
@@ -68,12 +69,14 @@ const UserList = ({ done, category }: UserListType) => {
           travelStatus: true,
         });
         navigate(`/edit/${id}`);
+        logEvent("리뷰 작성하러 이동", { from: "유저페이지" });
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         await updateTravelStatus({
           courseId: id,
           travelStatus: true,
         });
         Swal.fire("변경 완료!", "여행 후로 변경되었습니다.", "success");
+        logEvent("여행 후로만 변경하기", { from: "유저페이지" });
       }
     });
   };
@@ -153,9 +156,10 @@ const UserList = ({ done, category }: UserListType) => {
                   </button>
                 ) : (
                   <button
-                    onClick={(event: any) =>
-                      changeTravelStatusTrue(event, item.id)
-                    }
+                    onClick={(event: any) => {
+                      changeTravelStatusTrue(event, item.id);
+                      logEvent("여행 후로 변경", { from: "유저페이지" });
+                    }}
                   >
                     여행 후로 토글
                   </button>

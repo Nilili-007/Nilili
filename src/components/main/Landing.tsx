@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { logEvent } from "../../utils/amplitude";
 
 const Landing = () => {
   const scrollToList = () => {
@@ -29,6 +30,9 @@ const Landing = () => {
             className=" border-white border text-white font-medium  hover:bg-amber-500  text-xl w-48 py-2 my-auto"
             onClick={() => {
               navigate("/search");
+              logEvent("button click : 코스보기", {
+                from: "메인페이지 Landing",
+              });
             }}
           >
             코스보기

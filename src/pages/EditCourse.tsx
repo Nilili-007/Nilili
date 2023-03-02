@@ -12,8 +12,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import { EditCourseCategories, EditCourseMap } from "../components/edit";
 import { authService } from "../utils/firebase";
 import Swal from "sweetalert2";
+import * as amplitude from "@amplitude/analytics-browser";
+import { logEvent } from "../utils/amplitude";
 
 const EditCourse = () => {
+  useEffect(() => {
+    amplitude.track("수정페이지 접속");
+  }, []);
   const paramId = useParams().id;
   const { data, refetch } = useGetCourseQuery();
   const filterData = data?.filter(
@@ -148,6 +153,7 @@ const EditCourse = () => {
               icon: "success",
               title: `${authService.currentUser?.displayName}님의 여정을 공유해주셔서 감사합니다!`,
             });
+            logEvent("수정내용 등록", { from: "수정페이지" });
           }
         }
       });
