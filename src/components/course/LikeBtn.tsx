@@ -4,6 +4,7 @@ import { authService } from "../../utils/firebase";
 
 import { useUpdateLikesMutation } from "../../redux/modules/apiSlice";
 import { logEvent } from "../../utils/amplitude";
+import { arrayRemove, arrayUnion } from "firebase/firestore";
 interface LikeProps {
   paramId: string | any;
   course: CourseType | undefined;
@@ -39,13 +40,13 @@ const LikeBtn = ({ paramId, course }: LikeProps) => {
         await updateLikesMutate({
           courseId: paramId,
           likes: likeCount || null,
-          likesID: [...course.likesID, currentId],
+          likesID: arrayUnion(currentId),
         });
       } else {
         await updateLikesMutate({
           courseId: paramId,
           likes: likeCount || null,
-          likesID: course?.likesID.filter((item) => item !== currentId),
+          likesID: arrayRemove(currentId),
         });
       }
     };
