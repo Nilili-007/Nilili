@@ -176,7 +176,7 @@ const SearchBox = () => {
           <div className="flex flex-row indent-2">
             <div className="mr-3 body2 w-[120px] xs:body3">지역</div>
             <Select
-              className="z-20 w-full leading-7 text-[22px]"
+              className="z-20 w-full leading-7 text-[22px] xs:body3"
               classNamePrefix="select"
               options={regionOptions}
               placeholder={"지역명"}
@@ -191,7 +191,7 @@ const SearchBox = () => {
           <div className="flex flex-row indent-2 ">
             <div className="mr-3 body2 w-[140px] xs:body3">해시태그</div>
             <Select
-              className="z-20 w-full leading-7 text-[22px]"
+              className="z-20 w-full leading-7 text-[22px] xs:body3"
               classNamePrefix="select"
               options={hashTagOptions}
               isMulti
@@ -207,7 +207,7 @@ const SearchBox = () => {
           <div className="flex flex-row indent-2 ">
             <div className="mr-3 body2 w-[180px] xs:body3">여행 전/후</div>
             <Select
-              className="z-20 w-full leading-7 text-[22px]"
+              className="z-20 w-full leading-7 text-[22px] xs:body3"
               classNamePrefix="select"
               isClearable={true}
               placeholder={"전/후"}
