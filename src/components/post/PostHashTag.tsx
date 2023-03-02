@@ -1,4 +1,5 @@
-import Select, { StylesConfig } from "react-select";
+import Select from "react-select";
+import ColorStyles from "../shared/ColorStyles";
 
 export const hashTagOptions = [
   { value: "#가족", label: "#화목하게 가족과" },
@@ -29,56 +30,6 @@ const PostHashTag = ({ selectedTags, setSelectedTags }: tagProps) => {
   }
   const limit = 5;
 
-  const colourStyles: StylesConfig<optionType, true> = {
-    control: (styles) => ({ ...styles, borderRadius: "0" }),
-    option: (styles, { isDisabled, isFocused, isSelected }) => {
-      return {
-        ...styles,
-        backgroundColor: isDisabled
-          ? undefined
-          : isSelected
-          ? "#000000"
-          : isFocused
-          ? "#000000"
-          : undefined,
-        color: isDisabled
-          ? "#ccc"
-          : isSelected
-          ? "#000000"
-          : isFocused
-          ? "#ffffff"
-          : "#000000",
-        ":active": {
-          ...styles[":active"],
-          backgroundColor: !isDisabled
-            ? isSelected
-              ? "#000000"
-              : "#A0A4A8"
-            : undefined,
-        },
-      };
-    },
-    multiValue: (styles) => {
-      return {
-        ...styles,
-        backgroundColor: "#000000",
-      };
-    },
-    multiValueLabel: (styles) => ({
-      ...styles,
-      color: "#ffffff",
-      paddingLeft: 10,
-      fontSize: 16,
-    }),
-    multiValueRemove: (styles) => ({
-      ...styles,
-      color: "#ffffff",
-      ":hover": {
-        // backgroundColor: "#CBCDD2",
-        color: "#f95c54",
-      },
-    }),
-  };
   return (
     <div className="mb-8">
       <Select
@@ -93,7 +44,7 @@ const PostHashTag = ({ selectedTags, setSelectedTags }: tagProps) => {
         isOptionDisabled={(selectedTag) =>
           selectedTags && selectedTags.length >= limit
         }
-        styles={colourStyles}
+        styles={ColorStyles}
       />
     </div>
   );
