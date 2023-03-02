@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Select from "react-select";
+import Select, { StylesConfig } from "react-select";
 import SearchList from "./SearchList";
 import { useGetCourseQuery } from "../../redux/modules/apiSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,7 +9,7 @@ import { regionOptions } from "../post/PostCategories";
 import { logEvent } from "../../utils/amplitude";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
-const travelStatusOptions = [
+const travelStatusOptions: any = [
   { value: false, label: "여행 전" },
   { value: true, label: "여행 후" },
 ];
@@ -115,6 +115,57 @@ const SearchBox = () => {
     };
   }, []);
 
+  const colourStyles: StylesConfig<optionType, true> = {
+    control: (styles) => ({ ...styles, borderRadius: "0" }),
+    option: (styles, { isDisabled, isFocused, isSelected }) => {
+      return {
+        ...styles,
+        backgroundColor: isDisabled
+          ? undefined
+          : isSelected
+          ? "#000000"
+          : isFocused
+          ? "#000000"
+          : undefined,
+        color: isDisabled
+          ? "#ccc"
+          : isSelected
+          ? "#000000"
+          : isFocused
+          ? "#ffffff"
+          : "#000000",
+        ":active": {
+          ...styles[":active"],
+          backgroundColor: !isDisabled
+            ? isSelected
+              ? "#000000"
+              : "#A0A4A8"
+            : undefined,
+        },
+      };
+    },
+    multiValue: (styles) => {
+      return {
+        ...styles,
+        backgroundColor: "#000000",
+      };
+    },
+    multiValueLabel: (styles) => ({
+      ...styles,
+      color: "#ffffff",
+      paddingLeft: 10,
+      fontSize: 16,
+    }),
+    multiValueRemove: (styles) => ({
+      ...styles,
+      color: "#ffffff",
+      ":hover": {
+        // backgroundColor: "#CBCDD2",
+        color: "#e4291f",
+      },
+    }),
+  };
+
   return (
     <>
       <div className="mb-[2%] 3xl:w-[60%] 2xl:w-[70%] w-[90%] min-w-[370px]">
@@ -123,8 +174,10 @@ const SearchBox = () => {
         </p>
         <div className="border  border-black flex flex-col items-center gap-5  p-[40px]">
           <div className="flex flex-row indent-2">
-            <div className="mr-3 body2 xs:body3">지역</div>
+            <div className="mr-3 body2 w-[120px] xs:body3">지역</div>
             <Select
+              className="z-20 w-full leading-7 text-[22px]"
+              classNamePrefix="select"
               options={regionOptions}
               placeholder={"지역명"}
               autoFocus={true}
@@ -132,11 +185,14 @@ const SearchBox = () => {
               isSearchable={true}
               isClearable={true}
               onChange={locationOnChangeHandler}
+              styles={colourStyles}
             />
           </div>
           <div className="flex flex-row indent-2 ">
-            <div className="mr-3 body2 xs:body3">해시태그</div>
+            <div className="mr-3 body2 w-[140px] xs:body3">해시태그</div>
             <Select
+              className="z-20 w-full leading-7 text-[22px]"
+              classNamePrefix="select"
               options={hashTagOptions}
               isMulti
               isSearchable={true}
@@ -144,16 +200,20 @@ const SearchBox = () => {
               placeholder={"#해시태그"}
               onChange={hashtagOnChangeHandler}
               value={hashtags}
+              styles={colourStyles}
             />
           </div>
 
           <div className="flex flex-row indent-2 ">
-            <div className="mr-3 body2 xs:body3">여행 전/후</div>
+            <div className="mr-3 body2 w-[180px] xs:body3">여행 전/후</div>
             <Select
+              className="z-20 w-full leading-7 text-[22px]"
+              classNamePrefix="select"
               isClearable={true}
               placeholder={"전/후"}
               options={travelStatusOptions}
               onChange={travelStatusOnChangeHandler}
+              styles={colourStyles}
             />
           </div>
 
