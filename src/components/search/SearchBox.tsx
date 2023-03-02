@@ -123,7 +123,7 @@ const SearchBox = () => {
         </p>
         <div className="border  border-black flex flex-col items-center gap-5  p-[40px]">
           <div className="flex flex-row indent-2">
-            <div>지역</div>
+            <div className="mr-3 body2">지역</div>
             <Select
               options={regionOptions}
               placeholder={"지역명"}
@@ -135,7 +135,7 @@ const SearchBox = () => {
             />
           </div>
           <div className="flex flex-row indent-2 ">
-            <div>해시태그</div>
+            <div className="mr-3 body2">해시태그</div>
             <Select
               options={hashTagOptions}
               isMulti
@@ -148,25 +148,31 @@ const SearchBox = () => {
           </div>
 
           <div className="flex flex-row indent-2 ">
-            <div>여행 전/후</div>
+            <div className="mr-3 body2">여행 전/후</div>
             <Select
               isClearable={true}
+              placeholder={"전/후"}
               options={travelStatusOptions}
               onChange={travelStatusOnChangeHandler}
             />
           </div>
 
           <div className="flex flex-row indent-2 ">
-            <div>검색어</div>
+            <div className="mr-3 body2 w-[120px]">검색어</div>
             <input
               className={
-                "rounded-sm indent-4 border border-gray-300 w-[90%] h-[38px]"
+                "rounded-sm indent-4 border border-gray-300 w-full h-[38px]"
               }
-              placeholder="입력하세요."
+              placeholder="검색어를 입력하세요."
               value={words}
               onChange={(event) => setWords(event.target.value)}
             />
-            <button onClick={filterData}>검색</button>
+            <button
+              className="ml-3 w-[120px] button2 text-white bg-black hover:bg-white hover:text-black hover:border"
+              onClick={filterData}
+            >
+              검색
+            </button>
           </div>
         </div>
       </div>
