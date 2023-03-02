@@ -1,6 +1,5 @@
 import { useGetCourseQuery } from "../../redux/modules/apiSlice";
 import { authService } from "../../utils/firebase";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +9,7 @@ import SearchPagenation from "../search/SearchPagenation";
 import styled from "styled-components";
 import { logEvent } from "../../utils/amplitude";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import usePagenation from "../../hooks/usePagenation";
 
 type UserListType = {
   done: boolean;
@@ -23,22 +23,25 @@ const UserList = ({ done, category }: UserListType) => {
   const navigate = useNavigate();
   const [updateTravelStatus] = useUpdateTravelStatusMutation();
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(6);
+  const { firstPostIndex, lastPostIndex, pages, currentPage, setCurrentPage } =
+    usePagenation(userData, 6);
 
-  const lastPostIndex = currentPage * postsPerPage;
-  const firstPostIndex = lastPostIndex - postsPerPage;
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [postsPerPage] = useState(6);
+
+  // const lastPostIndex = currentPage * postsPerPage;
+  // const firstPostIndex = lastPostIndex - postsPerPage;
 
   const currentPosts = userData
     ? userData.slice(firstPostIndex, lastPostIndex)
     : null;
 
-  const totalContents: any = userData?.length;
+  // const totalContents: any = userData?.length;
 
-  const pages = [];
-  for (let i = 1; i <= Math.ceil(totalContents / postsPerPage); i++) {
-    pages.push(i);
-  }
+  // const pages = [];
+  // for (let i = 1; i <= Math.ceil(totalContents / postsPerPage); i++) {
+  //   pages.push(i);
+  // }
 
   const filterData = () => {
     const mypaths = data?.filter(
@@ -180,7 +183,7 @@ const UserList = ({ done, category }: UserListType) => {
             </p>
             <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
               {JSON.parse(item.createdAt).substr(0, 10)}{" "}
-              {Number(JSON.parse(item.createdAt).substr(11, 2)) + 9}
+              {Number(JSON.parse(item.createdAt).substr(11, 2)) + 9}:
               {JSON.parse(item.createdAt).substr(14, 2)}
             </p>
           </div>

@@ -7,6 +7,7 @@ import { BiComment } from "react-icons/bi";
 import LikeBtn from "./LikeBtn";
 import Share from "./Share";
 import { CommentType } from "./CommentInput";
+import usePagenation from "../../hooks/usePagenation";
 
 export interface CommentProps {
   paramId: string | undefined;
@@ -16,25 +17,20 @@ export interface CommentProps {
 const CommentDesc = ({ paramId, courseData }: CommentProps) => {
   const [desc, setDesc] = useState(true);
   const { data, isError, error } = useGetCommentQuery();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(10);
+
   const filterData = data?.filter(
     (comment: CommentType) => comment.postId === paramId
   );
-  const lastPostIndex = currentPage * postsPerPage;
-  const firstPostIndex = lastPostIndex - postsPerPage;
+
+  const { firstPostIndex, lastPostIndex, pages, currentPage, setCurrentPage } =
+    usePagenation(filterData, 10);
+
   const currentPosts = filterData
     ? filterData.slice(firstPostIndex, lastPostIndex)
     : null;
   const currentAscPosts = filterData
-    ? filterData.slice(firstPostIndex, lastPostIndex).reverse()
+    ? filterData.reverse().slice(firstPostIndex, lastPostIndex)
     : null;
-  const totalContents: any = filterData?.length;
-  const pages = [];
-  for (let i = 1; i <= Math.ceil(totalContents / postsPerPage); i++) {
-    pages.push(i);
-  }
-
   const commentLength = filterData?.length
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
