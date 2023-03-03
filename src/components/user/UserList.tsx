@@ -115,7 +115,7 @@ const UserList = ({ done, category }: UserListType) => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-between w-[45%] flex-wrap">
+      <div className="flex justify-between flex-wrap">
         {new Array(9).fill(null).map((_, idx) => (
           <SkeletonTheme baseColor="#202020" highlightColor="#444" key={idx}>
             <div className=" mb-3 ">
@@ -136,13 +136,13 @@ const UserList = ({ done, category }: UserListType) => {
   }
 
   return (
-    <div className=" my-10 3xl:w-[60%] 2xl:w-[70%] w-[90%] ">
-      <ul className="flex flex-wrap justify-evenly">
+    <div className=" my-10 ">
+      <ul className="flex flex-wrap ">
         {currentPosts?.map((item: CourseType) => (
           <div
             onClick={(event: any) => handleNavigate(event, item.id)}
             key={item.id}
-            className="xl:w-[31%] lg:w-[32%] sm:w-[47%] w-[90%]  "
+            className=" w-[33%] "
           >
             <Stdiv>
               <StMap category={category}>
@@ -171,7 +171,7 @@ const UserList = ({ done, category }: UserListType) => {
               <StImg
                 src={item.cover}
                 alt="대표 사진"
-                className=" border-black h-[324px] w-[300px]"
+                className=" border-black h-[300px] w-[300px]"
               />
             </Stdiv>
 
@@ -226,7 +226,7 @@ const StMap = styled.div<{ category: string }>`
 
 const Stdiv = styled.div`
   position: relative;
-
+  overflow: hidden;
   &:hover {
     ${StImg} {
       display: none;
