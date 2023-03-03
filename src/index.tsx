@@ -7,6 +7,7 @@ import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
 import { courseApi } from "./redux/modules/apiSlice";
 import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
+import { HelmetProvider } from "react-helmet-async";
 
 Sentry.init({
   dsn: "https://f297ca4337b14c53a080fd3dcde23d90@o4504768449019904.ingest.sentry.io/4504768455114752",
@@ -24,7 +25,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <ApiProvider api={courseApi}>
     <Provider store={store}>
-      <App />
+      <HelmetProvider>
+        <App />
+      </HelmetProvider>
     </Provider>
   </ApiProvider>
 );
