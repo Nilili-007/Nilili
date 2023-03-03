@@ -7,8 +7,8 @@ const CourseInfo = ({ courseList, filteredId, setFilteredId }: any) => {
   };
 
   return (
-    <div className="w-[35%] ml-7 ">
-      <div className="flex flex-col h-full overflow-y-scroll">
+    <div className="w-[472px] pl-7 float-right xs:hidden">
+      <div className="flex flex-col h-[1024px] overflow-y-scroll ">
         {courseList?.map((item: any, key: any) => {
           return (
             <ItemCard
@@ -18,13 +18,15 @@ const CourseInfo = ({ courseList, filteredId, setFilteredId }: any) => {
             >
               <div className="w-full px-2 py-3 flex">
                 <div className="w-full px-3 text-lg">
-                  <h4 className="font-bold text-2xl">
+                  <h4 className="title3">
                     #{key + 1} {item.name}
                   </h4>
-                  <p className="mt-1.5 text-sm">{item.address}</p>
-                  <p className="text-sm">{item.road}</p>
-                  <p className="text-sm">{item.phone}</p>
-                  <p className="mt-1.5">{item.memo}</p>
+                  <div className="w-full h-auto mt-4 text-gray-04 text-[17px]">
+                    <p>{item.address}</p>
+                    <p>{item.road}</p>
+                    <p>{item.phone}</p>
+                  </div>
+                  <p className="mt-4">{item.memo}</p>
                 </div>
               </div>
             </ItemCard>
