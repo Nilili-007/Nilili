@@ -1,5 +1,3 @@
-import React from "react";
-
 interface HashTagProps {
   course: CourseType | undefined;
 }
@@ -15,7 +13,7 @@ const CourseHashTag = ({ course }: HashTagProps) => {
               key={hashtag}
               className="bg-gray-300 px-4 sm:px-5 py-[12px] flex justify-center text-[20px] font-medium"
             >
-              {hashtag}
+              #{hashtag}
             </h3>
           );
         })}

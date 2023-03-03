@@ -1,12 +1,16 @@
 import { useState, useEffect } from "react";
 import Select from "react-select";
 import SearchList from "./SearchList";
-import { useGetCourseQuery } from "../../redux/modules/apiSlice";
+import {
+  useGetCourseQuery,
+  useGetCourseConditionallyQuery,
+} from "../../redux/modules/apiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { changeHashTagNum } from "../../redux/modules/searchSlice";
 import { hashTagOptions } from "../post/PostHashTag";
 import { regionOptions } from "../post/PostCategories";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { useNavigate } from "react-router";
 
 const travelStatusOptions = [
   { value: false, label: "여행 전" },
@@ -14,19 +18,31 @@ const travelStatusOptions = [
 ];
 
 const SearchBox = () => {
+  const navigate = useNavigate();
   const linkedHashtagNum = useSelector(
     (state: any) => state.searchSlice.hashtagNumber
   );
   const dispatch = useDispatch();
-  const { data, isLoading, isError } = useGetCourseQuery();
-
-  const [locations, setLocations] = useState<optionType[] | null>([]);
-  const [hashtags, sethashtags] = useState<optionType[] | null>([]);
+  const [locations, setLocations] = useState<optionType[]>([]);
+  const [hashtags, sethashtags] = useState<optionType[]>([]);
   const [words, setWords] = useState("");
   const [travelStatus, setTravelStatus] = useState<boolean>();
-
   const [filteredList, setFilteredList] = useState<CourseType[]>();
+  //섹렉트된 데이터 형태 object에서 string[]으로 바꾸기
+  let locationsArr = locations?.map((item) => item.value);
+  let hashtagsArr = hashtags?.map((item) => item.label);
 
+  const { data } = useGetCourseQuery();
+
+  const {
+    data: conditionData,
+    isLoading,
+    isError,
+  } = useGetCourseConditionallyQuery(
+    travelStatus === undefined ? "" : travelStatus
+  );
+  console.log(travelStatus);
+  console.log(conditionData);
   //셀렉트한 데이터 State에 반영하기
   const locationOnChangeHandler = (data: any) => {
     setLocations(data);
@@ -39,11 +55,6 @@ const SearchBox = () => {
   const travelStatusOnChangeHandler = (data: any) => {
     setTravelStatus(data?.value);
   };
-
-  //섹렉트된 데이터 형태 object에서 string[]으로 바꾸기
-  let locationsArr = locations?.map((item) => item.value);
-
-  let hashtagsArr = hashtags?.map((item) => item.label);
 
   //sample 배열이 base배열의 부분 함수인지 여부 true, false로 반환하는 함수
   const isSubsetOf = function (
@@ -62,10 +73,12 @@ const SearchBox = () => {
       travelStatus === undefined
     ) {
       setFilteredList(data);
+      console.log("필터 전");
     }
     // 지역, 해시태그, 키워드(제목, 코스 각각의 이름, 지번주소, 도로명 주소, 메모), 여행 전/후 여부에 따라 필터링
     else {
-      const filteredData: CourseType[] | undefined = data
+      console.log("필터 후");
+      const filteredData: CourseType[] | undefined = conditionData
         ?.filter((item) => isSubsetOf(item.location, locationsArr))
         .filter((item) => isSubsetOf(item.hashtags, hashtagsArr))
         .filter(
@@ -78,10 +91,8 @@ const SearchBox = () => {
                 item.road.toLowerCase().includes(words.toLowerCase()) ||
                 item.memo?.toLowerCase().includes(words.toLowerCase())
             ).length !== 0
-        )
-        .filter((item) =>
-          travelStatus === undefined ? true : item.travelStatus === travelStatus
         );
+      console.log(filteredData);
       setFilteredList(filteredData);
     }
   };
@@ -89,7 +100,7 @@ const SearchBox = () => {
   //맨 처음 렌더링, 새로고침 할 때 전체 데이터 보여주기
   useEffect(() => {
     filterData();
-  }, [hashtags, locations, travelStatus, data]);
+  }, [hashtags, locations, words, data, conditionData]);
 
   //메인페이지에서 해시태그 링크로 들어올 때 자동검색
   //페이지 나갈 때 해시태그 자동검색 없애기
@@ -122,6 +133,7 @@ const SearchBox = () => {
               isSearchable={true}
               isClearable={true}
               onChange={locationOnChangeHandler}
+              value={locations}
             />
           </div>
           <div className="flex flex-row indent-2 ">
@@ -163,7 +175,7 @@ const SearchBox = () => {
 
       {/* 나올 수 있는 리스트 상태 구분 */}
       {filteredList?.length === 0 ? (
-        <p>검색결과가 없습니다.</p>
+        <p className="min-h-[1500px]">검색결과가 없습니다.</p>
       ) : isLoading ? (
         <>
           <div className="flex justify-between w-[60%] flex-wrap">
@@ -186,7 +198,7 @@ const SearchBox = () => {
           </div>
         </>
       ) : isError ? (
-        <p>에러가 발생했습니다.</p>
+        <p className="min-h-[1500px]">에러가 발생했습니다.</p>
       ) : (
         <SearchList filteredList={filteredList} />
       )}
