@@ -76,6 +76,11 @@ const PostHeader = ({
       />
       <div className="w-full h-[220px] sm:h-[450px] md:h-[700px] -mt-[220px] sm:-mt-[450px] md:-mt-[700px] absolute z-10 bg-gradient-to-t from-[#00000060]" />
       <div className="w-[85%] md:w-[70%] pt-36 m-auto -mt-[270px] sm:-mt-[350px]">
+        {uploadCover === "" && galleryCover === "" ? (
+          <div className="xs:scale-[0.5] -mt-[125px] md:-mt-[340px] absolute z-10 right-16 md:right-[43.5%]">
+            <img src="/assets/empty-img.png" />
+          </div>
+        ) : null}
         <input
           className="w-[85%] sm:w-[80%] md:w-[70%] sm:px-2 sm:py-1.5 text-[24px] sm:text-4xl md:text-5xl font-bold z-40 absolute bg-transparent mt-3 md:-mt-4 placholder:text-white zinc-50 focus:outline-0"
           placeholder="제목을 입력해주세요."
@@ -105,7 +110,7 @@ const PostHeader = ({
         </div>
       </div>
       {modalOpen && (
-        <div className="w-[700px] h-[300px] bg-white border border-gray-600 absolute translate-x-[34%] translate-y-[5%] z-[1000]">
+        <div className="w-full h-[300px] md:w-[700px] md:h-[300px] bg-white border border-gray-600 absolute sm:translate-x-[10%] md:translate-x-[34%] translate-y-[5%] z-[1000]">
           <div className=" w-[95%] m-auto py-1">
             <div className="border-b border-gray-600 mt-10" />
             <GrFormClose
@@ -128,7 +133,7 @@ const PostHeader = ({
             </div>
             <div className="w-full h-full flex flex-col justify-center items-center">
               {category === "업로드" ? (
-                <div className="w-[665px] h-60 flex justify-center items-center">
+                <div className="md:w-[665px] h-60 flex justify-center items-center">
                   <input
                     type="file"
                     ref={coverRef}

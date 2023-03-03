@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { replaceAllData } from "../../redux/modules/temporarySlice";
+import { replaceAllData } from "../../redux/modules/courseSlice";
 import { useDeleteCourseMutation } from "../../redux/modules/apiSlice";
 import styled from "styled-components";
 import Swal from "sweetalert2";

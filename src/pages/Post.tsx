@@ -12,8 +12,9 @@ import {
   PostMap,
   PostHeader,
   PostTravelStatus,
+  PostMobileCourse,
 } from "../components/post/index";
-import { replaceAllData } from "../redux/modules/temporarySlice";
+import { replaceAllData } from "../redux/modules/courseSlice";
 import Swal from "sweetalert2";
 import * as amplitude from "@amplitude/analytics-browser";
 import { logEvent } from "../utils/amplitude";
@@ -57,9 +58,7 @@ const Post = () => {
 
   const userID = authService.currentUser?.uid;
 
-  const courseList = useSelector(
-    (state: any) => state.temporarySlice.courseList
-  );
+  const courseList = useSelector((state: any) => state.courseSlice.courseList);
 
   const showModal = () => {
     setModalOpen(!modalOpen);
@@ -274,18 +273,19 @@ const Post = () => {
           setSelectedTags={setSelectedTags}
         />
         <PostMap modalOpen={modalOpen} setModalOpen={setModalOpen} />
+        <PostMobileCourse />
         <div className="flex flex-col sm:flex-row w-full justify-center gap-2 my-10 sm:gap-[5%]">
           <button
             onClick={(e) => onClickAddPost(e)}
-            className="sm:w-[45%] md:w-[25%] bg-black border-black border-2 text-white sm:text-lg sm:py-3 hover:text-black hover:bg-white h-10 sm:h-auto"
+            className="w-full sm:w-[472px] bg-black border-black border-2 text-white text-lg py-3 shadow-[0_8px_8px_rgb(0,0,0,0.25)] hover:text-black hover:bg-white "
           >
             게시물 등록하기
           </button>
           <button
             onClick={onClickCancel}
-            className="sm:w-[45%] md:w-[25%] bg-black border-black border-2 text-white sm:text-lg sm:py-3 hover:text-black hover:bg-white h-10 sm:h-auto"
+            className="w-full sm:w-[472px] bg-white border-gray-04 border text-black text-lg py-3 shadow-[0_8px_8px_rgb(0,0,0,0.25)] hover:text-black hover:bg-white "
           >
-            취소
+            취소하기
           </button>
         </div>
       </div>

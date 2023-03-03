@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { hashTagOptions } from "../components/post/PostHashTag";
 import { regionOptions } from "../components/post/PostCategories";
 import { PostHeader } from "../components/post";
-import { replaceAllData } from "../redux/modules/temporarySlice";
+import { replaceAllData } from "../redux/modules/courseSlice";
 import {
   useGetCourseQuery,
   useUpdateCourseMutation,
@@ -58,9 +58,7 @@ const EditCourse = () => {
   const dispatch = useDispatch();
 
   // 수정한 내용
-  const editedList = useSelector(
-    (state: any) => state.temporarySlice.courseList
-  );
+  const editedList = useSelector((state: any) => state.courseSlice.courseList);
 
   // 수정 전 내용 불러오기
   useEffect(() => {
@@ -137,6 +135,7 @@ const EditCourse = () => {
             cover: uploadCover || galleryCover,
             courseList: JSON.stringify(editedList),
             travelStatus,
+            nickname: authService.currentUser?.displayName,
             profileImage: authService.currentUser?.photoURL,
           });
           navigate(`/course/${course?.id}`);

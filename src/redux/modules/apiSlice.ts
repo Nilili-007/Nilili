@@ -8,6 +8,7 @@ import {
   orderBy,
   query,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import { CommentType } from "../../components/course/CommentInput";
 import { dbService } from "../../utils/firebase";
@@ -34,6 +35,28 @@ export const courseApi = createApi({
         try {
           const courseQuery = query(
             collection(dbService, "courses"),
+            orderBy("createdAt", "desc")
+          );
+          const querySnapshot = await getDocs(courseQuery);
+          let courses: any = [];
+          querySnapshot?.forEach((doc) => {
+            courses.push({ id: doc.id, ...doc.data() } as CourseType);
+          });
+          return { data: courses };
+        } catch (error: any) {
+          console.error(error.message);
+          return { error: error.message };
+        }
+      },
+      providesTags: ["Courses"],
+    }),
+    getCourseConditionally: builder.query<CourseType[], string | boolean>({
+      async queryFn(travelStatus) {
+        console.log(travelStatus);
+        try {
+          const courseQuery = query(
+            collection(dbService, "courses"),
+            where("travelStatus", "==", travelStatus),
             orderBy("createdAt", "desc")
           );
           const querySnapshot = await getDocs(courseQuery);
@@ -215,6 +238,7 @@ export const courseApi = createApi({
 export const {
   useAddCourseMutation,
   useGetCourseQuery,
+  useGetCourseConditionallyQuery,
   useGetCourseLikeQuery,
   useUpdateCourseMutation,
   useDeleteCourseMutation,

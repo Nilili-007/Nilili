@@ -5,7 +5,7 @@ import { authService } from "../../utils/firebase";
 import Modal from "../auth/Modal";
 import Weather from "./Weather";
 import { useDispatch } from "react-redux";
-import { replaceAllData } from "../../redux/modules/temporarySlice";
+import { replaceAllData } from "../../redux/modules/courseSlice";
 import Swal from "sweetalert2";
 import { resetAmplitude } from "../../utils/amplitude";
 
@@ -126,12 +126,14 @@ const Header = () => {
       ) : (
         <></>
       )}
-      <nav className="w-full bg-black shadow">
+      <nav className="w-full bg-black shadow  ">
         <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
           <div>
             <div className="flex items-center justify-between py-3 md:py-5 md:block">
               <button onClick={leavePresentPage}>
-                <h2 className="text-2xl text-white font-bold">Nilili</h2>
+                <h2 className="text-[30px] leading-[26px] text-white font-bold">
+                  Nilili
+                </h2>
               </button>
               <div className="md:hidden">
                 <button

@@ -4,6 +4,7 @@ module.exports = {
   theme: {
     extend: {
       screens: {
+        lg: "1024px",
         "3xl": "1700px",
         sm: "415px",
         xs: { min: "375px", max: "414px" },
@@ -21,6 +22,7 @@ module.exports = {
           "04": "#A0A4A8",
           "05": "#474C51",
           "06": "#262829",
+          "07": "#999999",
         },
       },
     },

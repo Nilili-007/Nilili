@@ -1,12 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import temporarySlice from "../modules/temporarySlice";
-import searchSlice from "../modules/searchSlice";
+import courseSlice from "../modules/courseSlice";
 import { courseApi } from "../modules/apiSlice";
 const store = configureStore({
   reducer: {
     [courseApi.reducerPath]: courseApi.reducer,
-    temporarySlice,
-    searchSlice,
+    courseSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }).concat(
