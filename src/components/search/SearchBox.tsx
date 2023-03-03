@@ -122,11 +122,13 @@ const SearchBox = () => {
         <p className=" w-fit mx-auto xl:text-[55px] lg:text-[45px] sm:text-[35px]  text-2xl font-bold my-[5%]">
           WHAT ARE YOUR PLANS?
         </p>
-        <div className="border  border-black flex flex-col items-center gap-5  p-[40px]">
-          <div className="flex flex-row indent-2">
-            <div className="mr-3 body2 w-[120px] xs:body3">지역</div>
+        <div className="w-full border border-black flex flex-col items-center">
+          <div className="w-full flex flex-row justify-between indent-2">
+            <div className="body2 w-[180px] xs:body3 text-white bg-black">
+              지역
+            </div>
             <Select
-              className="z-20 w-full leading-7 text-[22px] xs:body3"
+              className="z-50 w-full m-3 leading-7 text-[22px] xs:body3"
               classNamePrefix="select"
               options={regionOptions}
               placeholder={"지역명"}
@@ -138,10 +140,12 @@ const SearchBox = () => {
               styles={ColorStyles}
             />
           </div>
-          <div className="flex flex-row indent-2 ">
-            <div className="mr-3 body2 w-[140px] xs:body3">해시태그</div>
+          <div className="w-full flex flex-row indent-2 ">
+            <div className="body2 w-[180px] xs:body3 text-white bg-black">
+              #해시태그
+            </div>
             <Select
-              className="z-20 w-full leading-7 text-[22px] xs:body3"
+              className="z-30 w-full m-3 leading-7 text-[22px] xs:body3"
               classNamePrefix="select"
               options={hashTagOptions}
               isMulti
@@ -154,10 +158,26 @@ const SearchBox = () => {
             />
           </div>
 
-          <div className="flex flex-row indent-2 ">
-            <div className="mr-3 body2 w-[180px] xs:body3">여행 전/후</div>
+          <div className="w-full flex flex-row indent-2 ">
+            <div className="body2 w-[180px] xs:body3 text-white bg-black">
+              검색어
+            </div>
+            <input
+              className={
+                "rounded-sm indent-4 border border-gray-300 w-full m-3 h-[38px] placeholder:text-sm"
+              }
+              placeholder="검색어를 입력하세요."
+              value={words}
+              onChange={(event) => setWords(event.target.value)}
+            />
+          </div>
+
+          <div className="w-full flex flex-row indent-2 ">
+            <div className="body2 w-[180px] xs:body3 text-white bg-black">
+              여행 전/후
+            </div>
             <Select
-              className="z-20 w-full leading-7 text-[22px] xs:body3"
+              className="z-20 w-full m-3 leading-7 text-[22px] xs:body3"
               classNamePrefix="select"
               isClearable={true}
               placeholder={"전/후"}
@@ -167,23 +187,12 @@ const SearchBox = () => {
             />
           </div>
 
-          <div className="flex flex-row indent-2 ">
-            <div className="mr-3 body2 w-[120px] xs:body3">검색어</div>
-            <input
-              className={
-                "rounded-sm indent-4 border border-gray-300 w-full h-[38px] placeholder:text-sm"
-              }
-              placeholder="검색어를 입력하세요."
-              value={words}
-              onChange={(event) => setWords(event.target.value)}
-            />
-            <button
-              className="ml-3 w-[120px] button2 xs:body3 text-white bg-black hover:bg-white hover:text-black hover:border"
-              onClick={filterData}
-            >
-              검색
-            </button>
-          </div>
+          <button
+            className="button2 w-[20%] p-1 xs:body3 m-3 text-white bg-black hover:bg-white hover:text-black hover:border"
+            onClick={filterData}
+          >
+            검색
+          </button>
         </div>
       </div>
 
