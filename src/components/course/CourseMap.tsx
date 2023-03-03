@@ -29,7 +29,7 @@ const CourseMap = ({ course }: any) => {
   }, [filteredId]);
 
   return (
-    <div className="flex w-full h-[70vh] my-6 sm:my-14">
+    <div className="w-full flex h-full mb-20 xs:mb-6">
       <Map
         center={{
           lat: lists[0].position.lat,
@@ -38,7 +38,7 @@ const CourseMap = ({ course }: any) => {
         level={8}
         // @ts-ignore
         onCreate={setMap}
-        className="w-[65%] h-full z-0"
+        className="w-[688px] h-[1024px] z-0 xs:w-full xs:h-[600px]"
       >
         <MapTypeControl position={kakao.maps.ControlPosition.TOPRIGHT} />
         <CourseMapMarker

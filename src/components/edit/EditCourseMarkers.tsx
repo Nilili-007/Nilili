@@ -3,6 +3,7 @@ import { CustomOverlayMap, Polyline } from "react-kakao-maps-sdk";
 import { InfoWindow, Marker } from "../post/PostMarkers";
 import { useDispatch, useSelector } from "react-redux";
 import { filterCourse } from "../../redux/modules/courseSlice";
+import { MdLocationOn } from "react-icons/md";
 
 const EditCourseMarkers = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const EditCourseMarkers = () => {
           <div onClick={() => onClickGetId(item, idx)}>
             <CustomOverlayMap position={item.position}>
               <InfoWindow className={item.id === filteredId ? "clicked" : " "}>
-                {item.name}
+                <MdLocationOn className="mt-1 -ml-1 mr-1" /> {item.name}
               </InfoWindow>
             </CustomOverlayMap>
             <CustomOverlayMap position={item.position}>
