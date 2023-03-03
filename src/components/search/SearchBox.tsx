@@ -188,7 +188,7 @@ const SearchBox = () => {
           </div>
 
           <button
-            className="button2 w-[20%] p-1 xs:body3 m-3 text-white bg-black hover:bg-white hover:text-black hover:border"
+            className="button2 w-[20%] p-1 xs:body3 m-3 text-white bg-black hover:shadow-lg"
             onClick={filterData}
           >
             검색
