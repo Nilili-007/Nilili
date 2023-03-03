@@ -40,19 +40,19 @@ const CommentDesc = ({ paramId, courseData }: CommentProps) => {
   }
   return (
     <div className="mb-40">
-      <div className="justify-between items-center gap-8 sm:flex">
-        <div className="flex justify-between mt-2">
+      <div className="justify-between items-start md:items-center flex">
+        <div className="flex-col md:flex-row flex gap-0 md:gap-8 ">
           <LikeBtn paramId={paramId} course={courseData} />
-          <h2 className="text-[20px] flex items-center gap-3 font-medium">
-            <BiComment size={40} />
+          <h2 className="text-[20px] sm:text-[20px] flex items-center gap-3 font-medium">
+            <BiComment size={28} className="sm:scale-125" />
             {commentLength} 개
           </h2>
         </div>
         <Share />
       </div>
       <CommentInput paramId={paramId} />
-      <div className="mb-10 flex">
-        <div className="mb-4 text-[20px] font-semibold flex gap-2">
+      <div className="xs:mb-8 mb-10 flex">
+        <div className="text-[16px] sm:text-[20px] font-semibold flex gap-2">
           <input
             id="desc"
             type="button"

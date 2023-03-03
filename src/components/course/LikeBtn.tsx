@@ -79,15 +79,24 @@ const LikeBtn = ({ paramId, course }: LikeProps) => {
             className="text-[#EC6762] disabled:opacity-30"
             disabled
           >
-            <IoHeartSharp size={40} onClick={() => submitLike()} />
+            <IoHeartSharp
+              size={28}
+              onClick={() => submitLike()}
+              className="sm:scale-125"
+            />
           </button>
         ) : (
           <button
             ref={submitRef}
-            className="text-[#EC6762] disabled:opacity-30 disabled:cursor-auto"
+            className="text-[#EC6762]
+            disabled:opacity-30 disabled:cursor-auto"
             disabled
           >
-            <IoHeartOutline size={40} onClick={() => submitLike()} />
+            <IoHeartOutline
+              size={28}
+              className="sm:scale-125"
+              onClick={() => submitLike()}
+            />
           </button>
         )}
         <p className="text-black text-[20px] font-medium">

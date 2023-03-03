@@ -92,9 +92,9 @@ const Share = () => {
 
   return (
     <>
-      <div className="flex justify-end items-center gap-3 mt-2 xs:hidden">
+      <div className="md:flex justify-end items-center gap-3 mt-2 hidden">
         <div className="text-black text-[20px] font-medium">공유하기</div>
-        <div>
+        <div className="flex gap-1">
           <FacebookShareButton
             url={currentURL}
             onClick={() => shareAmplitudeEvent()}
@@ -130,19 +130,21 @@ const Share = () => {
           </button>
         </div>
       </div>
-      <div className="md:hidden flex m-2">
-        <div className="text-black text-[20px] font-medium">공유하기</div>
+      <div className="md:hidden flex mt-4">
+        <div className="text-white bg-black px-2 py-1 text-[16px] sm:text-[20px] font-medium">
+          공유하기
+        </div>
         <button
           onClick={() => {
             shareHandle();
             shareAmplitudeEvent();
           }}
         >
-          <img
+          {/* <img
             className="w-[40px] h-[40px] object-fill"
             src="https://cdn-icons-png.flaticon.com/512/157/157960.png"
             alt="공유"
-          />
+          /> */}
         </button>
       </div>
     </>

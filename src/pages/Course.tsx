@@ -34,7 +34,7 @@ const Course = () => {
   }, []);
 
   return (
-    <div>
+    <div className="h-full">
       {isLoading ? (
         <div className="h-screen flex justify-center items-center">
           <SyncLoader color="#A0A4A8" margin={10} size={18} />
@@ -42,23 +42,28 @@ const Course = () => {
       ) : (
         <div>
           <CourseHeader course={courseData} />
-          <div className="w-[70%] py-10 m-auto">
+          <div className="w-[85%] md:w-[70%] py-10 m-auto">
             {courseData?.userID === authService.currentUser?.uid ? (
               <CourseManageButton paramId={paramId} course={courseData} />
             ) : null}
             <div className="flex items-center">
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-2">
                 <img
                   src={courseData?.profileImage}
                   alt="profile Image"
                   className="object-fill w-[32px] h-[32px]"
                 />
-                <h3 className="text-3xl font-normal text-[#474C51]">
-                  {courseData?.nickname}
-                </h3>
+                <div className="flex flex-col">
+                  <h3 className="text-[12px] sm:text-3xl font-normal text-[#474C51]">
+                    {courseData?.nickname}
+                  </h3>
+                  <p className="text-[12px] sm:hidden caption text-gray-400">
+                    {date} {hours}:{seconds}
+                  </p>
+                </div>
               </div>
             </div>
-            <p className="mt-6 text-lg text-gray-400">
+            <p className="hidden sm:block mt-6 text-lg text-gray-400">
               {date} {hours}:{seconds}
             </p>
             <CourseMap course={courseData} />
