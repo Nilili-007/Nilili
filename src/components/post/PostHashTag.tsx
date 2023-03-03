@@ -31,7 +31,7 @@ const PostHashTag = ({ selectedTags, setSelectedTags }: tagProps) => {
   const limit = 5;
 
   return (
-    <div className="mb-8">
+    <div className="mb-8 text-xs sm:text-lg">
       <Select
         isMulti
         placeholder={"#해시태그"}

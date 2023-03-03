@@ -78,6 +78,15 @@ const Comment = ({ comment, index }: CommentProps) => {
   const [updateComment] = useUpdateCommentMutation();
   const [editComment, setEditComment] = useState<string | undefined>("");
   const updateCommentHandler = (id: string | undefined) => {
+    if (!editComment?.trim()) {
+      Swal.fire({
+        icon: "warning",
+        title: "댓글을 입력해 주세요.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    }
     updateComment({
       commentId: id,
       newComment: editComment,
