@@ -29,7 +29,7 @@ const CourseMap = ({ course }: any) => {
   }, [filteredId]);
 
   return (
-    <div className="flex w-full h-[70vh] my-14">
+    <div className="flex w-full h-[70vh] my-6 sm:my-14">
       <Map
         center={{
           lat: courseList[0].position.lat,
