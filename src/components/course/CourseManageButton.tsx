@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { replaceAllData } from "../../redux/modules/courseSlice";
 import { useDeleteCourseMutation } from "../../redux/modules/apiSlice";
-import { storage } from "../../utils/firebase";
 import styled from "styled-components";
-import { MdOutlineMoreVert } from "react-icons/md";
 import Swal from "sweetalert2";
 
 interface CourseManageButtonProps {
@@ -14,7 +12,6 @@ interface CourseManageButtonProps {
 }
 
 const CourseManageButton = ({ paramId, course }: CourseManageButtonProps) => {
-  const [menuOpen, setMenuOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -60,29 +57,20 @@ const CourseManageButton = ({ paramId, course }: CourseManageButtonProps) => {
 
   return (
     <>
-      <div className="flex ml-auto float-right">
-        <MdOutlineMoreVert
-          className="sm:hidden cursor-pointer"
-          size={24}
-          onClick={() => setMenuOpen(!menuOpen)}
-        />
-
+      <div className="hidden sm:flex ml-auto float-right ">
         <Button onClick={() => navigate(`/edit/${paramId}`)}>수정</Button>
         <Button onClick={() => deleteCourseHandler(paramId)} className="delete">
           삭제
         </Button>
       </div>
-      {menuOpen === true ? (
-        <div className="absolute right-8 top-16 flex flex-col gap-y-1">
-          <Button onClick={() => onClickEditing()}>수정</Button>
-          <div className="border-r border-gray-600 h-8 mx-0.5" />
-          <Button onClick={() => deleteCourseHandler(paramId)}>삭제</Button>
-        </div>
-      ) : null}
+
+      <div className="flex text-[12px] gap-1 float-right sm:hidden top-16 text-gray-04 hover:text-black">
+        <button onClick={() => onClickEditing()}>수정</button>
+        <button onClick={() => deleteCourseHandler(paramId)}>삭제</button>
+      </div>
     </>
   );
 };
-
 export default CourseManageButton;
 
 const Button = styled.button`

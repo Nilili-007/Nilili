@@ -4,6 +4,7 @@ import { authService } from "../../utils/firebase";
 
 import { useUpdateLikesMutation } from "../../redux/modules/apiSlice";
 import { logEvent } from "../../utils/amplitude";
+import { arrayRemove, arrayUnion } from "firebase/firestore";
 interface LikeProps {
   paramId: string | any;
   course: CourseType | undefined;
@@ -39,13 +40,13 @@ const LikeBtn = ({ paramId, course }: LikeProps) => {
         await updateLikesMutate({
           courseId: paramId,
           likes: likeCount || null,
-          likesID: [...course.likesID, currentId],
+          likesID: arrayUnion(currentId),
         });
       } else {
         await updateLikesMutate({
           courseId: paramId,
           likes: likeCount || null,
-          likesID: course?.likesID.filter((item) => item !== currentId),
+          likesID: arrayRemove(currentId),
         });
       }
     };
@@ -78,15 +79,24 @@ const LikeBtn = ({ paramId, course }: LikeProps) => {
             className="text-[#EC6762] disabled:opacity-30"
             disabled
           >
-            <IoHeartSharp size={40} onClick={() => submitLike()} />
+            <IoHeartSharp
+              size={28}
+              onClick={() => submitLike()}
+              className="sm:scale-125"
+            />
           </button>
         ) : (
           <button
             ref={submitRef}
-            className="text-[#EC6762] disabled:opacity-30 disabled:cursor-auto"
+            className="text-[#EC6762]
+            disabled:opacity-30 disabled:cursor-auto"
             disabled
           >
-            <IoHeartOutline size={40} onClick={() => submitLike()} />
+            <IoHeartOutline
+              size={28}
+              className="sm:scale-125"
+              onClick={() => submitLike()}
+            />
           </button>
         )}
         <p className="text-black text-[20px] font-medium">

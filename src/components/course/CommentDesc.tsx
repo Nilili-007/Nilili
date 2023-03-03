@@ -7,6 +7,7 @@ import { BiComment } from "react-icons/bi";
 import LikeBtn from "./LikeBtn";
 import Share from "./Share";
 import { CommentType } from "./CommentInput";
+import usePagenation from "../../hooks/usePagenation";
 
 export interface CommentProps {
   paramId: string | undefined;
@@ -16,25 +17,20 @@ export interface CommentProps {
 const CommentDesc = ({ paramId, courseData }: CommentProps) => {
   const [desc, setDesc] = useState(true);
   const { data, isError, error } = useGetCommentQuery();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(10);
+
   const filterData = data?.filter(
     (comment: CommentType) => comment.postId === paramId
   );
-  const lastPostIndex = currentPage * postsPerPage;
-  const firstPostIndex = lastPostIndex - postsPerPage;
+
+  const { firstPostIndex, lastPostIndex, pages, currentPage, setCurrentPage } =
+    usePagenation(filterData, 10);
+
   const currentPosts = filterData
     ? filterData.slice(firstPostIndex, lastPostIndex)
     : null;
   const currentAscPosts = filterData
-    ? filterData.slice(firstPostIndex, lastPostIndex).reverse()
+    ? filterData.reverse().slice(firstPostIndex, lastPostIndex)
     : null;
-  const totalContents: any = filterData?.length;
-  const pages = [];
-  for (let i = 1; i <= Math.ceil(totalContents / postsPerPage); i++) {
-    pages.push(i);
-  }
-
   const commentLength = filterData?.length
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -44,19 +40,19 @@ const CommentDesc = ({ paramId, courseData }: CommentProps) => {
   }
   return (
     <div className="mb-40">
-      <div className="justify-between items-center gap-8 sm:flex">
-        <div className="flex justify-between mt-2">
+      <div className="justify-between items-start md:items-center flex">
+        <div className="flex-col md:flex-row flex gap-0 md:gap-8 ">
           <LikeBtn paramId={paramId} course={courseData} />
-          <h2 className="text-[20px] flex items-center gap-3 font-medium">
-            <BiComment size={40} />
+          <h2 className="text-[20px] sm:text-[20px] flex items-center gap-3 font-medium">
+            <BiComment size={28} className="sm:scale-125" />
             {commentLength} 개
           </h2>
         </div>
         <Share />
       </div>
       <CommentInput paramId={paramId} />
-      <div className="mb-10 flex">
-        <div className="mb-4 text-[20px] font-semibold flex gap-2">
+      <div className="xs:mb-8 mb-10 flex">
+        <div className="text-[16px] sm:text-[20px] font-semibold flex gap-2">
           <input
             id="desc"
             type="button"
