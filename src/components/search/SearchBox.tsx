@@ -204,6 +204,11 @@ const SearchBox = () => {
               placeholder="입력하세요."
               value={words}
               onChange={(event) => setWords(event.target.value)}
+              onKeyUp={(e) => {
+                if (e.key === "Enter") {
+                  filterData();
+                }
+              }}
             />
             <button
               onClick={() => {
