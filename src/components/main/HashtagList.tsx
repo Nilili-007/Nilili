@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { changeHashTagNum } from "../../redux/modules/searchSlice";
 import { logEvent } from "../../utils/amplitude";
+import { hashTagOptions } from "../post/PostHashTag";
 
 const HashtagList = () => {
-  const dispatch = useDispatch();
   const hashTagAmplitudeEvent = () => {
     logEvent("button click : 해시태그 검색", {
       from: "메인페이지 Hashtag",
@@ -22,160 +20,144 @@ const HashtagList = () => {
         <div className="flex flex-wrap justify-between mt-[5%] font-hashtags">
           <Link
             onClick={() => {
-              dispatch(changeHashTagNum(0));
               hashTagAmplitudeEvent();
             }}
-            to={"/search"}
+            to={`/search?ht=${JSON.stringify([hashTagOptions[0]])}`}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #화목하게 가족과
           </Link>
           <Link
             onClick={() => {
-              dispatch(changeHashTagNum(1));
               hashTagAmplitudeEvent();
             }}
-            to={"/search"}
+            to={`/search?ht=${JSON.stringify([hashTagOptions[1]])}`}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #우정충전 친구와
           </Link>
           <Link
             onClick={() => {
-              dispatch(changeHashTagNum(2));
               hashTagAmplitudeEvent();
             }}
-            to={"/search"}
+            to={`/search?ht=${JSON.stringify([hashTagOptions[2]])}`}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #사랑하는 연인과
           </Link>
           <Link
             onClick={() => {
-              dispatch(changeHashTagNum(3));
               hashTagAmplitudeEvent();
             }}
-            to={"/search"}
+            to={`/search?ht=${JSON.stringify([hashTagOptions[3]])}`}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #소중한 아이들과
           </Link>
           <Link
             onClick={() => {
-              dispatch(changeHashTagNum(4));
               hashTagAmplitudeEvent();
             }}
-            to={"/search"}
+            to={`/search?ht=${JSON.stringify([hashTagOptions[4]])}`}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #반려동물과 같이
           </Link>
           <Link
             onClick={() => {
-              dispatch(changeHashTagNum(5));
               hashTagAmplitudeEvent();
             }}
-            to={"/search"}
+            to={`/search?ht=${JSON.stringify([hashTagOptions[5]])}`}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #조용히 나 혼자
           </Link>
           <Link
             onClick={() => {
-              dispatch(changeHashTagNum(6));
               hashTagAmplitudeEvent();
             }}
-            to={"/search"}
+            to={`/search?ht=${JSON.stringify([hashTagOptions[6]])}`}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #다 함께 단체로
           </Link>
           <Link
             onClick={() => {
-              dispatch(changeHashTagNum(7));
               hashTagAmplitudeEvent();
             }}
-            to={"/search"}
+            to={`/search?ht=${JSON.stringify([hashTagOptions[7]])}`}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #일상 속의 휴식
           </Link>
           <Link
             onClick={() => {
-              dispatch(changeHashTagNum(8));
               hashTagAmplitudeEvent();
             }}
-            to={"/search"}
+            to={`/search?ht=${JSON.stringify([hashTagOptions[8]])}`}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #로맨틱한 데이트
           </Link>
           <Link
             onClick={() => {
-              dispatch(changeHashTagNum(9));
               hashTagAmplitudeEvent();
             }}
-            to={"/search"}
+            to={`/search?ht=${JSON.stringify([hashTagOptions[9]])}`}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #FLEX! 쇼핑
           </Link>
           <Link
             onClick={() => {
-              dispatch(changeHashTagNum(10));
               hashTagAmplitudeEvent();
             }}
-            to={"/search"}
+            to={`/search?ht=${JSON.stringify([hashTagOptions[10]])}`}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #나만 알고픈 맛집
           </Link>
           <Link
             onClick={() => {
-              dispatch(changeHashTagNum(11));
               hashTagAmplitudeEvent();
             }}
-            to={"/search"}
+            to={`/search?ht=${JSON.stringify([hashTagOptions[11]])}`}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #감성 충천 카페
           </Link>
           <Link
             onClick={() => {
-              dispatch(changeHashTagNum(12));
               hashTagAmplitudeEvent();
             }}
-            to={"/search"}
+            to={`/search?ht=${JSON.stringify([hashTagOptions[12]])}`}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #교양충전 문화생활
           </Link>
           <Link
             onClick={() => {
-              dispatch(changeHashTagNum(13));
               hashTagAmplitudeEvent();
             }}
-            to={"/search"}
+            to={`/search?ht=${JSON.stringify([hashTagOptions[13]])}`}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #떠나봐요 캠핑
           </Link>
           <Link
             onClick={() => {
-              dispatch(changeHashTagNum(14));
               hashTagAmplitudeEvent();
             }}
-            to={"/search"}
+            to={`/search?ht=${JSON.stringify([hashTagOptions[14]])}`}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #배타고 섬으로
           </Link>
           <Link
             onClick={() => {
-              dispatch(changeHashTagNum(15));
               hashTagAmplitudeEvent();
             }}
-            to={"/search"}
+            to={`/search?ht=${JSON.stringify([hashTagOptions[15]])}`}
             className=" border-b-4 pr-[30px] text-[30px]  border-black mb-12 "
           >
             #깊은 역사 속으로

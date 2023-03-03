@@ -5,8 +5,7 @@ import {
   useGetCourseQuery,
   useGetCourseConditionallyQuery,
 } from "../../redux/modules/apiSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { changeHashTagNum } from "../../redux/modules/searchSlice";
+import { useDispatch } from "react-redux";
 import { hashTagOptions } from "../post/PostHashTag";
 import { regionOptions } from "../post/PostCategories";
 import { logEvent } from "../../utils/amplitude";
@@ -26,9 +25,6 @@ interface ItravelStatusOptions {
 
 const SearchBox = () => {
   const navigate = useNavigate();
-  const linkedHashtagNum = useSelector(
-    (state: any) => state.searchSlice.hashtagNumber
-  );
   const dispatch = useDispatch();
   const [locations, setLocations] = useState<optionType[]>([]);
   const [hashtags, sethashtags] = useState<optionType[]>([]);
@@ -40,6 +36,7 @@ const SearchBox = () => {
   const [searchParams] = useSearchParams();
   const { data } = useGetCourseQuery();
 
+  console.log(hashtags);
   const {
     data: conditionData,
     isLoading,
@@ -117,20 +114,6 @@ const SearchBox = () => {
   useEffect(() => {
     filterData();
   }, [data]);
-
-  //메인페이지에서 해시태그 링크로 들어올 때 자동검색
-  //페이지 나갈 때 해시태그 자동검색 없애기
-  useEffect(() => {
-    if (linkedHashtagNum !== null) {
-      const linkSetHashtag = () => {
-        sethashtags([hashTagOptions[linkedHashtagNum]]);
-      };
-      linkSetHashtag();
-    }
-    return () => {
-      dispatch(changeHashTagNum(null));
-    };
-  }, []);
 
   useEffect(() => {
     const emptyArr: optionType[] = [];
