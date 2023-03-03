@@ -15,15 +15,19 @@ const EditCourseMarkers = () => {
     polyline.push(item.position);
   });
 
-  const onClickGetId = (item: any) => {
-    dispatch(filterCourse(item.id));
+  const onClickGetId = (item: any, idx: number) => {
+    const newInfo = {
+      id: item.id,
+      idx,
+    };
+    dispatch(filterCourse(newInfo));
   };
 
   return (
     <>
-      {lists.map((item: any, index: number) => (
-        <div key={index}>
-          <div onClick={() => onClickGetId(item)}>
+      {lists.map((item: any, idx: number) => (
+        <div key={idx}>
+          <div onClick={() => onClickGetId(item, idx)}>
             <CustomOverlayMap position={item.position}>
               <InfoWindow className={item.id === filteredId ? "clicked" : " "}>
                 {item.name}
@@ -31,7 +35,9 @@ const EditCourseMarkers = () => {
             </CustomOverlayMap>
             <CustomOverlayMap position={item.position}>
               <Marker className={item.id === filteredId ? "clicked" : " "}>
-                <span className="font-bold">#{index + 1}</span>
+                <span className="font-bold text-white absolute z-[99]">
+                  #{idx + 1}
+                </span>{" "}
               </Marker>
             </CustomOverlayMap>
           </div>

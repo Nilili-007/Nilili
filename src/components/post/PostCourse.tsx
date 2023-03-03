@@ -80,7 +80,7 @@ const PostCourse = ({ setBoundsInfo }: PostProps) => {
             >
               <div className="flex">
                 <div>
-                  <h4 className="font-bold text-[24px]">
+                  <h4 className="title3">
                     #{idx + 1} {item.name}
                   </h4>
                   <PostCourseDesc item={item} />

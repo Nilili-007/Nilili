@@ -3,7 +3,7 @@ import { Map, MapTypeControl } from "react-kakao-maps-sdk";
 import { PostSearchModal } from "../post";
 import { EditCourseInfo, EditCourseMarkers } from "./index";
 import { useSelector } from "react-redux";
-import { displayPagination } from "../../utils/kakao";
+import { kakaoPagenation } from "../../hooks";
 
 const EditCourseMap = ({ initLists, modalOpen, setModalOpen }: any) => {
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -63,7 +63,7 @@ const EditCourseMap = ({ initLists, modalOpen, setModalOpen }: any) => {
 
         // @ts-ignore
         map.panTo(kakaoBounds);
-        displayPagination(pagination);
+        kakaoPagenation(pagination);
         // @ts-ignore
         setSearchList(data);
         setSearchCnt(pagination.totalCount);
@@ -87,7 +87,7 @@ const EditCourseMap = ({ initLists, modalOpen, setModalOpen }: any) => {
   }, [filteredId]);
 
   return (
-    <div className="w-full flex h-[70vh]">
+    <div className="w-full flex h-full mb-20 xs:mb-6">
       <Map
         center={{
           lat: fbLists[0].position.lat,
@@ -96,10 +96,9 @@ const EditCourseMap = ({ initLists, modalOpen, setModalOpen }: any) => {
         level={5}
         // @ts-ignore
         onCreate={setMap}
-        className="w-[65%] h-full z-0"
+        className="w-[688px] h-[1024px] z-0 xs:w-full xs:h-[600px]"
       >
         <EditCourseMarkers />
-        <MapTypeControl position={kakao.maps.ControlPosition.TOPRIGHT} />
       </Map>
       <EditCourseInfo />
       {modalOpen && (

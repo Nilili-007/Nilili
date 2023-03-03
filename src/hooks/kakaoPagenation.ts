@@ -1,4 +1,4 @@
-export const displayPagination = (pagination: any) => {
+const kakaoPagenation = (pagination: any) => {
   var paginationEl = document.getElementById("pagination"),
     fragment = document.createDocumentFragment(),
     i;
@@ -30,3 +30,5 @@ export const displayPagination = (pagination: any) => {
   // @ts-ignore
   paginationEl.appendChild(fragment);
 };
+
+export default kakaoPagenation;

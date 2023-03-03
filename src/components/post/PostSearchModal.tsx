@@ -74,10 +74,10 @@ const PostSearchModal = ({
   };
 
   return (
-    <div className="w-[800px] pb-5 bg-white border border-black absolute -translate-x-[20%] -translate-y-[40%] xs:w-11/12 xs:h-auto xs:h-max-5/6 xs:translate-x-0 xs:-translate-y-64 z-[999]">
+    <div className="w-[900px] pb-5 bg-white border border-gray-04 absolute -translate-x-[20%] -translate-y-[40%] xs:w-11/12 xs:h-auto xs:h-max-5/6 xs:translate-x-0 xs:-translate-y-64 z-[999]">
       <div className="px-8 py-4">
-        <div className="flex items-center border-b border-gray-600 mb-5 pb-3">
-          <h3 className="text-2xl font-bold ">여행지 찾기</h3>
+        <div className="flex items-center border-b border-gray-04 mb-5 pb-3">
+          <h3 className="text-[24px] font-bold ">여행지 찾기</h3>
           <GrFormClose
             onClick={closeModal}
             className="cursor-pointer text-4xl ml-auto"
@@ -88,16 +88,16 @@ const PostSearchModal = ({
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="여행지를 입력해주세요."
-            className="w-[85%] h-11 p-1.5 border border-gray-400 text-lg focus:outline-none xs:w-5/6"
+            className="w-[695px] h-[50px] px-[14px] py-[16px] border border-gray-400 text-lg focus:outline-none xs:w-5/6"
           />
-          <button className="bg-black text-white shadow-lg px-9 ml-2">
-            검색
+          <button className="w-[121px] bg-black text-white shadow-lg ml-auto">
+            검색하기
           </button>
         </form>
       </div>
       <div className="overflow-y-scroll max-h-[1000px]">
         {searchList.length > 0 ? (
-          <h4 className="my-3 font-bold text-xl px-8 ">
+          <h4 className="title3 my-3 px-8 ">
             '{searchKeyword}' 검색결과({searchCnt})
           </h4>
         ) : (
@@ -111,8 +111,10 @@ const PostSearchModal = ({
               onClick={() => onClickAddCourse(item)}
               className="pt-3 cursor-pointer hover:border-white hover:bg-black hover:text-white"
             >
-              <h5 className="font-bold text-2xl px-8 ">{item.place_name}</h5>
-              <p className="px-8  mt-2 text-xl">{item.address_name}</p>
+              <h5 className="title3 px-8 ">{item.place_name}</h5>
+              <p className="px-8 mt-2 text-lg text-[#474C51]">
+                {item.address_name}
+              </p>
               <div className="w-[92%] flex mx-auto mt-3 border-b border-black" />
             </div>
           );

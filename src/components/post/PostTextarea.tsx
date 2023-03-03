@@ -30,15 +30,14 @@ const PostTextarea = ({ idx, item, text, setText, setBoundsInfo }: any) => {
   };
 
   const onFocusEditMemo = (item: any, idx: number) => {
-    dispatch(filterCourse(item.id));
     setBoundsInfo(item.bounds);
     setText(item.memo);
-    console.log(item.memo);
     const newMemo = {
       id: item.id,
       idx,
       memo: text,
     };
+    dispatch(filterCourse(newMemo));
     dispatch(editMemo(newMemo));
   };
 
