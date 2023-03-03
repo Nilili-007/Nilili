@@ -5,7 +5,7 @@ import { authService } from "../../utils/firebase";
 import Modal from "../auth/Modal";
 import Weather from "./Weather";
 import { useDispatch } from "react-redux";
-import { replaceAllData } from "../../redux/modules/temporarySlice";
+import { replaceAllData } from "../../redux/modules/courseSlice";
 import Swal from "sweetalert2";
 import { resetAmplitude } from "../../utils/amplitude";
 

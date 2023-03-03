@@ -7,8 +7,8 @@ const initialState = {
   filteredIdx: "",
 };
 
-const temporarySlice = createSlice({
-  name: "temporarySlice",
+const courseSlice = createSlice({
+  name: "courseSlice",
   initialState,
   reducers: {
     addCourse: (state: any, action) => {
@@ -80,5 +80,5 @@ export const {
   editMemo,
   deleteMemo,
   replaceAllData,
-} = temporarySlice.actions;
-export default temporarySlice.reducer;
+} = courseSlice.actions;
+export default courseSlice.reducer;

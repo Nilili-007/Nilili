@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ItemBtn, ItemCard } from "../post/PostCourseInfo";
+import { ItemBtn, ItemCard } from "../post/PostCourse";
 import { TiMinus } from "react-icons/ti";
 import { AiOutlineUp, AiOutlineDown, AiOutlinePlus } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,17 +9,15 @@ import {
   downCourse,
   filterCourse,
   upCourse,
-} from "../../redux/modules/temporarySlice";
+} from "../../redux/modules/courseSlice";
 import { EditCourseTextarea } from "./index";
 import Swal from "sweetalert2";
 
 const EditCourseInfo = () => {
   const [text, setText] = useState<any>("");
   const dispatch = useDispatch();
-  const lists = useSelector((state: any) => state.temporarySlice.courseList);
-  const filteredId = useSelector(
-    (state: any) => state.temporarySlice.filteredId
-  );
+  const lists = useSelector((state: any) => state.courseSlice.courseList);
+  const filteredId = useSelector((state: any) => state.courseSlice.filteredId);
 
   const onClickDeleteCourse = (item: any) => {
     Swal.fire({

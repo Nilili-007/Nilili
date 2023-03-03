@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { editMemo, filterCourse } from "../../redux/modules/temporarySlice";
+import { editMemo, filterCourse } from "../../redux/modules/courseSlice";
 import TextareaAutosize from "react-textarea-autosize";
 
 const EditCourseTextarea = ({ item, filteredId, text, setText }: any) => {

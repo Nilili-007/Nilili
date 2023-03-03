@@ -74,6 +74,11 @@ const PostHeader = ({
         }
         className="w-full h-[700px] object-cover z-0"
       />
+      {uploadCover === "" && galleryCover === "" ? (
+        <div className="-mt-[480px] absolute z-10 right-[42.5%]">
+          <img src="/assets/empty-img.png" />
+        </div>
+      ) : null}
       <div className="w-full h-[700px] -mt-[700px] absolute z-10 bg-gradient-to-t from-[#00000060]" />
       <div className="w-[70%] pt-36 m-auto -mt-[350px]">
         <input
