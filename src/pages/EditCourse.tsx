@@ -10,10 +10,12 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { EditCourseCategories, EditCourseMap } from "../components/edit";
+import { PostTravelStatus } from "../components/post/index";
 import { authService } from "../utils/firebase";
 import Swal from "sweetalert2";
 import * as amplitude from "@amplitude/analytics-browser";
 import { logEvent } from "../utils/amplitude";
+import { usePreventLeave } from "../hooks";
 
 const EditCourse = () => {
   useEffect(() => {
@@ -27,6 +29,8 @@ const EditCourse = () => {
   const course = filterData?.pop();
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
+
+  usePreventLeave();
 
   // 기존 select로 선택했던 내용 불러오기
   const filterRegion = regionOptions.filter((region) =>
@@ -135,6 +139,7 @@ const EditCourse = () => {
             cover: uploadCover || galleryCover,
             courseList: JSON.stringify(editedList),
             travelStatus,
+            nickname: authService.currentUser?.displayName,
             profileImage: authService.currentUser?.photoURL,
           });
           navigate(`/course/${course?.id}`);
@@ -175,20 +180,6 @@ const EditCourse = () => {
     });
   };
 
-  // 새로고침, 페이지 닫기 확인
-  useEffect(() => {
-    const preventClose = (e: BeforeUnloadEvent) => {
-      e.preventDefault();
-      e.returnValue = "";
-    };
-
-    window.addEventListener("beforeunload", preventClose);
-
-    return () => {
-      window.addEventListener("beforeunload", preventClose);
-    };
-  }, []);
-
   return (
     <div className="mb-64">
       <PostHeader
@@ -200,7 +191,7 @@ const EditCourse = () => {
         titleRef={titleRef}
         setCourseTitle={setCourseTitle}
       />
-      <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0 ">
+      <div className="w-[70%] h-auto mx-auto mt-[100px] xs:w-11/12 xs:mt-0 ">
         <EditCourseCategories
           regionsRef={regionsRef}
           setTravelStatus={setTravelStatus}
@@ -219,18 +210,18 @@ const EditCourse = () => {
           modalOpen={modalOpen}
           setModalOpen={setModalOpen}
         />
-        <div className="flex w-full justify-center gap-[5%] my-10">
+        <div className="flex w-full justify-between">
           <button
             onClick={() => updateCourseHandler()}
-            className="w-[25%] bg-black border-black border-2 text-white text-lg py-3 hover:text-black hover:bg-white "
+            className="w-[472px] bg-black border-black border-2 text-white text-lg py-3 shadow-[0_8px_8px_rgb(0,0,0,0.25)] hover:text-black hover:bg-white "
           >
             게시물 수정하기
           </button>
           <button
             onClick={onClickCancel}
-            className="w-[25%] bg-black border-black border-2 text-white text-lg py-3 hover:text-black hover:bg-white "
+            className="w-[472px] bg-white border-gray-04 border text-black text-lg py-3 shadow-[0_8px_8px_rgb(0,0,0,0.25)] hover:text-black hover:bg-white "
           >
-            취소
+            취소하기
           </button>
         </div>
       </div>

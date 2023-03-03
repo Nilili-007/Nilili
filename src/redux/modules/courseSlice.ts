@@ -15,6 +15,7 @@ const courseSlice = createSlice({
       state.courseList = [...state.courseList, action.payload];
     },
     filterCourse: (state: any, action) => {
+      console.log(action.payload);
       state.courseList = [...state.courseList];
       state.filteredId = action.payload.id;
       state.filteredIdx = action.payload.idx;

@@ -54,13 +54,15 @@ const EditCourseCategories = ({
   return (
     <div>
       <div className="flex">
-        <div className="flex flex-col">
-          <p className="text-2xl font-bold">목적지를 추가해보세요.</p>
-          <p className="text-gray-400 mt-1">
-            간단한 클릭으로 여행지를 추가할 수 있어요.
-          </p>
+        <div className="flex mb-4">
+          <div className="flex flex-col">
+            <p className="text-[32px] font-bold">목적지를 추가해보세요.</p>
+            <p className="text-[22px] text-[#999999]">
+              간단한 클릭으로 여행지를 추가할 수 있어요.
+            </p>
+          </div>
         </div>
-        <div className="ml-auto">
+        <div className="ml-auto mt-2">
           <div className="flex">
             <Category
               onClick={(e) => onClickStatus(e)}
