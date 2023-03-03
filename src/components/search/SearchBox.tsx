@@ -202,6 +202,13 @@ const SearchBox = () => {
               onChange={(event) => setWords(event.target.value)}
               onKeyUp={(e) => {
                 if (e.key === "Enter") {
+                  navigate(
+                    `/search?lc=${JSON.stringify(
+                      locations
+                    )}&ht=${JSON.stringify(hashtags)}&ts=${JSON.stringify(
+                      travelStatus
+                    )}&ws=${words}`
+                  );
                   filterData();
                 }
               }}
