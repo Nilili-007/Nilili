@@ -15,6 +15,7 @@ import { authService } from "../utils/firebase";
 import Swal from "sweetalert2";
 import * as amplitude from "@amplitude/analytics-browser";
 import { logEvent } from "../utils/amplitude";
+import { usePreventLeave } from "../hooks";
 
 const EditCourse = () => {
   useEffect(() => {
@@ -28,6 +29,8 @@ const EditCourse = () => {
   const course = filterData?.pop();
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
+
+  usePreventLeave();
 
   // 기존 select로 선택했던 내용 불러오기
   const filterRegion = regionOptions.filter((region) =>
@@ -136,6 +139,7 @@ const EditCourse = () => {
             cover: uploadCover || galleryCover,
             courseList: JSON.stringify(editedList),
             travelStatus,
+            nickname: authService.currentUser?.displayName,
             profileImage: authService.currentUser?.photoURL,
           });
           navigate(`/course/${course?.id}`);
@@ -175,22 +179,6 @@ const EditCourse = () => {
       }
     });
   };
-
-  // 새로고침, 페이지 닫기 확인
-  useEffect(() => {
-    const preventClose = (e: BeforeUnloadEvent) => {
-      e.preventDefault();
-      e.returnValue = "";
-    };
-
-    window.addEventListener("beforeunload", preventClose);
-
-    return () => {
-      window.addEventListener("beforeunload", preventClose);
-    };
-  }, []);
-
-  console.log(travelStatus);
 
   return (
     <div className="mb-64">

@@ -18,6 +18,7 @@ import { replaceAllData } from "../redux/modules/courseSlice";
 import Swal from "sweetalert2";
 import * as amplitude from "@amplitude/analytics-browser";
 import { logEvent } from "../utils/amplitude";
+import { usePreventLeave } from "../hooks";
 
 //select option의 타입
 export interface optionType {
@@ -35,6 +36,8 @@ const Post = () => {
   const [addCourse] = useAddCourseMutation();
   const { data } = useGetCourseQuery();
   const [modalOpen, setModalOpen] = useState(false);
+
+  usePreventLeave();
 
   const titleRef = useRef<HTMLInputElement>(null);
   const regionsRef = useRef<HTMLSelectElement>(null);
@@ -209,20 +212,6 @@ const Post = () => {
   window.addEventListener("popstate", () =>
     window.history.pushState(null, "", window.location.href)
   );
-
-  // 새로고침, 페이지 닫기 확인
-  useEffect(() => {
-    const preventClose = (e: BeforeUnloadEvent) => {
-      e.preventDefault();
-      e.returnValue = "";
-    };
-
-    window.addEventListener("beforeunload", preventClose);
-
-    return () => {
-      window.addEventListener("beforeunload", preventClose);
-    };
-  }, []);
 
   return (
     <div className="mb-[7%]">

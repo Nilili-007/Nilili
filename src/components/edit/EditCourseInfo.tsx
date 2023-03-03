@@ -79,7 +79,6 @@ const EditCourseInfo = () => {
                   <EditCourseTextarea
                     idx={idx}
                     item={item}
-                    filteredIdx={filteredIdx}
                     text={text}
                     setText={setText}
                   />
