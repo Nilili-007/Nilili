@@ -235,20 +235,28 @@ const Post = () => {
         courseTitle={courseTitle}
         setCourseTitle={setCourseTitle}
       />
-      <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0 ">
-        <div className="flex">
+      <div className="w-[85%] md:w-[70%] h-auto mx-auto md:mt-[100px] mt-0 ">
+        <div className="flex flex-col-reverse md:flex-row">
           <div className="flex flex-col">
-            <p className="text-2xl font-bold">목적지를 추가해보세요.</p>
-            <p className="text-gray-400 mt-1">
+            <p className="text-[18px] sm:text-2xl font-bold whitespace-normal">
+              목적지를 추가해보세요.
+            </p>
+            <p className="text-gray-400 mt-1 text-[13px] sm:body2 whitespace-normal">
               간단한 클릭으로 여행지를 추가할 수 있어요.
             </p>
           </div>
+          <button
+            onClick={() => showModal()}
+            className="absolute right-7 top-[360px] py-1 px-2 sm:hidden sm:w-[200px] bg-black text-white hover:text-black hover:border-black hover:border-2 hover:bg-white text-[12px]"
+          >
+            목적지 추가하기
+          </button>
           <PostTravelStatus
             travelStatus={travelStatus}
             setTravelStatus={setTravelStatus}
           />
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center gap-4">
           <PostCategories
             regionsRef={regionsRef}
             regions={regions}
@@ -256,7 +264,7 @@ const Post = () => {
           />
           <button
             onClick={() => showModal()}
-            className="w-[14%] bg-black text-white text-lg px-4 py-1 ml-auto hover:text-black hover:border-black hover:border-2 hover:bg-white"
+            className="hidden sm:flex lg:w-[300px] sm:w-[200px] bg-black text-white text-md px-2 py-1.5 ml-auto hover:text-black hover:border-black hover:border-2 hover:bg-white justify-center"
           >
             목적지 추가하기
           </button>
@@ -266,16 +274,16 @@ const Post = () => {
           setSelectedTags={setSelectedTags}
         />
         <PostMap modalOpen={modalOpen} setModalOpen={setModalOpen} />
-        <div className="flex w-full justify-center gap-[5%] my-10">
+        <div className="flex flex-col sm:flex-row w-full justify-center gap-2 my-10 sm:gap-[5%]">
           <button
             onClick={(e) => onClickAddPost(e)}
-            className="w-[25%] bg-black border-black border-2 text-white text-lg py-3 hover:text-black hover:bg-white "
+            className="sm:w-[45%] md:w-[25%] bg-black border-black border-2 text-white sm:text-lg sm:py-3 hover:text-black hover:bg-white h-10 sm:h-auto"
           >
             게시물 등록하기
           </button>
           <button
             onClick={onClickCancel}
-            className="w-[25%] bg-black border-black border-2 text-white text-lg py-3 hover:text-black hover:bg-white "
+            className="sm:w-[45%] md:w-[25%] bg-black border-black border-2 text-white sm:text-lg sm:py-3 hover:text-black hover:bg-white h-10 sm:h-auto"
           >
             취소
           </button>

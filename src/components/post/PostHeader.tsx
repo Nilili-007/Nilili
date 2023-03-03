@@ -65,19 +65,19 @@ const PostHeader = ({
   };
 
   return (
-    <div className="h-[700px] text-white">
+    <div className="h-[220px] sm:h-[450px] md:h-[700px] text-white">
       <img
         src={
           (uploadCover || galleryCover) !== undefined
             ? uploadCover || galleryCover
             : ""
         }
-        className="w-full h-[700px] object-cover z-0"
+        className="w-full h-[220px] sm:h-[450px] md:h-[700px] object-cover z-0"
       />
-      <div className="w-full h-[700px] -mt-[700px] absolute z-10 bg-gradient-to-t from-[#00000060]" />
-      <div className="w-[70%] pt-36 m-auto -mt-[350px]">
+      <div className="w-full h-[220px] sm:h-[450px] md:h-[700px] -mt-[220px] sm:-mt-[450px] md:-mt-[700px] absolute z-10 bg-gradient-to-t from-[#00000060]" />
+      <div className="w-[85%] md:w-[70%] pt-36 m-auto -mt-[270px] sm:-mt-[350px]">
         <input
-          className="w-[70%] px-2 py-1.5 text-5xl font-bold z-40 absolute bg-transparent -mt-4 placholder:text-white zinc-50 focus:outline-0"
+          className="w-[85%] sm:w-[80%] md:w-[70%] sm:px-2 sm:py-1.5 text-[24px] sm:text-4xl md:text-5xl font-bold z-40 absolute bg-transparent mt-3 md:-mt-4 placholder:text-white zinc-50 focus:outline-0"
           placeholder="제목을 입력해주세요."
           autoFocus={true}
           value={courseTitle}
@@ -86,19 +86,19 @@ const PostHeader = ({
             setCourseTitle(event.target.value);
           }}
         />
-        <p className="mt-[68px] z-20 absolute text-lg">
+        <p className="mt-[48px] sm:mt-[68px] z-20 absolute text-[14px] sm:text-lg">
           {authService.currentUser?.displayName}님만의 여정을 직접 그려보세요!
         </p>
-        <div className="flex mt-[100px]">
+        <div className="flex mt-16 sm:mt-[100px]">
           <button
             onClick={onClickShowModal}
-            className="bg-black px-2 py-1 mt-2 mr-3 z-20"
+            className="bg-black px-1 sm:px-2 py-1 mt-2 mr-3 z-20 text-[12px] sm:badge"
           >
             {uploadCover || galleryCover ? "Change Cover" : "Add Cover"}
           </button>
           <button
             onClick={() => onClickRemoveCover()}
-            className="bg-none border border-white px-2 py-1 mt-2 mr-3 z-20"
+            className="bg-none border border-white px-1 sm:px-2 py-1 mt-2 mr-3 z-20  text-[12px] sm:badge"
           >
             Remove Cover
           </button>
