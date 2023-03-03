@@ -12,11 +12,17 @@ import { regionOptions } from "../post/PostCategories";
 import { logEvent } from "../../utils/amplitude";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useNavigate } from "react-router";
+import { useSearchParams } from "react-router-dom";
 
 const travelStatusOptions = [
   { value: false, label: "여행 전" },
   { value: true, label: "여행 후" },
 ];
+
+interface ItravelStatusOptions {
+  value: boolean;
+  label: string;
+}
 
 const SearchBox = () => {
   const navigate = useNavigate();
@@ -27,23 +33,23 @@ const SearchBox = () => {
   const [locations, setLocations] = useState<optionType[]>([]);
   const [hashtags, sethashtags] = useState<optionType[]>([]);
   const [words, setWords] = useState("");
-  const [travelStatus, setTravelStatus] = useState<boolean>();
+  const [travelStatus, setTravelStatus] = useState<
+    ItravelStatusOptions | undefined
+  >();
   const [filteredList, setFilteredList] = useState<CourseType[]>();
-  //섹렉트된 데이터 형태 object에서 string[]으로 바꾸기
-  let locationsArr = locations?.map((item) => item.value);
-  let hashtagsArr = hashtags?.map((item) => item.label);
-
+  const [searchParams] = useSearchParams();
   const { data } = useGetCourseQuery();
 
   const {
     data: conditionData,
     isLoading,
     isError,
-  } = useGetCourseConditionallyQuery(
-    travelStatus === undefined ? "" : travelStatus
-  );
-  console.log(travelStatus);
-  console.log(conditionData);
+  } = useGetCourseConditionallyQuery(travelStatus ? travelStatus.value : "");
+
+  //섹렉트된 데이터 형태 object에서 string[]으로 바꾸기
+  let locationsArr = locations?.map((item) => item.value);
+  let hashtagsArr = hashtags?.map((item) => item.label);
+
   //셀렉트한 데이터 State에 반영하기
   const locationOnChangeHandler = (data: any) => {
     setLocations(data);
@@ -54,7 +60,7 @@ const SearchBox = () => {
   };
 
   const travelStatusOnChangeHandler = (data: any) => {
-    setTravelStatus(data?.value);
+    setTravelStatus(data);
   };
 
   //sample 배열이 base배열의 부분 함수인지 여부 true, false로 반환하는 함수
@@ -74,12 +80,13 @@ const SearchBox = () => {
       travelStatus === undefined
     ) {
       setFilteredList(data);
-      console.log("필터 전");
     }
-    // 지역, 해시태그, 키워드(제목, 코스 각각의 이름, 지번주소, 도로명 주소, 메모), 여행 전/후 여부에 따라 필터링
+    // 지역, 해시태그, 키워드(제목, 코스 각각의 이름, 지번주소, 도로명 주소, 메모)에 따라 필터링
+    // 여행 여부 필터링은 firebase에서 해서 가져온다.
     else {
-      console.log("필터 후");
-      const filteredData: CourseType[] | undefined = conditionData
+      const filteredData: CourseType[] | undefined = (
+        travelStatus !== undefined ? conditionData : data
+      )
         ?.filter((item) => isSubsetOf(item.location, locationsArr))
         .filter((item) => isSubsetOf(item.hashtags, hashtagsArr))
         .filter(
@@ -93,7 +100,6 @@ const SearchBox = () => {
                 item.memo?.toLowerCase().includes(words.toLowerCase())
             ).length !== 0
         );
-      console.log(filteredData);
       setFilteredList(filteredData);
     }
     logEvent("게시물 검색", {
@@ -110,7 +116,7 @@ const SearchBox = () => {
   //맨 처음 렌더링, 새로고침 할 때 전체 데이터 보여주기
   useEffect(() => {
     filterData();
-  }, [hashtags, locations, words, data, conditionData]);
+  }, [data]);
 
   //메인페이지에서 해시태그 링크로 들어올 때 자동검색
   //페이지 나갈 때 해시태그 자동검색 없애기
@@ -125,6 +131,43 @@ const SearchBox = () => {
       dispatch(changeHashTagNum(null));
     };
   }, []);
+
+  useEffect(() => {
+    const emptyArr: optionType[] = [];
+    //파람스 값 검색에 넣기
+    setLocations(
+      // @ts-ignore
+      searchParams.get("lc") === null
+        ? emptyArr
+        : // @ts-ignore
+          JSON.parse(searchParams.get("lc"))
+    );
+
+    sethashtags(
+      // @ts-ignore
+      searchParams.get("ht") === null
+        ? emptyArr
+        : // @ts-ignore
+          JSON.parse(searchParams.get("ht"))
+    );
+    setWords(
+      // @ts-ignore
+      searchParams.get("ws") === null
+        ? "" // @ts-ignore
+        : searchParams.get("ws")
+    );
+
+    if (searchParams.get("ts") !== "undefined") {
+      setTravelStatus(
+        searchParams.get("ts") === null
+          ? undefined
+          : // @ts-ignore
+            JSON.parse(searchParams.get("ts"))
+      );
+    } else {
+      setTravelStatus(undefined);
+    }
+  }, [searchParams]);
 
   return (
     <>
@@ -165,6 +208,7 @@ const SearchBox = () => {
               isClearable={true}
               options={travelStatusOptions}
               onChange={travelStatusOnChangeHandler}
+              value={travelStatus}
             />
           </div>
 
@@ -178,7 +222,18 @@ const SearchBox = () => {
               value={words}
               onChange={(event) => setWords(event.target.value)}
             />
-            <button onClick={filterData}>검색</button>
+            <button
+              onClick={() => {
+                navigate(
+                  `/search?lc=${JSON.stringify(locations)}&ht=${JSON.stringify(
+                    hashtags
+                  )}&ts=${JSON.stringify(travelStatus)}&ws=${words}`
+                );
+                filterData();
+              }}
+            >
+              검색
+            </button>
           </div>
         </div>
       </div>
