@@ -45,16 +45,16 @@ const CommentInput = ({ paramId }: CommentProps) => {
   };
   return (
     <>
-      <form className="mb-20" onSubmit={commentSubmitHandler}>
-        <div className="p-5">
+      <form className="mb-28 mt-5 md:mt-0" onSubmit={commentSubmitHandler}>
+        <div className="p-3 md:p-5">
           {authService.currentUser ? (
-            <div className="flex items-middle gap-5 mb-5">
+            <div className="flex items-center gap-3 sm:gap-5 mb-5">
               <img
                 src={userImg}
                 alt="profile Image"
-                className="object-fill w-[36px] h-[36px]"
+                className="object-fill w-[36px] h-[36px] xs:w-[24px] xs:h-[24px]"
               />
-              <h3 className="text-[28px] font-bold">
+              <h3 className="text-[16px] sm:text-[28px] font-bold">
                 {authService.currentUser?.displayName}
               </h3>
             </div>
@@ -63,7 +63,7 @@ const CommentInput = ({ paramId }: CommentProps) => {
           <textarea
             wrap="hard"
             cols={20}
-            className="border-2 resize-none px-2 py-1 w-full h-28 text-[22px] focus:outline-black "
+            className="border-2 resize-none px-2 py-1 w-full h-24 sm:h-28 text-[16px] md:text-[22px] focus:outline-black "
             placeholder={
               authService.currentUser
                 ? "댓글을 입력해 주세요."
@@ -74,11 +74,11 @@ const CommentInput = ({ paramId }: CommentProps) => {
           />
         </div>
         <button
-          className="w-[92px] h-[60px] bg-[#000000] text-white font-bold py-4 px-5 disabled:opacity-40 float-right"
+          className="w-20 sm:w-[100px] h-10 sm:h-[60px] bg-[#000000] text-white font-bold px-3 disabled:opacity-40 float-right text-[16px] sm:text-[20px]"
           ref={submitRef}
           disabled
         >
-          등록
+          등록하기
         </button>
       </form>
     </>
