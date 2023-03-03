@@ -13,7 +13,7 @@ import {
   PostHeader,
   PostTravelStatus,
 } from "../components/post/index";
-import { replaceAllData } from "../redux/modules/temporarySlice";
+import { replaceAllData } from "../redux/modules/courseSlice";
 import Swal from "sweetalert2";
 import * as amplitude from "@amplitude/analytics-browser";
 import { logEvent } from "../utils/amplitude";
@@ -57,9 +57,7 @@ const Post = () => {
 
   const userID = authService.currentUser?.uid;
 
-  const courseList = useSelector(
-    (state: any) => state.temporarySlice.courseList
-  );
+  const courseList = useSelector((state: any) => state.courseSlice.courseList);
 
   const showModal = () => {
     setModalOpen(!modalOpen);
@@ -235,11 +233,11 @@ const Post = () => {
         courseTitle={courseTitle}
         setCourseTitle={setCourseTitle}
       />
-      <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0 ">
-        <div className="flex">
+      <div className="w-[70%] h-auto mx-auto mt-[100px] xs:w-11/12 xs:mt-0 ">
+        <div className="flex mb-4">
           <div className="flex flex-col">
-            <p className="text-2xl font-bold">목적지를 추가해보세요.</p>
-            <p className="text-gray-400 mt-1">
+            <p className="text-[32px] font-bold">목적지를 추가해보세요.</p>
+            <p className="text-[22px] text-[#999999]">
               간단한 클릭으로 여행지를 추가할 수 있어요.
             </p>
           </div>
@@ -266,18 +264,18 @@ const Post = () => {
           setSelectedTags={setSelectedTags}
         />
         <PostMap modalOpen={modalOpen} setModalOpen={setModalOpen} />
-        <div className="flex w-full justify-center gap-[5%] my-10">
+        <div className="flex w-full justify-between">
           <button
             onClick={(e) => onClickAddPost(e)}
-            className="w-[25%] bg-black border-black border-2 text-white text-lg py-3 hover:text-black hover:bg-white "
+            className="w-[472px] bg-black border-black border-2 text-white text-lg py-3 shadow-[0_8px_8px_rgb(0,0,0,0.25)] hover:text-black hover:bg-white "
           >
             게시물 등록하기
           </button>
           <button
             onClick={onClickCancel}
-            className="w-[25%] bg-black border-black border-2 text-white text-lg py-3 hover:text-black hover:bg-white "
+            className="w-[472px] bg-white border-gray-04 border text-black text-lg py-3 shadow-[0_8px_8px_rgb(0,0,0,0.25)] hover:text-black hover:bg-white "
           >
-            취소
+            취소하기
           </button>
         </div>
       </div>

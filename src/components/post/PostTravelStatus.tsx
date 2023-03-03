@@ -33,16 +33,18 @@ const PostTravelStatus = ({ travelStatus, setTravelStatus }: any) => {
 export default PostTravelStatus;
 
 const Category = styled.button`
+  width: 80px;
   height: 40px;
-  padding: 6px 12px;
-  border: 1px solid #4b5563;
-  margin-bottom: 32px;
+  border: 1px solid #a0a4a8;
+  margin-top: 6px;
   cursor: pointer;
-  color: #4b5563;
+  color: #a0a4a8;
   font-size: 18px;
-
   &.clicked {
     background: black;
     color: white;
+  }
+  &:first-child {
+    border-right: none;
   }
 `;

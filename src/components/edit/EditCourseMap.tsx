@@ -15,13 +15,9 @@ const EditCourseMap = ({ initLists, modalOpen, setModalOpen }: any) => {
   let reduxBounds: any;
 
   const fbLists = JSON.parse(initLists.courseList);
-  const reduxLists = useSelector(
-    (state: any) => state.temporarySlice.courseList
-  );
+  const reduxLists = useSelector((state: any) => state.courseSlice.courseList);
 
-  const filteredId = useSelector(
-    (state: any) => state.temporarySlice.filteredId
-  );
+  const filteredId = useSelector((state: any) => state.courseSlice.filteredId);
 
   fbLists.map((item: any) => {
     if (item.id === filteredId) {

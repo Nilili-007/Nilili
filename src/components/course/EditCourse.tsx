@@ -15,7 +15,7 @@ import {
   downCourse,
   filterCourse,
   upCourse,
-} from "../../redux/modules/temporarySlice";
+} from "../../redux/modules/courseSlice";
 import { TiMinus } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
 import { useUpdateCourseMutation } from "../../redux/modules/apiSlice";
@@ -72,7 +72,7 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
   const [boundsInfo, setBoundsInfo] = useState({});
 
   // const filteredId = useSelector(
-  //   (state: any) => state.temporarySlice.filteredId
+  //   (state: any) => state.courseSlice.filteredId
   // );
 
   useEffect(() => {
@@ -155,12 +155,8 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
 
   // 코스데이터
   const dispatch = useDispatch();
-  const courseList = useSelector(
-    (state: any) => state.temporarySlice.courseList
-  );
-  const filteredId = useSelector(
-    (state: any) => state.temporarySlice.filteredId
-  );
+  const courseList = useSelector((state: any) => state.courseSlice.courseList);
+  const filteredId = useSelector((state: any) => state.courseSlice.filteredId);
 
   const [lists, setLists] = useState(courseList);
   const [text, setText] = useState("");

@@ -2,15 +2,13 @@ import React from "react";
 import { CustomOverlayMap, Polyline } from "react-kakao-maps-sdk";
 import { InfoWindow, Marker } from "../post/PostMarkers";
 import { useDispatch, useSelector } from "react-redux";
-import { filterCourse } from "../../redux/modules/temporarySlice";
+import { filterCourse } from "../../redux/modules/courseSlice";
 
 const EditCourseMarkers = () => {
   const dispatch = useDispatch();
 
-  const lists = useSelector((state: any) => state.temporarySlice.courseList);
-  const filteredId = useSelector(
-    (state: any) => state.temporarySlice.filteredId
-  );
+  const lists = useSelector((state: any) => state.courseSlice.courseList);
+  const filteredId = useSelector((state: any) => state.courseSlice.filteredId);
 
   let polyline: any = [];
   lists.map((item: any) => {

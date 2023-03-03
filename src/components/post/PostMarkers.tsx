@@ -1,21 +1,13 @@
 import { CustomOverlayMap, Polyline } from "react-kakao-maps-sdk";
 import { useDispatch, useSelector } from "react-redux";
-import { filterCourse } from "../../redux/modules/temporarySlice";
+import { filterCourse } from "../../redux/modules/courseSlice";
 import styled from "styled-components";
 import { MdLocationOn } from "react-icons/md";
 
-// 1. 마커 or 카드 클릭시 해당 아이템의 id dispatch
-// 2. courseList 중 좌표 정보가 일치하는 아이템의 id를 filteredId 저장
-// 3. 각각의 컴포넌트에서 현재 아이템 id가 filteredId 일치한다면 스타일 지정
-
 const PostMarkers = () => {
   const dispatch = useDispatch();
-  const courseList = useSelector(
-    (state: any) => state.temporarySlice.courseList
-  );
-  const filteredId = useSelector(
-    (state: any) => state.temporarySlice.filteredId
-  );
+  const courseList = useSelector((state: any) => state.courseSlice.courseList);
+  const filteredId = useSelector((state: any) => state.courseSlice.filteredId);
 
   let polyline: any = [];
   courseList.map((item: any) => {
@@ -48,7 +40,7 @@ const PostMarkers = () => {
           </div>
           <Polyline
             path={polyline}
-            strokeWeight={3}
+            strokeWeight={2}
             strokeColor={"black"}
             strokeOpacity={1}
             strokeStyle={"solid"}
@@ -66,19 +58,20 @@ export const InfoWindow = styled.div`
   background: black;
   color: white;
   margin-top: -75px;
-  padding: 9px 15px;
+  padding: 6px 20px;
   font-size: 20px;
   font-weight: bold;
   opacity: 0.58;
   display: flex;
   &.clicked {
     opacity: 1;
+    margin-top: -90px;
   }
 `;
 
 export const Marker = styled.div`
-  width: 48px;
-  height: 48px;
+  width: 43px;
+  height: 43px;
   border-radius: 50px;
   background: black;
   color: white;
@@ -88,16 +81,16 @@ export const Marker = styled.div`
   align-items: center;
   &.clicked {
     background: black;
-    width: 48px;
-    height: 48px;
+    width: 43px;
+    height: 43px;
     opacity: 1;
     &:after {
       content: "";
       position: absolute;
       background: black;
       border-radius: 50px;
-      width: 80px;
-      height: 80px;
+      width: 72px;
+      height: 72px;
       opacity: 0.6;
     }
   }
