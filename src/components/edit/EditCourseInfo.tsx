@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ItemBtn, ItemCard } from "../post/PostCourseInfo";
+import { ItemBtn, ItemCard } from "../post/PostCourse";
 import { TiMinus } from "react-icons/ti";
 import { AiOutlineUp, AiOutlineDown, AiOutlinePlus } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";

@@ -19,9 +19,9 @@ interface PostProps {
   setBoundsInfo: Dispatch<SetStateAction<object>>;
 }
 
-const PostCourseInfo = ({ setBoundsInfo }: PostProps) => {
+const PostCourse = ({ setBoundsInfo }: PostProps) => {
   const dispatch = useDispatch();
-  const courseList = useSelector((state: any) => state.courseSlice.courseList);
+  const lists = useSelector((state: any) => state.courseSlice.courseList);
   const filteredIdx = useSelector(
     (state: any) => state.courseSlice.filteredIdx
   );
@@ -69,9 +69,9 @@ const PostCourseInfo = ({ setBoundsInfo }: PostProps) => {
   };
 
   return (
-    <div className="w-[472px] pl-7 float-right">
-      <div className="flex flex-col h-full overflow-y-scroll ">
-        {courseList?.map((item: any, idx: number) => {
+    <div className="w-[472px] pl-7 float-right xs:hidden">
+      <div className="flex flex-col h-[1024px] overflow-y-scroll ">
+        {lists?.map((item: any, idx: number) => {
           return (
             <ItemCard
               key={idx}
@@ -95,24 +95,20 @@ const PostCourseInfo = ({ setBoundsInfo }: PostProps) => {
                 <div>
                   <FiMinus
                     onClick={() => onClickDeleteCourse(item, idx)}
-                    className="-ml-6 -mt-1 text-[26px] text-gray-04"
+                    className="text-[26px] text-gray-04 -ml-5"
                   />
                 </div>
               </div>
-              {courseList.length < 2 ? (
+              {lists.length < 2 ? (
                 <div className="p-3.5" />
               ) : (
                 <div className="flex text-2xl mt-3 float-right">
-                  <ItemBtn
-                    className={courseList[0] === item ? "non-clicked" : ""}
-                  >
+                  <ItemBtn className={lists[0] === item ? "non-clicked" : ""}>
                     <BsChevronUp onClick={() => onClickUpCourse(idx)} />
                   </ItemBtn>
                   <ItemBtn
                     className={
-                      courseList[courseList.length - 1] === item
-                        ? "non-clicked"
-                        : ""
+                      lists[lists.length - 1] === item ? "non-clicked" : ""
                     }
                   >
                     <BsChevronDown onClick={() => onClickDownCourse(idx)} />
@@ -127,10 +123,10 @@ const PostCourseInfo = ({ setBoundsInfo }: PostProps) => {
   );
 };
 
-export default PostCourseInfo;
+export default PostCourse;
 
 export const ItemCard = styled.div`
-  border: 1px solid #999999;
+  border: 1px solid #cbcdd2;
   margin-bottom: 32px;
   cursor: pointer;
   padding: 20px;

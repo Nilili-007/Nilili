@@ -12,6 +12,7 @@ import {
   PostMap,
   PostHeader,
   PostTravelStatus,
+  PostMobileCourse,
 } from "../components/post/index";
 import { replaceAllData } from "../redux/modules/courseSlice";
 import Swal from "sweetalert2";
@@ -264,6 +265,7 @@ const Post = () => {
           setSelectedTags={setSelectedTags}
         />
         <PostMap modalOpen={modalOpen} setModalOpen={setModalOpen} />
+        <PostMobileCourse />
         <div className="flex w-full justify-between">
           <button
             onClick={(e) => onClickAddPost(e)}

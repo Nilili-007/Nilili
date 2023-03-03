@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Map, ZoomControl } from "react-kakao-maps-sdk";
-import { PostSearchModal, PostCourseInfo, PostMarkers } from "./index";
+import { Map } from "react-kakao-maps-sdk";
+import { PostSearchModal, PostCourse, PostMarkers } from "./index";
 import { useSelector } from "react-redux";
 import { displayPagination } from "../../utils/kakao";
 
@@ -59,7 +59,7 @@ const PostMap = ({ modalOpen, setModalOpen }: any) => {
   }, [filteredIdx]);
 
   return (
-    <div className="w-full flex h-[1024px] mb-20">
+    <div className="w-full flex h-full mb-20 xs:mb-6">
       <Map
         center={{
           lat: 37.566826,
@@ -68,12 +68,11 @@ const PostMap = ({ modalOpen, setModalOpen }: any) => {
         level={5}
         // @ts-ignore
         onCreate={setMap}
-        className="w-[688px] h-full z-0"
+        className="w-[688px] h-[1024px] z-0 xs:w-full xs:h-[600px]"
       >
         <PostMarkers />
-        <ZoomControl />
       </Map>
-      <PostCourseInfo
+      <PostCourse
         modalOpen={modalOpen}
         setModalOpen={setModalOpen}
         setBoundsInfo={setBoundsInfo}

@@ -6,11 +6,11 @@ import { MdLocationOn } from "react-icons/md";
 
 const PostMarkers = () => {
   const dispatch = useDispatch();
-  const courseList = useSelector((state: any) => state.courseSlice.courseList);
+  const lists = useSelector((state: any) => state.courseSlice.courseList);
   const filteredId = useSelector((state: any) => state.courseSlice.filteredId);
 
   let polyline: any = [];
-  courseList.map((item: any) => {
+  lists.map((item: any) => {
     polyline.push(item.position);
   });
 
@@ -24,7 +24,7 @@ const PostMarkers = () => {
 
   return (
     <>
-      {courseList.map((item: any, idx: number) => (
+      {lists.map((item: any, idx: number) => (
         <div key={idx}>
           <div onClick={() => onClickGetId(item, idx)}>
             <CustomOverlayMap position={item.position}>
@@ -34,7 +34,9 @@ const PostMarkers = () => {
             </CustomOverlayMap>
             <CustomOverlayMap position={item.position}>
               <Marker className={item.id === filteredId ? "clicked" : " "}>
-                <span className="font-bold">#{idx + 1}</span>
+                <span className="font-bold text-white absolute z-[99]">
+                  #{idx + 1}
+                </span>
               </Marker>
             </CustomOverlayMap>
           </div>
@@ -47,6 +49,23 @@ const PostMarkers = () => {
           />
         </div>
       ))}
+      <div className="xs:w-[90px] xs:h-[600px] xs:flex xs:flex-col xs:absolute xs:right-1 xs:overflow-y-scroll">
+        {lists.map((item: any, idx: number) => (
+          <div className="xs:flex xs:justify-center">
+            <MobileMarker
+              onClick={() => onClickGetId(item, idx)}
+              className={item.id === filteredId ? "clicked" : " "}
+            >
+              <span className="font-bold text-white absolute z-[99]">
+                #{idx + 1}
+              </span>
+            </MobileMarker>
+          </div>
+        ))}
+        {lists.length > 0 ? (
+          <div className="xs:border-r-4 xs:border-black xs:h-full xs:absolute xs:ml-[43px] " />
+        ) : null}
+      </div>
     </>
   );
 };
@@ -61,11 +80,14 @@ export const InfoWindow = styled.div`
   padding: 6px 20px;
   font-size: 20px;
   font-weight: bold;
-  opacity: 0.58;
+  opacity: 0.6;
   display: flex;
   &.clicked {
     opacity: 1;
     margin-top: -90px;
+  }
+  @media screen and (max-width: 414px) {
+    display: none;
   }
 `;
 
@@ -75,7 +97,7 @@ export const Marker = styled.div`
   border-radius: 50px;
   background: black;
   color: white;
-  opacity: 0.58;
+  opacity: 0.6;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -92,6 +114,49 @@ export const Marker = styled.div`
       width: 72px;
       height: 72px;
       opacity: 0.6;
+    }
+  }
+  @media screen and (max-width: 414px) {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+    &.clicked {
+      width: 35px;
+      height: 35px;
+      &:after {
+        width: 55px;
+        height: 55px;
+      }
+    }
+  }
+`;
+
+export const MobileMarker = styled.div`
+  display: none;
+
+  @media screen and (max-width: 414px) {
+    display: block;
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+    border-radius: 50px;
+    background: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 17.5px 0;
+    &.clicked {
+      opacity: 1;
+      &:after {
+        content: "";
+        position: absolute;
+        background: black;
+        border-radius: 50px;
+        width: 55px;
+        height: 55px;
+        opacity: 0.6;
+      }
     }
   }
 `;
