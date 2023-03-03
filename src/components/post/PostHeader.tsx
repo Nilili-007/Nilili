@@ -83,6 +83,7 @@ const PostHeader = ({
         ) : null}
         <input
           className="w-[85%] sm:w-[80%] md:w-[70%] sm:px-2 sm:py-1.5 text-[24px] sm:text-4xl md:text-5xl font-bold z-40 absolute bg-transparent mt-3 md:-mt-4 placholder:text-white zinc-50 focus:outline-0"
+
           placeholder="제목을 입력해주세요."
           autoFocus={true}
           value={courseTitle}

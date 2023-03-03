@@ -9,10 +9,10 @@ interface CourseProps {
 const CourseMap = ({ course }: any) => {
   const [map, setMap] = useState();
   const [filteredId, setFilteredId] = useState("");
-  const courseList = JSON.parse(course?.courseList);
+  const lists = JSON.parse(course?.courseList);
   let bounds: any;
 
-  courseList.map((item: any) => {
+  lists?.map((item: any) => {
     if (item.id === filteredId) {
       bounds = Object.setPrototypeOf(
         item.bounds,
@@ -32,8 +32,8 @@ const CourseMap = ({ course }: any) => {
     <div className="flex w-full h-[70vh] my-6 sm:my-14">
       <Map
         center={{
-          lat: courseList[0].position.lat,
-          lng: courseList[0].position.lng,
+          lat: lists[0].position.lat,
+          lng: lists[0].position.lng,
         }}
         level={8}
         // @ts-ignore
@@ -42,13 +42,13 @@ const CourseMap = ({ course }: any) => {
       >
         <MapTypeControl position={kakao.maps.ControlPosition.TOPRIGHT} />
         <CourseMapMarker
-          courseList={courseList}
+          courseList={lists}
           filteredId={filteredId}
           setFilteredId={setFilteredId}
         />
       </Map>
       <CourseInfo
-        courseList={courseList}
+        courseList={lists}
         filteredId={filteredId}
         setFilteredId={setFilteredId}
       />

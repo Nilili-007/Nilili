@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Map } from "react-kakao-maps-sdk";
 import { PostSearchModal, PostCourse, PostMarkers } from "./index";
 import { useSelector } from "react-redux";
-import { displayPagination } from "../../utils/kakao";
+import { kakaoPagenation } from "../../hooks";
 
 const PostMap = ({ modalOpen, setModalOpen }: any) => {
   const [searchKeyword, setSearchKeyword] = useState<any | null>("");
@@ -42,7 +42,7 @@ const PostMap = ({ modalOpen, setModalOpen }: any) => {
 
         // @ts-ignore
         map.panTo(bounds);
-        displayPagination(pagination);
+        kakaoPagenation(pagination);
         // @ts-ignore
         setSearchList(data);
         setSearchCnt(pagination.totalCount);

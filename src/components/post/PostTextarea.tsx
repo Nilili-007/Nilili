@@ -17,6 +17,18 @@ const PostTextarea = ({ idx, item, text, setText, setBoundsInfo }: any) => {
     setBoundsInfo(item.bounds);
   };
 
+  const onFocusEditMemo = (item: any, idx: number) => {
+    setBoundsInfo(item.bounds);
+    setText(item.memo);
+    const newMemo = {
+      id: item.id,
+      idx,
+      memo: text,
+    };
+    dispatch(filterCourse(newMemo));
+    dispatch(editMemo(newMemo));
+  };
+
   const onBlurAddMemo = (item: any, idx: number) => {
     const newMemo = {
       id: item.id,
@@ -27,19 +39,6 @@ const PostTextarea = ({ idx, item, text, setText, setBoundsInfo }: any) => {
       dispatch(editMemo(newMemo));
       setText("");
     }
-  };
-
-  const onFocusEditMemo = (item: any, idx: number) => {
-    dispatch(filterCourse(item.id));
-    setBoundsInfo(item.bounds);
-    setText(item.memo);
-    console.log(item.memo);
-    const newMemo = {
-      id: item.id,
-      idx,
-      memo: text,
-    };
-    dispatch(editMemo(newMemo));
   };
 
   return (
