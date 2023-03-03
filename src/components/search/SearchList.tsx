@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import SearchPagenation from "./SearchPagenation";
 import { ListMap } from "../shared";
 import styled from "styled-components";
+import { logEvent } from "../../utils/amplitude";
 
 interface ISearchListProps {
   filteredList: CourseType[] | undefined;
@@ -33,6 +34,17 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
             to={`/course/${item.id}`}
             key={item.id}
             className="xl:w-[24%] lg:w-[32%] sm:w-[47%] w-[90%] pt-6 border-t-2 border-black  "
+            onClick={() =>
+              item.travelStatus === true
+                ? logEvent("post click", {
+                    from: "검색페이지",
+                    여행여부: "여행 후",
+                  })
+                : logEvent("post click", {
+                    from: "검색페이지",
+                    여행여부: "여행 전",
+                  })
+            }
           >
             <Stdiv>
               <StMap>

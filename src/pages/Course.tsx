@@ -10,6 +10,7 @@ import {
 import { authService } from "../utils/firebase";
 import { useEffect } from "react";
 import { SyncLoader } from "react-spinners";
+import * as amplitude from "@amplitude/analytics-browser";
 
 const Course = () => {
   const { data, isLoading } = useGetCourseQuery();
@@ -28,6 +29,7 @@ const Course = () => {
     seconds = JSON.parse(courseData?.createdAt).substr(14, 2);
   }
   useEffect(() => {
+    amplitude.track("상세페이지 접속");
     window.scrollTo({ top: 0 });
   }, []);
 

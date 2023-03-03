@@ -15,6 +15,8 @@ import {
 } from "../components/post/index";
 import { replaceAllData } from "../redux/modules/temporarySlice";
 import Swal from "sweetalert2";
+import * as amplitude from "@amplitude/analytics-browser";
+import { logEvent } from "../utils/amplitude";
 
 //select option의 타입
 export interface optionType {
@@ -23,6 +25,9 @@ export interface optionType {
 }
 
 const Post = () => {
+  useEffect(() => {
+    amplitude.track("글쓰기페이지 접속");
+  }, []);
   // console.log("post");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -117,7 +122,14 @@ const Post = () => {
             });
           }
         }
-
+      });
+      logEvent("게시물 등록", {
+        from: "글쓰기 페이지",
+        information: {
+          지역: selectedRegions,
+          해시태그: selectedLabels,
+          여행여부: travelStatus,
+        },
       });
     } else {
       if (!uploadCover && !galleryCover) {
@@ -158,7 +170,6 @@ const Post = () => {
           },
         });
         titleRef.current?.focus();
-        window.scrollTo({ top: 0, behavior: "smooth" });
       }
       if (courseList.length < 2) {
         Swal.fire({

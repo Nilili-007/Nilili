@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { logEvent } from "../../utils/amplitude";
 import ProgressiveImg from "./ProgressiveImg";
 import { authService } from "../../utils/firebase";
 import Swal from "sweetalert2";
@@ -39,12 +40,31 @@ const Path = () => {
           alt="글쓰기 페이지로"
           className="w-full"
         />
-        <button
-          onClick={() => (userID ? navigate("/post") : handleNavigate())}
-          className=" absolute right-0 bottom-0 bg-black  text-white  sm:px-10 py-5 sm:text-2xl text-base px-5 "
-        >
-          FIND MORE →
-        </button>
+        {!authService.currentUser ? (
+          <button
+            onClick={() => {
+              navigate("/search");
+              logEvent("Path button click : (비회원)검색페이지 이동", {
+                from: "메인페이지",
+              });
+            }}
+            className=" absolute right-0 bottom-0 bg-black  text-white  sm:px-10 py-5 sm:text-2xl text-base px-5 "
+          >
+            FIND MORE →
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              navigate("/post");
+              logEvent("Path button click : (회원)글쓰기페이지 이동", {
+                from: "메인페이지",
+              });
+            }}
+            className=" absolute right-0 bottom-0 bg-black  text-white  sm:px-10 py-5 sm:text-2xl text-base px-5 "
+          >
+            CREATE COURSE →
+          </button>
+        )}
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import { useGetCourseQuery } from "../../redux/modules/apiSlice";
 import { Link } from "react-router-dom";
 import { ListMap } from "../shared";
 import styled from "styled-components";
+import { logEvent } from "../../utils/amplitude";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const BeforeRecent = () => {
@@ -43,7 +44,15 @@ const BeforeRecent = () => {
           ?.filter((item: CourseType) => item.travelStatus === false)
           .slice(0, 4)
           .map((item: CourseType) => (
-            <Link to={`/course/${item.id}`} key={item.id}>
+            <Link
+              to={`/course/${item.id}`}
+              key={item.id}
+              onClick={() =>
+                logEvent("post click : BeforeRecent", {
+                  from: "메인페이지",
+                })
+              }
+            >
               <li className="md:w-[23%] w-[360px]  inline-block mx-3 pt-6 border-t-2 border-black   ">
                 <Stdiv>
                   <StMap>

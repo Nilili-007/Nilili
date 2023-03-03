@@ -1,5 +1,5 @@
 import React from "react";
-import Select from "react-select";
+import Select, { StylesConfig } from "react-select";
 
 export const regionOptions = [
   { value: "서울", label: "서울" },
@@ -30,6 +30,58 @@ const PostCategories = ({ regions, setRegions, regionsRef }: titleProps) => {
     setRegions(data);
   };
   const limit = 4;
+
+  const colourStyles: StylesConfig<optionType, true> = {
+    control: (styles) => ({ ...styles, borderRadius: "0" }),
+    option: (styles, { isDisabled, isFocused, isSelected }) => {
+      return {
+        ...styles,
+        backgroundColor: isDisabled
+          ? undefined
+          : isSelected
+          ? "#000000"
+          : isFocused
+          ? "#000000"
+          : undefined,
+        color: isDisabled
+          ? "#ccc"
+          : isSelected
+          ? "#000000"
+          : isFocused
+          ? "#ffffff"
+          : "#000000",
+        ":active": {
+          ...styles[":active"],
+          backgroundColor: !isDisabled
+            ? isSelected
+              ? "#000000"
+              : "#A0A4A8"
+            : undefined,
+        },
+      };
+    },
+    multiValue: (styles) => {
+      return {
+        ...styles,
+        backgroundColor: "#000000",
+      };
+    },
+    multiValueLabel: (styles) => ({
+      ...styles,
+      color: "#ffffff",
+      paddingLeft: 10,
+      fontSize: 16,
+    }),
+    multiValueRemove: (styles) => ({
+      ...styles,
+      color: "#ffffff",
+      ":hover": {
+        // backgroundColor: "#CBCDD2",
+        color: "#e4291f",
+      },
+    }),
+  };
+
   return (
     <div className="flex w-[85%] items-center h-16 gap-4">
       <div className="w-full xs:w-1/3 xs:text-xs ">
@@ -44,6 +96,7 @@ const PostCategories = ({ regions, setRegions, regionsRef }: titleProps) => {
           classNamePrefix="select"
           isSearchable={true}
           isOptionDisabled={(region) => regions && regions.length >= limit}
+          styles={colourStyles}
         />
       </div>
     </div>

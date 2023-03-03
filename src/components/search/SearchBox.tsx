@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeHashTagNum } from "../../redux/modules/searchSlice";
 import { hashTagOptions } from "../post/PostHashTag";
 import { regionOptions } from "../post/PostCategories";
+import { logEvent } from "../../utils/amplitude";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useNavigate } from "react-router";
 
@@ -95,6 +96,15 @@ const SearchBox = () => {
       console.log(filteredData);
       setFilteredList(filteredData);
     }
+    logEvent("게시물 검색", {
+      from: "검색페이지",
+      filter: {
+        해시태그: hashtagsArr,
+        지역: locationsArr,
+        여행여부: travelStatus,
+        검색어: words,
+      },
+    });
   };
 
   //맨 처음 렌더링, 새로고침 할 때 전체 데이터 보여주기
