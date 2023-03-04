@@ -1,36 +1,26 @@
 import { getAuth, sendPasswordResetEmail } from "@firebase/auth";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-interface ForgotProps {
-  category: string;
-  setCategory: React.Dispatch<React.SetStateAction<string>>;
-  closeModal: any;
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-interface AuthForgotForm {
+interface AuthForgotProps {
   email: string;
 }
 
-const AuthForgot = ({
-  category,
-  setCategory,
-  closeModal,
-  setModal,
-}: ForgotProps) => {
+const AuthForgotForm = () => {
   const [sending, setSending] = useState<boolean>(false);
   const [sent, setSent] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string>("");
 
   const auth = getAuth();
+  const navigate = useNavigate();
 
   const {
     register,
     formState: { errors },
-  } = useForm<AuthForgotForm>({ mode: "onBlur" });
+  } = useForm<AuthForgotProps>({ mode: "onBlur" });
 
   const sendEmailBtn = async (e: React.FormEvent) => {
     if (error !== "") setError("");
@@ -49,7 +39,7 @@ const AuthForgot = ({
         });
         setSent(true);
         setSending(false);
-        setModal(false);
+        navigate("/login");
       })
       .catch((error) => {
         Swal.fire({
@@ -68,14 +58,7 @@ const AuthForgot = ({
   return (
     <>
       <div className="flex justify-between items-center p-5 rounded-t ">
-        <div> </div>
         <h3 className="text-2xl font-bold">비밀번호 찾기</h3>
-        <button
-          className="bg-transparent border-0 text-gray-400 font-extrabold text-xl"
-          onClick={closeModal}
-        >
-          X
-        </button>
       </div>
       <div className="flex justify-center items-center ">
         <div className="border-b-2 border-solid border-black w-[90%]" />
@@ -133,7 +116,7 @@ const AuthForgot = ({
           <div className="flex items-center justify-center p-6 ">
             <button
               className="text-black underline text-xs font-semibold p-1 outline-none focus:outline-none mr-1 mb-1"
-              onClick={() => setCategory("LG")}
+              onClick={() => navigate("/login")}
             >
               로그인 창으로 돌아가기
             </button>
@@ -144,4 +127,4 @@ const AuthForgot = ({
   );
 };
 
-export default AuthForgot;
+export default AuthForgotForm;

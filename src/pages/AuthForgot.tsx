@@ -1,5 +1,11 @@
+import { AuthForgotForm } from "../components/auth";
+
 const AuthForgot = () => {
-  return <div>authforgot</div>;
+  return (
+    <>
+      <AuthForgotForm />
+    </>
+  );
 };
 
 export default AuthForgot;
