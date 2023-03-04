@@ -138,7 +138,7 @@ const LoginForm = () => {
         <button
           className="text-black underline text-xs font-semibold p-1 outline-none focus:outline-none mr-1 mb-1"
           type="button"
-          //onClick={() => setCategory("FG")}
+          onClick={() => navigate("/authforgot")}
         >
           비밀번호 찾기
         </button>

@@ -7,6 +7,7 @@ import NotFound from "./NotFound";
 import EditCourse from "./EditCourse";
 import Login from "./Login";
 import Register from "./Register";
+import AuthForgot from "./AuthForgot";
 
 export {
   Course,
@@ -18,4 +19,5 @@ export {
   EditCourse,
   Login,
   Register,
+  AuthForgot,
 };
