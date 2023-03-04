@@ -169,9 +169,9 @@ const Post = () => {
           title: "제목을 입력해주세요!",
           didClose: () => {
             window.scrollTo({ top: 0, behavior: "smooth" });
+            titleRef.current?.focus();
           },
         });
-        titleRef.current?.focus();
       }
       if (courseList.length < 2) {
         Swal.fire({
@@ -222,6 +222,7 @@ const Post = () => {
         setGalleryCover={setGalleryCover}
         courseTitle={courseTitle}
         setCourseTitle={setCourseTitle}
+        titleRef={titleRef}
       />
       <div className="w-[85%] md:w-[70%] h-auto mx-auto md:mt-[100px] mt-0 ">
         <div className="flex flex-col-reverse md:flex-row">
