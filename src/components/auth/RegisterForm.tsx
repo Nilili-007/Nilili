@@ -5,20 +5,16 @@ import { authService } from "../../utils/firebase";
 import Swal from "sweetalert2";
 import * as amplitude from "@amplitude/analytics-browser";
 import { setAmplitudeUserId } from "../../utils/amplitude";
-interface RegisterProps {
-  closeModal: (e: any) => void;
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
-  loginBtn: any;
-}
+import { useNavigate } from "react-router-dom";
 
-interface AuthForm {
+interface AuthFormProps {
   userName: string;
   email: string;
   password: string;
   confirm: string;
 }
 
-const Register = ({ setModal, closeModal, loginBtn }: RegisterProps) => {
+const RegisterForm = () => {
   const [isRegister, setIsRegister] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -26,13 +22,15 @@ const Register = ({ setModal, closeModal, loginBtn }: RegisterProps) => {
   const [confirm, setConfirm] = useState<string>("");
   const [error, setError] = useState<string>("");
 
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<AuthForm>({ mode: "onBlur" });
+  } = useForm<AuthFormProps>({ mode: "onBlur" });
 
-  const onSubmit = async (data: AuthForm) => {
+  const onSubmit = async (data: AuthFormProps) => {
     if (data.password !== data.confirm) {
       setError("비밀번호가 일치하지 않습니다.");
       return;
@@ -51,7 +49,7 @@ const Register = ({ setModal, closeModal, loginBtn }: RegisterProps) => {
           showConfirmButton: false,
           timer: 3000,
         });
-        setModal(false);
+        navigate("/");
         amplitude.track("회원가입");
         updateProfile(data.user, {
           displayName: userName,
@@ -68,7 +66,7 @@ const Register = ({ setModal, closeModal, loginBtn }: RegisterProps) => {
           displayName: userName,
           email: item.email,
         };
-        setModal(false);
+        navigate("/");
         setAmplitudeUserId(item.uid);
         amplitude.track("로그인");
       })
@@ -98,12 +96,6 @@ const Register = ({ setModal, closeModal, loginBtn }: RegisterProps) => {
       <div className="flex justify-between items-center p-5 rounded-t ">
         <div> </div>
         <h3 className="text-2xl font-bold">회원가입</h3>
-        <button
-          className="bg-transparent border-0 text-gray-400 font-extrabold text-xl"
-          onClick={closeModal}
-        >
-          X
-        </button>
       </div>
       <div className="flex justify-center items-center ">
         <div className="border-b-2 border-solid border-black w-[90%]" />
@@ -140,7 +132,6 @@ const Register = ({ setModal, closeModal, loginBtn }: RegisterProps) => {
                 handleSubmit(onSubmit);
               }
             }}
-            autoFocus
           />
           <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
             {errors?.userName?.message}
@@ -250,7 +241,7 @@ const Register = ({ setModal, closeModal, loginBtn }: RegisterProps) => {
         <button
           className="text-black underline text-xs font-semibold p-1 outline-none focus:outline-none mr-1 mb-1"
           type="button"
-          onClick={loginBtn}
+          onClick={() => navigate("/login")}
         >
           로그인 창으로 돌아가기
         </button>
@@ -259,4 +250,4 @@ const Register = ({ setModal, closeModal, loginBtn }: RegisterProps) => {
   );
 };
 
-export default Register;
+export default RegisterForm;
