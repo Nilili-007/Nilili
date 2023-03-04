@@ -9,6 +9,8 @@ import {
   Search,
   NotFound,
   EditCourse,
+  Login,
+  Register,
 } from "../pages";
 
 const Router = () => {
@@ -22,6 +24,8 @@ const Router = () => {
         <Route path="/course/:id" element={<Course />} />
         <Route path="/edit/:id" element={<EditCourse />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
       <Footer />

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Login from "./Login";
-import Register from "./Register";
+import Login from "./LoginForm";
+import Register from "./RegisterForm";
 import AuthForgot from "./AuthForgot";
 
 interface ModalProps {
