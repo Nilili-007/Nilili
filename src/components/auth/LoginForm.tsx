@@ -5,34 +5,25 @@ import { useForm } from "react-hook-form";
 import SocialLogin from "./SocialLogin";
 import * as amplitude from "@amplitude/analytics-browser";
 import { setAmplitudeUserId } from "../../utils/amplitude";
+import { useNavigate } from "react-router-dom";
 
-interface LoginProps {
-  closeModal: any;
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
-  setCategory: React.Dispatch<React.SetStateAction<string>>;
-  registerBtn: any;
-}
-
-interface LoginForm {
+interface LoginFormProps {
   email: string;
   password: string;
 }
 
-const Login = ({
-  closeModal,
-  setModal,
-  setCategory,
-  registerBtn,
-}: LoginProps) => {
+const LoginForm = () => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
 
+  const navigate = useNavigate();
+
   const {
     register,
     formState: { errors },
-  } = useForm<LoginForm>({ mode: "onBlur" });
+  } = useForm<LoginFormProps>({ mode: "onBlur" });
 
   const loginBtn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,7 +35,6 @@ const Login = ({
       .then(() => {
         setAmplitudeUserId(authService.currentUser?.uid);
         amplitude.track("회원 로그인");
-        setModal(false);
         document.body.style.overflow = "unset";
       })
       .catch((error) => {
@@ -63,12 +53,6 @@ const Login = ({
       <div className="flex justify-between items-center p-5 rounded-t ">
         <div></div>
         <h3 className="text-2xl font-bold">로그인</h3>
-        <button
-          className="bg-transparent border-0 text-gray-400 font-extrabold text-xl"
-          onClick={closeModal}
-        >
-          X
-        </button>
       </div>
       <div className="flex justify-center items-center ">
         <div className="border-b-2 border-solid border-black w-[90%]" />
@@ -143,7 +127,7 @@ const Login = ({
           </div>
         </form>
       </div>
-      <SocialLogin setModal={setModal} />
+      <SocialLogin />
       <div className="flex justify-center items-center ">
         <div className="border-b border-solid border-gray-500 w-[90%]" />
       </div>
@@ -154,7 +138,7 @@ const Login = ({
         <button
           className="text-black underline text-xs font-semibold p-1 outline-none focus:outline-none mr-1 mb-1"
           type="button"
-          onClick={() => setCategory("FG")}
+          //onClick={() => setCategory("FG")}
         >
           비밀번호 찾기
         </button>
@@ -166,7 +150,7 @@ const Login = ({
         <button
           className="text-black underline text-xs font-semibold p-1 outline-none focus:outline-none mr-1 mb-1"
           type="button"
-          onClick={registerBtn}
+          onClick={() => navigate("/register")}
         >
           회원가입
         </button>
@@ -175,4 +159,4 @@ const Login = ({
   );
 };
 
-export default Login;
+export default LoginForm;

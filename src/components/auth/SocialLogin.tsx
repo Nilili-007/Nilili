@@ -3,21 +3,20 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 import { setAmplitudeUserId } from "../../utils/amplitude";
 import { authService } from "../../utils/firebase";
 
-interface SocialProps {
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
+const SocialLogin = () => {
+  const navigate = useNavigate();
 
-const SocialLogin = ({ setModal }: SocialProps) => {
   // google login
   const signInGoogle = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(authService, provider)
       .then((result) => {
         setAmplitudeUserId(authService.currentUser?.uid);
-        setModal(false);
+        navigate("/");
       })
       .catch((error) => {
         console.log("error: ", error);
@@ -30,7 +29,7 @@ const SocialLogin = ({ setModal }: SocialProps) => {
     signInWithPopup(authService, provider)
       .then((result) => {
         setAmplitudeUserId(authService.currentUser?.uid);
-        setModal(false);
+        navigate("/");
       })
       .catch((error) => {
         console.log("error: ", error);
