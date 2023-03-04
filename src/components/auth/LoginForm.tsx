@@ -33,9 +33,9 @@ const LoginForm = () => {
     setIsLogin(true);
     await signInWithEmailAndPassword(authService, email, password)
       .then(() => {
+        navigate("/");
         setAmplitudeUserId(authService.currentUser?.uid);
         amplitude.track("회원 로그인");
-        document.body.style.overflow = "unset";
       })
       .catch((error) => {
         if (error.code.includes("auth/user-not-found")) {
