@@ -33,22 +33,20 @@ const PostCategories = ({ regions, setRegions, regionsRef }: titleProps) => {
   const limit = 4;
 
   return (
-    <div className="flex w-full sm:w-[80%] items-center h-16 gap-4">
-      <div className="w-full text-xs sm:text-lg ">
-        <Select
-          ref={regionsRef}
-          options={regionOptions}
-          placeholder={"지역"}
-          onChange={handleCategorySelect}
-          isMulti
-          value={regions}
-          className="basic-multi-select z-20"
-          classNamePrefix="select"
-          isSearchable={true}
-          isOptionDisabled={(region) => regions && regions.length >= limit}
-          styles={ColorStyles}
-        />
-      </div>
+    <div className="flex w-full sm:w-[80%] items-center h-16 gap-4 text-xs sm:text-lg">
+      <Select
+        ref={regionsRef}
+        options={regionOptions}
+        placeholder="지역을 선택해주세요."
+        onChange={handleCategorySelect}
+        isMulti
+        value={regions}
+        className="w-full basic-multi-select z-20"
+        classNamePrefix="select"
+        isSearchable={true}
+        isOptionDisabled={(region) => regions && regions.length >= limit}
+        styles={ColorStyles}
+      />
     </div>
   );
 };

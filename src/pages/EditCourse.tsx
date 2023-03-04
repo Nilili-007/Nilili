@@ -181,7 +181,7 @@ const EditCourse = () => {
   };
 
   return (
-    <div className="mb-64">
+    <div className="mb-[7%]">
       <PostHeader
         uploadCover={uploadCover}
         setUploadCover={setUploadCover}
@@ -191,7 +191,7 @@ const EditCourse = () => {
         titleRef={titleRef}
         setCourseTitle={setCourseTitle}
       />
-      <div className="w-[70%] h-auto mx-auto mt-[100px] xs:w-11/12 xs:mt-0 ">
+      <div className="w-[85%] md:w-[70%] h-auto mx-auto md:mt-[100px] mt-0 ">
         <EditCourseCategories
           regionsRef={regionsRef}
           setTravelStatus={setTravelStatus}
@@ -210,16 +210,16 @@ const EditCourse = () => {
           modalOpen={modalOpen}
           setModalOpen={setModalOpen}
         />
-        <div className="flex w-full justify-between">
+        <div className="flex flex-col sm:flex-row w-full justify-center gap-2 my-10 sm:gap-[5%]">
           <button
             onClick={() => updateCourseHandler()}
-            className="w-[472px] bg-black border-black border-2 text-white text-lg py-3 shadow-[0_8px_8px_rgb(0,0,0,0.25)] hover:text-black hover:bg-white "
+            className="w-full sm:w-[472px] bg-black border-black border-2 text-white text-md md:text-lg py-3 shadow-[0_8px_8px_rgb(0,0,0,0.25)] hover:text-black hover:bg-white "
           >
             게시물 수정하기
           </button>
           <button
             onClick={onClickCancel}
-            className="w-[472px] bg-white border-gray-04 border text-black text-lg py-3 shadow-[0_8px_8px_rgb(0,0,0,0.25)] hover:text-black hover:bg-white "
+            className="w-full sm:w-[472px] bg-white border-gray-04 border text-black text-md md:text-lg py-3 shadow-[0_8px_8px_rgb(0,0,0,0.25)] hover:text-black hover:bg-white "
           >
             취소하기
           </button>

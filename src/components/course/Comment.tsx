@@ -161,7 +161,7 @@ const Comment = ({ comment, index }: CommentProps) => {
             {editComment}
           </textarea>
           <button
-            className="bg-[#000000] text-white w-20 h-8 sm:h-10 sm:w-24 px-3 py-1 float-right text-[12px] sm:text-[20px] disabled:opacity-40 mt-1"
+            className="bg-[#000000] text-white h-8 sm:h-10 px-3 py-1 float-right text-[12px] sm:text-[20px] disabled:opacity-40 mt-1"
             onClick={() => updateCommentHandler(comment.id)}
             ref={editRef}
           >
