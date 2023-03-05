@@ -226,10 +226,10 @@ const Post = () => {
       <div className="w-[85%] md:w-[70%] h-auto mx-auto md:mt-[100px] mt-0 ">
         <div className="flex flex-col-reverse md:flex-row">
           <div className="flex flex-col">
-            <p className="text-[18px] sm:text-2xl font-bold whitespace-normal">
+            <p className="text-[18px] sm:text-xl font-bold whitespace-normal">
               목적지를 추가해보세요.
             </p>
-            <p className="text-gray-400 mt-1 text-[13px] sm:body2 whitespace-normal">
+            <p className="text-gray-400 mt-1 text-[13px] sm:text-[14px] whitespace-normal">
               간단한 클릭으로 여행지를 추가할 수 있어요.
             </p>
           </div>

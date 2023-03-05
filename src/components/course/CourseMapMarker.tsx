@@ -1,4 +1,3 @@
-import React from "react";
 import { CustomOverlayMap, Polyline } from "react-kakao-maps-sdk";
 import { InfoWindow, Marker } from "../post/PostMarkers";
 import { MdLocationOn } from "react-icons/md";
