@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
+import useCommentPost from "../../hooks/useCommentPost";
 import { useAddCommentMutation } from "../../redux/modules/apiSlice";
-import { logEvent } from "../../utils/amplitude";
 import { authService } from "../../utils/firebase";
 import { CommentProps } from "./CommentDesc";
 
@@ -9,43 +9,43 @@ export interface CommentType {
   id?: string;
   userId?: string;
   postId?: string;
-  nickname?: string;
+  nickname?: string | null | undefined;
   comment?: string | undefined;
-  profileImage: string;
+  profileImage: string | null | undefined;
 }
 
 const CommentInput = ({ paramId }: CommentProps) => {
-  const [comment, setComment] = useState("");
+  const { trimValue, changeValueHandler, value, submitHandler } =
+    useCommentPost("");
   const submitRef = useRef<HTMLButtonElement | any>();
   const [addComment] = useAddCommentMutation();
-  const commentValue = comment.trim();
   const userImg: any = authService.currentUser?.photoURL;
   useEffect(() => {
-    if (commentValue) {
+    if (trimValue) {
       submitRef.current.disabled = false;
     }
-    if (!commentValue || !authService.currentUser) {
+    if (!trimValue || !authService.currentUser) {
       submitRef.current.disabled = true;
     }
-  }, [comment]);
+  }, [value]);
 
-  const commentSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const newComment = {
-      createdAt: Date.now(),
-      userId: authService.currentUser?.uid,
-      postId: paramId,
-      nickname: authService.currentUser?.displayName,
-      comment: commentValue,
-      profileImage: authService.currentUser?.photoURL,
-    };
-    addComment(newComment);
-    setComment("");
-    logEvent("댓글등록", { from: "상세페이지" });
+  const newComment = {
+    createdAt: Date.now(),
+    userId: authService.currentUser?.uid,
+    postId: paramId,
+    nickname: authService.currentUser?.displayName,
+    comment: trimValue,
+    profileImage: authService.currentUser?.photoURL,
   };
+
   return (
     <>
-      <form className="mb-28 mt-5 md:mt-0" onSubmit={commentSubmitHandler}>
+      <form
+        className="mb-28 mt-5 md:mt-0"
+        onSubmit={(event) => {
+          submitHandler(event, addComment, newComment);
+        }}
+      >
         <div className="p-3 md:p-5">
           {authService.currentUser ? (
             <div className="flex items-center gap-3 sm:gap-5 mb-5">
@@ -69,8 +69,8 @@ const CommentInput = ({ paramId }: CommentProps) => {
                 ? "댓글을 입력해 주세요."
                 : "로그인 한 이용자만 이용하실 수 있습니다."
             }
-            value={comment}
-            onChange={(event) => setComment(event.target.value)}
+            value={value}
+            onChange={(event) => changeValueHandler(event)}
           />
         </div>
         <button
