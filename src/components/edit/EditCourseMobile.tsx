@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PostCourseDesc } from "../../components/post/index";
 import { EditCourseMobileMemo, EditCourseTextarea } from "./index";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,19 +17,21 @@ import Swal from "sweetalert2";
 import { ItemBtn } from "../post/PostCourse";
 
 const EditCourseMobile = () => {
-  const [openCourse, setOpenCourse] = useState(true);
+  const [openCourse, setOpenCourse] = useState(false);
   const [text, setText] = useState<any>("");
   const dispatch = useDispatch();
-  const lists = useSelector((state: any) => state.courseSlice.courseList);
+  const data = useSelector((state: any) => state.courseSlice.courseList);
+  const [lists, setLists] = useState(data);
   const filteredIdx = useSelector(
     (state: any) => state.courseSlice.filteredIdx
   );
 
-  const handleOpenCourse = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    event.stopPropagation();
-    setOpenCourse(!openCourse);
+  const onClickGetId = (item: any, idx: number) => {
+    const newInfo = {
+      id: item.id,
+      idx,
+    };
+    dispatch(filterCourse(newInfo));
   };
 
   const onClickUpCourse = (idx: number) => {
@@ -63,6 +65,10 @@ const EditCourseMobile = () => {
     });
   };
 
+  useEffect(() => {
+    setLists(data);
+  }, [openCourse, data]);
+
   return (
     <div className="lg:hidden 3xl:hidden xs:flex xs:flex-col">
       <ItemCard>
@@ -74,7 +80,7 @@ const EditCourseMobile = () => {
                   #{filteredIdx + 1} {lists[filteredIdx]?.name}
                 </>
               ) : (
-                "여행지를 선택해주세요."
+                "지도에서 여행지를 선택해보세요."
               )}
             </h4>
             <div className="w-full h-auto mt-1 text-gray-04">
@@ -104,7 +110,7 @@ const EditCourseMobile = () => {
 
       {lists.length > 0 ? (
         <button
-          onClick={(event) => handleOpenCourse(event)}
+          onClick={() => setOpenCourse(!openCourse)}
           className="lg:hidden 3xl:hidden w-full h-14 border border-gray-03 mb-6 text-[20px] font-bold px-4"
         >
           <div className="lg:hidden 3xl:hidden flex justify-between items-center">
@@ -128,7 +134,7 @@ const EditCourseMobile = () => {
             <>
               {lists.map((item: any, idx: number) => {
                 return (
-                  <ItemCard key={idx}>
+                  <ItemCard key={idx} onClick={() => onClickGetId(item, idx)}>
                     <div className="flex">
                       <div>
                         <h4 className="font-bold text-[20px]">

@@ -40,8 +40,17 @@ const CourseMobile = ({ course, filteredIdx, setFilteredIdx }: any) => {
           className="lg:hidden 3xl:hidden w-full h-14 border border-gray-03 mb-6 text-[20px] font-bold px-4"
         >
           <div className="lg:hidden 3xl:hidden flex justify-between items-center">
-            여행지 펼쳐보기
-            {openCourse ? <BsChevronUp /> : <BsChevronDown />}
+            {openCourse ? (
+              <>
+                전체 일정 접기
+                <BsChevronUp />
+              </>
+            ) : (
+              <>
+                전체 일정 열기
+                <BsChevronDown />
+              </>
+            )}
           </div>
         </button>
       ) : null}
