@@ -58,7 +58,7 @@ const PostTextarea = ({ idx, item, text, setText, setBoundsInfo }: any) => {
           : () => onFocusGetId(item, idx)
       }
       onBlur={() => onBlurAddMemo(item, idx)}
-      className="w-[402px] h-[28px] mt-5 px-2.5 py-2 border border-gray-04 resize-none text-black focus:outline-none placeholder:text-gray-04 xs:w-[310px]"
+      className="w-[402px] h-[28px] mt-5 px-2.5 py-2 border border-gray-04 resize-none text-black focus:outline-none placeholder:text-gray-04 xs:w-[310px] xs:mt-3 xs:px-2 xs:py-1.5"
     />
   );
 };

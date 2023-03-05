@@ -70,10 +70,10 @@ const PostMobileCourse = () => {
         <ItemCard>
           <div className="flex">
             <div>
-              <h4 className="font-bold text-[24px]">
+              <h4 className="font-bold text-[20px]">
                 #{filteredIdx + 1} {lists[filteredIdx].name}
               </h4>
-              <div className="w-full h-auto mt-3 text-gray-04">
+              <div className="w-full h-auto mt-1 text-gray-04">
                 <p>{lists[filteredIdx].address}</p>
                 <p>{lists[filteredIdx].road}</p>
                 <p>{lists[filteredIdx].phone}</p>
@@ -128,7 +128,7 @@ const PostMobileCourse = () => {
                   <ItemCard key={idx}>
                     <div className="flex">
                       <div>
-                        <h4 className="font-bold text-[24px]">
+                        <h4 className="font-bold text-[20px]">
                           #{idx + 1} {item.name}
                         </h4>
                         <PostCourseDesc item={item} />
@@ -150,7 +150,7 @@ const PostMobileCourse = () => {
                     {lists.length < 2 ? (
                       <div className="p-3.5" />
                     ) : (
-                      <div className="flex text-2xl mt-3 float-right">
+                      <div className="flex text-2xl mt-1.5 -mb-2.5 float-right">
                         <ItemBtn
                           className={lists[0] === item ? "non-clicked" : ""}
                         >
