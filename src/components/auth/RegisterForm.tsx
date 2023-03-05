@@ -93,158 +93,147 @@ const RegisterForm = () => {
 
   return (
     <>
-      <div className="flex justify-between items-center p-5 rounded-t ">
-        <div> </div>
-        <h3 className="text-2xl font-bold">회원가입</h3>
-      </div>
-      <div className="flex justify-center items-center ">
-        <div className="border-b-2 border-solid border-black w-[90%]" />
-      </div>
-      <div className="relative p-6 flex-auto">
-        <form
-          className=" rounded px-8 pt-6 pb-8 w-full"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
-            {error}
-          </div>
-          <label className="block text-black font-2xl font-bold mb-3">
-            닉네임
-          </label>
-          <input
-            className="appearance-none border border-gray-400 w-full py-2 px-1 text-black placeholder:text-sm"
-            {...register("userName", {
-              required: "닉네임을 입력해주세요",
-              pattern: {
-                value: /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,8}$/,
-                message:
-                  "닉네임은 2~8자로 영어 또는 숫자 또는 한글이 조합되어야 합니다.",
-              },
-            })}
-            name="userName"
-            type="text"
-            id="userName"
-            value={userName}
-            onChange={(event) => setUserName(event.target.value)}
-            placeholder="닉네임"
-            onKeyUp={(e) => {
-              if (e.key === "Enter") {
-                handleSubmit(onSubmit);
-              }
-            }}
-          />
-          <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
-            {errors?.userName?.message}
-          </div>
-          <label className="block text-black font-2xl font-bold mb-3">
-            로그인에 사용할 아이디를 입력해주세요.
-          </label>
-          <input
-            className="appearance-none border border-gray-400 w-full py-2 px-1 text-black placeholder:text-sm"
-            {...register("email", {
-              required: "이메일을 올바르게 입력해주세요",
-              pattern: {
-                value:
-                  /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i,
-                message: "이메일 형식에 맞게 입력해주세요,",
-              },
-            })}
-            name="email"
-            type="email"
-            id="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            placeholder="이메일"
-            onKeyUp={(e) => {
-              if (e.key === "Enter") {
-                handleSubmit(onSubmit);
-              }
-            }}
-          />
-          <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
-            {errors?.email?.message}
-          </div>
-          <label className="block text-black font-2xl font-bold mb-3">
-            로그인에 사용할 비밀번호를 입력해주세요.
-          </label>
-          <input
-            className="appearance-none border border-gray-400 w-full py-2 px-1 text-black placeholder:text-sm"
-            {...register("password", {
-              required: "비밀번호를 입력해주세요",
-              minLength: {
-                value: 8,
-                message:
-                  "비밀번호는 영문 대소문자, 숫자를 혼합하여 8~15자로 입력해주세요.",
-              },
-              pattern: {
-                value: /^[A-Za-z0-9]{8,15}$/,
-                message:
-                  "비밀번호는 영문 대소문자, 숫자를 혼합하여 8~15자로 입력해주세요.",
-              },
-            })}
-            name="password"
-            type="password"
-            id="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            placeholder="비밀번호"
-            onKeyUp={(e) => {
-              if (e.key === "Enter") {
-                handleSubmit(onSubmit);
-              }
-            }}
-          />
-          <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
-            {errors?.password?.message}
-          </div>
-          <input
-            className="appearance-none border border-gray-400 w-full py-2 px-1 text-black placeholder:text-sm"
-            {...register("confirm", {
-              required: "비밀번호를 입력해주세요",
-              minLength: {
-                value: 8,
-                message:
-                  "비밀번호는 영문 대소문자, 숫자를 혼합하여 8~15자로 입력해주세요.",
-              },
-            })}
-            autoComplete="new-password"
-            name="confirm"
-            type="password"
-            id="confirm"
-            value={confirm}
-            onChange={(event) => setConfirm(event.target.value)}
-            placeholder="비밀번호 확인"
-            onKeyUp={(e) => {
-              if (e.key === "Enter") {
-                handleSubmit(onSubmit);
-              }
-            }}
-          />
-          <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
-            {errors?.confirm?.message}
-          </div>
-          <div className="flex items-center justify-center">
-            <button
-              className="w-full text-white bg-black font-bold uppercase text-sm px-6 py-3 shadow hover:shadow-lg outline-none focus:outline-none mb-1"
-              type="submit"
-              disabled={isRegister}
-            >
-              회원가입하기
-            </button>
-          </div>
-        </form>
-      </div>
-      <div className="flex justify-center items-center ">
-        <div className="border-b border-solid border-gray-500 w-[90%]" />
-      </div>
-      <div className="flex items-center justify-center p-6 border-t border-solid border-blueGray-200 rounded-b">
-        <button
-          className="text-black underline text-xs font-semibold p-1 outline-none focus:outline-none mr-1 mb-1"
-          type="button"
-          onClick={() => navigate("/login")}
-        >
-          로그인 창으로 돌아가기
-        </button>
+      <div className="m-[2%] 3xl:w-[30%] 2xl:w-[40%] w-[50%] min-w-[370px] border border-black">
+        <div className="flex justify-center items-center p-5 body1">
+          회원가입
+        </div>
+        <div className="flex justify-center items-center ">
+          <div className="border-b-2 border-solid border-black w-[90%]" />
+        </div>
+        <div className="relative p-6 flex-auto">
+          <form
+            className=" rounded px-8 pt-6 pb-8 w-full"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
+              {error}
+            </div>
+            <label className="block text-black font-2xl font-bold mb-3">
+              NILILI에서 사용할 닉네임을 입력해주세요.
+            </label>
+            <input
+              className="appearance-none border border-gray-400 w-full py-2 px-1 text-black placeholder:text-sm"
+              {...register("userName", {
+                required: "닉네임을 입력해주세요",
+                pattern: {
+                  value: /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,8}$/,
+                  message:
+                    "닉네임은 2~8자로 영어 또는 숫자 또는 한글이 조합되어야 합니다.",
+                },
+              })}
+              name="userName"
+              type="text"
+              id="userName"
+              value={userName}
+              onChange={(event) => setUserName(event.target.value)}
+              placeholder="닉네임"
+              onKeyUp={(e) => {
+                if (e.key === "Enter") {
+                  handleSubmit(onSubmit);
+                }
+              }}
+            />
+            <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
+              {errors?.userName?.message}
+            </div>
+            <label className="block text-black font-2xl font-bold mb-3">
+              로그인에 사용할 아이디를 입력해주세요.
+            </label>
+            <input
+              className="appearance-none border border-gray-400 w-full py-2 px-1 text-black placeholder:text-sm"
+              {...register("email", {
+                required: "이메일을 올바르게 입력해주세요",
+                pattern: {
+                  value:
+                    /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i,
+                  message: "이메일 형식에 맞게 입력해주세요,",
+                },
+              })}
+              name="email"
+              type="email"
+              id="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              placeholder="이메일"
+              onKeyUp={(e) => {
+                if (e.key === "Enter") {
+                  handleSubmit(onSubmit);
+                }
+              }}
+            />
+            <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
+              {errors?.email?.message}
+            </div>
+            <label className="block text-black font-2xl font-bold mb-3">
+              로그인에 사용할 비밀번호를 입력해주세요.
+            </label>
+            <input
+              className="appearance-none border border-gray-400 w-full py-2 px-1 text-black placeholder:text-sm"
+              {...register("password", {
+                required: "비밀번호를 입력해주세요",
+                minLength: {
+                  value: 8,
+                  message:
+                    "비밀번호는 영문 대소문자, 숫자를 혼합하여 8~15자로 입력해주세요.",
+                },
+                pattern: {
+                  value: /^[A-Za-z0-9]{8,15}$/,
+                  message:
+                    "비밀번호는 영문 대소문자, 숫자를 혼합하여 8~15자로 입력해주세요.",
+                },
+              })}
+              name="password"
+              type="password"
+              id="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              placeholder="비밀번호"
+              onKeyUp={(e) => {
+                if (e.key === "Enter") {
+                  handleSubmit(onSubmit);
+                }
+              }}
+            />
+            <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
+              {errors?.password?.message}
+            </div>
+            <input
+              className="appearance-none border border-gray-400 w-full py-2 px-1 text-black placeholder:text-sm"
+              {...register("confirm", {
+                required: "비밀번호를 입력해주세요",
+                minLength: {
+                  value: 8,
+                  message:
+                    "비밀번호는 영문 대소문자, 숫자를 혼합하여 8~15자로 입력해주세요.",
+                },
+              })}
+              autoComplete="new-password"
+              name="confirm"
+              type="password"
+              id="confirm"
+              value={confirm}
+              onChange={(event) => setConfirm(event.target.value)}
+              placeholder="비밀번호 확인"
+              onKeyUp={(e) => {
+                if (e.key === "Enter") {
+                  handleSubmit(onSubmit);
+                }
+              }}
+            />
+            <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
+              {errors?.confirm?.message}
+            </div>
+            <div className="flex items-center justify-center">
+              <button
+                className="w-[50%] text-white bg-black font-bold uppercase text-sm px-6 py-3 shadow hover:shadow-lg outline-none focus:outline-none mb-1"
+                type="submit"
+                disabled={isRegister}
+              >
+                회원가입하기
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </>
   );
