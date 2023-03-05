@@ -18,19 +18,12 @@ import { replaceAllData } from "../redux/modules/courseSlice";
 import Swal from "sweetalert2";
 import * as amplitude from "@amplitude/analytics-browser";
 import { logEvent } from "../utils/amplitude";
-import { usePreventLeave } from "../hooks";
-
-//select option의 타입
-export interface optionType {
-  value: string;
-  label: string;
-}
+import { usePreventLeave, useOption } from "../hooks";
 
 const Post = () => {
   useEffect(() => {
     amplitude.track("글쓰기페이지 접속");
   }, []);
-  // console.log("post");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [addCourse] = useAddCourseMutation();
@@ -46,15 +39,21 @@ const Post = () => {
   const [uploadCover, setUploadCover] = useState("");
   const [galleryCover, setGalleryCover] = useState("");
 
-  //지역 선택
-  const [regions, setRegions] = useState<optionType[] | any>([]);
+  //제목
   const [courseTitle, setCourseTitle] = useState("");
+
+  // select
+  const {
+    selectedTags,
+    setSelectedTags,
+    regions,
+    setRegions,
+    selectedLabels,
+    selectedRegions,
+  } = useOption();
 
   // 여행전/후 선택
   const [travelStatus, setTravelStatus] = useState<boolean | null>(null);
-
-  //해시태그 선택
-  const [selectedTags, setSelectedTags] = useState<optionType[] | null>([]);
 
   //navigate할 때 쓸 state
   const [condition, setCondition] = useState(false);
@@ -71,10 +70,6 @@ const Post = () => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
-    //selectedTags는 오브젝트 배열입니다.
-    //hashtag는 데이터베이스에 문자열 배열로 들어가야 하기 때문에, value 값만 추출하여 문자열배열로 바꿉니다.
-    let selectedLabels = selectedTags?.map((tag) => tag.label);
-    let selectedRegions = regions?.map((region: any) => region.value);
 
     const newPost = {
       location: selectedRegions,
