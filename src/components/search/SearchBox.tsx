@@ -153,84 +153,90 @@ const SearchBox = () => {
           WHAT ARE YOUR PLANS?
         </p>
         <div className="w-full border border-black flex flex-col items-center">
-          <div className="w-full flex flex-row justify-between indent-2">
-            <div className="body2 w-[180px] p-3 xs:body3 text-white bg-black">
-              지역 검색
-            </div>
-            <Select
-              className="z-50 w-full m-3 leading-7 text-[22px] xs:body3"
-              classNamePrefix="select"
-              options={regionOptions}
-              placeholder={"지역명"}
-              autoFocus={true}
-              isMulti
-              isSearchable={true}
-              isClearable={true}
-              onChange={locationOnChangeHandler}
-              value={locations}
-              styles={ColorStyles}
-            />
-          </div>
-          <div className="w-full flex flex-row indent-2 ">
-            <div className="body2 w-[180px] p-3 xs:body3 text-white bg-black">
-              #해시태그
-            </div>
-            <Select
-              className="z-30 w-full m-3 leading-7 text-[22px] xs:body3"
-              classNamePrefix="select"
-              options={hashTagOptions}
-              isMulti
-              isSearchable={true}
-              isClearable={true}
-              placeholder={"#해시태그"}
-              onChange={hashtagOnChangeHandler}
-              value={hashtags}
-              styles={ColorStyles}
-            />
-          </div>
+          <div className="border-b-2 w-full">
+            <div className="w-full flex flex-row justify-between indent-2">
+              <div className="body2 w-[180px] p-4 xs:body3 text-white bg-black hidden md:block">
+                지역 검색
+              </div>
 
-          <div className="w-full flex flex-row indent-2 ">
-            <div className="body2 w-[180px] p-3 xs:body3 text-white bg-black">
-              검색어
+              <Select
+                className="z-50 w-full m-3 leading-7 text-[22px] xs:body3"
+                classNamePrefix="select"
+                options={regionOptions}
+                placeholder={"지역명"}
+                autoFocus={true}
+                isMulti
+                isSearchable={false}
+                isClearable={true}
+                onChange={locationOnChangeHandler}
+                value={locations}
+                styles={ColorStyles}
+              />
             </div>
-            <input
-              className={
-                "rounded-sm indent-4 border border-gray-300 w-full m-3 h-[38px] placeholder:text-sm"
-              }
-              placeholder="검색어를 입력하세요."
-              value={words}
-              onChange={(event) => setWords(event.target.value)}
-              onKeyUp={(e) => {
-                if (e.key === "Enter") {
-                  navigate(
-                    `/search?lc=${JSON.stringify(
-                      locations
-                    )}&ht=${JSON.stringify(hashtags)}&ts=${JSON.stringify(
-                      travelStatus
-                    )}&ws=${words}`
-                  );
-                  filterData();
+          </div>
+          <div className="border-b-2 w-full">
+            <div className="w-full flex flex-row indent-2 ">
+              <div className="body2 w-[180px] p-4 xs:body3 text-white bg-black hidden md:block">
+                #해시태그
+              </div>
+              <Select
+                className="z-30 w-full m-3 leading-7 text-[22px] xs:body3"
+                classNamePrefix="select"
+                options={hashTagOptions}
+                isMulti
+                isSearchable={false}
+                isClearable={true}
+                placeholder={"#해시태그"}
+                onChange={hashtagOnChangeHandler}
+                value={hashtags}
+                styles={ColorStyles}
+              />
+            </div>
+          </div>
+          <div className="border-b-2 w-full">
+            <div className="w-full flex flex-row indent-2 ">
+              <div className="body2 w-[180px] p-4 xs:body3 text-white bg-black hidden md:block">
+                검색어
+              </div>
+              <input
+                className={
+                  "rounded-sm indent-4 border border-gray-300 w-full m-3 h-[38px] placeholder:text-sm"
                 }
-              }}
-            />
-          </div>
-
-          <div className="w-full flex flex-row indent-2 ">
-            <div className="body2 w-[180px] p-3 xs:body3 text-white bg-black">
-              여행 전/후
+                placeholder="검색어를 입력하세요."
+                value={words}
+                onChange={(event) => setWords(event.target.value)}
+                onKeyUp={(e) => {
+                  if (e.key === "Enter") {
+                    navigate(
+                      `/search?lc=${JSON.stringify(
+                        locations
+                      )}&ht=${JSON.stringify(hashtags)}&ts=${JSON.stringify(
+                        travelStatus
+                      )}&ws=${words}`
+                    );
+                    filterData();
+                  }
+                }}
+              />
             </div>
-            <Select
-              className="z-20 w-full m-3 leading-7 text-[22px] xs:body3"
-              classNamePrefix="select"
-              isClearable={true}
-              placeholder={"전/후"}
-              options={travelStatusOptions}
-              onChange={travelStatusOnChangeHandler}
-              styles={ColorStyles}
-              value={travelStatus}
-            />
           </div>
-
+          <div className="border-b-2 w-full">
+            <div className="w-full flex flex-row indent-2 ">
+              <div className="body2 w-[180px] p-4  xs:body3 text-white bg-black hidden md:block">
+                여행 전/후
+              </div>
+              <Select
+                className="z-20 w-full m-3 leading-7 text-[22px] xs:body3"
+                classNamePrefix="select"
+                isClearable={true}
+                placeholder={"전/후"}
+                options={travelStatusOptions}
+                onChange={travelStatusOnChangeHandler}
+                styles={ColorStyles}
+                value={travelStatus}
+              />
+            </div>
+          </div>
           <button
             className="button2 w-[20%] p-1 xs:body3 m-3 text-white bg-black hover:shadow-lg"
             onClick={() => {
