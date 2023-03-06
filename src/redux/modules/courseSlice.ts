@@ -22,6 +22,9 @@ const courseSlice = createSlice({
     deleteCourse: (state: any, action) => {
       state.courseList = [...current(state).courseList];
       state.courseList.splice(action.payload, 1);
+      if (state.filteredIdx > state.courseList.length - 2) {
+        state.filteredIdx = state.courseList.length - 1;
+      }
     },
     upCourse: (state: any, action) => {
       state.courseList = [...current(state).courseList];

@@ -21,11 +21,7 @@ const EditCourseMobileMemo = ({ text, setText, item, idx }: any) => {
     dispatch(filterCourse(newInfo));
   };
 
-  const onBlurAddMemo = (
-    event: React.FocusEvent<HTMLTextAreaElement, Element>,
-    item: any,
-    idx: number
-  ) => {
+  const onBlurAddMemo = (item: any, idx: number) => {
     const newMemo = {
       id: item.id,
       idx,
@@ -72,7 +68,7 @@ const EditCourseMobileMemo = ({ text, setText, item, idx }: any) => {
               ? (event) => onFocusEditMemo(event, item, idx)
               : (event) => onFocusGetId(event, item, idx)
           }
-          onBlur={(event) => onBlurAddMemo(event, item, idx)}
+          onBlur={() => onBlurAddMemo(item, idx)}
           className="w-[338px] h-[24px] mt-3 px-2 py-1.5 border border-gray-04 resize-none text-black focus:outline-none placeholder:text-gray-04"
         />
       ) : null}

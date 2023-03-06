@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PostCourseDesc, PostTextarea } from "./index";
 import styled from "styled-components";
@@ -13,13 +13,7 @@ import {
   upCourse,
 } from "../../redux/modules/courseSlice";
 
-interface PostProps {
-  modalOpen: boolean;
-  setModalOpen: Dispatch<SetStateAction<boolean>>;
-  setBoundsInfo: Dispatch<SetStateAction<object>>;
-}
-
-const PostCourse = ({ setBoundsInfo }: PostProps) => {
+const PostCourse = () => {
   const dispatch = useDispatch();
   const lists = useSelector((state: any) => state.courseSlice.courseList);
   const filteredIdx = useSelector(
@@ -34,7 +28,6 @@ const PostCourse = ({ setBoundsInfo }: PostProps) => {
       idx,
     };
     dispatch(filterCourse(newInfo));
-    setBoundsInfo(item.bounds);
   };
 
   const onClickUpCourse = (idx: number) => {
@@ -69,7 +62,7 @@ const PostCourse = ({ setBoundsInfo }: PostProps) => {
   };
 
   return (
-    <div className="w-[472px] pl-7 float-right xs:hidden">
+    <div className="w-[35%] pl-7 float-right xs:hidden">
       <div className="flex flex-col h-[1024px] overflow-y-scroll ">
         {lists?.map((item: any, idx: number) => {
           return (
@@ -79,7 +72,7 @@ const PostCourse = ({ setBoundsInfo }: PostProps) => {
               className={idx === filteredIdx ? "clicked" : " "}
             >
               <div className="flex">
-                <div>
+                <div className="w-full">
                   <h4 className="title3">
                     #{idx + 1} {item.name}
                   </h4>
@@ -89,7 +82,6 @@ const PostCourse = ({ setBoundsInfo }: PostProps) => {
                     item={item}
                     text={text}
                     setText={setText}
-                    setBoundsInfo={setBoundsInfo}
                   />
                 </div>
                 <div>

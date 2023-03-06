@@ -8,6 +8,7 @@ const EditCourseTextarea = ({ idx, item, text, setText }: any) => {
     (state: any) => state.courseSlice.filteredIdx
   );
 
+  // console.log(item.name, ":", item.memo);
   const onFocusGetId = (item: any, idx: number) => {
     const newInfo = {
       id: item.id,
@@ -25,11 +26,9 @@ const EditCourseTextarea = ({ idx, item, text, setText }: any) => {
     };
     dispatch(filterCourse(newMemo));
     dispatch(editMemo(newMemo));
-    // console.log("수정");
   };
 
   const onBlurAddMemo = (item: any, idx: number) => {
-    // console.log("저장");
     const newMemo = {
       id: item.id,
       idx,
@@ -58,7 +57,7 @@ const EditCourseTextarea = ({ idx, item, text, setText }: any) => {
           : () => onFocusGetId(item, idx)
       }
       onBlur={() => onBlurAddMemo(item, idx)}
-      className="w-[402px] h-[28px] mt-5 px-2.5 py-2 border border-gray-04 resize-none text-black focus:outline-none placeholder:text-gray-04 xs:w-[338px]"
+      className="w-full h-[28px] mt-5 px-2.5 py-2 border border-gray-04 resize-none text-black focus:outline-none placeholder:text-gray-04 xs:w-[338px]"
     />
   );
 };

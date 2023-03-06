@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Map } from "react-kakao-maps-sdk";
 import { PostSearchModal, PostCourse, PostMarkers } from "./index";
 import { useSelector } from "react-redux";
@@ -8,8 +8,8 @@ const PostMap = ({ modalOpen, setModalOpen }: any) => {
   const [searchKeyword, setSearchKeyword] = useState<any | null>("");
   const [searchList, setSearchList] = useState([]);
   const [searchCnt, setSearchCnt] = useState<number | null>();
-  const [boundsInfo, setBoundsInfo] = useState({});
   const [map, setMap] = useState();
+  const lists = useSelector((state: any) => state.courseSlice.courseList);
 
   const filteredIdx = useSelector(
     (state: any) => state.courseSlice.filteredIdx
@@ -34,10 +34,6 @@ const PostMap = ({ modalOpen, setModalOpen }: any) => {
           });
           // @ts-ignore
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-          // @ts-ignore
-          // bounds.ha = bounds.ha - 0.01;
-          // @ts-ignore
-          // bounds.oa = bounds.oa + 0.01;
         }
 
         // @ts-ignore
@@ -46,37 +42,31 @@ const PostMap = ({ modalOpen, setModalOpen }: any) => {
         // @ts-ignore
         setSearchList(data);
         setSearchCnt(pagination.totalCount);
-        setBoundsInfo(bounds);
       }
     });
   }, [searchKeyword]);
-
-  useEffect(() => {
-    if (map !== undefined) {
-      // @ts-ignore
-      map.panTo(boundsInfo);
-    }
-  }, [filteredIdx]);
 
   return (
     <div className="w-full flex h-full mb-20 xs:mb-6">
       <Map
         center={{
-          lat: 37.566826,
-          lng: 126.9786567,
+          lat:
+            filteredIdx === "" || filteredIdx === -1
+              ? 37.566826
+              : lists[filteredIdx]?.position.lat,
+          lng:
+            filteredIdx === "" || filteredIdx === -1
+              ? 126.9786567
+              : lists[filteredIdx].position.lng,
         }}
-        level={5}
+        level={4}
         // @ts-ignore
         onCreate={setMap}
-        className="w-[688px] h-[1024px] z-0 xs:w-full xs:h-[600px]"
+        className="w-[70%] h-[1024px] z-0 xs:w-full xs:h-[600px]"
       >
         <PostMarkers />
       </Map>
-      <PostCourse
-        modalOpen={modalOpen}
-        setModalOpen={setModalOpen}
-        setBoundsInfo={setBoundsInfo}
-      />
+      <PostCourse />
       {modalOpen && (
         <PostSearchModal
           setModalOpen={setModalOpen}
@@ -85,7 +75,6 @@ const PostMap = ({ modalOpen, setModalOpen }: any) => {
           searchList={searchList}
           setSearchList={setSearchList}
           searchCnt={searchCnt}
-          boundsInfo={boundsInfo}
         />
       )}
     </div>

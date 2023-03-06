@@ -209,11 +209,7 @@ const EditCourse = () => {
           modalOpen={modalOpen}
           setModalOpen={setModalOpen}
         />
-        <EditCourseMap
-          initLists={course}
-          modalOpen={modalOpen}
-          setModalOpen={setModalOpen}
-        />
+        <EditCourseMap modalOpen={modalOpen} setModalOpen={setModalOpen} />
         <EditCourseMobile />
         <div className="flex w-full justify-between">
           <button

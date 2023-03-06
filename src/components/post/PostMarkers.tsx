@@ -27,7 +27,7 @@ const PostMarkers = () => {
   return (
     <>
       {lists.map((item: any, idx: number) => (
-        <div key={idx}>
+        <div key={item.id + idx}>
           <div onClick={() => onClickGetId(item, idx)} className="xs:flex">
             <CustomOverlayMap position={item.position}>
               <InfoWindow className={idx === filteredIdx ? "clicked" : " "}>
@@ -59,7 +59,7 @@ const PostMarkers = () => {
       ))}
       <div className="xs:w-[90px] xs:h-[600px] xs:flex xs:flex-col xs:absolute xs:right-6 xs:overflow-y-scroll">
         {lists.map((item: any, idx: number) => (
-          <div className="xs:flex xs:justify-center">
+          <div key={item.id + idx} className="xs:flex xs:justify-center">
             <MobileMarker
               onClick={() => onClickGetId(item, idx)}
               className={idx === filteredIdx ? "clicked" : " "}

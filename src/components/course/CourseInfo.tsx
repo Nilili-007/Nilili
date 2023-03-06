@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 const CourseInfo = ({ courseList, filteredIdx, setFilteredIdx }: any) => {
@@ -7,7 +6,7 @@ const CourseInfo = ({ courseList, filteredIdx, setFilteredIdx }: any) => {
   };
 
   return (
-    <div className="w-[472px] pl-7 float-right xs:hidden">
+    <div className="w-[35%] pl-7 float-right xs:hidden">
       <div className="flex flex-col h-[1024px] overflow-y-scroll ">
         {courseList?.map((item: any, idx: any) => {
           return (

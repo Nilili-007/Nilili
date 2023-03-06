@@ -62,8 +62,6 @@ const PostMobileCourse = () => {
     });
   };
 
-  console.log(lists.length);
-
   return (
     <div className="lg:hidden 3xl:hidden xs:flex xs:flex-col">
       {lists?.length > 0 && lists[filteredIdx] ? (

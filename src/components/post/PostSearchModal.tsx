@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { GrFormClose } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { addCourse } from "../../redux/modules/courseSlice";
@@ -21,7 +21,6 @@ const PostSearchModal = ({
   searchList,
   setSearchList,
   searchCnt,
-  boundsInfo,
 }: any) => {
   const dispatch = useDispatch();
   const [text, setText] = useState("");
@@ -50,7 +49,6 @@ const PostSearchModal = ({
         lng: item.x,
         lat: item.y,
       },
-      bounds: boundsInfo,
       memo: "",
     };
 

@@ -88,12 +88,14 @@ const EditCourseMobile = () => {
               <p>{lists[filteredIdx]?.road}</p>
               <p>{lists[filteredIdx]?.phone}</p>
             </div>
-            <EditCourseMobileMemo
-              idx={filteredIdx}
-              item={lists[filteredIdx]}
-              text={text}
-              setText={setText}
-            />
+            {filteredIdx === -1 ? null : (
+              <EditCourseMobileMemo
+                idx={filteredIdx}
+                item={lists[filteredIdx]}
+                text={text}
+                setText={setText}
+              />
+            )}
           </div>
           {filteredIdx ? (
             <div className="ml-auto">
