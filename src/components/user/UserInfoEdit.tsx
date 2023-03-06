@@ -198,10 +198,11 @@ const UserInfoEdit = ({
                 value={newEmail}
               />
               <button
-                className="w-[50%] text-white bg-black font-bold m-2 text-xs px-6 py-3 outline-none focus:outline-none"
+                className="w-[50%] text-white bg-black font-bold m-2 text-xs py-2 px-1 outline-none focus:outline-none"
                 onClick={changeEmailBtn}
               >
-                이메일 변경
+                이메일 <br />
+                변경
               </button>
             </div>
 
@@ -214,10 +215,10 @@ const UserInfoEdit = ({
                 type="password"
               />
               <button
-                className="w-[50%] text-white bg-black font-bold m-2 text-xs px-6 py-3 outline-none focus:outline-none"
+                className="w-[50%]  text-white bg-black font-bold m-2 text-xs py-2 px-1 outline-none focus:outline-none"
                 onClick={changePasswordBtn}
               >
-                비밀번호 변경
+                비밀번호 <br /> 변경
               </button>
             </div>
 
@@ -229,7 +230,7 @@ const UserInfoEdit = ({
             <div className="flex justify-center items-center ">
               <button
                 onClick={ondeleteUser}
-                className="text-sm leading-none border-none underline text-gray-400 hover:text-teal-500 mt-4 lg:mt-0"
+                className="text-[15px] leading-none border-none underline text-gray-400 hover:text-teal-500 mt-4 lg:mt-0"
               >
                 회원 탈퇴하기
               </button>
