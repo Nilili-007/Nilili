@@ -54,9 +54,9 @@ const EditCourseCategories = ({
   return (
     <div>
       <div className="w-full flex flex-col-reverse md:flex-row justify-between">
-        <div className="flex flex-col ">
+        <div className="flex flex-col gap-2">
           <div className="w-full  flex justify-between">
-            <p className="text-[18px] sm:text-2xl whitespace-normal font-bold">
+            <p className="text-[18px] sm:text-3xl whitespace-normal font-bold">
               목적지를 추가해보세요.
             </p>
             <button
