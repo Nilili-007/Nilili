@@ -137,7 +137,6 @@ const Post = () => {
             window.scrollTo({ top: 0, behavior: "smooth" });
           },
         });
-        window.scrollTo({ top: 0, behavior: "smooth" });
       }
       if (travelStatus === null) {
         Swal.fire({
@@ -147,7 +146,6 @@ const Post = () => {
             window.scrollTo({ top: 450, behavior: "smooth" });
           },
         });
-        window.scrollTo({ top: 450, behavior: "smooth" });
       }
       if (regions.length === 0) {
         Swal.fire({
@@ -223,7 +221,7 @@ const Post = () => {
         <div className="flex flex-col-reverse md:flex-row">
           <div className="flex flex-col">
             <div className="w-full flex justify-between">
-              <p className="text-[18px] sm:text-xl whitespace-normal font-bold">
+              <p className="text-[18px] sm:text-2xl whitespace-normal font-bold">
                 목적지를 추가해보세요.
               </p>
               <button
@@ -233,7 +231,7 @@ const Post = () => {
                 목적지 추가하기
               </button>
             </div>
-            <p className="text-gray-400 mt-1 text-[13px] sm:text-[14px] whitespace-normal">
+            <p className="text-gray-400 mt-1 text-[13px] sm:body2 whitespace-normal">
               간단한 클릭으로 여행지를 추가할 수 있어요.
             </p>
           </div>
