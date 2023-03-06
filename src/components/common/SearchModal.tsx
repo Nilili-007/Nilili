@@ -14,7 +14,7 @@ import Swal from "sweetalert2";
 //   boundsInfo: object;
 // }
 
-const PostSearchModal = ({
+const SearchModal = ({
   setModalOpen,
   searchKeyword,
   setSearchKeyword,
@@ -128,4 +128,4 @@ const PostSearchModal = ({
   );
 };
 
-export default PostSearchModal;
+export default SearchModal;

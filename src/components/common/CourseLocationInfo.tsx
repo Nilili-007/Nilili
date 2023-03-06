@@ -1,11 +1,7 @@
-import { useSelector } from "react-redux";
-
-const PostCourseDesc = ({ item }: any) => {
-  const courseList = useSelector((state: any) => state.courseSlice.courseList);
-
+const CourseLocationInfo = ({ lists, item }: any) => {
   return (
     <div className="w-full h-auto mt-3 text-gray-04 xs:mt-1">
-      {courseList.length > 0 ? (
+      {lists.length > 0 ? (
         <>
           <p>{item.address}</p>
           <p>{item.road}</p>
@@ -18,4 +14,4 @@ const PostCourseDesc = ({ item }: any) => {
   );
 };
 
-export default PostCourseDesc;
+export default CourseLocationInfo;

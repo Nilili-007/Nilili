@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
-import { PostCourseDesc } from "../../components/post/index";
-import { EditCourseMobileMemo, EditCourseTextarea } from "./index";
+import { EditCourseMobileMemo } from "./index";
+import {
+  CourseOrderBtns,
+  CourseMemo,
+  CourseLocationInfo,
+  CourseDeleteBtn,
+} from "../common";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { FiMinus } from "react-icons/fi";
 import { BsChevronUp, BsChevronDown } from "react-icons/bs";
-import { ItemBtn } from "../post/PostCourse";
-import {
-  useDeleteCourse,
-  useDownCourse,
-  useFilterCourse,
-  useUpCourse,
-} from "../../hooks";
+import { useFilterCourse } from "../../hooks";
 
 const EditCourseMobile = () => {
   const [openCourse, setOpenCourse] = useState(false);
@@ -23,9 +21,6 @@ const EditCourseMobile = () => {
   );
 
   const getIdx = useFilterCourse();
-  const liftUp = useUpCourse();
-  const liftDown = useDownCourse();
-  const deleteCourse = useDeleteCourse();
 
   useEffect(() => {
     setLists(data);
@@ -61,10 +56,7 @@ const EditCourseMobile = () => {
           </div>
           {filteredIdx ? (
             <div className="ml-auto">
-              <FiMinus
-                onClick={() => deleteCourse(lists[filteredIdx], filteredIdx)}
-                className="-ml-6 -mt-1 text-[26px] text-gray-04"
-              />
+              <CourseDeleteBtn item={lists[filteredIdx]} idx={filteredIdx} />
             </div>
           ) : null}
         </div>
@@ -102,40 +94,20 @@ const EditCourseMobile = () => {
                         <h4 className="font-bold text-[20px]">
                           #{idx + 1} {item.name}
                         </h4>
-                        <PostCourseDesc item={item} />
-                        <EditCourseTextarea
+                        <CourseLocationInfo lists={lists} item={item} />
+                        <CourseMemo
                           idx={idx}
                           item={item}
                           text={text}
                           setText={setText}
                         />
                       </div>
-                      <div>
-                        <FiMinus
-                          onClick={() => deleteCourse(item, idx)}
-                          className="-ml-6 -mt-1 text-[26px] text-gray-04"
-                        />
-                      </div>
+                      <CourseDeleteBtn item={item} idx={idx} />
                     </div>
                     {lists.length < 2 ? (
                       <div className="p-3.5" />
                     ) : (
-                      <div className="flex text-2xl mt-1.5 -mb-2.5 float-right">
-                        <ItemBtn
-                          className={lists[0] === item ? "non-clicked" : ""}
-                        >
-                          <BsChevronUp onClick={() => liftUp(idx)} />
-                        </ItemBtn>
-                        <ItemBtn
-                          className={
-                            lists[lists.length - 1] === item
-                              ? "non-clicked"
-                              : ""
-                          }
-                        >
-                          <BsChevronDown onClick={() => liftDown(idx)} />
-                        </ItemBtn>
-                      </div>
+                      <CourseOrderBtns lists={lists} item={item} idx={idx} />
                     )}
                   </ItemCard>
                 );

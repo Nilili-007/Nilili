@@ -1,5 +1,5 @@
 import { CustomOverlayMap, Polyline } from "react-kakao-maps-sdk";
-import { InfoWindow, Marker, MobileMarker } from "../post/PostMarkers";
+import { InfoWindow, Marker, MobileMarker } from "../common/MapMarkers";
 import { MdLocationOn } from "react-icons/md";
 
 const CourseMapMarker = ({ lists, filteredIdx, setFilteredIdx }: any) => {

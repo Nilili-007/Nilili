@@ -5,6 +5,7 @@ const useKakaoMap = ({ searchKeyword }: any) => {
   const [searchCnt, setSearchCnt] = useState<number | null>();
 
   console.log("custom hook:", searchKeyword);
+
   useEffect(() => {
     const ps = new kakao.maps.services.Places();
 

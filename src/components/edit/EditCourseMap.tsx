@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Map } from "react-kakao-maps-sdk";
-import { PostSearchModal } from "../post";
+import { SearchModal } from "../common";
 import { EditCourseInfo, EditCourseMarkers } from "./index";
 import { useSelector } from "react-redux";
 import { useKakaoMap } from "../../hooks";
@@ -43,7 +43,7 @@ const EditCourseMap = ({ modalOpen, setModalOpen }: any) => {
       </Map>
       <EditCourseInfo />
       {modalOpen && (
-        <PostSearchModal
+        <SearchModal
           setModalOpen={setModalOpen}
           setSearchKeyword={setSearchKeyword}
           searchList={searchList}

@@ -14,7 +14,6 @@ import {
   EditCourseMap,
   EditCourseMobile,
 } from "../components/edit";
-import { PostTravelStatus } from "../components/post/index";
 import { authService } from "../utils/firebase";
 import Swal from "sweetalert2";
 import * as amplitude from "@amplitude/analytics-browser";

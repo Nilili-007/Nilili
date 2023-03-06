@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Map } from "react-kakao-maps-sdk";
-import { PostSearchModal, PostCourse, PostMarkers } from "./index";
+import { SearchModal } from "../common";
+import { PostCourse } from "./index";
+import { MapMarkers } from "../common";
 import { useSelector } from "react-redux";
 import { useKakaoMap } from "../../hooks";
 
@@ -10,13 +12,13 @@ const PostMap = ({ modalOpen, setModalOpen }: any) => {
   const [searchCnt, setSearchCnt] = useState<number | null>();
   const [map, setMap] = useState();
   const lists = useSelector((state: any) => state.courseSlice.courseList);
-
   const filteredIdx = useSelector(
     (state: any) => state.courseSlice.filteredIdx
   );
-
   console.log("post map:", searchKeyword);
-  // useKakaoMap(searchKeyword);
+  // useKakaoMap(searchKeyword)
+  // const boundsMap = useKakaoMap;
+  // boundsMap(searchKeyword);
 
   useEffect(() => {
     const ps = new kakao.maps.services.Places();
@@ -100,11 +102,11 @@ const PostMap = ({ modalOpen, setModalOpen }: any) => {
         onCreate={setMap}
         className="w-[70%] h-[1024px] z-0 xs:w-full xs:h-[600px]"
       >
-        <PostMarkers />
+        <MapMarkers />
       </Map>
       <PostCourse />
       {modalOpen && (
-        <PostSearchModal
+        <SearchModal
           setModalOpen={setModalOpen}
           searchKeyword={searchKeyword}
           setSearchKeyword={setSearchKeyword}

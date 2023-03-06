@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { PostCourseDesc, PostTextarea, PostMobileMemo } from "./index";
+import { PostMobileMemo } from "./index";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { ItemBtn } from "./PostCourse";
-import { FiMinus } from "react-icons/fi";
+import {
+  CourseOrderBtns,
+  CourseMemo,
+  CourseLocationInfo,
+  CourseDeleteBtn,
+} from "../common";
 import { BsChevronUp, BsChevronDown } from "react-icons/bs";
-import { useDeleteCourse, useDownCourse, useUpCourse } from "../../hooks";
 
 const PostMobileCourse = () => {
   const [openCourse, setOpenCourse] = useState(false);
@@ -21,10 +24,6 @@ const PostMobileCourse = () => {
     event.stopPropagation();
     setOpenCourse(!openCourse);
   };
-
-  const liftUp = useUpCourse();
-  const liftDown = useDownCourse();
-  const deleteCourse = useDeleteCourse();
 
   return (
     <div className="lg:hidden 3xl:hidden xs:flex xs:flex-col">
@@ -48,10 +47,7 @@ const PostMobileCourse = () => {
               />
             </div>
             <div className="ml-auto">
-              <FiMinus
-                onClick={() => deleteCourse(lists[filteredIdx], filteredIdx)}
-                className="-ml-6 -mt-1 text-[26px] text-gray-04"
-              />
+              <CourseDeleteBtn item={lists[filteredIdx]} idx={filteredIdx} />
             </div>
           </div>
         </ItemCard>
@@ -100,41 +96,20 @@ const PostMobileCourse = () => {
                         <h4 className="font-bold text-[20px]">
                           #{idx + 1} {item.name}
                         </h4>
-                        <PostCourseDesc item={item} />
-                        <PostTextarea
+                        <CourseLocationInfo lists={lists} item={item} />
+                        <CourseMemo
                           idx={idx}
                           item={item}
                           text={text}
                           setText={setText}
-                          // setBoundsInfo={setBoundsInfo}
                         />
                       </div>
-                      <div>
-                        <FiMinus
-                          onClick={() => deleteCourse(item, idx)}
-                          className="-ml-6 -mt-1 text-[26px] text-gray-04"
-                        />
-                      </div>
+                      <CourseDeleteBtn item={item} idx={idx} />
                     </div>
                     {lists.length < 2 ? (
                       <div className="p-3.5" />
                     ) : (
-                      <div className="flex text-2xl mt-1.5 -mb-2.5 float-right">
-                        <ItemBtn
-                          className={lists[0] === item ? "non-clicked" : ""}
-                        >
-                          <BsChevronUp onClick={() => liftUp(idx)} />
-                        </ItemBtn>
-                        <ItemBtn
-                          className={
-                            lists[lists.length - 1] === item
-                              ? "non-clicked"
-                              : ""
-                          }
-                        >
-                          <BsChevronDown onClick={() => liftDown(idx)} />
-                        </ItemBtn>
-                      </div>
+                      <CourseOrderBtns lists={lists} item={item} idx={idx} />
                     )}
                   </ItemCard>
                 );

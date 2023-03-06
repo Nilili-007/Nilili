@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { MdLocationOn } from "react-icons/md";
 import { useFilterCourse } from "../../hooks";
 
-const PostMarkers = () => {
+const MapMarkers = () => {
   const lists = useSelector((state: any) => state.courseSlice.courseList);
   const filteredIdx = useSelector(
     (state: any) => state.courseSlice.filteredIdx
@@ -71,7 +71,7 @@ const PostMarkers = () => {
   );
 };
 
-export default PostMarkers;
+export default MapMarkers;
 
 export const InfoWindow = styled.div`
   position: relative;

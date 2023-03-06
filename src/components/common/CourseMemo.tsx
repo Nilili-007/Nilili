@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { editMemo, filterCourse } from "../../redux/modules/courseSlice";
 import TextareaAutosize from "react-textarea-autosize";
 
-const EditCourseTextarea = ({ idx, item, text, setText }: any) => {
+const CourseMemo = ({ idx, item, text, setText }: any) => {
   const dispatch = useDispatch();
   const filteredIdx = useSelector(
     (state: any) => state.courseSlice.filteredIdx
@@ -25,7 +25,7 @@ const EditCourseTextarea = ({ idx, item, text, setText }: any) => {
     }
   };
 
-  const onBlurAddMemo = (item: any, idx: number) => {
+  const addMemo = (item: any, idx: number) => {
     const newMemo = {
       id: item.id,
       idx,
@@ -49,10 +49,10 @@ const EditCourseTextarea = ({ idx, item, text, setText }: any) => {
         idx === filteredIdx ? (e) => setText(e.target.value) : undefined
       }
       onFocus={() => handleMemo(item, idx)}
-      onBlur={() => onBlurAddMemo(item, idx)}
-      className="w-full h-[28px] mt-5 px-2.5 py-2 border border-gray-04 resize-none text-black focus:outline-none placeholder:text-gray-04 xs:w-[338px]"
+      onBlur={() => addMemo(item, idx)}
+      className="w-full h-[28px] mt-5 px-2.5 py-2 border border-gray-04 resize-none text-black focus:outline-none placeholder:text-gray-04 xs:w-[310px] xs:mt-3 xs:px-2 xs:py-1.5"
     />
   );
 };
 
-export default EditCourseTextarea;
+export default CourseMemo;

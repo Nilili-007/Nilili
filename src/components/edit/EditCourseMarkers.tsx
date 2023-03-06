@@ -1,5 +1,5 @@
 import { CustomOverlayMap, Polyline } from "react-kakao-maps-sdk";
-import { InfoWindow, Marker, MobileMarker } from "../post/PostMarkers";
+import { InfoWindow, Marker, MobileMarker } from "../common/MapMarkers";
 import { useSelector } from "react-redux";
 import { MdLocationOn } from "react-icons/md";
 import { useFilterCourse } from "../../hooks";
