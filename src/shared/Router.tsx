@@ -9,6 +9,9 @@ import {
   Search,
   NotFound,
   EditCourse,
+  Login,
+  Register,
+  AuthForgot,
 } from "../pages";
 
 const Router = () => {
@@ -22,6 +25,9 @@ const Router = () => {
         <Route path="/course/:id" element={<Course />} />
         <Route path="/edit/:id" element={<EditCourse />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/authforgot" element={<AuthForgot />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
       <Footer />
