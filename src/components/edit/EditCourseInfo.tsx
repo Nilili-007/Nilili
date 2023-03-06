@@ -32,7 +32,7 @@ const EditCourseInfo = () => {
 
   const [lists, setLists] = useState(fbLists);
 
-  const onClickDeleteCourse = (item: any, idx: number) => {
+  const onClickDeleteCourse = (idx: number) => {
     Swal.fire({
       title: "일정에서 삭제하시겠습니까?",
       icon: "question",
@@ -98,7 +98,7 @@ const EditCourseInfo = () => {
                   />
                 </div>
                 <FiMinus
-                  onClick={() => onClickDeleteCourse(item, idx)}
+                  onClick={() => onClickDeleteCourse(idx)}
                   className="text-[26px] text-gray-04 -ml-5"
                 />
               </div>

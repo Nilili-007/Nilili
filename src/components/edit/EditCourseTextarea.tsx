@@ -8,23 +8,21 @@ const EditCourseTextarea = ({ idx, item, text, setText }: any) => {
     (state: any) => state.courseSlice.filteredIdx
   );
 
-  const onFocusGetId = (item: any, idx: number) => {
+  const handleMemo = (item: any, idx: number) => {
     const newInfo = {
-      id: item.id,
-      idx,
-    };
-    dispatch(filterCourse(newInfo));
-  };
-
-  const onFocusEditMemo = (item: any, idx: number) => {
-    setText(item.memo);
-    const newMemo = {
       id: item.id,
       idx,
       memo: text,
     };
-    dispatch(filterCourse(newMemo));
-    dispatch(editMemo(newMemo));
+
+    if (item.memo === "") {
+      setText("");
+      dispatch(filterCourse(newInfo));
+    } else {
+      setText(item.memo);
+      dispatch(filterCourse(newInfo));
+      dispatch(editMemo(newInfo));
+    }
   };
 
   const onBlurAddMemo = (item: any, idx: number) => {
@@ -44,17 +42,13 @@ const EditCourseTextarea = ({ idx, item, text, setText }: any) => {
       autoFocus
       rows={1}
       placeholder={
-        item.memo ? item.memo : "일정에 대한 메모나 리뷰를 적어보세요!"
+        item.memo !== "" ? item.memo : "일정에 대한 메모나 리뷰를 적어보세요!"
       }
       value={idx === filteredIdx ? text : ""}
       onChange={
         idx === filteredIdx ? (e) => setText(e.target.value) : undefined
       }
-      onFocus={
-        item.memo
-          ? () => onFocusEditMemo(item, idx)
-          : () => onFocusGetId(item, idx)
-      }
+      onFocus={() => handleMemo(item, idx)}
       onBlur={() => onBlurAddMemo(item, idx)}
       className="w-full h-[28px] mt-5 px-2.5 py-2 border border-gray-04 resize-none text-black focus:outline-none placeholder:text-gray-04 xs:w-[338px]"
     />

@@ -29,6 +29,7 @@ const courseSlice = createSlice({
     upCourse: (state: any, action) => {
       state.courseList = [...current(state).courseList];
       const i = action.payload;
+      console.log("redux", state.filteredIdx, action.payload);
       if (i > 0) {
         let temp = state.courseList[i];
         state.courseList[i] = state.courseList[i - 1];

@@ -51,11 +51,15 @@ const EditCourseMap = ({ modalOpen, setModalOpen }: any) => {
       <Map
         center={{
           lat:
-            filteredIdx === "" || filteredIdx === -1
+            filteredIdx === ""
+              ? lists[0]?.position.lat
+              : filteredIdx === -1
               ? 37.566826
               : lists[filteredIdx]?.position.lat,
           lng:
-            filteredIdx === "" || filteredIdx === -1
+            filteredIdx === ""
+              ? lists[0]?.position.lng
+              : filteredIdx === -1
               ? 126.9786567
               : lists[filteredIdx].position.lng,
         }}
