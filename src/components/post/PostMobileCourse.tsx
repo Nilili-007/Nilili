@@ -1,19 +1,11 @@
 import React, { useState } from "react";
 import { PostCourseDesc, PostTextarea, PostMobileMemo } from "./index";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteCourse,
-  deleteMemo,
-  downCourse,
-  filterCourse,
-  upCourse,
-} from "../../redux/modules/courseSlice";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { ItemBtn } from "./PostCourse";
 import { FiMinus } from "react-icons/fi";
 import { BsChevronUp, BsChevronDown } from "react-icons/bs";
-
-import Swal from "sweetalert2";
+import { useDeleteCourse, useDownCourse, useUpCourse } from "../../hooks";
 
 const PostMobileCourse = () => {
   const [openCourse, setOpenCourse] = useState(false);
@@ -22,7 +14,6 @@ const PostMobileCourse = () => {
   const filteredIdx = useSelector(
     (state: any) => state.courseSlice.filteredIdx
   );
-  const dispatch = useDispatch();
 
   const handleOpenCourse = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -31,36 +22,9 @@ const PostMobileCourse = () => {
     setOpenCourse(!openCourse);
   };
 
-  const onClickUpCourse = (idx: number) => {
-    dispatch(upCourse(idx));
-  };
-
-  const onClickDownCourse = (idx: number) => {
-    dispatch(downCourse(idx));
-  };
-
-  const onClickDeleteCourse = (item: any, idx: number) => {
-    const newInfo = {
-      id: item.id,
-      idx,
-    };
-    Swal.fire({
-      title: "일정에서 삭제하시겠습니까?",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonColor: "#B3261E",
-      cancelButtonColor: "#50AA72",
-      confirmButtonText: "네, 삭제할래요",
-      cancelButtonText: "아니요, 취소할래요",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        dispatch(filterCourse(newInfo));
-        dispatch(deleteCourse(idx));
-        dispatch(deleteMemo(item.id));
-        setText("");
-      }
-    });
-  };
+  const liftUp = useUpCourse();
+  const liftDown = useDownCourse();
+  const deleteCourse = useDeleteCourse();
 
   return (
     <div className="lg:hidden 3xl:hidden xs:flex xs:flex-col">
@@ -85,9 +49,7 @@ const PostMobileCourse = () => {
             </div>
             <div className="ml-auto">
               <FiMinus
-                onClick={() =>
-                  onClickDeleteCourse(lists[filteredIdx], filteredIdx)
-                }
+                onClick={() => deleteCourse(lists[filteredIdx], filteredIdx)}
                 className="-ml-6 -mt-1 text-[26px] text-gray-04"
               />
             </div>
@@ -149,7 +111,7 @@ const PostMobileCourse = () => {
                       </div>
                       <div>
                         <FiMinus
-                          onClick={() => onClickDeleteCourse(item, idx)}
+                          onClick={() => deleteCourse(item, idx)}
                           className="-ml-6 -mt-1 text-[26px] text-gray-04"
                         />
                       </div>
@@ -161,7 +123,7 @@ const PostMobileCourse = () => {
                         <ItemBtn
                           className={lists[0] === item ? "non-clicked" : ""}
                         >
-                          <BsChevronUp onClick={() => onClickUpCourse(idx)} />
+                          <BsChevronUp onClick={() => liftUp(idx)} />
                         </ItemBtn>
                         <ItemBtn
                           className={
@@ -170,9 +132,7 @@ const PostMobileCourse = () => {
                               : ""
                           }
                         >
-                          <BsChevronDown
-                            onClick={() => onClickDownCourse(idx)}
-                          />
+                          <BsChevronDown onClick={() => liftDown(idx)} />
                         </ItemBtn>
                       </div>
                     )}

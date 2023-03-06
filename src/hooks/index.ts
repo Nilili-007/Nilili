@@ -1,6 +1,19 @@
-import kakaoPagenation from "./kakaoPagenation";
 import usePagenation from "./usePagenation";
 import usePreventLeave from "./usePreventLeave";
 import { useScript } from "./useScript";
+import useKakaoMap from "./useKakaoMap";
+import useFilterCourse from "./useFilterCourse";
+import useUpCourse from "./useUpCourse";
+import useDownCourse from "./useDownCourse";
+import useDeleteCourse from "./useDeleteCourse";
 
-export { kakaoPagenation, usePagenation, usePreventLeave, useScript };
+export {
+  usePagenation,
+  usePreventLeave,
+  useScript,
+  useKakaoMap,
+  useFilterCourse,
+  useUpCourse,
+  useDownCourse,
+  useDeleteCourse,
+};

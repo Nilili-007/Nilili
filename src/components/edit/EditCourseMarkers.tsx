@@ -1,12 +1,10 @@
 import { CustomOverlayMap, Polyline } from "react-kakao-maps-sdk";
 import { InfoWindow, Marker, MobileMarker } from "../post/PostMarkers";
-import { useDispatch, useSelector } from "react-redux";
-import { filterCourse } from "../../redux/modules/courseSlice";
+import { useSelector } from "react-redux";
 import { MdLocationOn } from "react-icons/md";
+import { useFilterCourse } from "../../hooks";
 
 const EditCourseMarkers = () => {
-  const dispatch = useDispatch();
-
   const lists = useSelector((state: any) => state.courseSlice.courseList);
   const filteredIdx = useSelector(
     (state: any) => state.courseSlice.filteredIdx
@@ -17,19 +15,13 @@ const EditCourseMarkers = () => {
     polyline.push(item.position);
   });
 
-  const onClickGetId = (item: any, idx: number) => {
-    const newInfo = {
-      id: item.id,
-      idx,
-    };
-    dispatch(filterCourse(newInfo));
-  };
+  const getIdx = useFilterCourse();
 
   return (
     <>
       {lists.map((item: any, idx: number) => (
         <div key={idx}>
-          <div onClick={() => onClickGetId(item, idx)}>
+          <div onClick={() => getIdx(item, idx)}>
             <CustomOverlayMap position={item.position}>
               <InfoWindow className={idx === filteredIdx ? "clicked" : " "}>
                 <MdLocationOn className="mt-1 -ml-1 mr-1" /> {item.name}
@@ -62,7 +54,7 @@ const EditCourseMarkers = () => {
         {lists.map((item: any, idx: number) => (
           <div key={item.id + idx} className="xs:flex xs:justify-center">
             <MobileMarker
-              onClick={() => onClickGetId(item, idx)}
+              onClick={() => getIdx(item, idx)}
               className={idx === filteredIdx ? "clicked" : " "}
             >
               <span className="font-bold text-white absolute z-[99]">

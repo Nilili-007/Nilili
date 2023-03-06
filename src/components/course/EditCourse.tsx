@@ -9,16 +9,15 @@ import PostMarkers from "../post/PostMarkers";
 import { PostCourseDesc, PostSearchModal, PostTextarea } from "../post";
 import styled from "styled-components";
 import { AiOutlineDown, AiOutlinePlus, AiOutlineUp } from "react-icons/ai";
-import {
-  deleteCourse,
-  deleteMemo,
-  downCourse,
-  filterCourse,
-  upCourse,
-} from "../../redux/modules/courseSlice";
 import { TiMinus } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
 import { useUpdateCourseMutation } from "../../redux/modules/apiSlice";
+import {
+  useDeleteCourse,
+  useDownCourse,
+  useFilterCourse,
+  useUpCourse,
+} from "../../hooks";
 
 interface EditCourseProps {
   setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
@@ -69,11 +68,6 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
   const [searchList, setSearchList] = useState([]);
   const [searchCnt, setSearchCnt] = useState<number | null>();
   const [map, setMap] = useState();
-  const [boundsInfo, setBoundsInfo] = useState({});
-
-  // const filteredId = useSelector(
-  //   (state: any) => state.courseSlice.filteredId
-  // );
 
   useEffect(() => {
     const ps = new kakao.maps.services.Places();
@@ -139,8 +133,6 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
         // @ts-ignore
         setSearchList(data);
         setSearchCnt(pagination.totalCount);
-        setBoundsInfo(bounds);
-        // @ts-ignore
       }
     });
   }, [searchKeyword]);
@@ -165,27 +157,10 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
     setModalOpen(!modalOpen);
   };
 
-  const onClickDeleteCourse = (item: any) => {
-    // 모달로 변경
-    if (window.confirm("일정에서 삭제하시겠습니까?")) {
-      dispatch(deleteCourse(item.id));
-      dispatch(deleteMemo(item.id));
-      setText("");
-    }
-  };
-
-  const onClickUpCourse = (item: any) => {
-    dispatch(upCourse(item));
-  };
-
-  const onClickDownCourse = (item: any) => {
-    dispatch(downCourse(item));
-  };
-
-  const onClickGetId = (item: any) => {
-    dispatch(filterCourse(item.id));
-    setBoundsInfo(item.bounds);
-  };
+  const getIdx = useFilterCourse();
+  const liftUp = useUpCourse();
+  const liftDown = useDownCourse();
+  const deleteCourse = useDeleteCourse();
 
   useEffect(() => {
     setLists(courseList);
@@ -312,17 +287,17 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
           </Map>
           <div className="w-[35%] max-h-[62vh] pl-7 float-right">
             <div className="flex flex-col h-full overflow-y-scroll ">
-              {lists?.map((item: any, key: any) => {
+              {lists?.map((item: any, idx: any) => {
                 return (
                   <div
-                    key={key}
-                    onClick={() => onClickGetId(item)}
+                    key={idx}
+                    onClick={() => getIdx(item, idx)}
                     className={item.id === filteredId ? "clicked" : " "}
                   >
                     <div className="w-full px-2 py-3 flex">
                       <div className="w-full">
                         <h4 className="pl-3 font-bold text-xl">
-                          #{key + 1} {item.name}
+                          #{idx + 1} {item.name}
                         </h4>
                         <PostCourseDesc item={item} />
                         <PostTextarea
@@ -332,17 +307,17 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
                         />
                       </div>
                       <TiMinus
-                        onClick={() => onClickDeleteCourse(item)}
+                        onClick={() => deleteCourse(item, idx)}
                         className="-mt-2 text-3xl text-gray-400 hover:text-black"
                       />
                     </div>
                     <div className="flex text-3xl p-3 -mt-5">
                       <AiOutlineUp
-                        onClick={() => onClickUpCourse(item)}
+                        onClick={() => liftUp(item)}
                         className="hover:text-gray-400"
                       />
                       <AiOutlineDown
-                        onClick={() => onClickDownCourse(item)}
+                        onClick={() => liftDown(item)}
                         className="hover:text-gray-400 ml-auto"
                       />
                     </div>
@@ -372,7 +347,6 @@ const EditCourse = ({ setIsEdit, paramId, course }: EditCourseProps) => {
               searchList={searchList}
               setSearchList={setSearchList}
               searchCnt={searchCnt}
-              boundsInfo={boundsInfo}
             />
           )}
         </div>

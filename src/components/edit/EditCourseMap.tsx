@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Map } from "react-kakao-maps-sdk";
 import { PostSearchModal } from "../post";
 import { EditCourseInfo, EditCourseMarkers } from "./index";
 import { useSelector } from "react-redux";
-import { kakaoPagenation } from "../../hooks";
+import { useKakaoMap } from "../../hooks";
 
 const EditCourseMap = ({ modalOpen, setModalOpen }: any) => {
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -15,36 +15,7 @@ const EditCourseMap = ({ modalOpen, setModalOpen }: any) => {
     (state: any) => state.courseSlice.filteredIdx
   );
 
-  useEffect(() => {
-    const ps = new kakao.maps.services.Places();
-
-    ps.keywordSearch(searchKeyword, (data, status, pagination) => {
-      if (status === kakao.maps.services.Status.OK) {
-        const bounds = new kakao.maps.LatLngBounds();
-        let markers = [];
-
-        for (var i = 0; i < data.length; i++) {
-          // @ts-ignore
-          markers.push({
-            position: {
-              lat: data[i].y,
-              lng: data[i].x,
-            },
-            content: data[i].place_name,
-          });
-          // @ts-ignore
-          bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-        }
-
-        // @ts-ignore
-        map.panTo(bounds);
-        kakaoPagenation(pagination);
-        // @ts-ignore
-        setSearchList(data);
-        setSearchCnt(pagination.totalCount);
-      }
-    });
-  }, [searchKeyword]);
+  useKakaoMap(searchKeyword);
 
   return (
     <div className="w-full flex h-full mb-20 xs:mb-6">

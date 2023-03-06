@@ -8,15 +8,11 @@ const CourseMapMarker = ({ lists, filteredIdx, setFilteredIdx }: any) => {
     polyline.push(item.position);
   });
 
-  const onClickGetId = (item: any, idx: number) => {
-    setFilteredIdx(idx);
-  };
-
   return (
     <>
       {lists.map((item: any, idx: number) => (
         <div key={item.id + idx}>
-          <div onClick={() => onClickGetId(item, idx)}>
+          <div onClick={() => setFilteredIdx(idx)}>
             <CustomOverlayMap position={item.position}>
               <InfoWindow className={idx === filteredIdx ? "clicked" : " "}>
                 <MdLocationOn className="mt-1 -ml-1 mr-1" /> {item.name}
@@ -49,7 +45,7 @@ const CourseMapMarker = ({ lists, filteredIdx, setFilteredIdx }: any) => {
         {lists.map((item: any, idx: number) => (
           <div key={item.id + idx} className="xs:flex xs:justify-center">
             <MobileMarker
-              onClick={() => onClickGetId(item, idx)}
+              onClick={() => setFilteredIdx(idx)}
               className={idx === filteredIdx ? "clicked" : " "}
             >
               <span className="font-bold text-white absolute z-[99]">

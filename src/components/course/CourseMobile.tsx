@@ -13,10 +13,6 @@ const CourseMobile = ({ course, filteredIdx, setFilteredIdx }: any) => {
     setOpenCourse(!openCourse);
   };
 
-  const onClickGetIdx = (item: any, idx: number) => {
-    setFilteredIdx(idx);
-  };
-
   return (
     <div className="lg:hidden 3xl:hidden xs:flex xs:flex-col">
       <ItemCard>
@@ -60,7 +56,7 @@ const CourseMobile = ({ course, filteredIdx, setFilteredIdx }: any) => {
             <>
               {lists.map((item: any, idx: number) => {
                 return (
-                  <ItemCard key={idx} onClick={() => onClickGetIdx(item, idx)}>
+                  <ItemCard key={idx} onClick={() => setFilteredIdx(idx)}>
                     <div className="flex">
                       <div>
                         <h4 className="font-bold text-[20px]">
