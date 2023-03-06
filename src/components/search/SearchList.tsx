@@ -85,6 +85,7 @@ const StMap = styled.div`
 
 const Stdiv = styled.div`
   position: relative;
+  overflow: hidden;
 
   &:hover {
     ${StImg} {

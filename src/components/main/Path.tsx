@@ -6,7 +6,6 @@ import Swal from "sweetalert2";
 
 const Path = () => {
   const navigate = useNavigate();
-  const userID = authService.currentUser?.uid;
 
   const handleNavigate = () => {
     Swal.fire({
@@ -38,7 +37,7 @@ const Path = () => {
           src="/assets/path.png"
           placeholderSrc="/assets/smallpath.png"
           alt="글쓰기 페이지로"
-          className="w-full"
+          className="w-full hover:border-black hover:border-2 "
         />
         {!authService.currentUser ? (
           <button

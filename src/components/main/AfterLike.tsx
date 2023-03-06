@@ -6,9 +6,9 @@ import { logEvent } from "../../utils/amplitude";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const AfterLike = () => {
-  const { data, isLoading, isError } = useGetCourseLikeQuery();
+  const { data, isLoading, isError, error } = useGetCourseLikeQuery();
   if (isError) {
-    return <>에러가 발생했습니다.</>;
+    return <> {error}</>;
   }
 
   return (

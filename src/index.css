@@ -29,6 +29,13 @@
     letter-spacing: -0.25px;
   }
 
+  .display3 {
+    font-weight: 700;
+    font-size: 70px;
+    line-height: 100px;
+    letter-spacing: -0.1px;
+  }
+
   .title1 {
     font-weight: 700;
     font-size: 32px;
