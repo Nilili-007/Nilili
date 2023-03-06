@@ -30,7 +30,6 @@ const SearchBox = () => {
   const [searchParams] = useSearchParams();
   const { data } = useGetCourseQuery();
 
-  console.log(hashtags);
   const {
     data: conditionData,
     isLoading,

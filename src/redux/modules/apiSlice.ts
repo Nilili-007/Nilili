@@ -52,7 +52,6 @@ export const courseApi = createApi({
     }),
     getCourseConditionally: builder.query<CourseType[], string | boolean>({
       async queryFn(travelStatus) {
-        console.log(travelStatus);
         try {
           const courseQuery = query(
             collection(dbService, "courses"),

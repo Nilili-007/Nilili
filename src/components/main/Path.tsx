@@ -3,6 +3,7 @@ import { logEvent } from "../../utils/amplitude";
 import ProgressiveImg from "./ProgressiveImg";
 import { authService } from "../../utils/firebase";
 import Swal from "sweetalert2";
+import { AiOutlineSwapRight } from "react-icons/ai";
 
 const Path = () => {
   const navigate = useNavigate();
@@ -19,6 +20,9 @@ const Path = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         navigate("/search");
+        logEvent("Path button click : (비회원)검색페이지 이동", {
+          from: "메인페이지",
+        });
       }
     });
   };
@@ -29,41 +33,42 @@ const Path = () => {
         DRAW MY PATH
       </p>
       <p className=" hidden sm:block ml-4 pb-5 w-fit text-xl text-[rgb(153,153,153)]">
-        여행을 떠나시나요? NILILI 사용자들의 일정을 참고해보세요.
+        여행을 떠나시나요? NILILI를 이용해 일정을 짜보세요.
       </p>
 
-      <div className=" pt-6  border-t-2 border-black relative ">
+      <div
+        onClick={
+          authService.currentUser
+            ? () => {
+                navigate("/post");
+                logEvent("Path button click : (회원)글쓰기페이지 이동", {
+                  from: "메인페이지",
+                });
+              }
+            : handleNavigate
+        }
+        className="hover:cursor-pointer pt-6  border-t-2 border-black relative "
+      >
         <ProgressiveImg
           src="/assets/path.png"
           placeholderSrc="/assets/smallpath.png"
           alt="글쓰기 페이지로"
-          className="w-full hover:border-black hover:border-2 "
+          className="w-full hover:border-black border hover:shadow-lg border-gray-03 hover:border-2 "
         />
-        {!authService.currentUser ? (
-          <button
-            onClick={() => {
-              navigate("/search");
-              logEvent("Path button click : (비회원)검색페이지 이동", {
-                from: "메인페이지",
-              });
-            }}
-            className=" absolute right-0 bottom-0 bg-black  text-white  sm:px-10 py-5 sm:text-2xl text-base px-5 "
-          >
-            FIND MORE →
-          </button>
-        ) : (
-          <button
-            onClick={() => {
-              navigate("/post");
-              logEvent("Path button click : (회원)글쓰기페이지 이동", {
-                from: "메인페이지",
-              });
-            }}
-            className=" absolute right-0 bottom-0 bg-black  text-white  sm:px-10 py-5 sm:text-2xl text-base px-5 "
-          >
-            CREATE COURSE →
-          </button>
-        )}
+        <div className="lg:block hidden  font-eng absolute right-[1%] bottom-[30%]">
+          <p className="display3  text-amber-500">Go to </p>
+
+          <p className="display2 lg:flex items-center">
+            Create Course <AiOutlineSwapRight />
+          </p>
+        </div>
+
+        <div className="lg:hidden block  font-eng absolute right-[5%] bottom-[30%]">
+          <p className="md:display4 title2 flex items-end">
+            Create <br />
+            Course <AiOutlineSwapRight className="mb-[1%]" />
+          </p>
+        </div>
       </div>
     </div>
   );
