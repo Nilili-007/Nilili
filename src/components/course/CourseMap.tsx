@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Map, MapTypeControl } from "react-kakao-maps-sdk";
+import { useEffect, useState } from "react";
+import { Map } from "react-kakao-maps-sdk";
 import { CourseInfo, CourseMapMarker } from "./index";
 
 interface CourseProps {
   course: CourseType | undefined;
 }
 
-const CourseMap = ({ course }: any) => {
+const CourseMap = ({ course, filteredIdx, setFilteredIdx }: any) => {
   const [map, setMap] = useState();
-  const [filteredId, setFilteredId] = useState("");
   const lists = JSON.parse(course?.courseList);
   let bounds: any;
 
-  lists?.map((item: any) => {
-    if (item.id === filteredId) {
+  lists?.map((item: any, idx: number) => {
+    if (idx === filteredIdx) {
       bounds = Object.setPrototypeOf(
         item.bounds,
         kakao.maps.LatLngBounds.prototype
@@ -26,7 +25,7 @@ const CourseMap = ({ course }: any) => {
       // @ts-ignore
       map.panTo(bounds);
     }
-  }, [filteredId]);
+  }, [filteredIdx]);
 
   return (
     <div className="w-full flex h-full mb-20 xs:mb-6">
@@ -40,17 +39,16 @@ const CourseMap = ({ course }: any) => {
         onCreate={setMap}
         className="w-[688px] h-[1024px] z-0 xs:w-full xs:h-[600px]"
       >
-        <MapTypeControl position={kakao.maps.ControlPosition.TOPRIGHT} />
         <CourseMapMarker
-          courseList={lists}
-          filteredId={filteredId}
-          setFilteredId={setFilteredId}
+          lists={lists}
+          filteredIdx={filteredIdx}
+          setFilteredIdx={setFilteredIdx}
         />
       </Map>
       <CourseInfo
         courseList={lists}
-        filteredId={filteredId}
-        setFilteredId={setFilteredId}
+        filteredIdx={filteredIdx}
+        setFilteredIdx={setFilteredIdx}
       />
     </div>
   );

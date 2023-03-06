@@ -8,6 +8,7 @@ import CourseHeader from "./CourseHeader";
 import CourseMap from "./CourseMap";
 import CourseMapMarker from "./CourseMapMarker";
 import CourseInfo from "./CourseInfo";
+import CourseMobile from "./CourseMobile";
 import Share from "./Share";
 
 export {
@@ -20,6 +21,7 @@ export {
   CourseMap,
   CourseMapMarker,
   CourseInfo,
+  CourseMobile,
   LikeBtn,
   Share,
 };

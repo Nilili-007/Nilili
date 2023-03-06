@@ -7,7 +7,9 @@ import { MdLocationOn } from "react-icons/md";
 const PostMarkers = () => {
   const dispatch = useDispatch();
   const lists = useSelector((state: any) => state.courseSlice.courseList);
-  const filteredId = useSelector((state: any) => state.courseSlice.filteredId);
+  const filteredIdx = useSelector(
+    (state: any) => state.courseSlice.filteredIdx
+  );
 
   let polyline: any = [];
   lists.map((item: any) => {
@@ -26,14 +28,20 @@ const PostMarkers = () => {
     <>
       {lists.map((item: any, idx: number) => (
         <div key={idx}>
-          <div onClick={() => onClickGetId(item, idx)}>
+          <div onClick={() => onClickGetId(item, idx)} className="xs:flex">
             <CustomOverlayMap position={item.position}>
-              <InfoWindow className={item.id === filteredId ? "clicked" : " "}>
+              <InfoWindow className={idx === filteredIdx ? "clicked" : " "}>
                 <MdLocationOn className="mt-1 -ml-1 mr-1" /> {item.name}
               </InfoWindow>
+              {idx === filteredIdx ? (
+                <div className="lg:hidden bg-black text-white text-[13px] px-3 py-1 flex font-bold -mt-[50px] -ml-14">
+                  <MdLocationOn className="lg:hidden mt-1 -ml-1 mr-1" />
+                  {item.name}
+                </div>
+              ) : null}
             </CustomOverlayMap>
             <CustomOverlayMap position={item.position}>
-              <Marker className={item.id === filteredId ? "clicked" : " "}>
+              <Marker className={idx === filteredIdx ? "clicked" : " "}>
                 <span className="font-bold text-white absolute z-[99]">
                   #{idx + 1}
                 </span>
@@ -49,12 +57,12 @@ const PostMarkers = () => {
           />
         </div>
       ))}
-      <div className="xs:w-[90px] xs:h-[600px] xs:flex xs:flex-col xs:absolute xs:right-1 xs:overflow-y-scroll">
+      <div className="xs:w-[90px] xs:h-[600px] xs:flex xs:flex-col xs:absolute xs:right-6 xs:overflow-y-scroll">
         {lists.map((item: any, idx: number) => (
           <div className="xs:flex xs:justify-center">
             <MobileMarker
               onClick={() => onClickGetId(item, idx)}
-              className={item.id === filteredId ? "clicked" : " "}
+              className={idx === filteredIdx ? "clicked" : " "}
             >
               <span className="font-bold text-white absolute z-[99]">
                 #{idx + 1}
@@ -124,8 +132,7 @@ export const Marker = styled.div`
       width: 35px;
       height: 35px;
       &:after {
-        width: 55px;
-        height: 55px;
+        display: none;
       }
     }
   }

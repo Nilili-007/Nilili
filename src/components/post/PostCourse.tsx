@@ -143,4 +143,9 @@ export const ItemBtn = styled.span`
   &:first-child {
     margin-right: 20px;
   }
+  @media screen and (max-width: 414px) {
+    &:first-child {
+      margin-right: 10px;
+    }
+  }
 `;

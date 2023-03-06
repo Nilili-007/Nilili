@@ -9,7 +9,11 @@ import {
 } from "../redux/modules/apiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { EditCourseCategories, EditCourseMap } from "../components/edit";
+import {
+  EditCourseCategories,
+  EditCourseMap,
+  EditCourseMobile,
+} from "../components/edit";
 import { PostTravelStatus } from "../components/post/index";
 import { authService } from "../utils/firebase";
 import Swal from "sweetalert2";
@@ -181,7 +185,7 @@ const EditCourse = () => {
   };
 
   return (
-    <div className="mb-64">
+    <div className="mb-[7%]">
       <PostHeader
         uploadCover={uploadCover}
         setUploadCover={setUploadCover}
@@ -210,6 +214,7 @@ const EditCourse = () => {
           modalOpen={modalOpen}
           setModalOpen={setModalOpen}
         />
+        <EditCourseMobile />
         <div className="flex w-full justify-between">
           <button
             onClick={() => updateCourseHandler()}
