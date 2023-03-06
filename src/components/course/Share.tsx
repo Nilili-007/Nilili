@@ -107,7 +107,18 @@ const Share = () => {
           >
             <TwitterIcon size={40} round={true} borderRadius={24} />
           </TwitterShareButton>
-          <CopyToClipboard text={currentURL}>
+          <CopyToClipboard
+            text={currentURL}
+            onCopy={() => {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "클립보드에 복사되었습니다",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }}
+          >
             <button onClick={() => shareAmplitudeEvent()}>
               <img
                 className="w-[40px] h-[40px] border rounded-full bg-white"
