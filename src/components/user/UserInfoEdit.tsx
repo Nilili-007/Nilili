@@ -50,7 +50,8 @@ const UserInfoEdit = ({
           showConfirmButton: false,
           timer: 1500,
         });
-        console.log(newEmail);
+        setUserEdit(false);
+        navigate(`/user/${userID}`);
       })
       .catch((error) => {
         console.log("error: ", error);
@@ -72,7 +73,8 @@ const UserInfoEdit = ({
           showConfirmButton: false,
           timer: 1500,
         });
-        console.log(newPassword);
+        setUserEdit(false);
+        navigate(`/user/${userID}`);
       })
       .catch((error) => {
         console.log("error: ", error);

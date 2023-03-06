@@ -1,6 +1,7 @@
 import { getAuth } from "firebase/auth";
 import { useState, useRef } from "react";
 import ProfileEdit from "./ProfileEdit";
+import UserInfoEdit from "./UserInfoEdit";
 
 const UserNameEdit = () => {
   const auth = getAuth();
@@ -17,6 +18,11 @@ const UserNameEdit = () => {
     document.body.style.overflow = "hidden";
   };
 
+  const openUserEditModal = () => {
+    setUserEdit(true);
+    document.body.style.overflow = "hidden";
+  };
+
   const modalOutClick = (e: any) => {
     if (modalRef.current === e.target) {
       setProfileEdit(false);
@@ -30,6 +36,16 @@ const UserNameEdit = () => {
         <ProfileEdit
           profileEditModal={profileEditModal}
           setProfileEdit={setProfileEdit}
+          modalRef={modalRef}
+          modalOutClick={modalOutClick}
+        />
+      ) : (
+        <></>
+      )}
+      {userEdit ? (
+        <UserInfoEdit
+          userEdit={userEdit}
+          setUserEdit={setUserEdit}
           modalRef={modalRef}
           modalOutClick={modalOutClick}
         />
@@ -53,9 +69,15 @@ const UserNameEdit = () => {
                 </div>
                 <button
                   onClick={openProfileEditModal}
-                  className="text-sm leading-none border-none underline text-gray-300 hover:text-teal-500 mt-4 lg:mt-0"
+                  className="text-sm leading-none border-none underline mr-3 text-gray-300 hover:text-teal-500 mt-4 lg:mt-0"
                 >
                   프로필 수정하기
+                </button>
+                <button
+                  onClick={openUserEditModal}
+                  className="text-sm leading-none border-none underline text-gray-300 hover:text-teal-500 mt-4 lg:mt-0"
+                >
+                  이메일/비밀번호 변경하기
                 </button>
               </div>
             </div>
