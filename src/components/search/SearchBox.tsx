@@ -254,28 +254,22 @@ const SearchBox = () => {
 
       {/* 나올 수 있는 리스트 상태 구분 */}
       {filteredList?.length === 0 ? (
-        <p className="min-h-[1500px]">검색결과가 없습니다.</p>
-      ) : isLoading ? (
-        <>
-          <div className="flex justify-between w-[60%] flex-wrap">
-            {new Array(12).fill(null).map((_, idx) => (
-              <SkeletonTheme
-                baseColor="#202020"
-                highlightColor="#444"
-                key={idx}
-              >
-                <div className=" mb-3 ">
-                  <Skeleton width={300} height={300} />
-                  <div className="mt-3">
-                    <Skeleton width={200} height={30} />
-                    <Skeleton width={50} height={25} />
-                    <Skeleton width={150} height={15} />
-                  </div>
+        <p className="min-h-[100vh]">검색결과가 없습니다.</p>
+      ) : !isLoading ? (
+        <div className=" flex justify-between flex-wrap mb-[2%]  3xl:w-[55%] md:w-[60%] w-[90%] min-w-[370px]">
+          {new Array(12).fill(null).map((_, idx) => (
+            <SkeletonTheme baseColor="#202020" highlightColor="#444" key={idx}>
+              <div className="  mb-[5%] w-[23%] mr-[2%]">
+                <Skeleton className="h-[300px]" />
+                <div className="mt-3">
+                  <Skeleton className="w-[80%] h-[30px]" />
+                  <Skeleton className="w-[30%]  h-[25px]" />
+                  <Skeleton className="w-[60%] h-[20px]" />
                 </div>
-              </SkeletonTheme>
-            ))}
-          </div>
-        </>
+              </div>
+            </SkeletonTheme>
+          ))}
+        </div>
       ) : isError ? (
         <p className="min-h-[1500px]">에러가 발생했습니다.</p>
       ) : (

@@ -110,17 +110,17 @@ const UserList = ({ done, category }: UserListType) => {
     filterData();
   }, [data, category, done]);
 
-  if (isLoading) {
+  if (!isLoading) {
     return (
-      <div className="flex justify-between flex-wrap">
+      <div className="flex flex-row flex-wrap">
         {new Array(9).fill(null).map((_, idx) => (
           <SkeletonTheme baseColor="#202020" highlightColor="#444" key={idx}>
-            <div className=" mb-3 ">
-              <Skeleton width={300} height={300} />
+            <div className=" mb-[5%] w-[31%] mr-[2%]">
+              <Skeleton className=" h-[300px]" />
               <div className="mt-3">
-                <Skeleton width={200} height={30} />
-                <Skeleton width={50} height={25} />
-                <Skeleton width={150} height={15} />
+                <Skeleton className="w-[80%] h-[30px]" />
+                <Skeleton className="w-[30%]  h-[25px]" />
+                <Skeleton className="w-[60%] h-[20px]" />
               </div>
             </div>
           </SkeletonTheme>
