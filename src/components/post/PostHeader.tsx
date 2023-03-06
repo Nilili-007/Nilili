@@ -77,13 +77,13 @@ const PostHeader = ({
       <div className="w-full h-[220px] sm:h-[450px] md:h-[700px] -mt-[220px] sm:-mt-[450px] md:-mt-[700px] absolute z-10 bg-gradient-to-t from-[#00000060]" />
       <div className="w-[85%] md:w-[70%] pt-36 m-auto -mt-[270px] sm:-mt-[300px] xs:w-[90%]">
         {uploadCover === "" && galleryCover === "" ? (
-          <div className="xs:scale-[0.25] -mt-[125px] md:-mt-[340px] absolute z-10 right-16 md:right-[43.5%] xs:right-[20%] xs:-mt-20">
+          <div className="xs:scale-[0.25] scale-[0.35] sm:scale-50 md:scale-100  sm:top-[40%] md:top-[50%] left-[50%] -translate-x-1/2  -translate-y-1/2 absolute z-10">
             <img src="/assets/empty-img.png" />
           </div>
         ) : null}
         <input
-          className="w-[85%] sm:w-[80%] md:w-[70%] sm:py-1.5 text-[24px] sm:text-4xl md:text-5xl font-bold z-40 absolute bg-transparent mt-3 md:-mt-4 xs:text-[32px] xs:mt-11 xs:w-[89%] placholder:text-white zinc-50 focus:outline-0"
-          placeholder="제목을 입력해주세요."
+          className="w-[85%] sm:w-[80%] md:w-[70%] sm:py-1.5 text-[24px] sm:text-4xl md:text-5xl font-bold z-40 absolute bg-transparent mt-3 md:-mt-4 xs:text-[32px] xs:mt-11 placeholder:text-white focus:outline-0"
+          placeholder="여기에 제목을 입력해주세요."
           autoFocus={true}
           value={courseTitle}
           ref={titleRef}

@@ -1,6 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
-import { MdOutlineMoreVert, MdDelete } from "react-icons/md";
-import { AiOutlineEdit } from "react-icons/ai";
+import React, { useRef, useState } from "react";
 import { CommentType } from "./CommentInput";
 import {
   useDeleteCommentMutation,
@@ -8,6 +6,7 @@ import {
 } from "../../redux/modules/apiSlice";
 import { authService } from "../../utils/firebase";
 import Swal from "sweetalert2";
+import { useBefore, useDelete } from "../../hooks";
 
 interface CommentProps {
   comment: CommentType;
@@ -21,58 +20,14 @@ const Comment = ({ comment, index }: CommentProps) => {
   const userImg: any = comment.profileImage;
 
   // 작성시간 나타내기
-  const createdTime: any = comment.createdAt;
-  const now = Date.now();
-  const timeGap = (createTime: number) => {
-    const miliSeconds = now - createTime;
-    const beforeSeconds = miliSeconds / 1000;
-    if (beforeSeconds < 60) return `방금 전`;
-    const beforeMinutes = beforeSeconds / 60;
-    if (beforeMinutes < 60) return `${Math.floor(beforeMinutes)}분 전`;
-    const beforeHours = beforeMinutes / 60;
-    if (beforeHours < 24) return `${Math.floor(beforeHours)}시간 전`;
-    const beforeDays = beforeHours / 24;
-    if (beforeDays < 32) return `${Math.floor(beforeDays)}일 전`;
-    const beforeWeeks = beforeDays / 7;
-    if (beforeWeeks < 5) return `${Math.floor(beforeWeeks)}주 전`;
-    const beforeMonths = beforeDays / 30;
-    if (beforeMonths < 12) return `${Math.floor(beforeMonths)}개월 전`;
-    const beforeYears = beforeDays / 365;
-    return `${Math.floor(beforeYears)}년 전`;
-  };
-  const nowTime = timeGap(createdTime);
+  const { nowTime } = useBefore(comment.createdAt);
 
   // 댓글 삭제
   const [deleteComment] = useDeleteCommentMutation();
-  const deleteCommentHandler = (id: string | undefined) => {
-    Swal.fire({
-      title: "댓글 삭제",
-      text: "정말 댓글을 삭제하시겠어요?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#B3261E",
-      cancelButtonColor: "#50AA72",
-      confirmButtonText: "네, 삭제할래요",
-      cancelButtonText: "아니요, 취소할래요",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          icon: "success",
-          title: "댓글이 삭제되었습니다.",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        deleteComment(id);
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire({
-          icon: "error",
-          title: "삭제가 취소되었습니다.",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
-  };
+  const { deleteContentHandler } = useDelete({
+    target: "댓글",
+    deleteFn: deleteComment,
+  });
 
   // 댓글 수정
   const [updateComment] = useUpdateCommentMutation();
@@ -135,7 +90,7 @@ const Comment = ({ comment, index }: CommentProps) => {
             </button>
             <button
               className="font-semibold text-[#A0A4A8] hover:text-black"
-              onClick={() => deleteCommentHandler(comment.id)}
+              onClick={() => deleteContentHandler(comment.id)}
             >
               삭제
             </button>
@@ -161,7 +116,7 @@ const Comment = ({ comment, index }: CommentProps) => {
             {editComment}
           </textarea>
           <button
-            className="bg-[#000000] text-white w-20 h-8 sm:h-10 sm:w-24 px-3 py-1 float-right text-[12px] sm:text-[20px] disabled:opacity-40 mt-1"
+            className="bg-[#000000] text-white h-8 sm:h-10 px-3 py-1 float-right text-[12px] sm:text-[20px] disabled:opacity-40 mt-1"
             onClick={() => updateCommentHandler(comment.id)}
             ref={editRef}
           >
