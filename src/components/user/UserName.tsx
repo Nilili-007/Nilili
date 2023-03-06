@@ -8,26 +8,28 @@ const UserNameEdit = () => {
   const userName = user?.displayName;
   const userImg: any = user?.photoURL;
 
-  const [modal, setModal] = useState(false);
+  const [profileEditModal, setProfileEdit] = useState(false);
+  const [userEdit, setUserEdit] = useState(false);
   const modalRef = useRef<HTMLDivElement | null>(null);
 
-  const openModal = () => {
-    setModal(true);
+  const openProfileEditModal = () => {
+    setProfileEdit(true);
     document.body.style.overflow = "hidden";
   };
 
   const modalOutClick = (e: any) => {
     if (modalRef.current === e.target) {
-      setModal(false);
+      setProfileEdit(false);
+      setUserEdit(false);
     }
   };
 
   return (
     <>
-      {modal ? (
+      {profileEditModal ? (
         <ProfileEdit
-          modal={modal}
-          setModal={setModal}
+          profileEditModal={profileEditModal}
+          setProfileEdit={setProfileEdit}
           modalRef={modalRef}
           modalOutClick={modalOutClick}
         />
@@ -50,7 +52,7 @@ const UserNameEdit = () => {
                   {userName}님!
                 </div>
                 <button
-                  onClick={openModal}
+                  onClick={openProfileEditModal}
                   className="text-sm leading-none border-none underline text-gray-300 hover:text-teal-500 mt-4 lg:mt-0"
                 >
                   프로필 수정하기
