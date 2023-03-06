@@ -14,7 +14,6 @@ import {
   EditCourseMap,
   EditCourseMobile,
 } from "../components/edit";
-import { PostTravelStatus } from "../components/post/index";
 import { authService } from "../utils/firebase";
 import Swal from "sweetalert2";
 import * as amplitude from "@amplitude/analytics-browser";
@@ -107,7 +106,6 @@ const EditCourse = () => {
           titleRef.current?.focus();
         },
       });
-      titleRef.current?.focus();
     } else if (!uploadCover && !galleryCover) {
       Swal.fire({
         icon: "error",
@@ -116,7 +114,6 @@ const EditCourse = () => {
           window.scrollTo({ top: 0, behavior: "smooth" });
         },
       });
-      window.scrollTo({ top: 0, behavior: "smooth" });
     } else if (editedList.length < 2) {
       Swal.fire({
         icon: "error",

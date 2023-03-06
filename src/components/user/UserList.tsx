@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useUpdateTravelStatusMutation } from "../../redux/modules/apiSlice";
-import { ListMap } from "../shared";
-import SearchPagenation from "../search/SearchPagenation";
+import { ListMap, Pagenation } from "../shared";
 import styled from "styled-components";
 import { logEvent } from "../../utils/amplitude";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
@@ -23,25 +22,23 @@ const UserList = ({ done, category }: UserListType) => {
   const navigate = useNavigate();
   const [updateTravelStatus] = useUpdateTravelStatusMutation();
 
-  const { firstPostIndex, lastPostIndex, pages, currentPage, setCurrentPage } =
-    usePagenation(userData, 6);
-
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [postsPerPage] = useState(6);
-
-  // const lastPostIndex = currentPage * postsPerPage;
-  // const firstPostIndex = lastPostIndex - postsPerPage;
+  const {
+    firstPostIndex,
+    lastPostIndex,
+    pages,
+    currentPage,
+    setCurrentPage,
+    pageArr,
+    setPageArr,
+    lastPage,
+    firstPage,
+    showPages,
+    currentPages,
+  } = usePagenation(userData, 6, 5);
 
   const currentPosts = userData
     ? userData.slice(firstPostIndex, lastPostIndex)
     : null;
-
-  // const totalContents: any = userData?.length;
-
-  // const pages = [];
-  // for (let i = 1; i <= Math.ceil(totalContents / postsPerPage); i++) {
-  //   pages.push(i);
-  // }
 
   const filterData = () => {
     const mypaths = data?.filter(
@@ -190,11 +187,19 @@ const UserList = ({ done, category }: UserListType) => {
         ))}
       </ul>
       {/* pagenation */}
-      <SearchPagenation
-        setCurrentPage={setCurrentPage}
-        currentPage={currentPage}
-        pages={pages}
-      />
+      {userData?.length === 0 ? null : (
+        <Pagenation
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+          pages={pages}
+          pageArr={pageArr}
+          setPageArr={setPageArr}
+          lastPage={lastPage}
+          firstPage={firstPage}
+          showPages={showPages}
+          currentPages={currentPages}
+        />
+      )}
     </div>
   );
 };
