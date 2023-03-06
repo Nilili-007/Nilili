@@ -108,9 +108,12 @@ const RegisterForm = () => {
             <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
               {error}
             </div>
-            <label className="block text-black font-2xl font-bold mb-3">
+            <label className="block text-black font-2xl font-bold mb-1">
               NILILI에서 사용할 닉네임을 입력해주세요.
             </label>
+            <div className="text-gray-500 text-sm mb-3">
+              (닉네임은 2~8글자로 영어 또는 숫자 또는 한글이 조합되어야 합니다)
+            </div>
             <input
               className="appearance-none border border-gray-400 w-full py-2 px-1 text-black placeholder:text-sm"
               {...register("userName", {
@@ -137,7 +140,7 @@ const RegisterForm = () => {
               {errors?.userName?.message}
             </div>
             <label className="block text-black font-2xl font-bold mb-3">
-              로그인에 사용할 아이디를 입력해주세요.
+              로그인에 사용할 아이디(이메일)를 입력해주세요.
             </label>
             <input
               className="appearance-none border border-gray-400 w-full py-2 px-1 text-black placeholder:text-sm"
@@ -164,9 +167,13 @@ const RegisterForm = () => {
             <div className="text-red-600 text-sm font-semibold mt-2 mb-6">
               {errors?.email?.message}
             </div>
-            <label className="block text-black font-2xl font-bold mb-3">
+            <label className="block text-black font-2xl font-bold mb-1">
               로그인에 사용할 비밀번호를 입력해주세요.
             </label>
+            <div className="text-gray-500 text-sm mb-3">
+              (비밀번호는 영문 대소문자, 숫자를 혼합하여 8~15글자로
+              입력해주세요.)
+            </div>
             <input
               className="appearance-none border border-gray-400 w-full py-2 px-1 text-black placeholder:text-sm"
               {...register("password", {
@@ -200,7 +207,7 @@ const RegisterForm = () => {
             <input
               className="appearance-none border border-gray-400 w-full py-2 px-1 text-black placeholder:text-sm"
               {...register("confirm", {
-                required: "비밀번호를 입력해주세요",
+                required: "비밀번호를 다시 입력해주세요",
                 minLength: {
                   value: 8,
                   message:
