@@ -47,6 +47,28 @@ const UserInfoEdit = ({
 
   // 이메일 변경
   const changeEmailBtn = () => {
+    const emailRegex =
+      /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+
+    // 유효성 검사
+    if (!newEmail?.trim()) {
+      Swal.fire({
+        icon: "warning",
+        title: "이메일을 입력해 주세요.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    } else if (!emailRegex.test(newEmail)) {
+      Swal.fire({
+        icon: "warning",
+        title: "이메일 형식에 맞지 않습니다.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setNewEmail("");
+      return;
+    }
     updateEmail(user, newEmail)
       .then(() => {
         Swal.fire({
@@ -70,6 +92,28 @@ const UserInfoEdit = ({
 
   // 비밀번호 변경
   const changePasswordBtn = () => {
+    const pwRegex = /^[A-Za-z0-9]{8,15}$/;
+
+    // 유효성 검사
+    if (!newPassword?.trim()) {
+      Swal.fire({
+        icon: "warning",
+        title: "비밀번호를 입력해 주세요.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    } else if (!pwRegex.test(newPassword)) {
+      Swal.fire({
+        icon: "warning",
+        title: "비밀번호 형식에 맞지 않습니다",
+        text: "비밀번호는 영문 대소문자, 숫자를 혼합하여 8~15자로 입력해주세요.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setNewPassword("");
+      return;
+    }
     updatePassword(user, newPassword)
       .then(() => {
         Swal.fire({
