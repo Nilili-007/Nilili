@@ -25,11 +25,9 @@ const EditCourseTextarea = ({ idx, item, text, setText }: any) => {
     };
     dispatch(filterCourse(newMemo));
     dispatch(editMemo(newMemo));
-    // console.log("수정");
   };
 
   const onBlurAddMemo = (item: any, idx: number) => {
-    // console.log("저장");
     const newMemo = {
       id: item.id,
       idx,

@@ -34,7 +34,8 @@ const UserList = ({ done, category }: UserListType) => {
     firstPage,
     showPages,
     currentPages,
-  } = usePagenation(userData, 6, 5);
+    positionY,
+  } = usePagenation(userData, 6, 5, 300);
 
   const currentPosts = userData
     ? userData.slice(firstPostIndex, lastPostIndex)
@@ -202,6 +203,7 @@ const UserList = ({ done, category }: UserListType) => {
           firstPage={firstPage}
           showPages={showPages}
           currentPages={currentPages}
+          positionY={positionY}
         />
       )}
     </div>

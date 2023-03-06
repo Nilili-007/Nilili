@@ -106,7 +106,6 @@ const EditCourse = () => {
         icon: "error",
         title: "제목을 입력해주세요!",
         didClose: () => {
-          window.scrollTo({ top: 0, behavior: "smooth" });
           titleRef.current?.focus();
         },
       });

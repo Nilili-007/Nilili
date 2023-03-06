@@ -3,7 +3,8 @@ import { useState } from "react";
 const usePagenation = (
   data: any[] | undefined,
   tatalPage: number,
-  showPage: number
+  showPage: number,
+  windowY: number
 ) => {
   //post
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,6 +34,9 @@ const usePagenation = (
   for (let i = 1; i <= Math.ceil(totalPages / pageNumber); i++) {
     showPages.push(i);
   }
+
+  //페이지 눌렀을 때, 스크롤 위치
+  const positionY = windowY;
   return {
     firstPostIndex,
     lastPostIndex,
@@ -45,6 +49,7 @@ const usePagenation = (
     firstPage,
     showPages,
     currentPages,
+    positionY,
   };
 };
 
