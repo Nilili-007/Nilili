@@ -13,7 +13,7 @@ const Landing = () => {
 
   return (
     <div className="relative items-center flex-wrap overflow-auto sm:h-[70vh] w-full aspect-video  bg-no-repeat bg-cover bg-center sm:bg-fixed bg-[url('https://images.unsplash.com/photo-1618237600880-fb9d72e98393?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')] min-w-[370px] hidden md:block ">
-      <div className="absolute bottom-[20%] left-[10%] ">
+      <div className="absolute bottom-[25%] left-[15%] ">
         <p className=" mb-10 display3   text-white bg-black bg-opacity-40 rounded-full  ">
           나만의 코스로 여행하고
           <br />
@@ -22,7 +22,7 @@ const Landing = () => {
         <div className="flex">
           <Link
             to={"/search"}
-            className="flex border-white border text-white font-eng eng-title2 hover:bg-amber-500 hover:bg-opacity-80 px-[22px] py-[18px]"
+            className="flex border-white border text-white font-eng eng-title4 hover:bg-amber-500 hover:bg-opacity-80 p-[12px]"
             onClick={() => {
               navigate("/search");
               logEvent("button click : 코스보기", {

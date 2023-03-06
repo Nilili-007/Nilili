@@ -12,12 +12,12 @@ const BeforeRecent = () => {
   }
 
   return (
-    <div className=" my-10 3xl:w-[60%] 2xl:w-[70%] w-[90%] ">
-      <p className=" ml-4 my-[2%] w-fit xl:text-[55px] lg:text-[45px] sm:text-[35px] text-2xl font-bold font-eng  ">
+    <div className=" my-[2%]  3xl:w-[55%] md:w-[60%] w-[90%] min-h-[400px]   ">
+      <p className=" ml-1 my-[2%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-xl font-bold font-eng   ">
         NOW PLANS
       </p>
-      <p className=" hidden sm:block ml-4 pb-5 w-fit text-xl text-[#999999]">
-        아직 고민 중이신가요? 이런 일정은 어떠세요?
+      <p className=" hidden sm:block ml-2 pb-5 w-fit text-xl text-gray-04">
+        NILILI 유저들의 최신 여행 계획을 함께 해보세요.
       </p>
       <ul className="overflow-x-auto whitespace-nowrap no-scrollbar">
         {isLoading ? (

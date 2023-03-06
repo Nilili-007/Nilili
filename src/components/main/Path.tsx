@@ -28,11 +28,11 @@ const Path = () => {
   };
 
   return (
-    <div className=" my-10  3xl:w-[60%] 2xl:w-[70%] w-[90%] min-h-[400px] ">
-      <p className=" ml-4 my-[2%] w-fit xl:text-[55px] lg:text-[45px] sm:text-[35px] text-2xl font-bold font-eng  ">
+    <div className="my-[2%]  3xl:w-[55%] md:w-[60%] w-[90%] min-h-[400px] ">
+      <p className=" ml-1 my-[2%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-xl font-bold font-eng  ">
         DRAW MY PATH
       </p>
-      <p className=" hidden sm:block ml-4 pb-5 w-fit text-xl text-[rgb(153,153,153)]">
+      <p className=" hidden sm:block ml-2 pb-5 w-fit text-xl text-gray-04">
         여행을 떠나시나요? NILILI를 이용해 일정을 짜보세요.
       </p>
 

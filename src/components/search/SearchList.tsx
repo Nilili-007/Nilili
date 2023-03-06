@@ -28,7 +28,7 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
     : null;
 
   return (
-    <div className="my-10 3xl:w-[60%] 2xl:w-[70%] w-[90%] min-h-[1500px]">
+    <div className="my-10  3xl:w-[55%] md:w-[60%] w-[90%] min-h-[100vh]">
       <ul className="flex flex-wrap justify-evenly">
         {currentPosts?.map((item) => (
           <Link

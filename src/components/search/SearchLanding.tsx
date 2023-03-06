@@ -7,7 +7,7 @@ const SearchLanding = () => {
 
   return (
     <div className="relative flex items-center flex-wrap sm:h-[70vh] w-full aspect-video  bg-no-repeat bg-cover bg-center sm:bg-fixed bg-[url('https://user-images.githubusercontent.com/117059420/223002576-1052c64a-8d13-4581-be68-069dab701d2b.jpg')] min-w-[370px] hidden md:block ">
-      <div className="absolute bottom-[30%] left-[10%] ">
+      <div className="absolute bottom-[35%] left-[15%] ">
         <p className="display3   text-white  ">
           이제 NILILI에서
           <br />

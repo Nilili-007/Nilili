@@ -147,9 +147,9 @@ const SearchBox = () => {
 
   return (
     <>
-      <div className="mb-[2%] 3xl:w-[60%] 2xl:w-[70%] w-[90%] min-w-[370px]">
-        <p className=" w-fit mx-auto xl:text-[55px] lg:text-[45px] sm:text-[35px]  text-2xl font-bold my-[5%]">
-          WHAT ARE YOUR PLANS?
+      <div className="mb-[2%]  3xl:w-[55%] md:w-[60%] w-[90%] min-w-[370px]">
+        <p className="w-fit mx-auto xl:text-[50px] lg:text-[45px] sm:text-[35px] text-xl font-bold font-eng  my-[5%] ">
+          EXPLORE YOUR PLANS
         </p>
         <div className="w-full border border-black flex flex-col items-center">
           <div className="border-b-2 w-full">

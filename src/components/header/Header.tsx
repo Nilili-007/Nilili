@@ -105,7 +105,7 @@ const Header = () => {
           <div>
             <div className="flex items-center justify-between py-3 md:py-5 md:block">
               <button onClick={leavePresentPage}>
-                <h2 className="text-[30px] leading-[26px] text-white font-bold">
+                <h2 className="text-4xl leading-[26px] text-white font-bold">
                   Nilili
                 </h2>
               </button>
