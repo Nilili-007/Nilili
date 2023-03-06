@@ -40,6 +40,9 @@ const ColorStyles: StylesConfig<optionType, true> = {
     color: "#ffffff",
     paddingLeft: 10,
     fontSize: 16,
+    "@media (max-width: 414px)": {
+      fontSize: 12,
+    },
   }),
   multiValueRemove: (styles) => ({
     ...styles,

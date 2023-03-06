@@ -12,28 +12,25 @@ import {
   PostMap,
   PostHeader,
   PostTravelStatus,
+  PostMobileCourse,
 } from "../components/post/index";
-import { replaceAllData } from "../redux/modules/temporarySlice";
+import { replaceAllData } from "../redux/modules/courseSlice";
 import Swal from "sweetalert2";
 import * as amplitude from "@amplitude/analytics-browser";
 import { logEvent } from "../utils/amplitude";
-
-//select option의 타입
-export interface optionType {
-  value: string;
-  label: string;
-}
+import { usePreventLeave, useOption } from "../hooks";
 
 const Post = () => {
   useEffect(() => {
     amplitude.track("글쓰기페이지 접속");
   }, []);
-  // console.log("post");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [addCourse] = useAddCourseMutation();
   const { data } = useGetCourseQuery();
   const [modalOpen, setModalOpen] = useState(false);
+
+  usePreventLeave();
 
   const titleRef = useRef<HTMLInputElement>(null);
   const regionsRef = useRef<HTMLSelectElement>(null);
@@ -42,24 +39,28 @@ const Post = () => {
   const [uploadCover, setUploadCover] = useState("");
   const [galleryCover, setGalleryCover] = useState("");
 
-  //지역 선택
-  const [regions, setRegions] = useState<optionType[] | any>([]);
+  //제목
   const [courseTitle, setCourseTitle] = useState("");
+
+  // select
+  const {
+    selectedTags,
+    setSelectedTags,
+    regions,
+    setRegions,
+    selectedLabels,
+    selectedRegions,
+  } = useOption();
 
   // 여행전/후 선택
   const [travelStatus, setTravelStatus] = useState<boolean | null>(null);
-
-  //해시태그 선택
-  const [selectedTags, setSelectedTags] = useState<optionType[] | null>([]);
 
   //navigate할 때 쓸 state
   const [condition, setCondition] = useState(false);
 
   const userID = authService.currentUser?.uid;
 
-  const courseList = useSelector(
-    (state: any) => state.temporarySlice.courseList
-  );
+  const courseList = useSelector((state: any) => state.courseSlice.courseList);
 
   const showModal = () => {
     setModalOpen(!modalOpen);
@@ -69,10 +70,6 @@ const Post = () => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
-    //selectedTags는 오브젝트 배열입니다.
-    //hashtag는 데이터베이스에 문자열 배열로 들어가야 하기 때문에, value 값만 추출하여 문자열배열로 바꿉니다.
-    let selectedLabels = selectedTags?.map((tag) => tag.label);
-    let selectedRegions = regions?.map((region: any) => region.value);
 
     const newPost = {
       location: selectedRegions,
@@ -140,7 +137,6 @@ const Post = () => {
             window.scrollTo({ top: 0, behavior: "smooth" });
           },
         });
-        window.scrollTo({ top: 0, behavior: "smooth" });
       }
       if (travelStatus === null) {
         Swal.fire({
@@ -150,7 +146,6 @@ const Post = () => {
             window.scrollTo({ top: 450, behavior: "smooth" });
           },
         });
-        window.scrollTo({ top: 450, behavior: "smooth" });
       }
       if (regions.length === 0) {
         Swal.fire({
@@ -167,9 +162,9 @@ const Post = () => {
           title: "제목을 입력해주세요!",
           didClose: () => {
             window.scrollTo({ top: 0, behavior: "smooth" });
+            titleRef.current?.focus();
           },
         });
-        titleRef.current?.focus();
       }
       if (courseList.length < 2) {
         Swal.fire({
@@ -211,20 +206,6 @@ const Post = () => {
     window.history.pushState(null, "", window.location.href)
   );
 
-  // 새로고침, 페이지 닫기 확인
-  useEffect(() => {
-    const preventClose = (e: BeforeUnloadEvent) => {
-      e.preventDefault();
-      e.returnValue = "";
-    };
-
-    window.addEventListener("beforeunload", preventClose);
-
-    return () => {
-      window.addEventListener("beforeunload", preventClose);
-    };
-  }, []);
-
   return (
     <div className="mb-[7%]">
       <PostHeader
@@ -234,12 +215,23 @@ const Post = () => {
         setGalleryCover={setGalleryCover}
         courseTitle={courseTitle}
         setCourseTitle={setCourseTitle}
+        titleRef={titleRef}
       />
-      <div className="w-[70%] h-auto mx-auto mt-10 xs:w-11/12 xs:mt-0 ">
-        <div className="flex">
-          <div className="flex flex-col">
-            <p className="text-2xl font-bold">목적지를 추가해보세요.</p>
-            <p className="text-gray-400 mt-1">
+      <div className="w-[85%] md:w-[70%] h-auto mx-auto md:mt-[100px] mt-0 ">
+        <div className="flex flex-col-reverse md:flex-row">
+          <div className="flex flex-col gap-2">
+            <div className="w-full flex justify-between">
+              <p className="text-[18px] sm:text-3xl whitespace-normal font-bold">
+                목적지를 추가해보세요.
+              </p>
+              <button
+                onClick={() => showModal()}
+                className="py-1 px-2 sm:hidden sm:w-[200px] bg-black text-white hover:text-black border-black border-2 hover:bg-white text-[12px]"
+              >
+                목적지 추가하기
+              </button>
+            </div>
+            <p className="text-gray-400 mt-1 text-[13px] sm:body2 whitespace-normal">
               간단한 클릭으로 여행지를 추가할 수 있어요.
             </p>
           </div>
@@ -248,7 +240,7 @@ const Post = () => {
             setTravelStatus={setTravelStatus}
           />
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center gap-4">
           <PostCategories
             regionsRef={regionsRef}
             regions={regions}
@@ -256,7 +248,7 @@ const Post = () => {
           />
           <button
             onClick={() => showModal()}
-            className="w-[14%] bg-black text-white text-lg px-4 py-1 ml-auto hover:text-black hover:border-black hover:border-2 hover:bg-white"
+            className="hidden sm:flex lg:w-[300px] sm:w-[200px] bg-black text-white text-md px-2 py-[7px] ml-auto hover:text-black border-black border-2 hover:bg-white justify-center"
           >
             목적지 추가하기
           </button>
@@ -266,18 +258,19 @@ const Post = () => {
           setSelectedTags={setSelectedTags}
         />
         <PostMap modalOpen={modalOpen} setModalOpen={setModalOpen} />
-        <div className="flex w-full justify-center gap-[5%] my-10">
+        <PostMobileCourse />
+        <div className="flex flex-col sm:flex-row w-full justify-center gap-2 my-10 sm:gap-[5%]">
           <button
             onClick={(e) => onClickAddPost(e)}
-            className="w-[25%] bg-black border-black border-2 text-white text-lg py-3 hover:text-black hover:bg-white "
+            className="w-full sm:w-[472px] bg-black border-black border-2 text-white text-md md:text-lg py-3 shadow-[0_8px_8px_rgb(0,0,0,0.25)] hover:text-black hover:bg-white "
           >
             게시물 등록하기
           </button>
           <button
             onClick={onClickCancel}
-            className="w-[25%] bg-black border-black border-2 text-white text-lg py-3 hover:text-black hover:bg-white "
+            className="w-full sm:w-[472px] bg-white border-gray-04 border text-black text-md md:text-lg py-3 shadow-[0_8px_8px_rgb(0,0,0,0.25)] hover:text-black hover:bg-white"
           >
-            취소
+            취소하기
           </button>
         </div>
       </div>

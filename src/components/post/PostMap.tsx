@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Map, MapTypeControl, ZoomControl } from "react-kakao-maps-sdk";
-import { PostSearchModal, PostCourseInfo, PostMarkers } from "./index";
+import { Map } from "react-kakao-maps-sdk";
+import { PostSearchModal, PostCourse, PostMarkers } from "./index";
 import { useSelector } from "react-redux";
-import { displayPagination } from "../../utils/kakao";
+import { kakaoPagenation } from "../../hooks";
 
 const PostMap = ({ modalOpen, setModalOpen }: any) => {
   const [searchKeyword, setSearchKeyword] = useState<any | null>("");
@@ -11,11 +11,8 @@ const PostMap = ({ modalOpen, setModalOpen }: any) => {
   const [boundsInfo, setBoundsInfo] = useState({});
   const [map, setMap] = useState();
 
-  const filteredId = useSelector(
-    (state: any) => state.temporarySlice.filteredId
-  );
   const filteredIdx = useSelector(
-    (state: any) => state.temporarySlice.filteredIdx
+    (state: any) => state.courseSlice.filteredIdx
   );
 
   useEffect(() => {
@@ -45,7 +42,7 @@ const PostMap = ({ modalOpen, setModalOpen }: any) => {
 
         // @ts-ignore
         map.panTo(bounds);
-        displayPagination(pagination);
+        kakaoPagenation(pagination);
         // @ts-ignore
         setSearchList(data);
         setSearchCnt(pagination.totalCount);
@@ -62,7 +59,7 @@ const PostMap = ({ modalOpen, setModalOpen }: any) => {
   }, [filteredIdx]);
 
   return (
-    <div className="w-full flex h-[70vh]">
+    <div className="w-full flex h-full mb-20 xs:mb-6">
       <Map
         center={{
           lat: 37.566826,
@@ -71,13 +68,11 @@ const PostMap = ({ modalOpen, setModalOpen }: any) => {
         level={5}
         // @ts-ignore
         onCreate={setMap}
-        className="w-[65%] h-full z-0"
+        className="w-[688px] h-[1024px] z-0 xs:w-full xs:h-[600px]"
       >
         <PostMarkers />
-        <MapTypeControl position={kakao.maps.ControlPosition.TOPLEFT} />
-        <ZoomControl />
       </Map>
-      <PostCourseInfo
+      <PostCourse
         modalOpen={modalOpen}
         setModalOpen={setModalOpen}
         setBoundsInfo={setBoundsInfo}

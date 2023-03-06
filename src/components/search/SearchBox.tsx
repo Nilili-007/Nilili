@@ -12,7 +12,7 @@ import { logEvent } from "../../utils/amplitude";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
-import ColorStyles from "../shared/ColorStyles";
+import { ColorStyles } from "../shared";
 
 const travelStatusOptions: any = [
   { value: false, label: "여행 전" },

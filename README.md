@@ -1,5 +1,5 @@
 # NILILI
-### [바로가기](https://nilili-007.vercel.app/)
+### [바로가기](https://nilili-chi.vercel.app/)
 <br/>
 
 ## 기획 의도

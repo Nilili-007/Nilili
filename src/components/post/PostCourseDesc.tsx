@@ -1,16 +1,14 @@
 import { useSelector } from "react-redux";
 
 const PostCourseDesc = ({ item }: any) => {
-  const courseList = useSelector(
-    (state: any) => state.temporarySlice.courseList
-  );
+  const courseList = useSelector((state: any) => state.courseSlice.courseList);
 
   return (
-    <div className="w-full h-auto ml-3 mt-1">
+    <div className="w-full h-auto mt-3 text-gray-04 xs:mt-1">
       {courseList.length > 0 ? (
         <>
           <p>{item.address}</p>
-          <p className="text-gray-400 text-sm">{item.road}</p>
+          <p>{item.road}</p>
           <p>{item.phone}</p>
         </>
       ) : (

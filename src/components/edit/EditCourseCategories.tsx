@@ -3,7 +3,7 @@ import Select from "react-select";
 import styled from "styled-components";
 import { hashTagOptions } from "../post/PostHashTag";
 import { regionOptions } from "../post/PostCategories";
-import ColorStyles from "../shared/ColorStyles";
+import { ColorStyles } from "../shared";
 
 interface EditTitleProps {
   regionsRef: any;
@@ -53,32 +53,40 @@ const EditCourseCategories = ({
 
   return (
     <div>
-      <div className="flex">
-        <div className="flex flex-col">
-          <p className="text-2xl font-bold">목적지를 추가해보세요.</p>
-          <p className="text-gray-400 mt-1">
+      <div className="w-full flex flex-col-reverse md:flex-row justify-between">
+        <div className="flex flex-col ">
+          <div className="w-full  flex justify-between">
+            <p className="text-[18px] sm:text-2xl whitespace-normal font-bold">
+              목적지를 추가해보세요.
+            </p>
+            <button
+              onClick={() => showModal()}
+              className="py-1 px-2 sm:hidden sm:w-[200px] bg-black text-white hover:text-black border-black border-2 hover:bg-white text-[12px]"
+            >
+              목적지 추가하기
+            </button>
+          </div>
+          <p className="text-gray-400 mt-1 text-[13px] sm:body2 whitespace-normal">
             간단한 클릭으로 여행지를 추가할 수 있어요.
           </p>
         </div>
-        <div className="ml-auto">
-          <div className="flex">
-            <Category
-              onClick={(e) => onClickStatus(e)}
-              className={travelStatus === false ? "clicked" : ""}
-            >
-              여행 전
-            </Category>
-            <Category
-              onClick={(e) => onClickStatus(e)}
-              className={travelStatus === true ? "clicked" : ""}
-            >
-              여행 후
-            </Category>
-          </div>
+        <div className="flex sm:float-right gap-3 sm:gap-0 border-b-[1.5px] border-gray-03 sm:border-none my-5">
+          <Category
+            onClick={(e) => onClickStatus(e)}
+            className={travelStatus === false ? "clicked" : ""}
+          >
+            여행 전
+          </Category>
+          <Category
+            onClick={(e) => onClickStatus(e)}
+            className={travelStatus === true ? "clicked" : ""}
+          >
+            여행 후
+          </Category>
         </div>
       </div>
-      <div className="flex items-center h-16 gap-4">
-        <div className="w-full flex justify-between xs:w-1/3 xs:text-xs ">
+      <div className="flex items-center gap-4">
+        <div className="flex w-full items-center h-16 gap-4 text-xs sm:text-lg">
           <Select
             ref={regionsRef}
             options={regionOptions}
@@ -86,7 +94,7 @@ const EditCourseCategories = ({
             onChange={handleCategorySelect}
             isMulti
             placeholder="지역을 선택해주세요."
-            className="z-20 w-[85%] leading-7 text-[22px]"
+            className="w-full basic-multi-select z-20"
             classNamePrefix="select"
             isSearchable={true}
             isOptionDisabled={(region) =>
@@ -94,22 +102,22 @@ const EditCourseCategories = ({
             }
             styles={ColorStyles}
           />
-          <button
-            onClick={() => showModal()}
-            className="w-[14%] bg-black text-white text-lg  hover:text-black hover:border-black hover:border-2 hover:bg-white"
-          >
-            목적지 추가하기
-          </button>
         </div>
+        <button
+          onClick={() => showModal()}
+          className="hidden sm:flex lg:w-[300px] sm:w-[200px] bg-black text-white text-md px-2 py-[7px] ml-auto hover:text-black border-black border-2 hover:bg-white justify-center"
+        >
+          목적지 추가하기
+        </button>
       </div>
-      <div className="mb-8">
+      <div className="mb-8 text-xs sm:text-lg">
         <Select
           isMulti
           defaultValue={filterTags}
-          placeholder={"#해시태그를 선택해주세요"}
+          placeholder={"#해시태그를 선택해주세요."}
           options={hashTagOptions}
           onChange={handleTagSelect}
-          className="z-10 leading-7 text-[22px]"
+          className="basic-multi-select z-10"
           isSearchable={true}
           isOptionDisabled={(selectedTag) =>
             selectedTags && selectedTags.length >= tagLimit
@@ -124,16 +132,38 @@ const EditCourseCategories = ({
 export default EditCourseCategories;
 
 const Category = styled.button`
+  padding: 3px 0px 3px 0px;
   height: 40px;
-  padding: 6px 12px;
-  border: 1px solid #4b5563;
-  margin-bottom: 32px;
   cursor: pointer;
-  color: #4b5563;
+  color: #a0a4a8;
   font-size: 18px;
-
   &.clicked {
-    background: black;
-    color: white;
+    color: #000000;
+    text-decoration: underline;
+    text-underline-offset: 12px;
+    font-weight: 500;
+    text-decoration-thickness: 1.5px;
+  }
+  @media screen and (min-width: 415px) {
+    width: 80px;
+    height: 40px;
+    padding: 6px 12px;
+    border: 1px solid #4b5563;
+    margin-top: 6px;
+    margin-bottom: 10px;
+    color: #4b5563;
+    font-size: 16px;
+    &.clicked {
+      background: black;
+      color: white;
+      text-decoration: none;
+    }
+  }
+  @media screen and (min-width: 768px) {
+    margin-bottom: 32px;
+    font-size: 18px;
+  }
+  &:first-child {
+    border-right: none;
   }
 `;

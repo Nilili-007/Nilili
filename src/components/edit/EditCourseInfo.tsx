@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { ItemBtn, ItemCard } from "../post/PostCourseInfo";
-import { TiMinus } from "react-icons/ti";
-import { AiOutlineUp, AiOutlineDown, AiOutlinePlus } from "react-icons/ai";
+import { ItemBtn, ItemCard } from "../post/PostCourse";
+import { FiMinus } from "react-icons/fi";
+import { BsChevronUp, BsChevronDown } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteCourse,
@@ -9,19 +9,19 @@ import {
   downCourse,
   filterCourse,
   upCourse,
-} from "../../redux/modules/temporarySlice";
+} from "../../redux/modules/courseSlice";
 import { EditCourseTextarea } from "./index";
 import Swal from "sweetalert2";
 
 const EditCourseInfo = () => {
   const [text, setText] = useState<any>("");
   const dispatch = useDispatch();
-  const lists = useSelector((state: any) => state.temporarySlice.courseList);
-  const filteredId = useSelector(
-    (state: any) => state.temporarySlice.filteredId
+  const lists = useSelector((state: any) => state.courseSlice.courseList);
+  const filteredIdx = useSelector(
+    (state: any) => state.courseSlice.filteredIdx
   );
 
-  const onClickDeleteCourse = (item: any) => {
+  const onClickDeleteCourse = (item: any, idx: number) => {
     Swal.fire({
       title: "일정에서 삭제하시겠습니까?",
       icon: "question",
@@ -32,72 +32,71 @@ const EditCourseInfo = () => {
       cancelButtonText: "아니요, 취소할래요",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteCourse(item.id));
-        dispatch(deleteMemo(item.id));
+        dispatch(deleteCourse(idx));
+        dispatch(deleteMemo(idx));
         setText("");
       }
     });
   };
 
-  const onClickUpCourse = (item: any) => {
-    dispatch(upCourse(item));
+  const onClickUpCourse = (idx: number) => {
+    dispatch(upCourse(idx));
   };
 
-  const onClickDownCourse = (item: any) => {
-    dispatch(downCourse(item));
+  const onClickDownCourse = (idx: number) => {
+    dispatch(downCourse(idx));
   };
 
-  const onClickGetId = (item: any) => {
-    dispatch(filterCourse(item.id));
-    //   setBoundsInfo(item.bounds);
+  const onClickGetId = (item: any, idx: number) => {
+    const newInfo = {
+      id: item.id,
+      idx,
+    };
+    dispatch(filterCourse(newInfo));
   };
 
   return (
-    <div className="w-[35%] max-h-[70vh] pl-7 float-right">
-      <div className="flex flex-col h-full overflow-y-scroll ">
-        {lists?.map((item: any, key: any) => {
+    <div className="w-[472px] pl-7 float-right xs:hidden">
+      <div className="flex flex-col h-[1024px] overflow-y-scroll ">
+        {lists?.map((item: any, idx: any) => {
           return (
             <ItemCard
-              key={key}
-              onClick={() => onClickGetId(item)}
-              className={item.id === filteredId ? "clicked" : " "}
+              key={idx}
+              onClick={() => onClickGetId(item, idx)}
+              className={idx === filteredIdx ? "clicked" : " "}
             >
-              <div className="w-full py-3 flex">
-                <div className="w-full px-2 ">
-                  <h4 className="font-bold text-xl px-2 ">
-                    #{key + 1} {item.name}
+              <div className="w-full flex">
+                <div className="w-full">
+                  <h4 className="title3">
+                    #{idx + 1} {item.name}
                   </h4>
-                  <p className="px-2">{item.address}</p>
-                  <p className="px-2 text-gray-400 text-sm">{item.road}</p>
-                  <p className="px-2">{item.phone}</p>
+                  <div className="w-full h-auto mt-3 text-gray-04">
+                    <p>{item.address}</p>
+                    <p>{item.road}</p>
+                    <p>{item.phone}</p>
+                  </div>
                   <EditCourseTextarea
+                    idx={idx}
                     item={item}
-                    filteredId={filteredId}
                     text={text}
                     setText={setText}
                   />
                 </div>
-                <TiMinus
-                  onClick={() => onClickDeleteCourse(item)}
-                  className="-mt-2 mr-2 text-3xl text-gray-400"
+                <FiMinus
+                  onClick={() => onClickDeleteCourse(item, idx)}
+                  className="text-[26px] text-gray-04 -ml-5"
                 />
               </div>
-              <div className="flex text-2xl p-3 -mt-5 float-right">
+              <div className="flex text-2xl mt-3 float-right">
                 <ItemBtn className={lists[0] === item ? "non-clicked" : ""}>
-                  <AiOutlineUp
-                    onClick={() => onClickUpCourse(item)}
-                    className="hover:text-gray-400"
-                  />
+                  <BsChevronUp onClick={() => onClickUpCourse(idx)} />
                 </ItemBtn>
                 <ItemBtn
                   className={
                     lists[lists.length - 1] === item ? "non-clicked" : ""
                   }
                 >
-                  <AiOutlineDown
-                    onClick={() => onClickDownCourse(item)}
-                    className="hover:text-gray-400 ml-auto"
-                  />
+                  <BsChevronDown onClick={() => onClickDownCourse(idx)} />
                 </ItemBtn>
               </div>
             </ItemCard>

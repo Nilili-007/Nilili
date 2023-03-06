@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useUpdateTravelStatusMutation } from "../../redux/modules/apiSlice";
-import { ListMap } from "../shared";
-import SearchPagenation from "../search/SearchPagenation";
+import { ListMap, Pagenation } from "../shared";
 import styled from "styled-components";
 import { logEvent } from "../../utils/amplitude";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
@@ -23,25 +22,23 @@ const UserList = ({ done, category }: UserListType) => {
   const navigate = useNavigate();
   const [updateTravelStatus] = useUpdateTravelStatusMutation();
 
-  const { firstPostIndex, lastPostIndex, pages, currentPage, setCurrentPage } =
-    usePagenation(userData, 6);
-
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [postsPerPage] = useState(6);
-
-  // const lastPostIndex = currentPage * postsPerPage;
-  // const firstPostIndex = lastPostIndex - postsPerPage;
+  const {
+    firstPostIndex,
+    lastPostIndex,
+    pages,
+    currentPage,
+    setCurrentPage,
+    pageArr,
+    setPageArr,
+    lastPage,
+    firstPage,
+    showPages,
+    currentPages,
+  } = usePagenation(userData, 6, 5);
 
   const currentPosts = userData
     ? userData.slice(firstPostIndex, lastPostIndex)
     : null;
-
-  // const totalContents: any = userData?.length;
-
-  // const pages = [];
-  // for (let i = 1; i <= Math.ceil(totalContents / postsPerPage); i++) {
-  //   pages.push(i);
-  // }
 
   const filterData = () => {
     const mypaths = data?.filter(
@@ -115,7 +112,7 @@ const UserList = ({ done, category }: UserListType) => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-between w-[45%] flex-wrap">
+      <div className="flex justify-between flex-wrap">
         {new Array(9).fill(null).map((_, idx) => (
           <SkeletonTheme baseColor="#202020" highlightColor="#444" key={idx}>
             <div className=" mb-3 ">
@@ -136,13 +133,13 @@ const UserList = ({ done, category }: UserListType) => {
   }
 
   return (
-    <div className=" my-10 3xl:w-[60%] 2xl:w-[70%] w-[90%] ">
-      <ul className="flex flex-wrap justify-evenly">
+    <div className=" my-10 ">
+      <ul className="flex flex-wrap ">
         {currentPosts?.map((item: CourseType) => (
           <div
             onClick={(event: any) => handleNavigate(event, item.id)}
             key={item.id}
-            className="xl:w-[31%] lg:w-[32%] sm:w-[47%] w-[90%]  "
+            className=" w-[33%] "
           >
             <Stdiv>
               <StMap category={category}>
@@ -171,7 +168,7 @@ const UserList = ({ done, category }: UserListType) => {
               <StImg
                 src={item.cover}
                 alt="대표 사진"
-                className=" border-black h-[324px] w-[300px]"
+                className=" border-black h-[300px] w-[300px]"
               />
             </Stdiv>
 
@@ -190,11 +187,19 @@ const UserList = ({ done, category }: UserListType) => {
         ))}
       </ul>
       {/* pagenation */}
-      <SearchPagenation
-        setCurrentPage={setCurrentPage}
-        currentPage={currentPage}
-        pages={pages}
-      />
+      {userData?.length === 0 ? null : (
+        <Pagenation
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+          pages={pages}
+          pageArr={pageArr}
+          setPageArr={setPageArr}
+          lastPage={lastPage}
+          firstPage={firstPage}
+          showPages={showPages}
+          currentPages={currentPages}
+        />
+      )}
     </div>
   );
 };
@@ -226,7 +231,7 @@ const StMap = styled.div<{ category: string }>`
 
 const Stdiv = styled.div`
   position: relative;
-
+  overflow: hidden;
   &:hover {
     ${StImg} {
       display: none;

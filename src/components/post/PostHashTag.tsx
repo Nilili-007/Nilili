@@ -1,5 +1,5 @@
 import Select from "react-select";
-import ColorStyles from "../shared/ColorStyles";
+import { ColorStyles } from "../shared";
 
 export const hashTagOptions = [
   { value: "가족", label: "화목하게 가족과" },
@@ -31,7 +31,7 @@ const PostHashTag = ({ selectedTags, setSelectedTags }: tagProps) => {
   const limit = 5;
 
   return (
-    <div className="mb-8">
+    <div className="mb-8 text-xs sm:text-lg">
       <Select
         isMulti
         placeholder={"#해시태그"}

@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Map, MapTypeControl } from "react-kakao-maps-sdk";
+import { useEffect, useState } from "react";
+import { Map } from "react-kakao-maps-sdk";
 import { CourseInfo, CourseMapMarker } from "./index";
 
 interface CourseProps {
   course: CourseType | undefined;
 }
 
-const CourseMap = ({ course }: any) => {
+const CourseMap = ({ course, filteredIdx, setFilteredIdx }: any) => {
   const [map, setMap] = useState();
-  const [filteredId, setFilteredId] = useState("");
-  const courseList = JSON.parse(course?.courseList);
+  const lists = JSON.parse(course?.courseList);
   let bounds: any;
 
-  courseList.map((item: any) => {
-    if (item.id === filteredId) {
+  lists?.map((item: any, idx: number) => {
+    if (idx === filteredIdx) {
       bounds = Object.setPrototypeOf(
         item.bounds,
         kakao.maps.LatLngBounds.prototype
@@ -26,31 +25,30 @@ const CourseMap = ({ course }: any) => {
       // @ts-ignore
       map.panTo(bounds);
     }
-  }, [filteredId]);
+  }, [filteredIdx]);
 
   return (
-    <div className="flex w-full h-[70vh] my-6 sm:my-14">
+    <div className="w-full flex h-full mb-20 xs:mb-6">
       <Map
         center={{
-          lat: courseList[0].position.lat,
-          lng: courseList[0].position.lng,
+          lat: lists[0].position.lat,
+          lng: lists[0].position.lng,
         }}
         level={8}
         // @ts-ignore
         onCreate={setMap}
-        className="w-[65%] h-full z-0"
+        className="w-[688px] h-[1024px] z-0 xs:w-full xs:h-[600px]"
       >
-        <MapTypeControl position={kakao.maps.ControlPosition.TOPRIGHT} />
         <CourseMapMarker
-          courseList={courseList}
-          filteredId={filteredId}
-          setFilteredId={setFilteredId}
+          lists={lists}
+          filteredIdx={filteredIdx}
+          setFilteredIdx={setFilteredIdx}
         />
       </Map>
       <CourseInfo
-        courseList={courseList}
-        filteredId={filteredId}
-        setFilteredId={setFilteredId}
+        courseList={lists}
+        filteredIdx={filteredIdx}
+        setFilteredIdx={setFilteredIdx}
       />
     </div>
   );

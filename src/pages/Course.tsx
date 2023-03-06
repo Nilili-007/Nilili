@@ -6,9 +6,10 @@ import {
   CommentDesc,
   CourseHeader,
   CourseMap,
+  CourseMobile,
 } from "../components/course";
 import { authService } from "../utils/firebase";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SyncLoader } from "react-spinners";
 import * as amplitude from "@amplitude/analytics-browser";
 
@@ -22,6 +23,7 @@ const Course = () => {
     (course: CourseType) => course.id === paramId
   );
   const courseData = filterData?.pop();
+  const [filteredIdx, setFilteredIdx] = useState(0);
 
   if (courseData?.createdAt !== undefined) {
     date = JSON.parse(courseData?.createdAt).substr(0, 10);
@@ -66,7 +68,16 @@ const Course = () => {
             <p className="hidden sm:block mt-6 text-lg text-gray-400">
               {date} {hours}:{seconds}
             </p>
-            <CourseMap course={courseData} />
+            <CourseMap
+              course={courseData}
+              filteredIdx={filteredIdx}
+              setFilteredIdx={setFilteredIdx}
+            />
+            <CourseMobile
+              course={courseData}
+              filteredIdx={filteredIdx}
+              setFilteredIdx={setFilteredIdx}
+            />
             <CourseHashTag course={courseData} />
             <CommentDesc paramId={paramId} courseData={courseData} />
           </div>

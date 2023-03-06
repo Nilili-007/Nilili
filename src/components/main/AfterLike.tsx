@@ -87,6 +87,7 @@ const StImg = styled.img`
 `;
 
 const StMap = styled.div`
+  overflow: hidden;
   opacity: 0%;
 `;
 

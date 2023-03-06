@@ -2,8 +2,8 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PostCourseDesc, PostTextarea } from "./index";
 import styled from "styled-components";
-import { TiMinus } from "react-icons/ti";
-import { AiOutlineUp, AiOutlineDown } from "react-icons/ai";
+import { FiMinus } from "react-icons/fi";
+import { BsChevronUp, BsChevronDown } from "react-icons/bs";
 import Swal from "sweetalert2";
 import {
   deleteCourse,
@@ -11,7 +11,7 @@ import {
   downCourse,
   filterCourse,
   upCourse,
-} from "../../redux/modules/temporarySlice";
+} from "../../redux/modules/courseSlice";
 
 interface PostProps {
   modalOpen: boolean;
@@ -19,13 +19,11 @@ interface PostProps {
   setBoundsInfo: Dispatch<SetStateAction<object>>;
 }
 
-const PostCourseInfo = ({ setBoundsInfo }: PostProps) => {
+const PostCourse = ({ setBoundsInfo }: PostProps) => {
   const dispatch = useDispatch();
-  const courseList = useSelector(
-    (state: any) => state.temporarySlice.courseList
-  );
+  const lists = useSelector((state: any) => state.courseSlice.courseList);
   const filteredIdx = useSelector(
-    (state: any) => state.temporarySlice.filteredIdx
+    (state: any) => state.courseSlice.filteredIdx
   );
 
   const [text, setText] = useState("");
@@ -71,18 +69,18 @@ const PostCourseInfo = ({ setBoundsInfo }: PostProps) => {
   };
 
   return (
-    <div className="w-[35%] max-h-[70vh] pl-7 float-right">
-      <div className="flex flex-col h-full overflow-y-scroll ">
-        {courseList?.map((item: any, idx: number) => {
+    <div className="w-[472px] pl-7 float-right xs:hidden">
+      <div className="flex flex-col h-[1024px] overflow-y-scroll ">
+        {lists?.map((item: any, idx: number) => {
           return (
             <ItemCard
               key={idx}
               onClick={() => onClickGetId(item, idx)}
               className={idx === filteredIdx ? "clicked" : " "}
             >
-              <div className="w-full px-2 py-3 flex">
-                <div className="w-full">
-                  <h4 className="pl-3 font-bold text-xl">
+              <div className="flex">
+                <div>
+                  <h4 className="title3">
                     #{idx + 1} {item.name}
                   </h4>
                   <PostCourseDesc item={item} />
@@ -94,28 +92,26 @@ const PostCourseInfo = ({ setBoundsInfo }: PostProps) => {
                     setBoundsInfo={setBoundsInfo}
                   />
                 </div>
-                <TiMinus
-                  onClick={() => onClickDeleteCourse(item, idx)}
-                  className="-mt-2 text-3xl text-gray-400 hover:text-black"
-                />
+                <div>
+                  <FiMinus
+                    onClick={() => onClickDeleteCourse(item, idx)}
+                    className="text-[26px] text-gray-04 -ml-5"
+                  />
+                </div>
               </div>
-              {courseList.length < 2 ? (
+              {lists.length < 2 ? (
                 <div className="p-3.5" />
               ) : (
-                <div className="flex text-2xl p-3 -mt-5 float-right">
-                  <ItemBtn
-                    className={courseList[0] === item ? "non-clicked" : ""}
-                  >
-                    <AiOutlineUp onClick={() => onClickUpCourse(idx)} />
+                <div className="flex text-2xl mt-3 float-right">
+                  <ItemBtn className={lists[0] === item ? "non-clicked" : ""}>
+                    <BsChevronUp onClick={() => onClickUpCourse(idx)} />
                   </ItemBtn>
                   <ItemBtn
                     className={
-                      courseList[courseList.length - 1] === item
-                        ? "non-clicked"
-                        : ""
+                      lists[lists.length - 1] === item ? "non-clicked" : ""
                     }
                   >
-                    <AiOutlineDown onClick={() => onClickDownCourse(idx)} />
+                    <BsChevronDown onClick={() => onClickDownCourse(idx)} />
                   </ItemBtn>
                 </div>
               )}
@@ -127,12 +123,13 @@ const PostCourseInfo = ({ setBoundsInfo }: PostProps) => {
   );
 };
 
-export default PostCourseInfo;
+export default PostCourse;
 
 export const ItemCard = styled.div`
-  border: 1px solid #9ca3af;
+  border: 1px solid #cbcdd2;
   margin-bottom: 32px;
   cursor: pointer;
+  padding: 20px;
   &.clicked {
     background: black;
     color: white;
@@ -142,5 +139,13 @@ export const ItemCard = styled.div`
 export const ItemBtn = styled.span`
   &.non-clicked {
     color: #cccccc;
+  }
+  &:first-child {
+    margin-right: 20px;
+  }
+  @media screen and (max-width: 414px) {
+    &:first-child {
+      margin-right: 10px;
+    }
   }
 `;
