@@ -141,8 +141,8 @@ const Share = () => {
           </button>
         </div>
       </div>
-      <div className="md:hidden flex mt-4">
-        <div className="text-white bg-black px-2 py-1 text-[16px] sm:text-[20px] font-medium">
+      <div className="md:hidden flex flex-col mt-4">
+        <div className="text-black text-[16px] sm:text-[20px] font-medium mb-2">
           공유하기
         </div>
         <button
@@ -151,11 +151,11 @@ const Share = () => {
             shareAmplitudeEvent();
           }}
         >
-          {/* <img
+          <img
             className="w-[40px] h-[40px] object-fill"
             src="https://cdn-icons-png.flaticon.com/512/157/157960.png"
             alt="공유"
-          /> */}
+          />
         </button>
       </div>
     </>
