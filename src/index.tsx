@@ -10,7 +10,7 @@ import { BrowserTracing } from "@sentry/tracing";
 import { HelmetProvider } from "react-helmet-async";
 
 Sentry.init({
-  dsn: "https://f297ca4337b14c53a080fd3dcde23d90@o4504768449019904.ingest.sentry.io/4504768455114752",
+  dsn: process.env.REACT_APP_dns,
   integrations: [new BrowserTracing()],
 
   // Set tracesSampleRate to 1.0 to capture 100%

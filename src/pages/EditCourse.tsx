@@ -9,7 +9,12 @@ import {
 } from "../redux/modules/apiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { EditCourseCategories, EditCourseMap } from "../components/edit";
+import {
+  EditCourseCategories,
+  EditCourseMap,
+  EditCourseMobile,
+} from "../components/edit";
+import { PostTravelStatus } from "../components/post/index";
 import { authService } from "../utils/firebase";
 import Swal from "sweetalert2";
 import * as amplitude from "@amplitude/analytics-browser";
@@ -212,6 +217,7 @@ const EditCourse = () => {
           modalOpen={modalOpen}
           setModalOpen={setModalOpen}
         />
+        <EditCourseMobile />
         <div className="flex flex-col sm:flex-row w-full justify-center gap-2 my-10 sm:gap-[5%]">
           <button
             onClick={() => updateCourseHandler()}

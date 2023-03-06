@@ -39,12 +39,12 @@ const EditCourseInfo = () => {
     });
   };
 
-  const onClickUpCourse = (item: any) => {
-    dispatch(upCourse(item));
+  const onClickUpCourse = (idx: number) => {
+    dispatch(upCourse(idx));
   };
 
-  const onClickDownCourse = (item: any) => {
-    dispatch(downCourse(item));
+  const onClickDownCourse = (idx: number) => {
+    dispatch(downCourse(idx));
   };
 
   const onClickGetId = (item: any, idx: number) => {
@@ -53,7 +53,6 @@ const EditCourseInfo = () => {
       idx,
     };
     dispatch(filterCourse(newInfo));
-    console.log(newInfo);
   };
 
   return (

@@ -65,24 +65,24 @@ const PostHeader = ({
   };
 
   return (
-    <div className="h-[220px] sm:h-[450px] md:h-[700px] text-white">
+    <div className="h-[220px] sm:h-[450px] md:h-[700px]  xs:h-[220px] text-white">
       <img
         src={
           (uploadCover || galleryCover) !== undefined
             ? uploadCover || galleryCover
             : ""
         }
-        className="w-full h-[220px] sm:h-[450px] md:h-[700px] object-cover z-0"
+        className="w-full h-[220px] sm:h-[450px] md:h-[700px]  xs:h-[220px] object-cover z-0"
       />
       <div className="w-full h-[220px] sm:h-[450px] md:h-[700px] -mt-[220px] sm:-mt-[450px] md:-mt-[700px] absolute z-10 bg-gradient-to-t from-[#00000060]" />
-      <div className="w-[85%] md:w-[70%] pt-36 m-auto -mt-[270px] sm:-mt-[350px]">
+      <div className="w-[85%] md:w-[70%] pt-36 m-auto -mt-[270px] sm:-mt-[300px] xs:w-[90%]">
         {uploadCover === "" && galleryCover === "" ? (
-          <div className="scale-[0.35] sm:scale-50 md:scale-100  sm:top-[40%] md:top-[50%] left-[50%] -translate-x-1/2  -translate-y-1/2 absolute z-10">
+          <div className="xs:scale-[0.25] scale-[0.35] sm:scale-50 md:scale-100  sm:top-[40%] md:top-[50%] left-[50%] -translate-x-1/2  -translate-y-1/2 absolute z-10">
             <img src="/assets/empty-img.png" />
           </div>
         ) : null}
         <input
-          className="w-[85%] sm:w-[80%] md:w-[70%] sm:px-2 sm:py-1.5 text-[24px] sm:text-4xl md:text-5xl font-bold z-40 absolute bg-transparent mt-3 md:-mt-4 placeholder:text-white focus:outline-0"
+          className="w-[85%] sm:w-[80%] md:w-[70%] sm:py-1.5 text-[24px] sm:text-4xl md:text-5xl font-bold z-40 absolute bg-transparent mt-3 md:-mt-4 xs:text-[32px] xs:mt-11 placeholder:text-white focus:outline-0"
           placeholder="여기에 제목을 입력해주세요."
           autoFocus={true}
           value={courseTitle}
@@ -91,31 +91,31 @@ const PostHeader = ({
             setCourseTitle(event.target.value);
           }}
         />
-        <p className="mt-[48px] sm:mt-[68px] z-20 absolute text-[14px] sm:text-lg">
+        <p className="mt-[48px] sm:mt-[68px] z-20 absolute text-[14px] sm:text-lg xs:hidden">
           {authService.currentUser?.displayName}님만의 여정을 직접 그려보세요!
         </p>
-        <div className="flex mt-16 sm:mt-[100px]">
+        <div className="flex mt-16 sm:mt-[95px]">
           <button
             onClick={onClickShowModal}
-            className="bg-black px-1 sm:px-2 py-1 mt-2 mr-3 z-20 text-[12px] sm:badge"
+            className="bg-black px-1 sm:px-2 py-1 mt-2 mr-3 z-20 text-[12px] sm:badge xs:text-[14px]"
           >
             {uploadCover || galleryCover ? "Change Cover" : "Add Cover"}
           </button>
           <button
             onClick={() => onClickRemoveCover()}
-            className="bg-none border border-white px-1 sm:px-2 py-1 mt-2 mr-3 z-20  text-[12px] sm:badge"
+            className="bg-none border border-white px-1 sm:px-2 py-1 mt-2 mr-3 z-20 text-[12px] sm:badge xs:text-[14px]"
           >
             Remove Cover
           </button>
         </div>
       </div>
       {modalOpen && (
-        <div className="w-full h-[300px] md:w-[700px] md:h-[300px] bg-white border border-gray-600 absolute sm:translate-x-[10%] md:translate-x-[34%] translate-y-[5%] z-[1000]">
-          <div className=" w-[95%] m-auto py-1">
+        <div className="w-full h-[300px] md:w-[700px] md:h-[300px] bg-white border border-gray-600 absolute sm:translate-x-[5.5%] md:translate-x-[34%] translate-y-[5%] z-[1000] xs:w-[90%]">
+          <div className="w-[95%] m-auto py-1 xs:w-[90%]">
             <div className="border-b border-gray-600 mt-10" />
             <GrFormClose
               onClick={() => setModalOpen(false)}
-              className="cursor-pointer text-4xl ml-auto -mt-10 -mr-1"
+              className="cursor-pointer text-4xl ml-auto -mt-10 -mr-1 xs:text-3xl xs:-mt-[33.5px]"
             />
             <div className="flex -mt-[26px]">
               <AddCoverCategory
@@ -150,7 +150,7 @@ const PostHeader = ({
                           src={item}
                           key={item}
                           onClick={(e) => onClickSelectCover(e)}
-                          className="cursor-pointer w-[160px] h-[70px]"
+                          className="cursor-pointer w-[160px] h-[70px] xs:object-cover"
                         />
                       );
                     })}
@@ -179,5 +179,12 @@ const AddCoverCategory = styled.div`
   &.clicked {
     color: black;
     border-bottom: 2px solid black;
+  }
+  @media screen and (max-width: 414px) {
+    font-size: 16px;
+    padding: 0 8px 4px 8px;
+    &:last-child {
+      margin-left: 5px;
+    }
   }
 `;

@@ -5,4 +5,19 @@ import Post from "./Post";
 import Search from "./Search";
 import NotFound from "./NotFound";
 import EditCourse from "./EditCourse";
-export { Course, Main, User, Post, Search, NotFound, EditCourse };
+import Login from "./Login";
+import Register from "./Register";
+import AuthForgot from "./AuthForgot";
+
+export {
+  Course,
+  Main,
+  User,
+  Post,
+  Search,
+  NotFound,
+  EditCourse,
+  Login,
+  Register,
+  AuthForgot,
+};

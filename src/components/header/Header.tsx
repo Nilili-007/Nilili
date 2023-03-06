@@ -2,7 +2,6 @@ import { getAuth, signOut } from "firebase/auth";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { authService } from "../../utils/firebase";
-import Modal from "../auth/Modal";
 import Weather from "./Weather";
 import { useDispatch } from "react-redux";
 import { replaceAllData } from "../../redux/modules/courseSlice";
@@ -18,22 +17,7 @@ const Header = () => {
   const navigate = useNavigate();
   const [isSign, setIsSign] = useState<any>(null);
 
-  // login modal toggle
-  const [modal, setModal] = useState(false);
-  const modalRef = useRef<HTMLDivElement | null>(null);
   const userID = authService.currentUser?.uid;
-
-  // modal 띄우기
-  const openModal = () => {
-    setModal(true);
-    document.body.style.overflow = "hidden";
-  };
-
-  const modalOutClick = (e: any) => {
-    if (modalRef.current === e.target) {
-      setModal(false);
-    }
-  };
 
   const logoutBtn = () => {
     signOut(authService)
@@ -116,16 +100,6 @@ const Header = () => {
 
   return (
     <>
-      {modal ? (
-        <Modal
-          modal={modal}
-          setModal={setModal}
-          modalOutClick={modalOutClick}
-          modalRef={modalRef}
-        />
-      ) : (
-        <></>
-      )}
       <nav className="w-full bg-black shadow  ">
         <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
           <div>
@@ -208,7 +182,14 @@ const Header = () => {
                         <button onClick={leavePresentPage}>검색하기</button>
                       </li>
                       <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
-                        <button onClick={openModal}>로그인</button>
+                        <button onClick={() => navigate("/login")}>
+                          로그인
+                        </button>
+                      </li>
+                      <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
+                        <button onClick={() => navigate("/register")}>
+                          회원가입
+                        </button>
                       </li>
                     </>
                   )
