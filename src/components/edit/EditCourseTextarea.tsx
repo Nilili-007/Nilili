@@ -8,7 +8,6 @@ const EditCourseTextarea = ({ idx, item, text, setText }: any) => {
     (state: any) => state.courseSlice.filteredIdx
   );
 
-  // console.log(item.name, ":", item.memo);
   const onFocusGetId = (item: any, idx: number) => {
     const newInfo = {
       id: item.id,

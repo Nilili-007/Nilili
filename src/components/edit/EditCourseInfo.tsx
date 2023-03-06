@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ItemBtn, ItemCard } from "../post/PostCourse";
 import { FiMinus } from "react-icons/fi";
 import { BsChevronUp, BsChevronDown } from "react-icons/bs";
@@ -12,14 +12,25 @@ import {
 } from "../../redux/modules/courseSlice";
 import { EditCourseTextarea } from "./index";
 import Swal from "sweetalert2";
+import { useGetCourseQuery } from "../../redux/modules/apiSlice";
+import { useParams } from "react-router-dom";
 
 const EditCourseInfo = () => {
   const [text, setText] = useState<any>("");
   const dispatch = useDispatch();
-  const lists = useSelector((state: any) => state.courseSlice.courseList);
+
+  const paramId = useParams().id;
+  const { data } = useGetCourseQuery();
+  const reduxLists = useSelector((state: any) => state.courseSlice.courseList);
+  const fbLists = JSON.parse(
+    data?.filter((course: CourseType) => course.id === paramId).pop()
+      ?.courseList
+  );
   const filteredIdx = useSelector(
     (state: any) => state.courseSlice.filteredIdx
   );
+
+  const [lists, setLists] = useState(fbLists);
 
   const onClickDeleteCourse = (item: any, idx: number) => {
     Swal.fire({
@@ -54,6 +65,10 @@ const EditCourseInfo = () => {
     };
     dispatch(filterCourse(newInfo));
   };
+
+  useEffect(() => {
+    setLists(reduxLists);
+  }, [reduxLists]);
 
   return (
     <div className="w-[472px] pl-7 float-right xs:hidden">

@@ -20,12 +20,12 @@ const CourseInfo = ({ courseList, filteredIdx, setFilteredIdx }: any) => {
                   <h4 className="title3">
                     #{idx + 1} {item.name}
                   </h4>
-                  <div className="w-full h-auto mt-4 text-gray-04 text-[17px]">
+                  <div className="w-full h-auto mt-2 text-gray-04 text-[17px]">
                     <p>{item.address}</p>
                     <p>{item.road}</p>
                     <p>{item.phone}</p>
                   </div>
-                  <p className="mt-4">{item.memo}</p>
+                  <p className="mt-2">{item.memo}</p>
                 </div>
               </div>
             </ItemCard>
