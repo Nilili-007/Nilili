@@ -1,4 +1,9 @@
-import { getAuth, updateEmail, updatePassword } from "firebase/auth";
+import {
+  deleteUser,
+  getAuth,
+  updateEmail,
+  updatePassword,
+} from "firebase/auth";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -40,6 +45,7 @@ const UserInfoEdit = ({
     setNewEmail(event.target.value);
   };
 
+  // 이메일 변경
   const changeEmailBtn = () => {
     updateEmail(user, newEmail)
       .then(() => {
@@ -81,13 +87,47 @@ const UserInfoEdit = ({
       });
   };
 
+  const ondeleteUser = () => {
+    Swal.fire({
+      title: "정말 회원 탈퇴를 진행하시겠습니까?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#B3261E",
+      cancelButtonColor: "#50AA72",
+      confirmButtonText: "네, 탈퇴할래요",
+      cancelButtonText: "아니요, 취소할래요",
+    })
+      .then((result) => {
+        if (result.isConfirmed) {
+          deleteUser(user)
+            .then(() => {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "회원 탈퇴가 완료되었습니다",
+                text: "NILILI를 사용해주셔서 감사했습니다.",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              setUserEdit(false);
+              navigate("/");
+            })
+            .catch((error) => {
+              console.log("error: ", error);
+            });
+        }
+      })
+      .catch((error) => {
+        console.log("error: ", error);
+      });
+  };
+
   return (
     <div
       className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
       onClick={(e) => modalOutClick(e)}
       ref={modalRef}
     >
-      {" "}
       <div className="relative w-full h-3/4 border border-gray-200 max-w-md md:h-auto">
         {/* modal contents */}
         <div className="border relative flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -134,6 +174,20 @@ const UserInfoEdit = ({
                 onClick={changePasswordBtn}
               >
                 비밀번호 변경
+              </button>
+            </div>
+
+            <div className="flex justify-center items-center m-3">
+              <div className="border-b-2 border-solid border-gray-200 w-full" />
+            </div>
+
+            {/* 회원 탈퇴 버튼 (이메일, 비밀번호 수정하러 들어와서야 회원 탈퇴 가능) */}
+            <div className="flex justify-center items-center ">
+              <button
+                onClick={ondeleteUser}
+                className="text-sm leading-none border-none underline text-gray-400 hover:text-teal-500 mt-4 lg:mt-0"
+              >
+                회원 탈퇴하기
               </button>
             </div>
           </div>
