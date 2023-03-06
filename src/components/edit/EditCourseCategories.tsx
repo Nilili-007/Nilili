@@ -3,7 +3,7 @@ import Select from "react-select";
 import styled from "styled-components";
 import { hashTagOptions } from "../post/PostHashTag";
 import { regionOptions } from "../post/PostCategories";
-import ColorStyles from "../shared/ColorStyles";
+import { ColorStyles } from "../shared";
 
 interface EditTitleProps {
   regionsRef: any;

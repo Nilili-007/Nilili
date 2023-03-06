@@ -1,6 +1,6 @@
 import React from "react";
 import Select from "react-select";
-import ColorStyles from "../shared/ColorStyles";
+import { ColorStyles } from "../shared";
 
 export const regionOptions = [
   { value: "서울", label: "서울" },
