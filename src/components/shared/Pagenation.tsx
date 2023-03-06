@@ -10,6 +10,7 @@ interface PagenationProps {
   firstPage: number;
   showPages: number[];
   currentPages: number[] | null;
+  positionY: number;
 }
 
 const Pagenation = ({
@@ -22,6 +23,7 @@ const Pagenation = ({
   firstPage,
   showPages,
   currentPages,
+  positionY,
 }: PagenationProps) => {
   return (
     <div className="flex justify-center gap-2 sm:gap-4 mt-10">
@@ -41,7 +43,7 @@ const Pagenation = ({
               setPageArr(1);
               setCurrentPage(1);
             }}
-            className="w-auto p-1  text-[16px] sm:text-xl hover:font-semibold hover:tracking-tight"
+            className="w-auto p-1 text-[16px] sm:text-xl hover:font-semibold hover:tracking-tight"
           >
             1
           </button>
@@ -53,7 +55,10 @@ const Pagenation = ({
           <button
             key={index}
             style={page === currentPage ? { fontWeight: 600 } : undefined}
-            onClick={() => setCurrentPage(page)}
+            onClick={() => {
+              setCurrentPage(page);
+              window.scrollTo({ top: positionY, behavior: "smooth" });
+            }}
             className="w-auto p-1  text-[16px] sm:text-xl hover:font-semibold hover:tracking-tight"
           >
             {page}

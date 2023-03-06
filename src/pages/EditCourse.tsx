@@ -82,7 +82,11 @@ const EditCourse = () => {
     }
     setRegions(filterRegion);
     setSelectedTags(filterTags);
-    setGalleryCover(course?.cover);
+    if (course?.cover?.includes("data:image/")) {
+      setUploadCover(course?.cover);
+    } else {
+      setGalleryCover(course?.cover);
+    }
     dispatch(replaceAllData(JSON.parse(course?.courseList)));
   }, [data]);
 
@@ -102,7 +106,6 @@ const EditCourse = () => {
         icon: "error",
         title: "제목을 입력해주세요!",
         didClose: () => {
-          window.scrollTo({ top: 0, behavior: "smooth" });
           titleRef.current?.focus();
         },
       });

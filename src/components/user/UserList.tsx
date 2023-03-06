@@ -34,7 +34,8 @@ const UserList = ({ done, category }: UserListType) => {
     firstPage,
     showPages,
     currentPages,
-  } = usePagenation(userData, 6, 5);
+    positionY,
+  } = usePagenation(userData, 6, 5, 300);
 
   const currentPosts = userData
     ? userData.slice(firstPostIndex, lastPostIndex)
@@ -131,7 +132,6 @@ const UserList = ({ done, category }: UserListType) => {
   if (isError) {
     return <>에러가 발생했습니다.</>;
   }
-
   return (
     <div className=" my-10 ">
       <ul className="flex flex-wrap ">
@@ -187,7 +187,12 @@ const UserList = ({ done, category }: UserListType) => {
         ))}
       </ul>
       {/* pagenation */}
-      {userData?.length === 0 ? null : (
+      {userData?.length === 0 ? (
+        <div className="h-52 flex pt-16 justify-center text-sm sm:text-lg flex-wrap">
+          {category === "MY" ? "작성된" : "좋아요를 누른"}{" "}
+          {done ? "여행 후" : "여행 전"} 게시물이 없습니다.
+        </div>
+      ) : (
         <Pagenation
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}
@@ -198,6 +203,7 @@ const UserList = ({ done, category }: UserListType) => {
           firstPage={firstPage}
           showPages={showPages}
           currentPages={currentPages}
+          positionY={positionY}
         />
       )}
     </div>

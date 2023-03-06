@@ -34,7 +34,8 @@ const CommentDesc = ({ paramId, courseData }: CommentProps) => {
     firstPage,
     showPages,
     currentPages,
-  } = usePagenation(filterData, 10, 5);
+    positionY,
+  } = usePagenation(filterData, 10, 5, 2300);
 
   const currentPosts = filterData
     ? filterData.slice(firstPostIndex, lastPostIndex)
@@ -119,6 +120,7 @@ const CommentDesc = ({ paramId, courseData }: CommentProps) => {
           firstPage={firstPage}
           showPages={showPages}
           currentPages={currentPages}
+          positionY={positionY}
         />
       )}
     </div>

@@ -21,7 +21,8 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
     firstPage,
     showPages,
     currentPages,
-  } = usePagenation(filteredList, 12, 5);
+    positionY,
+  } = usePagenation(filteredList, 12, 5, 900);
 
   const currentPosts = filteredList
     ? filteredList.slice(firstPostIndex, lastPostIndex)
@@ -84,6 +85,7 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
           firstPage={firstPage}
           showPages={showPages}
           currentPages={currentPages}
+          positionY={positionY}
         />
       )}
     </div>

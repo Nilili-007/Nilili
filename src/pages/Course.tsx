@@ -65,7 +65,7 @@ const Course = () => {
                 </div>
               </div>
             </div>
-            <p className="hidden sm:block mt-6 text-lg text-gray-400">
+            <p className="hidden sm:block my-6 text-lg text-gray-400">
               {date} {hours}:{seconds}
             </p>
             <CourseMap

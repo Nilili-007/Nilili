@@ -249,7 +249,7 @@ const SearchBox = () => {
 
       {/* 나올 수 있는 리스트 상태 구분 */}
       {filteredList?.length === 0 ? (
-        <p className="min-h-[1500px]">검색결과가 없습니다.</p>
+        <p className="min-h-[1500px] pt-16 text-lg">검색결과가 없습니다.</p>
       ) : isLoading ? (
         <>
           <div className="flex justify-between w-[60%] flex-wrap">
