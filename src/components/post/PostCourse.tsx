@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import {
   CourseOrderBtns,
   CourseMemo,
-  CourseLocationInfo,
+  CoursePlaceInfo,
   CourseDeleteBtn,
 } from "../common";
 import styled from "styled-components";
@@ -30,10 +30,7 @@ const PostCourse = () => {
             >
               <div className="flex">
                 <div className="w-full">
-                  <h4 className="title3">
-                    #{idx + 1} {item.name}
-                  </h4>
-                  <CourseLocationInfo lists={lists} item={item} />
+                  <CoursePlaceInfo lists={lists} item={item} idx={idx} />
                   <CourseMemo
                     idx={idx}
                     item={item}

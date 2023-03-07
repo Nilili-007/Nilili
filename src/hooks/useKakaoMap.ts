@@ -69,6 +69,8 @@ const useKakaoMap = ({ searchKeyword }: any) => {
       }
     });
   }, [searchKeyword]);
+
+  return;
 };
 
 export default useKakaoMap;

@@ -1,14 +1,18 @@
+import SearchModal from "./SearchModal";
 import MapMarkers from "./MapMarkers";
 import CourseOrderBtns from "./CourseOrderBtns";
 import CourseMemo from "./CourseMemo";
-import SearchModal from "./SearchModal";
-import CourseLocationInfo from "./CourseLocationInfo";
+import CoursePlaceInfo from "./CoursePlaceInfo";
 import CourseDeleteBtn from "./CourseDeleteBtn";
+import MobileCourseMemo from "./MobileCourseMemo";
+import MobileCourseToggleBtn from "./MobileCourseToggleBtn";
 export {
+  SearchModal,
   MapMarkers,
   CourseOrderBtns,
   CourseMemo,
-  SearchModal,
-  CourseLocationInfo,
+  CoursePlaceInfo,
   CourseDeleteBtn,
+  MobileCourseMemo,
+  MobileCourseToggleBtn,
 };

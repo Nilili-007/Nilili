@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Map } from "react-kakao-maps-sdk";
 import { SearchModal } from "../common";
-import { EditCourseInfo, EditCourseMarkers } from "./index";
+import { EditCourseInfo } from "./index";
+import { MapMarkers } from "../common";
 import { useSelector } from "react-redux";
 import { useKakaoMap } from "../../hooks";
 
@@ -39,7 +40,7 @@ const EditCourseMap = ({ modalOpen, setModalOpen }: any) => {
         onCreate={setMap}
         className="w-[70%] h-[1024px] z-0 xs:w-full xs:h-[600px]"
       >
-        <EditCourseMarkers />
+        <MapMarkers />
       </Map>
       <EditCourseInfo />
       {modalOpen && (

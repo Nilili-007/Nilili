@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import {
   CourseOrderBtns,
   CourseMemo,
-  CourseLocationInfo,
+  CoursePlaceInfo,
   CourseDeleteBtn,
 } from "../common";
 import { useGetCourseQuery } from "../../redux/modules/apiSlice";
@@ -45,10 +45,7 @@ const EditCourseInfo = () => {
             >
               <div className="w-full flex">
                 <div className="w-full">
-                  <h4 className="title3">
-                    #{idx + 1} {item.name}
-                  </h4>
-                  <CourseLocationInfo lists={lists} item={item} idx={idx} />
+                  <CoursePlaceInfo lists={lists} item={item} idx={idx} />
                   <CourseMemo
                     idx={idx}
                     item={item}

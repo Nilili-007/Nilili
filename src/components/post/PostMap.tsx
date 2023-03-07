@@ -15,8 +15,8 @@ const PostMap = ({ modalOpen, setModalOpen }: any) => {
   const filteredIdx = useSelector(
     (state: any) => state.courseSlice.filteredIdx
   );
-  console.log("post map:", searchKeyword);
-  // useKakaoMap(searchKeyword)
+  // console.log("post map:", searchKeyword);
+  // useKakaoMap(searchKeyword);
   // const boundsMap = useKakaoMap;
   // boundsMap(searchKeyword);
 

@@ -2,6 +2,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { editMemo, filterCourse } from "../../redux/modules/courseSlice";
 import TextareaAutosize from "react-textarea-autosize";
 
+// 차이점
+// 1. filteredIdx 여부로 예외 처리
+// 2. textarea 길이
+
 const EditCourseMobileMemo = ({ text, setText, item, idx }: any) => {
   const dispatch = useDispatch();
   const filteredIdx = useSelector(

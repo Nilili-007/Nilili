@@ -6,6 +6,8 @@ import useFilterCourse from "./useFilterCourse";
 import useUpCourse from "./useUpCourse";
 import useDownCourse from "./useDownCourse";
 import useDeleteCourse from "./useDeleteCourse";
+import useHandleMemo from "./useHandleMemo";
+import useAddMemo from "./useAddMemo";
 
 export {
   usePagenation,
@@ -16,4 +18,6 @@ export {
   useUpCourse,
   useDownCourse,
   useDeleteCourse,
+  useHandleMemo,
+  useAddMemo,
 };

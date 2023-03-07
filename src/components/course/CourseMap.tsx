@@ -1,6 +1,5 @@
 import { Map } from "react-kakao-maps-sdk";
 import { CourseInfo, CourseMapMarker } from "./index";
-
 interface CourseProps {
   course: CourseType | undefined;
 }
