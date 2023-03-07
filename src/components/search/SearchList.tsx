@@ -3,6 +3,7 @@ import { ListMap, Pagenation } from "../shared";
 import styled from "styled-components";
 import { logEvent } from "../../utils/amplitude";
 import usePagenation from "../../hooks/usePagenation";
+import { useGetScreenSize } from "../../hooks";
 
 interface ISearchListProps {
   filteredList: CourseType[] | undefined;
@@ -23,18 +24,20 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
     currentPages,
   } = usePagenation(filteredList, 12, 5);
 
+  useGetScreenSize();
+
   const currentPosts = filteredList
     ? filteredList.slice(firstPostIndex, lastPostIndex)
     : null;
 
   return (
     <div className="my-10  lg:max-w-6xl w-[90%] min-h-[100vh]">
-      <ul className="flex flex-wrap justify-evenly">
+      <ul className="flex flex-wrap">
         {currentPosts?.map((item) => (
           <Link
             to={`/course/${item.id}`}
             key={item.id}
-            className="xl:w-[24%] lg:w-[32%] sm:w-[47%] w-[90%] pt-6 border-t-2 border-black  "
+            className="xl:w-[23%] lg:w-[31%] w-[48%] mr-[2%]  pt-6 border-t-2 border-black  "
             onClick={() =>
               item.travelStatus === true
                 ? logEvent("post click", {
@@ -50,17 +53,21 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
             <Stdiv>
               <StMap>
                 <ListMap
-                  mapstyle={{
-                    width: "270px",
-                    height: "300px",
-                  }}
+                  mapstyle={
+                    window.innerWidth < 415
+                      ? { width: "170px", height: "170px" }
+                      : {
+                          width: "270px",
+                          height: "300px",
+                        }
+                  }
                   course={item}
                 />
               </StMap>
               <StImg
                 src={item.cover}
                 alt="대표 사진"
-                className=" border-black h-[324px] w-[300px]"
+                className=" border-black sm:h-[324px] sm:w-[300px] w-[170px] h-[194px] "
               />
             </Stdiv>
 
