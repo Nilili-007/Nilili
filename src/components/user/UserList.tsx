@@ -186,18 +186,18 @@ const UserList = ({ done, category }: UserListType) => {
             </Stdiv>
 
             <p
-              className={`pr-4 ml-1 sm:h-8  h-7  w-[98%] sm:text-2xl text-xl overflow-hidden font-black ${
+              className={`pr-4 ml-1 sm:h-9  h-7  w-[98%] sm:text-3xl text-xl overflow-hidden font-black ${
                 category === "MY" ? "mt-[-20px]" : "mt-5"
               }`}
             >
               {item.title}
             </p>
             {category === "MY" ? null : (
-              <p className="ml-1 mt-[3%]  font-medium  text-gray-400 sm:text-xl  ">
+              <p className="ml-1 mt-[3%]  font-medium  text-gray-400 text-2xl   ">
                 {item.nickname}
               </p>
             )}
-            <p className="ml-1 mt-[2%] font-medium  text-gray-400 sm:text-xl mb-[10%]">
+            <p className="ml-1 mt-[2%] font-medium  text-gray-400 text-xl mb-[10%]">
               {JSON.parse(item.createdAt).substr(0, 10)}{" "}
               {Number(JSON.parse(item.createdAt).substr(11, 2)) + 9}:
               {JSON.parse(item.createdAt).substr(14, 2)}

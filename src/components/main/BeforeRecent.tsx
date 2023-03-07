@@ -16,7 +16,7 @@ const BeforeRecent = () => {
   }
 
   return (
-    <div className=" mt-[10%]  lg:max-w-6xl w-[90%] min-h-[400px]   ">
+    <div className=" mt-[10%]  lg:max-w-6xl w-[90%] min-h-[300px]   ">
       <p className=" ml-1 my-[2%] md:bg-gray-01 w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-3xl font-bold font-eng   ">
         NOW PLANS
       </p>
@@ -57,15 +57,15 @@ const BeforeRecent = () => {
                 })
               }
             >
-              <li className=" lg:w-[26%] w-[48%]  mr-[0.1%]  inline-block mx-3 pt-6 border-t-2 border-black ">
+              <li className=" lg:w-[27%] md:w-[35%] sm:w-[52%] w-[38%] mr-[0.1%]  inline-block mx-3 pt-[2%] border-t-2 border-black ">
                 <Stdiv>
                   <StMap>
                     <ListMap
                       mapstyle={
-                        window.innerWidth < 768
-                          ? { width: "230px", height: "250px" }
+                        window.innerWidth < 415
+                          ? { width: "150px", height: "150px" }
                           : {
-                              width: "300px",
+                              width: "320px",
                               height: "350px",
                             }
                       }
@@ -75,16 +75,16 @@ const BeforeRecent = () => {
                   <StImg
                     src={item.cover}
                     alt="대표 사진"
-                    className=" mt-6 w-full md:h-[350px] h-[250px]"
+                    className=" mt-6 w-full sm:h-[350px] h-[150px]"
                   />
                 </Stdiv>
-                <p className="pr-4 ml-1 mt-5 mb-5 sm:text-2xl text-xl overflow-hidden font-black ">
+                <p className="ml-1  mt-[10%] mb-[2%] sm:h-9  h-7  w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ">
                   {item.title}
                 </p>
-                <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
+                <p className="ml-1 mt-[3%]  font-medium  text-gray-400 sm:text-2xl text-base  ">
                   {item.nickname}
                 </p>
-                <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
+                <p className="ml-1 mt-[3%] font-medium  text-gray-400 sm:text-xl mb-3  text-sm  ">
                   <CreatedDate createdAt={item.createdAt} />
                 </p>
               </li>
