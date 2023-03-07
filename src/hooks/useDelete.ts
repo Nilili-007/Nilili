@@ -20,7 +20,10 @@ const useDelete = ({ target, deleteFn }: deleteType) => {
       cancelButtonText: "아니요, 취소할래요",
     }).then((result) => {
       if (result.isConfirmed) {
-        navigate("/");
+        if (target == "게시물") {
+          navigate("/");
+        }
+        // navigate("/");
         Swal.fire({
           icon: "success",
           title: `${target}이 삭제되었습니다.`,
