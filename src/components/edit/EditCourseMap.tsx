@@ -16,7 +16,7 @@ const EditCourseMap = ({ modalOpen, setModalOpen }: any) => {
     (state: any) => state.courseSlice.filteredIdx
   );
 
-  useKakaoMap(searchKeyword);
+  useKakaoMap(map, searchKeyword, setSearchList, setSearchCnt);
 
   return (
     <div className="w-full flex h-full mb-20 xs:mb-6">
