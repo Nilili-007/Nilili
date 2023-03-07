@@ -4,16 +4,20 @@ import { ListMap } from "../shared";
 import styled from "styled-components";
 import { logEvent } from "../../utils/amplitude";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { useGetScreenSize } from "../../hooks";
 
 const BeforeRecent = () => {
   const { data, isLoading, isError } = useGetCourseQuery();
+
+  useGetScreenSize();
+
   if (isError) {
     return <>에러가 발생했습니다.</>;
   }
 
   return (
-    <div className=" mt-[5%]  lg:max-w-6xl w-[90%] min-h-[400px]   ">
-      <p className=" ml-1 my-[2%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-xl font-bold font-eng   ">
+    <div className=" mt-[10%]  lg:max-w-6xl w-[90%] min-h-[400px]   ">
+      <p className=" ml-1 my-[2%] md:bg-gray-01 w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-3xl font-bold font-eng   ">
         NOW PLANS
       </p>
       <p className=" hidden sm:block ml-2 pb-5 w-fit text-xl text-gray-04">
@@ -53,21 +57,25 @@ const BeforeRecent = () => {
                 })
               }
             >
-              <li className=" w-[26%] mr-[0.1%]  inline-block mx-3 pt-6 border-t-2 border-black ">
+              <li className=" lg:w-[26%] w-[48%]  mr-[0.1%]  inline-block mx-3 pt-6 border-t-2 border-black ">
                 <Stdiv>
                   <StMap>
                     <ListMap
-                      mapstyle={{
-                        width: "300px",
-                        height: "350px",
-                      }}
+                      mapstyle={
+                        window.innerWidth < 768
+                          ? { width: "230px", height: "250px" }
+                          : {
+                              width: "300px",
+                              height: "350px",
+                            }
+                      }
                       course={item}
                     />
                   </StMap>
                   <StImg
                     src={item.cover}
                     alt="대표 사진"
-                    className=" mt-6 w-full h-[350px]"
+                    className=" mt-6 w-full md:h-[350px] h-[250px]"
                   />
                 </Stdiv>
                 <p className="pr-4 ml-1 mt-5 mb-5 sm:text-2xl text-xl overflow-hidden font-black ">

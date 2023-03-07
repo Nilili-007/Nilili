@@ -4,16 +4,19 @@ import styled from "styled-components";
 import { ListMap } from "../shared";
 import { logEvent } from "../../utils/amplitude";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { useGetScreenSize } from "../../hooks";
 
 const AfterLike = () => {
   const { data, isLoading, isError, error } = useGetCourseLikeQuery();
+  useGetScreenSize();
+
   if (isError) {
     return <> {error}</>;
   }
 
   return (
-    <div className=" mt-[5%]   lg:max-w-6xl w-[90%] min-h-[400px]  ">
-      <p className=" ml-1 my-[2%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-xl font-bold font-eng  ">
+    <div className=" mt-[10%]   lg:max-w-6xl w-[90%] min-h-[400px]  ">
+      <p className=" ml-1 my-[2%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-3xl font-bold font-eng  ">
         BEST REVIEWS
       </p>
       <p className=" hidden sm:block ml-2 pb-5 w-fit text-xl text-gray-04">
@@ -56,10 +59,14 @@ const AfterLike = () => {
                 <Stdiv>
                   <StMap>
                     <ListMap
-                      mapstyle={{
-                        width: "370px",
-                        height: "370px",
-                      }}
+                      mapstyle={
+                        window.innerWidth < 768
+                          ? { width: "230px", height: "250px" }
+                          : {
+                              width: "370px",
+                              height: "370px",
+                            }
+                      }
                       course={item}
                     />
                   </StMap>

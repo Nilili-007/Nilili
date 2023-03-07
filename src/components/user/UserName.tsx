@@ -37,21 +37,25 @@ const UserNameEdit = () => {
       <div className="w-full h-360 bg-black shadow mb-7 pb-10">
         <div className="mx-auto flex-start lg:max-w-6xl md:items-center md:flex w-[90%]">
           <div className="flex-col">
-            <div className="font-eng eng-title1 text-white text-[32px] my-8">
+            <div className="font-eng sm:eng-title1 en-title3 text-white text-[32px] my-8">
               My Page
             </div>
-            <div className="items-center justify-center  mb-7  space-y-8 md:flex md:space-x-6 md:space-y-0">
+            <div className="items-center justify-center mb-7 flex space-x-6 space-y-0">
               <img
                 src={userImg}
                 alt=""
-                className="object-fill w-[180px] h-[180px]"
+                className="object-fill sm:w-[180px] sm:h-[180px] h-[100px] w-[100px]"
               />
               <div className="flex-col">
-                <div className="text-white title1 mb-2 ">안녕하세요,</div>
-                <div className="text-white display4 mb-10 ">{userName}님!</div>
+                <div className="text-white sm:title1 title3 mb-[5%] ">
+                  안녕하세요,
+                </div>
+                <div className="text-white sm:display4 title1 mb-[15%] ">
+                  {userName}님!
+                </div>
                 <button
                   onClick={openModal}
-                  className="body1 leading-none border-none  text-gray-300 hover:text-amber-300 mt-4 lg:mt-0"
+                  className="sm:body1 body3 leading-none border-none  text-gray-300 hover:text-amber-300"
                 >
                   프로필 수정하기
                 </button>
