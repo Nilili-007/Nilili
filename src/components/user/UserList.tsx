@@ -141,7 +141,7 @@ const UserList = ({ done, category }: UserListType) => {
           <div
             onClick={(event: any) => handleNavigate(event, item.id)}
             key={item.id}
-            className=" lg:w-[31%] md:w-[48%] sm:w-[80%] w-[48%]  mr-[2%] hover:cursor-pointer"
+            className="relative lg:w-[31%] md:w-[48%] sm:w-[80%] w-[48%]  mr-[2%] hover:cursor-pointer"
           >
             <Stdiv>
               <StMap category={category}>
@@ -157,7 +157,7 @@ const UserList = ({ done, category }: UserListType) => {
                   course={item}
                 />
               </StMap>
-              <StButtonDiv>
+              <StButtonDiv className="hidden sm:block">
                 {category !== "MY" ? null : item.travelStatus ? (
                   <button
                     onClick={(event: any) =>
@@ -184,9 +184,31 @@ const UserList = ({ done, category }: UserListType) => {
                 category={category}
               />
             </Stdiv>
+            {window.innerWidth < 415 ? (
+              <div className="ml-1 border-2 border-black w-fit p-[2px] badge relative bottom-6  ">
+                {category !== "MY" ? null : item.travelStatus ? (
+                  <button
+                    onClick={(event: any) =>
+                      changeTravelStatusFalse(event, item.id)
+                    }
+                  >
+                    여행 전으로 변경
+                  </button>
+                ) : (
+                  <button
+                    onClick={(event: any) => {
+                      changeTravelStatusTrue(event, item.id);
+                      logEvent("여행 후로 변경", { from: "유저페이지" });
+                    }}
+                  >
+                    여행 후로 변경
+                  </button>
+                )}
+              </div>
+            ) : null}
 
             <p
-              className={`pr-4 ml-1 sm:h-9  h-7  w-[98%] sm:text-3xl text-xl overflow-hidden font-black ${
+              className={`pr-4 ml-1 sm:h-9  h-7  w-[98%] sm:text-2xl text-xl overflow-hidden font-black ${
                 category === "MY" ? "mt-[-20px]" : "mt-5"
               }`}
             >
