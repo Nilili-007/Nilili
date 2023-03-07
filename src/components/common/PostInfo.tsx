@@ -82,6 +82,7 @@ const PostInfo = ({
         <input
           className="w-[85%] sm:w-[80%] md:w-[70%] sm:py-1.5 text-[24px] sm:text-2xl md:text-[46px] xs:text-xl font-bold z-40 absolute bg-transparent mt-6 sm:mt-1 md:-mt-10 placeholder:text-white focus:outline-0"
           placeholder="여기에 제목을 입력해주세요."
+          maxLength={38}
           autoFocus={true}
           value={courseTitle}
           ref={titleRef}
