@@ -13,6 +13,7 @@ import useCommentPost from "./useCommentPost";
 import useDelete from "./useDelete";
 import useOption from "./useOption";
 import useDate from "./useDate";
+import useCancelPost from "./useCancelPost";
 
 export {
   usePagenation,
@@ -30,4 +31,5 @@ export {
   useDelete,
   useOption,
   useDate,
+  useCancelPost,
 };
