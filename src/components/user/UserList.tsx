@@ -9,6 +9,7 @@ import styled from "styled-components";
 import { logEvent } from "../../utils/amplitude";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import usePagenation from "../../hooks/usePagenation";
+import { useGetScreenSize } from "../../hooks";
 
 type UserListType = {
   done: boolean;
@@ -35,6 +36,8 @@ const UserList = ({ done, category }: UserListType) => {
     showPages,
     currentPages,
   } = usePagenation(userData, 6, 5);
+
+  useGetScreenSize();
 
   const currentPosts = userData
     ? userData.slice(firstPostIndex, lastPostIndex)
@@ -133,21 +136,25 @@ const UserList = ({ done, category }: UserListType) => {
   }
 
   return (
-    <div className=" my-10 ">
+    <div className=" my-[4%] ">
       <ul className="flex flex-wrap ">
         {currentPosts?.map((item: CourseType) => (
           <div
             onClick={(event: any) => handleNavigate(event, item.id)}
             key={item.id}
-            className=" md:w-[31%] mr-[2%] hover:cursor-pointer"
+            className=" sm:w-[31%] w-[48%] mr-[2%] hover:cursor-pointer"
           >
             <Stdiv>
               <StMap category={category}>
                 <ListMap
-                  mapstyle={{
-                    width: "350px",
-                    height: "350px",
-                  }}
+                  mapstyle={
+                    window.innerWidth < 415
+                      ? { width: "150px", height: "150px" }
+                      : {
+                          width: "350px",
+                          height: "350px",
+                        }
+                  }
                   course={item}
                 />
               </StMap>
@@ -174,7 +181,7 @@ const UserList = ({ done, category }: UserListType) => {
               <StImg
                 src={item.cover}
                 alt="대표 사진"
-                className=" w-full h-[350px]"
+                className=" sm:h-[350px] sm:w-[350px] h-[150px] w-[150px]"
                 category={category}
               />
             </Stdiv>
