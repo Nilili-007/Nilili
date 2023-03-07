@@ -8,7 +8,7 @@ import { CreatedDate, ListMap, Pagenation } from "../shared";
 import styled from "styled-components";
 import { logEvent } from "../../utils/amplitude";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import usePagenation from "../../hooks/usePagenation";
+import { usePagenation } from "../../hooks";
 
 type UserListType = {
   done: boolean;
@@ -130,7 +130,7 @@ const UserList = ({ done, category }: UserListType) => {
     );
   }
   if (isError) {
-    return <>에러가 발생했습니다.</>;
+    return <>Error : 데이터를 불러오지 못했습니다.</>;
   }
   return (
     <div className=" my-10 ">

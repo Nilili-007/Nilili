@@ -4,17 +4,17 @@ import { useDate } from "../../hooks";
 const CreatedDate = ({ createdAt }: any) => {
   const { year, month, date, hour, minute } = useDate(createdAt);
   return (
-    <div className="flex gap-1 md:gap-1.5">
-      <p>
+    <>
+      <span className="mr-1.5">
         {year}.{month && month > 9 ? null : "0"}
         {month}.{date && date > 9 ? null : "0"}
         {date}
-      </p>
-      <p className="tracking-wide">
+      </span>
+      <span className="tracking-wide">
         {hour && hour > 9 ? null : "0"}
         {hour}:{minute}
-      </p>
-    </div>
+      </span>
+    </>
   );
 };
 

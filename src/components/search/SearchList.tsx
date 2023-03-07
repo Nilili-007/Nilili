@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { CreatedDate, ListMap, Pagenation } from "../shared";
 import styled from "styled-components";
 import { logEvent } from "../../utils/amplitude";
-import usePagenation from "../../hooks/usePagenation";
+import { usePagenation } from "../../hooks";
 
 interface ISearchListProps {
   filteredList: CourseType[] | undefined;

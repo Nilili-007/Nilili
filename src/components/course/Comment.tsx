@@ -58,8 +58,8 @@ const Comment = ({ comment, index }: CommentProps) => {
   };
   return (
     <div
-      className="border-b sm:p-7 px-4 py-3"
-      style={index % 2 === 0 ? { backgroundColor: "#ebebeb" } : undefined}
+      className="sm:p-7 px-4 py-3"
+      style={index % 2 === 0 ? { backgroundColor: "#F7F8F9" } : undefined}
     >
       <div className="flex justify-between">
         <div className="flex items-center sm:gap-5 mb-2 md:mb-5 gap-3">
