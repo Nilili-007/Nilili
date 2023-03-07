@@ -18,7 +18,7 @@ import Swal from "sweetalert2";
 import * as amplitude from "@amplitude/analytics-browser";
 import { logEvent } from "../utils/amplitude";
 import { usePreventLeave, useOption } from "../hooks";
-import { PostInfo } from "../components/common";
+import { PostInfo, PostManageBtns } from "../components/common";
 
 const EditCourse = () => {
   useEffect(() => {
@@ -91,6 +91,7 @@ const EditCourse = () => {
 
   // update mutation
   const [updateCourse] = useUpdateCourseMutation();
+
   const updateCourseHandler = () => {
     if (selectedRegions?.length === 0) {
       Swal.fire({
@@ -211,7 +212,7 @@ const EditCourse = () => {
         />
         <EditCourseMap />
         <EditCourseMobile />
-        <div className="flex flex-col sm:flex-row w-full justify-center gap-2 my-10 sm:gap-[5%]">
+        {/* <div className="flex flex-col sm:flex-row w-full justify-center gap-2 my-10 sm:gap-[5%]">
           <button
             onClick={() => updateCourseHandler()}
             className="w-full sm:w-[472px] bg-black border-black border-2 text-white text-md md:text-lg py-3 shadow-[0_8px_8px_rgb(0,0,0,0.25)] hover:text-black hover:bg-white "
@@ -224,7 +225,8 @@ const EditCourse = () => {
           >
             취소하기
           </button>
-        </div>
+        </div> */}
+        <PostManageBtns postHandler={updateCourseHandler} />
       </div>
     </div>
   );
