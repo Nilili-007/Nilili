@@ -134,7 +134,7 @@ const PostHeader = ({
         </div>
       </div>
       {modalOpen && (
-        <div className="w-[90%] h-[300px] lg:w-[700px] md:h-[300px] bg-white border border-gray-600 absolute sm:translate-x-[5.5%] md:translate-x-[34%] translate-y-[5%] z-[1000] xs:w-[90%]">
+        <div className="w-[90%] h-[300px] lg:w-[700px] md:h-[300px] bg-white border border-gray-600 absolute sm:translate-x-[5.5%] lg:translate-x-[34%] translate-y-[5%] z-[1000] xs:w-[90%]">
           <div className="w-[95%] m-auto py-1 xs:w-[90%]">
             <div className="border-b border-gray-600 mt-10" />
             <GrFormClose
@@ -162,7 +162,7 @@ const PostHeader = ({
                     type="file"
                     ref={coverRef}
                     onChange={onChangeUploadCover}
-                    className="w-[50%] text-black text-center bg-gray-400"
+                    className="w-[85%] md:w-[50%] text-black text-center bg-gray-02"
                   />
                 </div>
               ) : (

@@ -16,7 +16,7 @@ export interface CommentProps {
 
 const CommentDesc = ({ paramId, courseData }: CommentProps) => {
   const [desc, setDesc] = useState(true);
-  const { data, isError, error } = useGetCommentQuery();
+  const { data, isError } = useGetCommentQuery();
 
   const filterData = data?.filter(
     (comment: CommentType) => comment.postId === paramId
@@ -48,7 +48,7 @@ const CommentDesc = ({ paramId, courseData }: CommentProps) => {
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   if (isError) {
-    console.log(error);
+    return <>Error : 데이터를 불러오지 못했습니다.</>;
   }
   return (
     <div className="mb-40">
