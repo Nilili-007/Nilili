@@ -107,7 +107,18 @@ const Share = () => {
           >
             <TwitterIcon size={40} round={true} borderRadius={24} />
           </TwitterShareButton>
-          <CopyToClipboard text={currentURL}>
+          <CopyToClipboard
+            text={currentURL}
+            onCopy={() => {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "클립보드에 복사되었습니다",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }}
+          >
             <button onClick={() => shareAmplitudeEvent()}>
               <img
                 className="w-[40px] h-[40px] border rounded-full bg-white"
@@ -130,8 +141,8 @@ const Share = () => {
           </button>
         </div>
       </div>
-      <div className="md:hidden flex mt-4">
-        <div className="text-white bg-black px-2 py-1 text-[16px] sm:text-[20px] font-medium">
+      <div className="md:hidden flex flex-col mt-4">
+        <div className="text-black text-[16px] sm:text-[20px] font-medium mb-2">
           공유하기
         </div>
         <button
@@ -140,11 +151,11 @@ const Share = () => {
             shareAmplitudeEvent();
           }}
         >
-          {/* <img
+          <img
             className="w-[40px] h-[40px] object-fill"
             src="https://cdn-icons-png.flaticon.com/512/157/157960.png"
             alt="공유"
-          /> */}
+          />
         </button>
       </div>
     </>

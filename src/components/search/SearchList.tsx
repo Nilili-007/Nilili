@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-import SearchPagenation from "./SearchPagenation";
-import { ListMap } from "../shared";
+import { ListMap, Pagenation } from "../shared";
 import styled from "styled-components";
 import { logEvent } from "../../utils/amplitude";
 import usePagenation from "../../hooks/usePagenation";
@@ -10,8 +9,20 @@ interface ISearchListProps {
 }
 
 const SearchList = ({ filteredList }: ISearchListProps) => {
-  const { firstPostIndex, lastPostIndex, pages, currentPage, setCurrentPage } =
-    usePagenation(filteredList, 12);
+  const {
+    firstPostIndex,
+    lastPostIndex,
+    pages,
+    currentPage,
+    setCurrentPage,
+    pageArr,
+    setPageArr,
+    lastPage,
+    firstPage,
+    showPages,
+    currentPages,
+    positionY,
+  } = usePagenation(filteredList, 12, 5, 900);
 
   const currentPosts = filteredList
     ? filteredList.slice(firstPostIndex, lastPostIndex)
@@ -63,11 +74,20 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
         ))}
       </ul>
       {/* pagenation */}
-      <SearchPagenation
-        setCurrentPage={setCurrentPage}
-        currentPage={currentPage}
-        pages={pages}
-      />
+      {filteredList?.length === 0 ? null : (
+        <Pagenation
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+          pages={pages}
+          pageArr={pageArr}
+          setPageArr={setPageArr}
+          lastPage={lastPage}
+          firstPage={firstPage}
+          showPages={showPages}
+          currentPages={currentPages}
+          positionY={positionY}
+        />
+      )}
     </div>
   );
 };

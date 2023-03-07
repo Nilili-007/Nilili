@@ -26,9 +26,8 @@ const Weather = () => {
     getCurrentLocation();
   }, []);
 
-  return (
+  return !weather ? null : (
     <div className="flex items-center justfiy-between">
-      {/* <div>{weather?.name}</div> */}
       <div className="mr-1">{(weather?.main.temp - 273.15).toFixed(1)}°</div>
       <div className="m-1">{weather?.weather[0].main}</div>
       <div>

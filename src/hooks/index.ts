@@ -8,6 +8,10 @@ import useDownCourse from "./useDownCourse";
 import useDeleteCourse from "./useDeleteCourse";
 import useHandleMemo from "./useHandleMemo";
 import useAddMemo from "./useAddMemo";
+import useBefore from "./useBefore";
+import useCommentPost from "./useCommentPost";
+import useDelete from "./useDelete";
+import useOption from "./useOption";
 
 export {
   usePagenation,
@@ -20,4 +24,8 @@ export {
   useDeleteCourse,
   useHandleMemo,
   useAddMemo,
+  useBefore,
+  useCommentPost,
+  useDelete,
+  useOption,
 };

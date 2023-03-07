@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { useGetCommentQuery } from "../../redux/modules/apiSlice";
 import Comment from "./Comment";
 import CommentInput from "./CommentInput";
-import Pagenation from "./Pagenation";
 import { BiComment } from "react-icons/bi";
 import LikeBtn from "./LikeBtn";
 import Share from "./Share";
 import { CommentType } from "./CommentInput";
 import usePagenation from "../../hooks/usePagenation";
+import { Pagenation } from "../shared";
 
 export interface CommentProps {
   paramId: string | undefined;
@@ -22,8 +22,20 @@ const CommentDesc = ({ paramId, courseData }: CommentProps) => {
     (comment: CommentType) => comment.postId === paramId
   );
 
-  const { firstPostIndex, lastPostIndex, pages, currentPage, setCurrentPage } =
-    usePagenation(filterData, 10);
+  const {
+    firstPostIndex,
+    lastPostIndex,
+    pages,
+    currentPage,
+    setCurrentPage,
+    pageArr,
+    setPageArr,
+    lastPage,
+    firstPage,
+    showPages,
+    currentPages,
+    positionY,
+  } = usePagenation(filterData, 10, 5, 2300);
 
   const currentPosts = filterData
     ? filterData.slice(firstPostIndex, lastPostIndex)
@@ -51,37 +63,45 @@ const CommentDesc = ({ paramId, courseData }: CommentProps) => {
         <Share />
       </div>
       <CommentInput paramId={paramId} />
-      <div className="xs:mb-8 mb-10 flex">
-        <div className="text-[16px] sm:text-[20px] font-semibold flex gap-2">
-          <input
-            id="desc"
-            type="button"
-            onClick={() => {
-              setDesc(true);
-            }}
-            value="최신 순"
-            style={
-              desc === true
-                ? { fontWeight: 700, textDecoration: "underline" }
-                : undefined
-            }
-          />
-          <span>/</span>
-          <input
-            id="asc"
-            type="button"
-            onClick={() => {
-              setDesc(false);
-            }}
-            value="오래된 순"
-            style={
-              desc === false
-                ? { fontWeight: 700, textDecoration: "underline" }
-                : undefined
-            }
-          />
+      {filterData?.length === 0 ? (
+        <div className="flex justify-center">
+          {" "}
+          아직은 작성된 댓글이 없어요 :-({" "}
         </div>
-      </div>
+      ) : (
+        <div className="xs:mb-8 mb-10 flex">
+          <div className="text-[16px] sm:text-[20px] font-semibold flex gap-2">
+            <input
+              id="desc"
+              type="button"
+              onClick={() => {
+                setDesc(true);
+              }}
+              value="최신 순"
+              style={
+                desc === true
+                  ? { fontWeight: 700, textDecoration: "underline" }
+                  : undefined
+              }
+            />
+            <span>/</span>
+            <input
+              id="asc"
+              type="button"
+              onClick={() => {
+                setDesc(false);
+              }}
+              value="오래된 순"
+              style={
+                desc === false
+                  ? { fontWeight: 700, textDecoration: "underline" }
+                  : undefined
+              }
+            />
+          </div>
+        </div>
+      )}
+
       {desc === true
         ? currentPosts?.map((comment, index) => {
             return <Comment key={comment.id} comment={comment} index={index} />;
@@ -89,11 +109,20 @@ const CommentDesc = ({ paramId, courseData }: CommentProps) => {
         : currentAscPosts?.map((comment, index) => {
             return <Comment key={comment.id} comment={comment} index={index} />;
           })}
-      <Pagenation
-        setCurrentPage={setCurrentPage}
-        currentPage={currentPage}
-        pages={pages}
-      />
+      {filterData?.length === 0 ? null : (
+        <Pagenation
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+          pages={pages}
+          pageArr={pageArr}
+          setPageArr={setPageArr}
+          lastPage={lastPage}
+          firstPage={firstPage}
+          showPages={showPages}
+          currentPages={currentPages}
+          positionY={positionY}
+        />
+      )}
     </div>
   );
 };

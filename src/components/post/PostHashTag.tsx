@@ -1,5 +1,5 @@
 import Select from "react-select";
-import ColorStyles from "../shared/ColorStyles";
+import { ColorStyles } from "../shared";
 
 export const hashTagOptions = [
   { value: "가족", label: "화목하게 가족과" },
