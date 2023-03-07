@@ -42,17 +42,15 @@ const PostMobileCourse = () => {
           </div>
         </ItemCard>
       ) : (
-        <div className="lg:hidden 3xl:hidden xs:border xs:border-gray-03 xs:p-5 xs:my-8">
-          {lists.length === 0 ? (
-            <span className="text-[20px] font-bold">
-              여행지를 추가해주세요.
-            </span>
-          ) : (
-            <span className="text-[20px] font-bold">
-              지도에서 여행지를 선택해보세요.
-            </span>
+        <>
+          {lists.length === 0 ? null : (
+            <div className="lg:hidden 3xl:hidden xs:border xs:border-gray-03 xs:p-5 xs:my-8">
+              <span className="text-[20px] font-bold">
+                지도에서 여행지를 선택해보세요.
+              </span>
+            </div>
           )}
-        </div>
+        </>
       )}
       <MobileCourseToggleBtn
         lists={lists}

@@ -2,7 +2,6 @@ import PostCourse from "./PostCourse";
 import PostHashTag from "./PostHashTag";
 import PostMap from "./PostMap";
 import PostCategories from "./PostCategories";
-import PostHeader from "./PostHeader";
 import PostTravelStatus from "./PostTravelStatus";
 import PostMobileCourse from "./PostMobileCourse";
 
@@ -34,7 +33,6 @@ export {
   PostHashTag,
   PostMap,
   PostCategories,
-  PostHeader,
   PostTravelStatus,
   PostMobileCourse,
   galleryLists,
