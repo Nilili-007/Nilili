@@ -18,7 +18,7 @@ import Swal from "sweetalert2";
 import * as amplitude from "@amplitude/analytics-browser";
 import { logEvent } from "../utils/amplitude";
 import { usePreventLeave, useOption } from "../hooks";
-import { PostInfo } from "../components/common";
+import { PostInfo, PostManageBtns } from "../components/common";
 
 const Post = () => {
   useEffect(() => {
@@ -58,10 +58,9 @@ const Post = () => {
   const [condition, setCondition] = useState(false);
 
   const userID = authService.currentUser?.uid;
-
   const courseList = useSelector((state: any) => state.courseSlice.courseList);
 
-  const onClickAddPost = async (
+  const addPostHandler = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
@@ -173,23 +172,6 @@ const Post = () => {
     }
   };
 
-  const onClickCancel = () => {
-    Swal.fire({
-      title: "게시글 작성을 취소하시겠습니까?",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonColor: "#B3261E",
-      cancelButtonColor: "#50AA72",
-      confirmButtonText: "네, 다음 번에 쓸게요.",
-      cancelButtonText: "아니요, 마저 쓸게요.",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        navigate(`/`);
-        dispatch(replaceAllData([]));
-      }
-    });
-  };
-
   useEffect(() => {
     if (condition && data) {
       navigate(`/course/${data[0].id}`);
@@ -238,20 +220,7 @@ const Post = () => {
         />
         <PostMap />
         <PostMobileCourse />
-        <div className="flex flex-col sm:flex-row w-full justify-center gap-2 my-10 sm:gap-[5%]">
-          <button
-            onClick={(e) => onClickAddPost(e)}
-            className="w-full sm:w-[472px] bg-black border-black border-2 text-white text-md md:text-lg py-3 shadow-[0_8px_8px_rgb(0,0,0,0.25)] hover:text-black hover:bg-white "
-          >
-            게시물 등록하기
-          </button>
-          <button
-            onClick={onClickCancel}
-            className="w-full sm:w-[472px] bg-white border-gray-04 border text-black text-md md:text-lg py-3 shadow-[0_8px_8px_rgb(0,0,0,0.25)] hover:text-black hover:bg-white"
-          >
-            취소하기
-          </button>
-        </div>
+        <PostManageBtns postHandler={addPostHandler} />
       </div>
     </div>
   );

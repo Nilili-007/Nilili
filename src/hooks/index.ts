@@ -14,6 +14,7 @@ import useDelete from "./useDelete";
 import useOption from "./useOption";
 import useGetScreenSize from "./useGetScreenSize";
 import useDate from "./useDate";
+import useCancelPost from "./useCancelPost";
 
 export {
   usePagenation,
@@ -32,4 +33,5 @@ export {
   useOption,
   useGetScreenSize,
   useDate,
+  useCancelPost,
 };
