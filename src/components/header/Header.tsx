@@ -109,15 +109,16 @@ const Header = () => {
 
   return (
     <>
-      <nav className="w-full bg-black shadow  ">
+      <nav className="w-full bg-black shadow">
         <div className="justify-between mx-auto lg:max-w-6xl lg:items-center lg:flex w-[90%]">
           <div>
-            <div className="flex items-center justify-between py-3 lg:py-5 lg:block">
+            <div className="flex items-center justify-between py-3 lg:block">
               <button onClick={leavePresentPage}>
                 <h2 className="text-4xl leading-[26px] text-white font-bold">
                   Nilili
                 </h2>
               </button>
+
               <div className="lg:hidden">
                 <button
                   className="p-2 text-white rounded-md outline-none focus:border"
