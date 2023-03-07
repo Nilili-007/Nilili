@@ -136,20 +136,20 @@ const UserList = ({ done, category }: UserListType) => {
   }
 
   return (
-    <div className=" my-[4%] ">
+    <div className=" my-[4%] min-h-[90vh] ">
       <ul className="flex flex-wrap ">
         {currentPosts?.map((item: CourseType) => (
           <div
             onClick={(event: any) => handleNavigate(event, item.id)}
             key={item.id}
-            className=" sm:w-[31%] w-[48%] mr-[2%] hover:cursor-pointer"
+            className=" lg:w-[31%] md:w-[48%] sm:w-[80%] w-[48%]  mr-[2%] hover:cursor-pointer"
           >
             <Stdiv>
               <StMap category={category}>
                 <ListMap
                   mapstyle={
                     window.innerWidth < 415
-                      ? { width: "150px", height: "150px" }
+                      ? { width: "170px", height: "170px" }
                       : {
                           width: "350px",
                           height: "350px",
@@ -181,26 +181,26 @@ const UserList = ({ done, category }: UserListType) => {
               <StImg
                 src={item.cover}
                 alt="대표 사진"
-                className=" sm:h-[350px] sm:w-[350px] h-[150px] w-[150px]"
+                className=" sm:h-[350px] sm:w-[350px] h-[170px] w-[170px]"
                 category={category}
               />
             </Stdiv>
+
             <p
-              className={`pr-4 ml-1 mb-5  sm:text-2xl text-xl overflow-hidden font-black ${
+              className={`pr-4 ml-1 sm:h-8  h-7  sm:w-[95%] w-[60%] sm:text-2xl text-xl overflow-hidden font-black ${
                 category === "MY" ? "mt-[-20px]" : "mt-5"
-              }  `}
+              }`}
             >
               {item.title}
             </p>
             {category === "MY" ? null : (
-              <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
+              <p className="ml-1 mt-[3%]  font-medium  text-gray-400 sm:text-xl  ">
                 {item.nickname}
               </p>
             )}
-            <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
+            <p className="ml-1 mt-[2%] font-medium  text-gray-400 sm:text-xl mb-[10%]">
               {JSON.parse(item.createdAt).substr(0, 10)}{" "}
-              {Number(JSON.parse(item.createdAt).substr(11, 2)) + 9}
-              {":"}
+              {Number(JSON.parse(item.createdAt).substr(11, 2)) + 9}:
               {JSON.parse(item.createdAt).substr(14, 2)}
             </p>
           </div>

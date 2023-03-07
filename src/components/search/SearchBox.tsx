@@ -147,7 +147,7 @@ const SearchBox = () => {
 
   return (
     <>
-      <div className="mb-[2%] lg:max-w-6xl w-[90%] min-w-[370px]">
+      <div className="mb-[2%] lg:max-w-6xl w-[90%] min-w-[350px]">
         <p className="w-fit mx-auto xl:text-[50px] lg:text-[45px] sm:text-[35px] text-xl font-bold font-eng  my-[5%] ">
           EXPLORE YOUR PLANS
         </p>

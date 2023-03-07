@@ -9,9 +9,9 @@ const HashtagList = () => {
     });
   };
   return (
-    <div className="mt-[5%] bg-gray-200 w-full h-[600px]">
+    <div className="mt-[10%] bg-gray-200 w-full h-[600px]">
       <div className="mx-auto  lg:max-w-6xl w-[90%] min-h-[400px]   ">
-        <p className="mt-[5%] mb-[2%]  ml-1 my-[2%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-xl font-bold font-eng  ">
+        <p className="mt-[5%] mb-[2%]  ml-1 my-[2%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-3xl font-bold font-eng  ">
           HASHTAG IN KOREA
         </p>
         <p className=" hidden sm:block ml-2 pb-5 w-fit text-xl text-gray-04">
