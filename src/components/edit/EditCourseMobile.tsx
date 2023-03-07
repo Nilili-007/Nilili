@@ -74,17 +74,16 @@ const EditCourseMobile = () => {
                 return (
                   <ItemCard key={idx} onClick={() => getIdx(item, idx)}>
                     <div className="flex">
-                      <div>
-                        <CoursePlaceInfo lists={lists} item={item} idx={idx} />
-                        <CourseMemo
+                      <CoursePlaceInfo lists={lists} item={item} idx={idx} />
+                      <CourseDeleteBtn item={item} idx={idx} />
+                    </div>
+                    {/* <CourseMemo
                           idx={idx}
                           item={item}
                           text={text}
                           setText={setText}
-                        />
-                      </div>
-                      <CourseDeleteBtn item={item} idx={idx} />
-                    </div>
+                        /> */}
+                    <p className="mt-1 w-full ">{item.memo}</p>
                     {lists.length < 2 ? (
                       <div className="p-3.5" />
                     ) : (

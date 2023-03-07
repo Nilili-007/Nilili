@@ -7,7 +7,7 @@ const CoursePlaceInfo = ({ lists, item, idx }: any) => {
   );
 
   return (
-    <div className="w-full h-auto text-gray-04 xs:mt-1">
+    <div className="w-full h-auto text-gray-04 xs:mt-1 xs:text-sm">
       {lists.length > 0 ? (
         <>
           <PlaceName className={idx === filteredIdx ? "clicked" : " "}>
@@ -36,7 +36,6 @@ const PlaceName = styled.h4`
   }
   @media screen and (max-width: 414px) {
     font-size: 20px;
-    margin-bottom: 3px;
     &.clicked {
       color: black;
     }

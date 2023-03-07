@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
 import {
   CourseOrderBtns,
   CourseMemo,
@@ -9,6 +8,8 @@ import {
   MobileCourseMemo,
   MobileCourseToggleBtn,
 } from "../common";
+import { ItemCard } from "./PostCourse";
+import { useFilterCourse } from "../../hooks";
 
 const PostMobileCourse = () => {
   const [openCourse, setOpenCourse] = useState(false);
@@ -17,6 +18,10 @@ const PostMobileCourse = () => {
   const filteredIdx = useSelector(
     (state: any) => state.courseSlice.filteredIdx
   );
+
+  const getIdx = useFilterCourse();
+
+  lists.map((item: any) => console.log(item.name, ":", item.memo));
 
   return (
     <div className="lg:hidden 3xl:hidden xs:flex xs:flex-col">
@@ -42,17 +47,15 @@ const PostMobileCourse = () => {
           </div>
         </ItemCard>
       ) : (
-        <div className="lg:hidden 3xl:hidden xs:border xs:border-gray-03 xs:p-5 xs:my-8">
-          {lists.length === 0 ? (
-            <span className="text-[20px] font-bold">
-              여행지를 추가해주세요.
-            </span>
-          ) : (
-            <span className="text-[20px] font-bold">
-              지도에서 여행지를 선택해보세요.
-            </span>
+        <>
+          {lists.length === 0 ? null : (
+            <div className="lg:hidden 3xl:hidden xs:border xs:border-gray-03 xs:p-5 xs:my-8">
+              <span className="text-[20px] font-bold">
+                지도에서 여행지를 선택해보세요.
+              </span>
+            </div>
           )}
-        </div>
+        </>
       )}
       <MobileCourseToggleBtn
         lists={lists}
@@ -65,19 +68,18 @@ const PostMobileCourse = () => {
             <>
               {lists.map((item: any, idx: number) => {
                 return (
-                  <ItemCard key={idx}>
+                  <ItemCard key={idx} onClick={() => getIdx(item, idx)}>
                     <div className="flex">
-                      <div>
-                        <CoursePlaceInfo lists={lists} item={item} idx={idx} />
-                        <CourseMemo
+                      <CoursePlaceInfo lists={lists} item={item} idx={idx} />
+                      <CourseDeleteBtn item={item} idx={idx} />
+                    </div>
+                    {/* <CourseMemo
                           idx={idx}
                           item={item}
                           text={text}
                           setText={setText}
-                        />
-                      </div>
-                      <CourseDeleteBtn item={item} idx={idx} />
-                    </div>
+                        /> */}
+                    <p className="mt-1 w-full ">{item.memo}</p>
                     {lists.length < 2 ? (
                       <div className="p-3.5" />
                     ) : (
@@ -95,14 +97,3 @@ const PostMobileCourse = () => {
 };
 
 export default PostMobileCourse;
-
-const ItemCard = styled.div`
-  border: 1px solid #cbcdd2;
-  margin-bottom: 32px;
-  cursor: pointer;
-  padding: 20px;
-  &.clicked {
-    background: black;
-    color: white;
-  }
-`;
