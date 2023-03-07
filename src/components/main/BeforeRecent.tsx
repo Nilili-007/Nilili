@@ -57,15 +57,15 @@ const BeforeRecent = () => {
                 })
               }
             >
-              <li className=" lg:w-[27%] md:w-[35%] sm:w-[52%] w-[38%] mr-[0.1%]  inline-block mx-3 pt-[2%] border-t-2 border-black ">
+              <li className=" lg:w-[27%] md:w-[35%] sm:w-[52%] w-[40%] mr-[0.01%]  inline-block mx-3 pt-[2%] border-t-2 border-black ">
                 <Stdiv>
                   <StMap>
                     <ListMap
                       mapstyle={
                         window.innerWidth < 415
-                          ? { width: "150px", height: "150px" }
+                          ? { width: "170px", height: "170px" }
                           : {
-                              width: "320px",
+                              width: "350px",
                               height: "350px",
                             }
                       }
@@ -75,10 +75,10 @@ const BeforeRecent = () => {
                   <StImg
                     src={item.cover}
                     alt="대표 사진"
-                    className=" mt-6 w-full sm:h-[350px] h-[150px]"
+                    className=" mt-6 w-full sm:h-[350px] h-[170px]"
                   />
                 </Stdiv>
-                <p className="ml-1  mt-[10%] mb-[2%] sm:h-9  h-7  w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ">
+                <p className="ml-1  mt-[8%] mb-[2%] sm:h-9  h-7  w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ">
                   {item.title}
                 </p>
                 <p className="ml-1 mt-[3%]  font-medium  text-gray-400 sm:text-2xl text-base  ">

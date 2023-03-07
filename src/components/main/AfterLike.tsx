@@ -7,7 +7,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useGetScreenSize } from "../../hooks";
 
 const AfterLike = () => {
-  const { data, isLoading, isError, error } = useGetCourseLikeQuery();
+  const { data, isLoading, isError } = useGetCourseLikeQuery();
   useGetScreenSize();
 
   if (isError) {
@@ -31,7 +31,7 @@ const AfterLike = () => {
                 highlightColor="#444"
                 key={idx}
               >
-                <div className=" mb-3 w-[31%] mr-[2%]">
+                <div className=" mb-3 3xl:w-[31%] w-[45%]  mr-[4%]">
                   <Skeleton className="h-[300px]" />
                   <div className="mt-3">
                     <Skeleton className="w-[80%] h-[30px]" />
@@ -55,16 +55,16 @@ const AfterLike = () => {
                 logEvent("post click : AfterLike", { from: "메인페이지" })
               }
             >
-              <li className="md:w-[32%] mr-[2%] inline-block  pt-6 border-t-2 border-black ">
+              <li className="lg:w-[31%] w-[51%] mr-[2%] inline-block  pt-[2%] border-t-2 border-black ">
                 <Stdiv>
                   <StMap>
                     <ListMap
                       mapstyle={
-                        window.innerWidth < 768
-                          ? { width: "230px", height: "250px" }
+                        window.innerWidth < 415
+                          ? { width: "200px", height: "200px" }
                           : {
-                              width: "370px",
-                              height: "370px",
+                              width: "380px",
+                              height: "380px",
                             }
                       }
                       course={item}
@@ -73,16 +73,16 @@ const AfterLike = () => {
                   <StImg
                     src={item.cover}
                     alt="대표 사진"
-                    className="mt-6 w-full h-[370px]"
+                    className="mt-6 w-full sm:h-[380px] h-[200px]"
                   />
                 </Stdiv>
-                <p className="pr-4 ml-1 mt-5 mb-5  sm:text-2xl text-xl overflow-hidden font-black ">
+                <p className="ml-1  mt-[8%] mb-[2%] sm:h-9  h-7  w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ">
                   {item.title}
                 </p>
-                <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
+                <p className="ml-1 mt-[3%]  font-medium  text-gray-400 sm:text-2xl text-base  ">
                   {item.nickname}
                 </p>
-                <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
+                <p className="ml-1 mt-[3%] font-medium  text-gray-400 sm:text-xl mb-3  text-sm  ">
                   <CreatedDate createdAt={item.createdAt} />
                 </p>
               </li>

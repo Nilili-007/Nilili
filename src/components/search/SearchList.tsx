@@ -37,7 +37,7 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
           <Link
             to={`/course/${item.id}`}
             key={item.id}
-            className="xl:w-[23%] lg:w-[31%] w-[48%] mr-[2%]  pt-6 border-t-2 border-black  "
+            className="xl:w-[23%] lg:w-[31%] w-[48%] mr-[2%]  pt-[2%] border-t-2 border-black  mb-[5%]"
             onClick={() =>
               item.travelStatus === true
                 ? logEvent("post click", {
@@ -71,13 +71,13 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
               />
             </Stdiv>
 
-            <p className="pr-4 ml-1 mt-5 sm:h-16 h-14 sm:text-2xl text-xl overflow-hidden font-black ">
+            <p className=" ml-1 mt-[10%] w-[98%] sm:h-16 h-14 sm:text-2xl text-xl overflow-hidden font-black ">
               {item.title}
             </p>
-            <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
+            <p className="ml-1 mt-[3%] font-medium  text-gray-400 sm:text-xl  text-base ">
               {item.nickname}
             </p>
-            <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
+            <p className="ml-1 mt-[3%]  font-medium  text-gray-400 sm:text-xl text-sm ">
               <CreatedDate createdAt={item.createdAt} />
             </p>
           </Link>
