@@ -101,7 +101,7 @@ const Header = () => {
   return (
     <>
       <nav className="w-full bg-black shadow  ">
-        <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
+        <div className="justify-between mx-auto lg:max-w-6xl md:items-center md:flex w-[90%]">
           <div>
             <div className="flex items-center justify-between py-3 md:py-5 md:block">
               <button onClick={leavePresentPage}>
@@ -157,7 +157,7 @@ const Header = () => {
                 {isSign !== null ? (
                   isSign ? (
                     <>
-                      <li className="text-sm px-4 py-2 leading-none  text-white">
+                      <li className="badge1 px-4 py-2 leading-none  text-white">
                         <button
                           className="font-bold underline hover:text-teal-500"
                           onClick={leavePresentPage}
@@ -166,13 +166,13 @@ const Header = () => {
                         </button>
                         님 오늘은 어디로 떠나볼까요?
                       </li>
-                      <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
+                      <li className="badge1 px-4 py-2 leading-none  text-white hover:text-teal-500">
                         <button onClick={leavePresentPage}>검색하기</button>
                       </li>
-                      <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
+                      <li className=" badge1 px-4 py-2 leading-none  text-white hover:text-teal-500">
                         <button onClick={leavePresentPage}>글쓰기</button>
                       </li>
-                      <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-5000">
+                      <li className="badge1 px-4 py-2 leading-none  text-white hover:text-teal-5000">
                         <button onClick={leavePresentPage}>로그아웃</button>
                       </li>
                     </>
