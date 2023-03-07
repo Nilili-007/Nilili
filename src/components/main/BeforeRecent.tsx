@@ -5,10 +5,13 @@ import styled from "styled-components";
 import { logEvent } from "../../utils/amplitude";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useGetScreenSize } from "../../hooks";
+import { CgChevronRight, CgChevronLeft } from "react-icons/cg";
+import useSmoothHorizontalScroll from "use-smooth-horizontal-scroll";
 
 const BeforeRecent = () => {
   const { data, isLoading, isError } = useGetCourseQuery();
-
+  const { scrollContainerRef, handleScroll, scrollTo, isAtStart, isAtEnd } =
+    useSmoothHorizontalScroll();
   useGetScreenSize();
 
   if (isError) {
@@ -23,7 +26,27 @@ const BeforeRecent = () => {
       <p className=" hidden sm:block ml-2 pb-5 w-fit text-xl text-gray-04">
         NILILI 유저들의 최신 여행 계획을 함께 해보세요.
       </p>
-      <ul className="overflow-x-auto whitespace-nowrap no-scrollbar">
+      <div className="sm:flex  justify-between mb-[1%] hidden ">
+        <button
+          className="font-3xl"
+          onClick={() => scrollTo(-window.innerWidth * 0.5)}
+          disabled={isAtStart}
+        >
+          <CgChevronLeft className="text-6xl  " />
+        </button>
+        <button
+          onClick={() => scrollTo(window.innerWidth * 0.5)}
+          disabled={isAtEnd}
+        >
+          <CgChevronRight className="text-6xl  " />
+        </button>
+      </div>
+      <ul
+        className="overflow-x-auto whitespace-nowrap no-scrollbar"
+        // @ts-ignore
+        ref={scrollContainerRef}
+        onScroll={handleScroll}
+      >
         {isLoading ? (
           <div className="flex ">
             {new Array(4).fill(null).map((_, idx) => (
