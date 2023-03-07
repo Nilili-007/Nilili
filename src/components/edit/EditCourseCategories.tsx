@@ -15,8 +15,6 @@ interface EditTitleProps {
   filterTags: optionType[];
   setSelectedTags: React.Dispatch<React.SetStateAction<optionType[] | null>>;
   selectedTags: any;
-  modalOpen: boolean | null;
-  setModalOpen: React.Dispatch<React.SetStateAction<any | null>>;
 }
 const EditCourseCategories = ({
   regionsRef,
@@ -28,8 +26,6 @@ const EditCourseCategories = ({
   filterTags,
   setSelectedTags,
   selectedTags,
-  modalOpen,
-  setModalOpen,
 }: EditTitleProps) => {
   const regionLimit = 4;
   const tagLimit = 5;
@@ -44,9 +40,7 @@ const EditCourseCategories = ({
   const handleCategorySelect = (data: any) => {
     setRegions(data);
   };
-  const showModal = () => {
-    setModalOpen(!modalOpen);
-  };
+
   function handleTagSelect(data: any) {
     setSelectedTags(data);
   }
@@ -57,17 +51,11 @@ const EditCourseCategories = ({
         <div className="flex flex-col gap-2">
           <div className="w-full  flex justify-between">
             <p className="text-[18px] sm:text-3xl whitespace-normal font-bold">
-              목적지를 추가해보세요.
+              나만의 코스를 만들어보세요.
             </p>
-            <button
-              onClick={() => showModal()}
-              className="py-1 px-2 sm:hidden sm:w-[200px] bg-black text-white hover:text-black border-black border-2 hover:bg-white text-[12px]"
-            >
-              목적지 추가하기
-            </button>
           </div>
           <p className="text-gray-400 mt-1 text-[13px] sm:body2 whitespace-normal">
-            간단한 클릭으로 여행지를 추가할 수 있어요.
+            간단한 클릭으로 여행지를 추가하고 순서를 변경할 수 있어요.
           </p>
         </div>
         <div className="flex sm:float-right gap-3 sm:gap-0 border-b-[1.5px] border-gray-03 sm:border-none my-5">
@@ -103,12 +91,6 @@ const EditCourseCategories = ({
             styles={ColorStyles}
           />
         </div>
-        <button
-          onClick={() => showModal()}
-          className="hidden sm:flex lg:w-[300px] sm:w-[200px] bg-black text-white text-md px-2 py-[7px] ml-auto hover:text-black border-black border-2 hover:bg-white justify-center"
-        >
-          목적지 추가하기
-        </button>
       </div>
       <div className="mb-8 text-xs sm:text-lg">
         <Select

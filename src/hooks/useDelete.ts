@@ -1,4 +1,4 @@
-import React from "react";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 interface deleteType {
@@ -6,6 +6,8 @@ interface deleteType {
   deleteFn: any;
 }
 const useDelete = ({ target, deleteFn }: deleteType) => {
+  const navigate = useNavigate();
+
   const deleteContentHandler = (id: string | undefined) => {
     Swal.fire({
       title: `${target} 삭제`,
@@ -18,6 +20,7 @@ const useDelete = ({ target, deleteFn }: deleteType) => {
       cancelButtonText: "아니요, 취소할래요",
     }).then((result) => {
       if (result.isConfirmed) {
+        navigate("/");
         Swal.fire({
           icon: "success",
           title: `${target}이 삭제되었습니다.`,

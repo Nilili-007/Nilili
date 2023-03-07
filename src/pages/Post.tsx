@@ -10,7 +10,6 @@ import {
   PostHashTag,
   PostCategories,
   PostMap,
-  PostHeader,
   PostTravelStatus,
   PostMobileCourse,
 } from "../components/post/index";
@@ -19,6 +18,7 @@ import Swal from "sweetalert2";
 import * as amplitude from "@amplitude/analytics-browser";
 import { logEvent } from "../utils/amplitude";
 import { usePreventLeave, useOption } from "../hooks";
+import { PostInfo } from "../components/common";
 
 const Post = () => {
   useEffect(() => {
@@ -28,7 +28,6 @@ const Post = () => {
   const navigate = useNavigate();
   const [addCourse] = useAddCourseMutation();
   const { data } = useGetCourseQuery();
-  const [modalOpen, setModalOpen] = useState(false);
 
   usePreventLeave();
 
@@ -61,10 +60,6 @@ const Post = () => {
   const userID = authService.currentUser?.uid;
 
   const courseList = useSelector((state: any) => state.courseSlice.courseList);
-
-  const showModal = () => {
-    setModalOpen(!modalOpen);
-  };
 
   const onClickAddPost = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -108,7 +103,7 @@ const Post = () => {
           if (!travelStatus) {
             Swal.fire({
               icon: "success",
-              title: "훌륭한 여정이에요! 여행 후 리뷰도 꼭 부탁드려요!",
+              title: `훌륭한 여정이에요! \n 여행 후 리뷰도 꼭 부탁드려요!`,
               showConfirmButton: false,
               timer: 1500,
             });
@@ -208,7 +203,7 @@ const Post = () => {
 
   return (
     <div className="mb-[7%]">
-      <PostHeader
+      <PostInfo
         uploadCover={uploadCover}
         setUploadCover={setUploadCover}
         galleryCover={galleryCover}
@@ -220,19 +215,11 @@ const Post = () => {
       <div className="w-[85%] md:w-[70%] h-auto mx-auto md:mt-[100px] mt-0 ">
         <div className="flex flex-col-reverse md:flex-row">
           <div className="flex flex-col gap-2">
-            <div className="w-full flex justify-between">
-              <p className="text-[18px] sm:text-3xl whitespace-normal font-bold">
-                목적지를 추가해보세요.
-              </p>
-              <button
-                onClick={() => showModal()}
-                className="py-1 px-2 sm:hidden sm:w-[200px] bg-black text-white hover:text-black border-black border-2 hover:bg-white text-[12px]"
-              >
-                목적지 추가하기
-              </button>
-            </div>
-            <p className="text-gray-400 mt-1 text-[13px] sm:body2 whitespace-normal">
-              간단한 클릭으로 여행지를 추가할 수 있어요.
+            <p className="text-[18px] sm:text-3xl whitespace-normal font-bold">
+              나만의 코스를 만들어보세요.
+            </p>
+            <p className="text-gray-400 mt-1 text-[13px] sm:body2 whitespace-normal xs:-mt-1">
+              간단한 클릭으로 여행지를 추가하고 순서를 변경할 수 있어요.
             </p>
           </div>
           <PostTravelStatus
@@ -240,24 +227,16 @@ const Post = () => {
             setTravelStatus={setTravelStatus}
           />
         </div>
-        <div className="flex items-center gap-4">
-          <PostCategories
-            regionsRef={regionsRef}
-            regions={regions}
-            setRegions={setRegions}
-          />
-          <button
-            onClick={() => showModal()}
-            className="hidden sm:flex lg:w-[300px] sm:w-[200px] bg-black text-white text-md px-2 py-[7px] ml-auto hover:text-black border-black border-2 hover:bg-white justify-center"
-          >
-            목적지 추가하기
-          </button>
-        </div>
+        <PostCategories
+          regionsRef={regionsRef}
+          regions={regions}
+          setRegions={setRegions}
+        />
         <PostHashTag
           selectedTags={selectedTags}
           setSelectedTags={setSelectedTags}
         />
-        <PostMap modalOpen={modalOpen} setModalOpen={setModalOpen} />
+        <PostMap />
         <PostMobileCourse />
         <div className="flex flex-col sm:flex-row w-full justify-center gap-2 my-10 sm:gap-[5%]">
           <button

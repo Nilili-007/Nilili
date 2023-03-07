@@ -5,11 +5,12 @@ import {
   CourseMemo,
   CoursePlaceInfo,
   CourseDeleteBtn,
+  SearchModalAddCourseBtn,
 } from "../common";
 import styled from "styled-components";
 import { useFilterCourse } from "../../hooks";
 
-const PostCourse = () => {
+const PostCourse = ({ setModalOpen }: any) => {
   const lists = useSelector((state: any) => state.courseSlice.courseList);
   const filteredIdx = useSelector(
     (state: any) => state.courseSlice.filteredIdx
@@ -20,7 +21,8 @@ const PostCourse = () => {
 
   return (
     <div className="w-[35%] pl-7 float-right xs:hidden">
-      <div className="flex flex-col h-[1024px] overflow-y-scroll ">
+      <SearchModalAddCourseBtn setModalOpen={setModalOpen} />
+      <div className="flex flex-col h-[932px] overflow-y-scroll ">
         {lists?.map((item: any, idx: number) => {
           return (
             <ItemCard
