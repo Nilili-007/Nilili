@@ -110,7 +110,7 @@ const UserList = ({ done, category }: UserListType) => {
     filterData();
   }, [data, category, done]);
 
-  if (!isLoading) {
+  if (isLoading) {
     return (
       <div className="flex flex-row flex-wrap">
         {new Array(9).fill(null).map((_, idx) => (
@@ -139,11 +139,17 @@ const UserList = ({ done, category }: UserListType) => {
           <div
             onClick={(event: any) => handleNavigate(event, item.id)}
             key={item.id}
-            className=" w-[33%] "
+            className=" md:w-[31%] mr-[2%] hover:cursor-pointer"
           >
             <Stdiv>
               <StMap category={category}>
-                <ListMap course={item} />
+                <ListMap
+                  mapstyle={{
+                    width: "350px",
+                    height: "350px",
+                  }}
+                  course={item}
+                />
               </StMap>
               <StButtonDiv>
                 {category !== "MY" ? null : item.travelStatus ? (
@@ -152,7 +158,7 @@ const UserList = ({ done, category }: UserListType) => {
                       changeTravelStatusFalse(event, item.id)
                     }
                   >
-                    여행 전으로 토글
+                    여행 전으로 변경
                   </button>
                 ) : (
                   <button
@@ -161,26 +167,33 @@ const UserList = ({ done, category }: UserListType) => {
                       logEvent("여행 후로 변경", { from: "유저페이지" });
                     }}
                   >
-                    여행 후로 토글
+                    여행 후로 변경
                   </button>
                 )}
               </StButtonDiv>
               <StImg
                 src={item.cover}
                 alt="대표 사진"
-                className=" border-black h-[300px] w-[300px]"
+                className=" w-full h-[350px]"
+                category={category}
               />
             </Stdiv>
-
-            <p className="pr-4 ml-1 mt-5 sm:h-16 h-14 sm:text-2xl text-xl overflow-hidden font-black ">
+            <p
+              className={`pr-4 ml-1 mb-5  sm:text-2xl text-xl overflow-hidden font-black ${
+                category === "MY" ? "mt-[-20px]" : "mt-5"
+              }  `}
+            >
               {item.title}
             </p>
-            <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
-              {item.nickname}
-            </p>
+            {category === "MY" ? null : (
+              <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
+                {item.nickname}
+              </p>
+            )}
             <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
               {JSON.parse(item.createdAt).substr(0, 10)}{" "}
-              {Number(JSON.parse(item.createdAt).substr(11, 2)) + 9}:
+              {Number(JSON.parse(item.createdAt).substr(11, 2)) + 9}
+              {":"}
               {JSON.parse(item.createdAt).substr(14, 2)}
             </p>
           </div>
@@ -210,18 +223,23 @@ const StButtonDiv = styled.div`
   position: relative;
   z-index: 1;
   opacity: 0%;
-  bottom: 150px;
-  left: 70px;
+  bottom: 185px;
+  left: 24%;
   font-size: 25px;
-
+  width: fit-content;
   &:hover {
     font-weight: 700;
+    background-color: rgba(245, 158, 11, 0.8);
+  }
+  & > button {
+    padding-right: 10px;
+    padding-left: 10px;
   }
 `;
 
-const StImg = styled.img`
+const StImg = styled.img<{ category: string }>`
   position: absolute;
-  bottom: 24px;
+  bottom: ${(props) => (props.category === "MY" ? "37.5px" : "0px")};
 `;
 
 const StMap = styled.div<{ category: string }>`

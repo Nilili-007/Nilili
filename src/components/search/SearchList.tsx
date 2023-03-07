@@ -28,7 +28,7 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
     : null;
 
   return (
-    <div className="my-10  3xl:w-[55%] md:w-[60%] w-[90%] min-h-[100vh]">
+    <div className="my-10  lg:max-w-6xl w-[90%] min-h-[100vh]">
       <ul className="flex flex-wrap justify-evenly">
         {currentPosts?.map((item) => (
           <Link
@@ -49,7 +49,13 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
           >
             <Stdiv>
               <StMap>
-                <ListMap course={item} />
+                <ListMap
+                  mapstyle={{
+                    width: "270px",
+                    height: "300px",
+                  }}
+                  course={item}
+                />
               </StMap>
               <StImg
                 src={item.cover}

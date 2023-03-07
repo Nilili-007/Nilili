@@ -12,7 +12,7 @@ const AfterLike = () => {
   }
 
   return (
-    <div className=" my-[2%]  3xl:w-[55%] md:w-[60%] w-[90%] min-h-[400px]  ">
+    <div className=" mt-[5%]   lg:max-w-6xl w-[90%] min-h-[400px]  ">
       <p className=" ml-1 my-[2%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-xl font-bold font-eng  ">
         BEST REVIEWS
       </p>
@@ -43,7 +43,7 @@ const AfterLike = () => {
 
         {data
           ?.filter((item: CourseType) => item.travelStatus === true)
-          .slice(0, 3)
+          .slice(0, 16)
           .map((item) => (
             <Link
               to={`/course/${item.id}`}
@@ -52,15 +52,21 @@ const AfterLike = () => {
                 logEvent("post click : AfterLike", { from: "메인페이지" })
               }
             >
-              <li className="md:w-[31%] w-[360px]  inline-block mx-3 pt-6 border-t-2 border-black ">
+              <li className="md:w-[32%] mr-[2%] inline-block  pt-6 border-t-2 border-black ">
                 <Stdiv>
                   <StMap>
-                    <ListMap course={item} />
+                    <ListMap
+                      mapstyle={{
+                        width: "370px",
+                        height: "370px",
+                      }}
+                      course={item}
+                    />
                   </StMap>
                   <StImg
                     src={item.cover}
                     alt="대표 사진"
-                    className=" pt-6 border-t-2 border-black h-[324px] w-[300px]"
+                    className="mt-6 w-full h-[370px]"
                   />
                 </Stdiv>
                 <p className="pr-4 ml-1 mt-5 mb-5  sm:text-2xl text-xl overflow-hidden font-black ">

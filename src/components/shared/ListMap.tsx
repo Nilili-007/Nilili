@@ -5,9 +5,10 @@ import { useEffect, useState, useMemo } from "react";
 
 interface ListProps {
   course: CourseType;
+  mapstyle: { height: string; width: string };
 }
 
-const ListMap = ({ course }: ListProps) => {
+const ListMap = ({ course, mapstyle }: ListProps) => {
   const courseList = JSON.parse(course.courseList);
 
   const [map, setMap] = useState<kakao.maps.Map>();
@@ -37,11 +38,7 @@ const ListMap = ({ course }: ListProps) => {
         lat: courseList[0].position.lat,
         lng: courseList[0].position.lng,
       }}
-      style={{
-        // 지도의 크기
-        width: "300px",
-        height: "300px",
-      }}
+      style={mapstyle}
       level={8} // 지도의 확대 레벨
       onCreate={setMap}
       draggable={false} //드래그 금지
