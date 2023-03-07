@@ -22,7 +22,7 @@ const Landing = () => {
         <div className="flex">
           <Link
             to={"/search"}
-            className="flex border-white border text-white font-eng eng-title4 hover:bg-amber-500 hover:bg-opacity-80 p-[12px]"
+            className="flex border-white border text-white font-eng eng-title4 hover:bg-amber-500 hover:bg-opacity-70 p-[12px]"
             onClick={() => {
               navigate("/search");
               logEvent("button click : 코스보기", {
@@ -37,7 +37,7 @@ const Landing = () => {
       </div>
       <button>
         <CgChevronDown
-          className=" text-white text-7xl font-[1000]  hover:bg-amber-500 hover:bg-opacity-80  absolute bottom-[1%] left-[46%]"
+          className=" text-white text-7xl font-[1000]  hover:bg-amber-500 hover:bg-opacity-70  absolute bottom-[1%] left-[46%]"
           onClick={scrollToList}
         />
       </button>

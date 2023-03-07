@@ -224,12 +224,12 @@ const StButtonDiv = styled.div`
   z-index: 1;
   opacity: 0%;
   bottom: 185px;
-  left: 24%;
+  left: 23%;
   font-size: 25px;
   width: fit-content;
   &:hover {
     font-weight: 700;
-    background-color: rgba(245, 158, 11, 0.8);
+    background-color: rgba(245, 158, 11, 0.6);
   }
   & > button {
     padding-right: 10px;

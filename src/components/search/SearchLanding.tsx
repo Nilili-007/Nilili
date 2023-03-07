@@ -16,7 +16,7 @@ const SearchLanding = () => {
       </div>
       <button>
         <CgChevronDown
-          className=" text-white text-7xl font-[1000]  hover:bg-amber-500 hover:bg-opacity-80  absolute bottom-[1%] left-[46%]"
+          className=" text-white text-7xl font-[1000]  hover:bg-amber-500 hover:bg-opacity-70  absolute bottom-[1%] left-[46%]"
           onClick={scrollToList}
         />
       </button>
