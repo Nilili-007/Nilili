@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { hashTagOptions } from "../components/post/PostHashTag";
 import { regionOptions } from "../components/post/PostCategories";
-import { PostHeader } from "../components/post";
 import { replaceAllData } from "../redux/modules/courseSlice";
 import {
   useGetCourseQuery,
@@ -19,6 +18,7 @@ import Swal from "sweetalert2";
 import * as amplitude from "@amplitude/analytics-browser";
 import { logEvent } from "../utils/amplitude";
 import { usePreventLeave, useOption } from "../hooks";
+import { PostInfo } from "../components/common";
 
 const EditCourse = () => {
   useEffect(() => {
@@ -31,7 +31,6 @@ const EditCourse = () => {
   );
   const course = filterData?.pop();
   const navigate = useNavigate();
-  const [modalOpen, setModalOpen] = useState(false);
 
   usePreventLeave();
 
@@ -189,7 +188,7 @@ const EditCourse = () => {
 
   return (
     <div className="mb-[7%]">
-      <PostHeader
+      <PostInfo
         uploadCover={uploadCover}
         setUploadCover={setUploadCover}
         galleryCover={galleryCover}
@@ -209,10 +208,8 @@ const EditCourse = () => {
           filterTags={filterTags}
           setSelectedTags={setSelectedTags}
           selectedTags={selectedTags}
-          modalOpen={modalOpen}
-          setModalOpen={setModalOpen}
         />
-        <EditCourseMap modalOpen={modalOpen} setModalOpen={setModalOpen} />
+        <EditCourseMap />
         <EditCourseMobile />
         <div className="flex flex-col sm:flex-row w-full justify-center gap-2 my-10 sm:gap-[5%]">
           <button

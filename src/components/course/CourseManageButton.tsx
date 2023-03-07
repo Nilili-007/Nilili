@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { replaceAllData } from "../../redux/modules/courseSlice";
 import { useDeleteCourseMutation } from "../../redux/modules/apiSlice";
 import styled from "styled-components";
-import Swal from "sweetalert2";
 import { useDelete } from "../../hooks";
 
 interface CourseManageButtonProps {

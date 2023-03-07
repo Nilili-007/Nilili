@@ -91,6 +91,7 @@ const Header = () => {
         dispatch(replaceAllData([]));
       }
     }
+    setNavbar(false);
   };
 
   const auth = getAuth();
@@ -190,12 +191,22 @@ const Header = () => {
                         <button onClick={leavePresentPage}>검색하기</button>
                       </li>
                       <li className="badge1 px-4 py-2 leading-none  text-white hover:text-amber-300">
-                        <button onClick={() => navigate("/login")}>
+                        <button
+                          onClick={() => {
+                            navigate("/login");
+                            setNavbar(false);
+                          }}
+                        >
                           로그인
                         </button>
                       </li>
                       <li className="badge1px-4 py-2 leading-none  text-white hover:text-amber-300">
-                        <button onClick={() => navigate("/register")}>
+                        <button
+                          onClick={() => {
+                            navigate("/register");
+                            setNavbar(false);
+                          }}
+                        >
                           회원가입
                         </button>
                       </li>

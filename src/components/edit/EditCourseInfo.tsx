@@ -6,12 +6,13 @@ import {
   CourseMemo,
   CoursePlaceInfo,
   CourseDeleteBtn,
+  SearchModalAddCourseBtn,
 } from "../common";
 import { useGetCourseQuery } from "../../redux/modules/apiSlice";
 import { useParams } from "react-router-dom";
 import { useFilterCourse } from "../../hooks";
 
-const EditCourseInfo = () => {
+const EditCourseInfo = ({ setModalOpen }: any) => {
   const [text, setText] = useState<any>("");
 
   const paramId = useParams().id;
@@ -34,8 +35,9 @@ const EditCourseInfo = () => {
   }, [reduxLists]);
 
   return (
-    <div className="w-[472px] pl-7 float-right xs:hidden">
-      <div className="flex flex-col h-[1024px] overflow-y-scroll ">
+    <div className="w-[35%] pl-7 float-right xs:hidden">
+      <SearchModalAddCourseBtn setModalOpen={setModalOpen} />
+      <div className="flex flex-col h-[932px] overflow-y-scroll ">
         {lists?.map((item: any, idx: any) => {
           return (
             <ItemCard

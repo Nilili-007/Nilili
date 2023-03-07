@@ -38,7 +38,7 @@ const SearchModal = ({
     setText("");
   };
 
-  const onClickAddCourse = (item: any) => {
+  const addPlace = (item: any) => {
     const targetItem = {
       name: item.place_name,
       address: item.address_name,
@@ -64,10 +64,19 @@ const SearchModal = ({
       }).then((result) => {
         if (result.isConfirmed) {
           dispatch(addCourse(targetItem));
+          setModalOpen(false);
+          setSearchList([]);
+          setSearchKeyword("");
+        }
+        if (result.isDismissed) {
+          setModalOpen(true);
         }
       });
     } else {
       dispatch(addCourse(targetItem));
+      setModalOpen(false);
+      setSearchList([]);
+      setSearchKeyword("");
     }
   };
 
@@ -106,7 +115,7 @@ const SearchModal = ({
           return (
             <div
               key={item.id}
-              onClick={() => onClickAddCourse(item)}
+              onClick={() => addPlace(item)}
               className="pt-3 cursor-pointer hover:border-white hover:bg-black hover:text-white xs:pt-1"
             >
               <h5 className="title3 px-8 xs:px-5 xs:text-[16px]">

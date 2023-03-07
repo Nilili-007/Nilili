@@ -33,7 +33,7 @@ const PostCategories = ({ regions, setRegions, regionsRef }: titleProps) => {
   const limit = 4;
 
   return (
-    <div className="flex w-full sm:w-[80%] items-center h-16 gap-4 text-xs sm:text-lg">
+    <div className="flex w-full items-center h-16 gap-4 text-xs sm:text-lg">
       <Select
         ref={regionsRef}
         options={regionOptions}
