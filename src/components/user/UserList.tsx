@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useUpdateTravelStatusMutation } from "../../redux/modules/apiSlice";
-import { ListMap, Pagenation } from "../shared";
+import { CreatedDate, ListMap, Pagenation } from "../shared";
 import styled from "styled-components";
 import { logEvent } from "../../utils/amplitude";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
@@ -179,9 +179,7 @@ const UserList = ({ done, category }: UserListType) => {
               {item.nickname}
             </p>
             <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
-              {JSON.parse(item.createdAt).substr(0, 10)}{" "}
-              {Number(JSON.parse(item.createdAt).substr(11, 2)) + 9}:
-              {JSON.parse(item.createdAt).substr(14, 2)}
+              <CreatedDate createdAt={item.createdAt} />
             </p>
           </div>
         ))}

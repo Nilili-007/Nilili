@@ -6,6 +6,7 @@ import useBefore from "./useBefore";
 import useCommentPost from "./useCommentPost";
 import useDelete from "./useDelete";
 import useOption from "./useOption";
+import useDate from "./useDate";
 
 export {
   kakaoPagenation,
@@ -16,4 +17,5 @@ export {
   useCommentPost,
   useDelete,
   useOption,
+  useDate,
 };
