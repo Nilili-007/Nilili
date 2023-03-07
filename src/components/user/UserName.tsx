@@ -52,34 +52,39 @@ const UserNameEdit = () => {
       ) : (
         <></>
       )}
-      <div className="w-full h-360 bg-black shadow mb-7 pb-10">
-        <div className="mx-auto flex-start lg:max-w-6xl md:items-center md:flex w-[90%]">
-          <div className="flex-col">
-            <div className="font-eng sm:eng-title1 en-title3 text-white text-[32px] my-8">
-              My Page
-            </div>
-            <div className="items-center justify-center mb-7 flex space-x-6 space-y-0">
+      <div className="w-full h-360 bg-black shadow mb-[2%] pb-[3%]">
+        <div className=" lg:max-w-6xl w-[90%] mx-auto ">
+          <div className="font-eng sm:eng-title1  eng-title3  text-white text-[32px] mt-[3%]">
+            My Page
+          </div>
+          <div className="flex gap-[3%] mt-[2%]">
+            <div>
               <img
                 src={userImg}
-                alt=""
-                className="object-fill sm:w-[180px] sm:h-[180px] h-[100px] w-[100px]"
+                alt="프로필 이미지"
+                className="object-fill sm:w-[200px] sm:h-[200px] h-[120px] w-[120px]"
               />
-              <div className="flex-col">
-                <div className="text-white sm:title1 title3 mb-[5%] ">
-                  안녕하세요,
-                </div>
-                <div className="text-white sm:display4 title1 mb-[15%] ">
-                  {userName}님!
-                </div>
-                <button
-                  onClick={openProfileEditModal}
-                  className="sm:body1 body3 leading-none border-none  text-gray-300 hover:text-amber-300"
-                >
-                  프로필 수정하기
-                </button>
+            </div>
+            <div>
+              <p className="text-white sm:title1 body3  mb-[3%] ">
+                안녕하세요,
+              </p>
+
+              <p className="text-white sm:display5 title3 mb-[12%] ">
+                {userName}님!
+              </p>
+
+              <button
+                onClick={openProfileEditModal}
+                className="sm:body1 badge1  border-none  text-gray-300 hover:text-amber-300 mb-[3%]"
+              >
+                프로필 수정하기
+              </button>
+
+              <div>
                 <button
                   onClick={openUserEditModal}
-                  className="text-sm leading-none border-none underline text-gray-300 hover:text-teal-500 mt-4 lg:mt-0"
+                  className="sm:text-lg text-xs  border-none underline text-gray-300 hover:text-amber-300"
                 >
                   이메일/비밀번호 변경하기
                 </button>
