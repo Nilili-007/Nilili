@@ -22,7 +22,7 @@ const Landing = () => {
         <div className="flex">
           <Link
             to={"/search"}
-            className="flex border-white border text-white font-eng eng-title4 hover:bg-amber-500 hover:bg-opacity-70 p-[12px]"
+            className="flex border-white border text-white font-eng eng-title4 hover:bg-amber-500 bg-opacity-70 bg-black hover:bg-opacity-70 p-[12px]"
             onClick={() => {
               navigate("/search");
               logEvent("button click : 코스보기", {
