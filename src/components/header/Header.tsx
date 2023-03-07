@@ -49,38 +49,46 @@ const Header = () => {
         if (result.isConfirmed) {
           if (text === "Nilili") {
             navigate(`/`);
+            dispatch(replaceAllData([]));
           }
           if (text === userName) {
             navigate(`/user/${userID}`);
+            dispatch(replaceAllData([]));
           }
           if (text === "검색하기") {
             navigate("/search");
+            dispatch(replaceAllData([]));
           }
           if (text === "글쓰기") {
-            dispatch(replaceAllData([]));
             navigate("/post");
+            dispatch(replaceAllData([]));
           }
           if (text === "로그아웃") {
             logoutBtn();
+            dispatch(replaceAllData([]));
           }
         }
       });
     } else {
       if (text === "Nilili") {
         navigate(`/`);
+        dispatch(replaceAllData([]));
       }
       if (text === userName) {
         navigate(`/user/${userID}`);
+        dispatch(replaceAllData([]));
       }
       if (text === "검색하기") {
         navigate("/search");
+        dispatch(replaceAllData([]));
       }
       if (text === "글쓰기") {
-        dispatch(replaceAllData([]));
         navigate("/post");
+        dispatch(replaceAllData([]));
       }
       if (text === "로그아웃") {
         logoutBtn();
+        dispatch(replaceAllData([]));
       }
     }
   };

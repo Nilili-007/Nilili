@@ -16,7 +16,7 @@ export interface CommentProps {
 
 const CommentDesc = ({ paramId, courseData }: CommentProps) => {
   const [desc, setDesc] = useState(true);
-  const { data, isError, error } = useGetCommentQuery();
+  const { data, isError } = useGetCommentQuery();
 
   const filterData = data?.filter(
     (comment: CommentType) => comment.postId === paramId
@@ -34,7 +34,8 @@ const CommentDesc = ({ paramId, courseData }: CommentProps) => {
     firstPage,
     showPages,
     currentPages,
-  } = usePagenation(filterData, 10, 5);
+    positionY,
+  } = usePagenation(filterData, 10, 5, 2300);
 
   const currentPosts = filterData
     ? filterData.slice(firstPostIndex, lastPostIndex)
@@ -47,7 +48,7 @@ const CommentDesc = ({ paramId, courseData }: CommentProps) => {
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   if (isError) {
-    console.log(error);
+    return <>Error : 데이터를 불러오지 못했습니다.</>;
   }
   return (
     <div className="mb-40">
@@ -119,6 +120,7 @@ const CommentDesc = ({ paramId, courseData }: CommentProps) => {
           firstPage={firstPage}
           showPages={showPages}
           currentPages={currentPages}
+          positionY={positionY}
         />
       )}
     </div>

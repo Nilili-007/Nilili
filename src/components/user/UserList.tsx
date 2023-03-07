@@ -4,12 +4,11 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useUpdateTravelStatusMutation } from "../../redux/modules/apiSlice";
-import { ListMap, Pagenation } from "../shared";
+import { CreatedDate, ListMap, Pagenation } from "../shared";
 import styled from "styled-components";
 import { logEvent } from "../../utils/amplitude";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import usePagenation from "../../hooks/usePagenation";
-import { useGetScreenSize } from "../../hooks";
+import { usePagenation, useGetScreenSize } from "../../hooks";
 
 type UserListType = {
   done: boolean;
@@ -35,7 +34,8 @@ const UserList = ({ done, category }: UserListType) => {
     firstPage,
     showPages,
     currentPages,
-  } = usePagenation(userData, 6, 5);
+    positionY,
+  } = usePagenation(userData, 6, 5, 300);
 
   useGetScreenSize();
 
@@ -132,9 +132,8 @@ const UserList = ({ done, category }: UserListType) => {
     );
   }
   if (isError) {
-    return <>에러가 발생했습니다.</>;
+    return <>Error : 데이터를 불러오지 못했습니다.</>;
   }
-
   return (
     <div className=" my-[4%] min-h-[90vh] ">
       <ul className="flex flex-wrap ">
@@ -207,7 +206,12 @@ const UserList = ({ done, category }: UserListType) => {
         ))}
       </ul>
       {/* pagenation */}
-      {userData?.length === 0 ? null : (
+      {userData?.length === 0 ? (
+        <div className="h-52 flex pt-16 justify-center text-sm sm:text-lg flex-wrap">
+          {category === "MY" ? "작성된" : "좋아요를 누른"}{" "}
+          {done ? "여행 후" : "여행 전"} 게시물이 없습니다.
+        </div>
+      ) : (
         <Pagenation
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}
@@ -218,6 +222,7 @@ const UserList = ({ done, category }: UserListType) => {
           firstPage={firstPage}
           showPages={showPages}
           currentPages={currentPages}
+          positionY={positionY}
         />
       )}
     </div>

@@ -12,24 +12,17 @@ import { authService } from "../utils/firebase";
 import { useEffect, useState } from "react";
 import { SyncLoader } from "react-spinners";
 import * as amplitude from "@amplitude/analytics-browser";
+import { CreatedDate } from "../components/shared";
 
 const Course = () => {
   const { data, isLoading } = useGetCourseQuery();
   const paramId = useParams().id;
-  let date;
-  let hours;
-  let seconds;
   const filterData = data?.filter(
     (course: CourseType) => course.id === paramId
   );
   const courseData = filterData?.pop();
   const [filteredIdx, setFilteredIdx] = useState(0);
 
-  if (courseData?.createdAt !== undefined) {
-    date = JSON.parse(courseData?.createdAt).substr(0, 10);
-    hours = Number(JSON.parse(courseData?.createdAt).substr(11, 2)) + 9;
-    seconds = JSON.parse(courseData?.createdAt).substr(14, 2);
-  }
   useEffect(() => {
     amplitude.track("상세페이지 접속");
     window.scrollTo({ top: 0 });
@@ -60,13 +53,13 @@ const Course = () => {
                     {courseData?.nickname}
                   </h3>
                   <p className="text-[12px] sm:hidden caption text-gray-400">
-                    {date} {hours}:{seconds}
+                    <CreatedDate createdAt={courseData?.createdAt} />
                   </p>
                 </div>
               </div>
             </div>
-            <p className="hidden sm:block mt-6 text-lg text-gray-400">
-              {date} {hours}:{seconds}
+            <p className="hidden sm:block my-6 text-lg text-gray-400">
+              <CreatedDate createdAt={courseData?.createdAt} />
             </p>
             <CourseMap
               course={courseData}

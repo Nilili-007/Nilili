@@ -1,6 +1,7 @@
 import { getAuth } from "firebase/auth";
 import { useState, useRef } from "react";
 import ProfileEdit from "./ProfileEdit";
+import UserInfoEdit from "./UserInfoEdit";
 
 const UserNameEdit = () => {
   const auth = getAuth();
@@ -8,26 +9,43 @@ const UserNameEdit = () => {
   const userName = user?.displayName;
   const userImg: any = user?.photoURL;
 
-  const [modal, setModal] = useState(false);
+  const [profileEditModal, setProfileEdit] = useState(false);
+  const [userEdit, setUserEdit] = useState(false);
   const modalRef = useRef<HTMLDivElement | null>(null);
 
-  const openModal = () => {
-    setModal(true);
+  const openProfileEditModal = () => {
+    setProfileEdit(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const openUserEditModal = () => {
+    setUserEdit(true);
     document.body.style.overflow = "hidden";
   };
 
   const modalOutClick = (e: any) => {
     if (modalRef.current === e.target) {
-      setModal(false);
+      setProfileEdit(false);
+      setUserEdit(false);
     }
   };
 
   return (
     <>
-      {modal ? (
+      {profileEditModal ? (
         <ProfileEdit
-          modal={modal}
-          setModal={setModal}
+          profileEditModal={profileEditModal}
+          setProfileEdit={setProfileEdit}
+          modalRef={modalRef}
+          modalOutClick={modalOutClick}
+        />
+      ) : (
+        <></>
+      )}
+      {userEdit ? (
+        <UserInfoEdit
+          userEdit={userEdit}
+          setUserEdit={setUserEdit}
           modalRef={modalRef}
           modalOutClick={modalOutClick}
         />
@@ -54,10 +72,16 @@ const UserNameEdit = () => {
                   {userName}님!
                 </div>
                 <button
-                  onClick={openModal}
+                  onClick={openProfileEditModal}
                   className="sm:body1 body3 leading-none border-none  text-gray-300 hover:text-amber-300"
                 >
                   프로필 수정하기
+                </button>
+                <button
+                  onClick={openUserEditModal}
+                  className="text-sm leading-none border-none underline text-gray-300 hover:text-teal-500 mt-4 lg:mt-0"
+                >
+                  이메일/비밀번호 변경하기
                 </button>
               </div>
             </div>

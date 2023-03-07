@@ -254,7 +254,7 @@ const SearchBox = () => {
 
       {/* 나올 수 있는 리스트 상태 구분 */}
       {filteredList?.length === 0 ? (
-        <p className="min-h-[100vh]">검색결과가 없습니다.</p>
+        <p className="min-h-[100vh] pt-16 text-lg">검색결과가 없습니다.</p>
       ) : isLoading ? (
         <div className=" flex justify-between flex-wrap mb-[2%]  3xl:w-[55%] md:w-[60%] w-[90%] min-w-[370px]">
           {new Array(12).fill(null).map((_, idx) => (
@@ -271,7 +271,7 @@ const SearchBox = () => {
           ))}
         </div>
       ) : isError ? (
-        <p className="min-h-[1500px]">에러가 발생했습니다.</p>
+        <p className="min-h-[1500px]">Error : 데이터를 불러오지 못했습니다.</p>
       ) : (
         <SearchList filteredList={filteredList} />
       )}

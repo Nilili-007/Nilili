@@ -1,6 +1,6 @@
 import { useGetCourseQuery } from "../../redux/modules/apiSlice";
 import { Link } from "react-router-dom";
-import { ListMap } from "../shared";
+import { CreatedDate, ListMap } from "../shared";
 import styled from "styled-components";
 import { logEvent } from "../../utils/amplitude";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
@@ -12,7 +12,7 @@ const BeforeRecent = () => {
   useGetScreenSize();
 
   if (isError) {
-    return <>에러가 발생했습니다.</>;
+    return <>Error : 데이터를 불러오지 못했습니다.</>;
   }
 
   return (
@@ -85,10 +85,7 @@ const BeforeRecent = () => {
                   {item.nickname}
                 </p>
                 <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
-                  {JSON.parse(item.createdAt).substr(0, 10)}{" "}
-                  {Number(JSON.parse(item.createdAt).substr(11, 2)) + 9}
-                  {":"}
-                  {JSON.parse(item.createdAt).substr(14, 2)}
+                  <CreatedDate createdAt={item.createdAt} />
                 </p>
               </li>
             </Link>

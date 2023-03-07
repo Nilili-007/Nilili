@@ -82,7 +82,11 @@ const EditCourse = () => {
     }
     setRegions(filterRegion);
     setSelectedTags(filterTags);
-    setGalleryCover(course?.cover);
+    if (course?.cover?.includes("data:image/")) {
+      setUploadCover(course?.cover);
+    } else {
+      setGalleryCover(course?.cover);
+    }
     dispatch(replaceAllData(JSON.parse(course?.courseList)));
   }, [data]);
 
@@ -102,7 +106,6 @@ const EditCourse = () => {
         icon: "error",
         title: "제목을 입력해주세요!",
         didClose: () => {
-          window.scrollTo({ top: 0, behavior: "smooth" });
           titleRef.current?.focus();
         },
       });
@@ -209,11 +212,7 @@ const EditCourse = () => {
           modalOpen={modalOpen}
           setModalOpen={setModalOpen}
         />
-        <EditCourseMap
-          initLists={course}
-          modalOpen={modalOpen}
-          setModalOpen={setModalOpen}
-        />
+        <EditCourseMap modalOpen={modalOpen} setModalOpen={setModalOpen} />
         <EditCourseMobile />
         <div className="flex flex-col sm:flex-row w-full justify-center gap-2 my-10 sm:gap-[5%]">
           <button

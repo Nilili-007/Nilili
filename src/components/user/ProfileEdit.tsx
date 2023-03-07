@@ -6,21 +6,21 @@ import { authService, storage } from "../../utils/firebase";
 import Swal from "sweetalert2";
 
 interface ProfileEditModal {
-  modal: boolean;
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  profileEditModal: boolean;
+  setProfileEdit: React.Dispatch<React.SetStateAction<boolean>>;
   modalOutClick: (e: any) => void;
   modalRef: React.ForwardedRef<HTMLDivElement>;
 }
 
 const ProfileEdit = ({
-  modal,
-  setModal,
+  profileEditModal,
+  setProfileEdit,
   modalRef,
   modalOutClick,
 }: ProfileEditModal) => {
   const closeModal = () => {
-    if (modal) {
-      setModal(false);
+    if (profileEditModal) {
+      setProfileEdit(false);
       document.body.style.overflow = "unset";
     }
   };
@@ -72,7 +72,7 @@ const ProfileEdit = ({
           showConfirmButton: false,
           timer: 1500,
         });
-        setModal(false);
+        setProfileEdit(false);
         navigate(`/user/${userID}`);
       })
       .catch((error) => {
@@ -87,7 +87,7 @@ const ProfileEdit = ({
   const cancleBtn = () => {
     setImg(userImg);
     setNickname(userName);
-    setModal(false);
+    setProfileEdit(false);
   };
 
   return (
