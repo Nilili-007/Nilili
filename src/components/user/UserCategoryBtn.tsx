@@ -13,10 +13,12 @@ const UserCategoryBtn = () => {
   const userName = user?.displayName;
 
   return (
-    <div className="flex flex-col w-[70%]">
-      <div className="flex  border-b-4 border-black">
+    <div className="flex flex-col  lg:max-w-6xl w-[90%]   min-h-[57vh] ">
+      <div className="flex  border-b-2 border-black ">
         <button
-          className={`body1 p-4 ${category === "MY" ? null : "text-gray-04"} `}
+          className={`body4  sm:body1 mr-[7%] py-4 ${
+            category === "MY" ? "border-b-[3px] border-black" : "text-gray-04"
+          } `}
           onClick={() => {
             refetch();
             setCategory("MY");
@@ -25,7 +27,9 @@ const UserCategoryBtn = () => {
           내 게시글
         </button>
         <button
-          className={`body1 p-4 ${category === "MY" ? "text-gray-04" : null} `}
+          className={` body4 sm:body1 py-4 ${
+            category === "MY" ? "text-gray-04" : "border-b-[3px] border-black"
+          } `}
           onClick={() => {
             refetch();
             setCategory("LK");
@@ -34,24 +38,24 @@ const UserCategoryBtn = () => {
           좋아요 한 게시글
         </button>
       </div>
-      <div className="flex flex-row justify-between items-center ">
+      <div className=" flex flex-row justify-between items-center border-b-4 border-black mt-[3%] ">
         <div>
           {category === "MY" ? (
-            <p className=" ml-4 my-[2%] w-fit  eng-display2 font-eng ">
+            <p className=" ml-1 my-[8%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-3xl font-bold font-eng ">
               MY PATH
             </p>
           ) : (
-            <p className=" ml-4 my-[2%] w-fit  eng-display2 font-eng ">
+            <p className=" ml-1 my-[8%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-3xl font-bold font-eng ">
               MY LIKES
             </p>
           )}
-          <p className=" hidden sm:block ml-4 pb-5 w-fit body2 text-gray-04">
+          <p className="hidden md:block ml-2 pb-5 w-fit text-xl text-gray-04 ">
             {userName}님이 작성한 여행 여정을 되돌아보세요.
           </p>
         </div>
         <div>
           <button
-            className={`badge border border-black px-[20px] py-[8px] ${
+            className={`badge border border-black sm:px-[20px] sm:py-[8px] p-1 ${
               done === false ? "bg-black text-white " : null
             } `}
             onClick={() => {
@@ -62,7 +66,7 @@ const UserCategoryBtn = () => {
             여행 전
           </button>
           <button
-            className={`badge border border-black px-[20px] py-[8px] ${
+            className={`badge border border-black sm:px-[20px] sm:py-[8px] p-1 ${
               done === true ? "bg-black text-white " : null
             } `}
             onClick={() => {

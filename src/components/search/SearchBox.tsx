@@ -30,7 +30,6 @@ const SearchBox = () => {
   const [searchParams] = useSearchParams();
   const { data } = useGetCourseQuery();
 
-  console.log(hashtags);
   const {
     data: conditionData,
     isLoading,
@@ -148,89 +147,95 @@ const SearchBox = () => {
 
   return (
     <>
-      <div className="mb-[2%] 3xl:w-[60%] 2xl:w-[70%] w-[90%] min-w-[370px]">
-        <p className=" w-fit mx-auto xl:text-[55px] lg:text-[45px] sm:text-[35px]  text-2xl font-bold my-[5%]">
-          WHAT ARE YOUR PLANS?
+      <div className="mb-[2%] lg:max-w-6xl w-[90%] min-w-[300px]">
+        <p className="w-fit mx-auto xl:text-[50px] lg:text-[45px] sm:text-[35px] text-xl font-bold font-eng  my-[5%] ">
+          EXPLORE YOUR PLANS
         </p>
         <div className="w-full border border-black flex flex-col items-center">
-          <div className="w-full flex flex-row justify-between indent-2">
-            <div className="body2 w-[180px] p-3 xs:body3 text-white bg-black">
-              지역 검색
-            </div>
-            <Select
-              className="z-50 w-full m-3 leading-7 text-[22px] xs:body3"
-              classNamePrefix="select"
-              options={regionOptions}
-              placeholder={"지역명"}
-              autoFocus={true}
-              isMulti
-              isSearchable={true}
-              isClearable={true}
-              onChange={locationOnChangeHandler}
-              value={locations}
-              styles={ColorStyles}
-            />
-          </div>
-          <div className="w-full flex flex-row indent-2 ">
-            <div className="body2 w-[180px] p-3 xs:body3 text-white bg-black">
-              #해시태그
-            </div>
-            <Select
-              className="z-30 w-full m-3 leading-7 text-[22px] xs:body3"
-              classNamePrefix="select"
-              options={hashTagOptions}
-              isMulti
-              isSearchable={true}
-              isClearable={true}
-              placeholder={"#해시태그"}
-              onChange={hashtagOnChangeHandler}
-              value={hashtags}
-              styles={ColorStyles}
-            />
-          </div>
+          <div className="border-b-2 w-full">
+            <div className="w-full flex flex-row justify-between indent-2">
+              <div className="body2 w-[180px] p-[1%] sm:p-4   xs:body3 text-white bg-black hidden md:block">
+                지역 검색
+              </div>
 
-          <div className="w-full flex flex-row indent-2 ">
-            <div className="body2 w-[180px] p-3 xs:body3 text-white bg-black">
-              검색어
+              <Select
+                className="z-50 w-full m-[0.5%] sm:m-[1%]  leading-7 text-[22px] xs:body3"
+                classNamePrefix="select"
+                options={regionOptions}
+                placeholder={"지역명"}
+                autoFocus={true}
+                isMulti
+                isSearchable={false}
+                isClearable={true}
+                onChange={locationOnChangeHandler}
+                value={locations}
+                styles={ColorStyles}
+              />
             </div>
-            <input
-              className={
-                "rounded-sm indent-4 border border-gray-300 w-full m-3 h-[38px] placeholder:text-sm"
-              }
-              placeholder="검색어를 입력하세요."
-              value={words}
-              onChange={(event) => setWords(event.target.value)}
-              onKeyUp={(e) => {
-                if (e.key === "Enter") {
-                  navigate(
-                    `/search?lc=${JSON.stringify(
-                      locations
-                    )}&ht=${JSON.stringify(hashtags)}&ts=${JSON.stringify(
-                      travelStatus
-                    )}&ws=${words}`
-                  );
-                  filterData();
+          </div>
+          <div className="border-b-2 w-full">
+            <div className="w-full flex flex-row indent-2 ">
+              <div className="body2 w-[180px] p-[1%] sm:p-4  xs:body3 text-white bg-black hidden md:block">
+                #해시태그
+              </div>
+              <Select
+                className="z-30 w-full m-[0.5%] sm:m-[1%]  leading-7 text-[22px] xs:body3"
+                classNamePrefix="select"
+                options={hashTagOptions}
+                isMulti
+                isSearchable={false}
+                isClearable={true}
+                placeholder={"#해시태그"}
+                onChange={hashtagOnChangeHandler}
+                value={hashtags}
+                styles={ColorStyles}
+              />
+            </div>
+          </div>
+          <div className="border-b-2 w-full">
+            <div className="w-full flex flex-row indent-2 ">
+              <div className="body2 w-[180px] p-[1%] sm:p-4  xs:body3 text-white bg-black hidden md:block">
+                검색어
+              </div>
+              <input
+                className={
+                  "rounded-sm indent-4 border border-gray-300 w-full m-[0.5%] sm:m-[1%]   h-[38px] placeholder:text-sm"
                 }
-              }}
-            />
-          </div>
-
-          <div className="w-full flex flex-row indent-2 ">
-            <div className="body2 w-[180px] p-3 xs:body3 text-white bg-black">
-              여행 전/후
+                placeholder="검색어를 입력하세요."
+                value={words}
+                onChange={(event) => setWords(event.target.value)}
+                onKeyUp={(e) => {
+                  if (e.key === "Enter") {
+                    navigate(
+                      `/search?lc=${JSON.stringify(
+                        locations
+                      )}&ht=${JSON.stringify(hashtags)}&ts=${JSON.stringify(
+                        travelStatus
+                      )}&ws=${words}`
+                    );
+                    filterData();
+                  }
+                }}
+              />
             </div>
-            <Select
-              className="z-20 w-full m-3 leading-7 text-[22px] xs:body3"
-              classNamePrefix="select"
-              isClearable={true}
-              placeholder={"전/후"}
-              options={travelStatusOptions}
-              onChange={travelStatusOnChangeHandler}
-              styles={ColorStyles}
-              value={travelStatus}
-            />
           </div>
-
+          <div className="border-b-2 w-full">
+            <div className="w-full flex flex-row indent-2 ">
+              <div className="body2 w-[180px] p-[1%] sm:p-4   xs:body3 text-white bg-black hidden md:block">
+                여행 전/후
+              </div>
+              <Select
+                className="z-20 w-full m-[0.5%] sm:m-[1%]  leading-7 text-[22px] xs:body3"
+                classNamePrefix="select"
+                isClearable={true}
+                placeholder={"전/후"}
+                options={travelStatusOptions}
+                onChange={travelStatusOnChangeHandler}
+                styles={ColorStyles}
+                value={travelStatus}
+              />
+            </div>
+          </div>
           <button
             className="button2 w-[20%] p-1 xs:body3 m-3 text-white bg-black hover:shadow-lg"
             onClick={() => {
@@ -249,28 +254,22 @@ const SearchBox = () => {
 
       {/* 나올 수 있는 리스트 상태 구분 */}
       {filteredList?.length === 0 ? (
-        <p className="min-h-[1500px] pt-16 text-lg">검색결과가 없습니다.</p>
+        <p className="min-h-[100vh] pt-16 text-lg">검색결과가 없습니다.</p>
       ) : isLoading ? (
-        <>
-          <div className="flex justify-between w-[60%] flex-wrap">
-            {new Array(12).fill(null).map((_, idx) => (
-              <SkeletonTheme
-                baseColor="#202020"
-                highlightColor="#444"
-                key={idx}
-              >
-                <div className=" mb-3 ">
-                  <Skeleton width={300} height={300} />
-                  <div className="mt-3">
-                    <Skeleton width={200} height={30} />
-                    <Skeleton width={50} height={25} />
-                    <Skeleton width={150} height={15} />
-                  </div>
+        <div className=" flex justify-between flex-wrap mb-[2%]  3xl:w-[55%] md:w-[60%] w-[90%] min-w-[370px]">
+          {new Array(12).fill(null).map((_, idx) => (
+            <SkeletonTheme baseColor="#202020" highlightColor="#444" key={idx}>
+              <div className="  mb-[5%] w-[23%] mr-[2%]">
+                <Skeleton className="h-[300px]" />
+                <div className="mt-3">
+                  <Skeleton className="w-[80%] h-[30px]" />
+                  <Skeleton className="w-[30%]  h-[25px]" />
+                  <Skeleton className="w-[60%] h-[20px]" />
                 </div>
-              </SkeletonTheme>
-            ))}
-          </div>
-        </>
+              </div>
+            </SkeletonTheme>
+          ))}
+        </div>
       ) : isError ? (
         <p className="min-h-[1500px]">Error : 데이터를 불러오지 못했습니다.</p>
       ) : (

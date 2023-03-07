@@ -1,26 +1,25 @@
+import { CgChevronDown } from "react-icons/cg";
+
 const SearchLanding = () => {
   const scrollToList = () => {
     window.scrollTo({ top: window.innerHeight * 0.8, behavior: "smooth" });
   };
 
   return (
-    <div className="flex justify-end items-center flex-wrap overflow-auto sm:h-[70vh] w-full aspect-video  bg-no-repeat bg-cover bg-center sm:bg-fixed bg-[url('https://user-images.githubusercontent.com/117059420/217974553-ac861bb0-b64d-48a4-ad4c-092fcce81720.jpg')] min-w-[370px] ">
-      <div className="mr-[10%]">
-        <p className="mb-10  lg:text-[45px] md:text-[38px] sm:text-[35px] text-xl leading-loose  text-white font-bold ">
+    <div className="relative flex items-center flex-wrap sm:h-[70vh] w-full aspect-video  bg-no-repeat bg-cover bg-center sm:bg-fixed bg-[url('https://user-images.githubusercontent.com/117059420/223002576-1052c64a-8d13-4581-be68-069dab701d2b.jpg')] min-w-[370px] hidden md:block ">
+      <div className="absolute bottom-[35%] left-[20%] ">
+        <p className="display3   text-white  ">
+          이제 NILILI에서
           <br />
-          금수강산 명소 찾아
-          <br />
-          신명난 즐길거리 찾아
-          <br />
-          여행을 떠나보세요
+          여행 코스를 찾아보세요.
         </p>
-        <button
-          className="hidden sm:block border-white border text-white font-medium mx-3  hover:bg-amber-500  text-xl w-48 py-2 my-auto"
-          onClick={scrollToList}
-        >
-          검색하러 가기
-        </button>
       </div>
+      <button>
+        <CgChevronDown
+          className=" text-white text-7xl font-[1000]  hover:bg-amber-500 hover:bg-opacity-70  absolute bottom-[1%] left-[46%]"
+          onClick={scrollToList}
+        />
+      </button>
     </div>
   );
 };

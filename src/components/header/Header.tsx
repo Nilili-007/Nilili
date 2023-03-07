@@ -110,23 +110,23 @@ const Header = () => {
   return (
     <>
       <nav className="w-full bg-black shadow  ">
-        <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
+        <div className="justify-between mx-auto lg:max-w-6xl lg:items-center lg:flex w-[90%]">
           <div>
-            <div className="flex items-center justify-between py-3 md:py-5 md:block">
+            <div className="flex items-center justify-between py-3 lg:py-5 lg:block">
               <button onClick={leavePresentPage}>
-                <h2 className="text-[30px] leading-[26px] text-white font-bold">
+                <h2 className="text-4xl leading-[26px] text-white font-bold">
                   Nilili
                 </h2>
               </button>
-              <div className="md:hidden">
+              <div className="lg:hidden">
                 <button
-                  className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
+                  className="p-2 text-white rounded-md outline-none focus:border"
                   onClick={() => setNavbar(!navbar)}
                 >
                   {navbar ? (
                     <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-6 h-6"
+                      xmlns="http://www.w3.org/3000/svg"
+                      className=" w-4 h-4 "
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >
@@ -138,8 +138,8 @@ const Header = () => {
                     </svg>
                   ) : (
                     <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-6 h-6"
+                      xmlns="http://www.w3.org/3000/svg"
+                      className=" w-7 h-7"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -158,39 +158,39 @@ const Header = () => {
           </div>
           <div>
             <div
-              className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
+              className={`flex-1 justify-self-center pb-3 mt-8 lg:block lg:pb-0 lg:mt-0 ${
                 navbar ? "block" : "hidden"
               }`}
             >
-              <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
+              <ul className="items-center justify-center space-y-8 lg:flex lg:space-x-6 lg:space-y-0">
                 {isSign !== null ? (
                   isSign ? (
                     <>
-                      <li className="text-sm px-4 py-2 leading-none  text-white">
+                      <li className="badge1 px-4 py-2 leading-none  text-white">
                         <button
-                          className="font-bold underline hover:text-teal-500"
+                          className="font-bold underline hover:text-amber-300"
                           onClick={leavePresentPage}
                         >
                           {userName}
                         </button>
                         님 오늘은 어디로 떠나볼까요?
                       </li>
-                      <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
+                      <li className="badge1 px-4 py-2 leading-none  text-white hover:text-amber-300">
                         <button onClick={leavePresentPage}>검색하기</button>
                       </li>
-                      <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
+                      <li className=" badge1  px-4 py-2 leading-none  text-white hover:text-amber-300">
                         <button onClick={leavePresentPage}>글쓰기</button>
                       </li>
-                      <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-5000">
+                      <li className="badge1 px-4 py-2 leading-none  text-white hover:text-amber-300">
                         <button onClick={leavePresentPage}>로그아웃</button>
                       </li>
                     </>
                   ) : (
                     <>
-                      <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
+                      <li className="badge1 px-4 py-2 leading-none  text-white hover:text-amber-300">
                         <button onClick={leavePresentPage}>검색하기</button>
                       </li>
-                      <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
+                      <li className="badge1 px-4 py-2 leading-none  text-white hover:text-amber-300">
                         <button
                           onClick={() => {
                             navigate("/login");
@@ -200,7 +200,7 @@ const Header = () => {
                           로그인
                         </button>
                       </li>
-                      <li className="text-sm px-4 py-2 leading-none  text-white hover:text-teal-500">
+                      <li className="badge1px-4 py-2 leading-none  text-white hover:text-amber-300">
                         <button
                           onClick={() => {
                             navigate("/register");
