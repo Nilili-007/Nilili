@@ -1,5 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { logEvent } from "../../utils/amplitude";
+import { CgChevronDown } from "react-icons/cg";
+import { AiOutlineSwapRight } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const Landing = () => {
   const scrollToList = () => {
@@ -9,25 +12,17 @@ const Landing = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex justify-end  items-center flex-wrap overflow-auto sm:h-[70vh] w-full aspect-video  bg-no-repeat bg-cover bg-center sm:bg-fixed bg-[url('https://user-images.githubusercontent.com/117059420/217982337-b6b4d259-e3d2-4535-8e62-ca8d5d27082f.jpg')] min-w-[370px] ">
-      <div className="hidden sm:block mr-[10%]">
-        <p className=" mb-10  lg:text-[45px] md:text-[38px] sm:text-[35px] text-xl leading-loose  text-white font-bold ">
+    <div className="relative items-center flex-wrap overflow-auto sm:h-[70vh] w-full aspect-video  bg-no-repeat bg-cover bg-center sm:bg-fixed bg-[url('https://images.unsplash.com/photo-1618237600880-fb9d72e98393?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')] min-w-[370px] hidden md:block ">
+      <div className="absolute bottom-[25%] left-[20%] ">
+        <p className=" mb-10 display3   text-white bg-black bg-opacity-40 rounded-full  ">
+          나만의 코스로 여행하고
           <br />
-          금수강산 명소 찾아
-          <br />
-          신명난 즐길거리 찾아
-          <br />
-          여행을 떠나보세요
+          늴리리에서 공유해보세요.
         </p>
         <div className="flex">
-          <button
-            className="hidden sm:block border-white border text-white font-medium mx-3  hover:bg-amber-500  text-xl w-48 py-2 my-auto"
-            onClick={scrollToList}
-          >
-            아래로 스크롤
-          </button>
-          <button
-            className=" border-white border text-white font-medium  hover:bg-amber-500  text-xl w-48 py-2 my-auto"
+          <Link
+            to={"/search"}
+            className="flex border-white border text-white font-eng eng-title4 hover:bg-amber-500 hover:bg-opacity-70 p-[12px]"
             onClick={() => {
               navigate("/search");
               logEvent("button click : 코스보기", {
@@ -35,10 +30,17 @@ const Landing = () => {
               });
             }}
           >
-            코스보기
-          </button>
+            FIND MORE
+            <AiOutlineSwapRight className="ml-2 font-eng eng-title1 " />
+          </Link>
         </div>
       </div>
+      <button>
+        <CgChevronDown
+          className=" text-white text-7xl font-[1000]  hover:bg-amber-500 hover:bg-opacity-70  absolute bottom-[1%] left-[46%]"
+          onClick={scrollToList}
+        />
+      </button>
     </div>
   );
 };

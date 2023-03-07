@@ -12,6 +12,7 @@ import useBefore from "./useBefore";
 import useCommentPost from "./useCommentPost";
 import useDelete from "./useDelete";
 import useOption from "./useOption";
+import useGetScreenSize from "./useGetScreenSize";
 import useDate from "./useDate";
 
 export {
@@ -29,5 +30,6 @@ export {
   useCommentPost,
   useDelete,
   useOption,
+  useGetScreenSize,
   useDate,
 };

@@ -8,7 +8,7 @@ import { CreatedDate, ListMap, Pagenation } from "../shared";
 import styled from "styled-components";
 import { logEvent } from "../../utils/amplitude";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import { usePagenation } from "../../hooks";
+import { usePagenation, useGetScreenSize } from "../../hooks";
 
 type UserListType = {
   done: boolean;
@@ -36,6 +36,8 @@ const UserList = ({ done, category }: UserListType) => {
     currentPages,
     positionY,
   } = usePagenation(userData, 6, 5, 300);
+
+  useGetScreenSize();
 
   const currentPosts = userData
     ? userData.slice(firstPostIndex, lastPostIndex)
@@ -113,15 +115,15 @@ const UserList = ({ done, category }: UserListType) => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-between flex-wrap">
+      <div className="flex flex-row flex-wrap">
         {new Array(9).fill(null).map((_, idx) => (
           <SkeletonTheme baseColor="#202020" highlightColor="#444" key={idx}>
-            <div className=" mb-3 ">
-              <Skeleton width={300} height={300} />
+            <div className=" mb-[5%] w-[31%] mr-[2%]">
+              <Skeleton className=" h-[300px]" />
               <div className="mt-3">
-                <Skeleton width={200} height={30} />
-                <Skeleton width={50} height={25} />
-                <Skeleton width={150} height={15} />
+                <Skeleton className="w-[80%] h-[30px]" />
+                <Skeleton className="w-[30%]  h-[25px]" />
+                <Skeleton className="w-[60%] h-[20px]" />
               </div>
             </div>
           </SkeletonTheme>
@@ -133,26 +135,36 @@ const UserList = ({ done, category }: UserListType) => {
     return <>Error : 데이터를 불러오지 못했습니다.</>;
   }
   return (
-    <div className=" my-10 ">
+    <div className=" my-[4%] min-h-[90vh] ">
       <ul className="flex flex-wrap ">
         {currentPosts?.map((item: CourseType) => (
           <div
             onClick={(event: any) => handleNavigate(event, item.id)}
             key={item.id}
-            className=" w-[33%] "
+            className="relative lg:w-[31%] md:w-[48%] sm:w-[80%] w-[48%]  mr-[2%] hover:cursor-pointer"
           >
             <Stdiv>
               <StMap category={category}>
-                <ListMap course={item} />
+                <ListMap
+                  mapstyle={
+                    window.innerWidth < 415
+                      ? { width: "170px", height: "170px" }
+                      : {
+                          width: "350px",
+                          height: "350px",
+                        }
+                  }
+                  course={item}
+                />
               </StMap>
-              <StButtonDiv>
+              <StButtonDiv className="hidden sm:block">
                 {category !== "MY" ? null : item.travelStatus ? (
                   <button
                     onClick={(event: any) =>
                       changeTravelStatusFalse(event, item.id)
                     }
                   >
-                    여행 전으로 토글
+                    여행 전으로 변경
                   </button>
                 ) : (
                   <button
@@ -161,25 +173,56 @@ const UserList = ({ done, category }: UserListType) => {
                       logEvent("여행 후로 변경", { from: "유저페이지" });
                     }}
                   >
-                    여행 후로 토글
+                    여행 후로 변경
                   </button>
                 )}
               </StButtonDiv>
               <StImg
                 src={item.cover}
                 alt="대표 사진"
-                className=" border-black h-[300px] w-[300px]"
+                className=" sm:h-[350px] sm:w-[350px] h-[170px] w-[170px]"
+                category={category}
               />
             </Stdiv>
+            {window.innerWidth < 415 ? (
+              <div className="ml-1 border-2 border-black w-fit p-[2px] badge relative bottom-6  ">
+                {category !== "MY" ? null : item.travelStatus ? (
+                  <button
+                    onClick={(event: any) =>
+                      changeTravelStatusFalse(event, item.id)
+                    }
+                  >
+                    여행 전으로 변경
+                  </button>
+                ) : (
+                  <button
+                    onClick={(event: any) => {
+                      changeTravelStatusTrue(event, item.id);
+                      logEvent("여행 후로 변경", { from: "유저페이지" });
+                    }}
+                  >
+                    여행 후로 변경
+                  </button>
+                )}
+              </div>
+            ) : null}
 
-            <p className="pr-4 ml-1 mt-5 sm:h-16 h-14 sm:text-2xl text-xl overflow-hidden font-black ">
+            <p
+              className={`pr-4 ml-1 sm:h-9  h-7  w-[98%] sm:text-2xl text-xl overflow-hidden font-black ${
+                category === "MY" ? "mt-[-20px]" : "mt-5"
+              }`}
+            >
               {item.title}
             </p>
-            <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
-              {item.nickname}
-            </p>
-            <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
-              <CreatedDate createdAt={item.createdAt} />
+            {category === "MY" ? null : (
+              <p className="ml-1 mt-[3%]  font-medium  text-gray-400 text-2xl   ">
+                {item.nickname}
+              </p>
+            )}
+            <p className="ml-1 mt-[2%] font-medium  text-gray-400 text-xl mb-[10%]">
+              {JSON.parse(item.createdAt).substr(0, 10)}{" "}
+              {Number(JSON.parse(item.createdAt).substr(11, 2)) + 9}:
+              {JSON.parse(item.createdAt).substr(14, 2)}
             </p>
           </div>
         ))}
@@ -214,18 +257,23 @@ const StButtonDiv = styled.div`
   position: relative;
   z-index: 1;
   opacity: 0%;
-  bottom: 150px;
-  left: 70px;
+  bottom: 185px;
+  left: 23%;
   font-size: 25px;
-
+  width: fit-content;
   &:hover {
     font-weight: 700;
+    background-color: rgba(245, 158, 11, 0.6);
+  }
+  & > button {
+    padding-right: 10px;
+    padding-left: 10px;
   }
 `;
 
-const StImg = styled.img`
+const StImg = styled.img<{ category: string }>`
   position: absolute;
-  bottom: 24px;
+  bottom: ${(props) => (props.category === "MY" ? "37.5px" : "0px")};
 `;
 
 const StMap = styled.div<{ category: string }>`

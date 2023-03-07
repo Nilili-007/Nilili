@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { CreatedDate, ListMap, Pagenation } from "../shared";
 import styled from "styled-components";
 import { logEvent } from "../../utils/amplitude";
-import { usePagenation } from "../../hooks";
+import { usePagenation, useGetScreenSize } from "../../hooks";
 
 interface ISearchListProps {
   filteredList: CourseType[] | undefined;
@@ -24,18 +24,20 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
     positionY,
   } = usePagenation(filteredList, 12, 5, 900);
 
+  useGetScreenSize();
+
   const currentPosts = filteredList
     ? filteredList.slice(firstPostIndex, lastPostIndex)
     : null;
 
   return (
-    <div className="my-10 3xl:w-[60%] 2xl:w-[70%] w-[90%] min-h-[1500px]">
-      <ul className="flex flex-wrap justify-evenly">
+    <div className="my-10  lg:max-w-6xl w-[90%] min-h-[100vh]">
+      <ul className="flex flex-wrap">
         {currentPosts?.map((item) => (
           <Link
             to={`/course/${item.id}`}
             key={item.id}
-            className="xl:w-[24%] lg:w-[32%] sm:w-[47%] w-[90%] pt-6 border-t-2 border-black  "
+            className="xl:w-[23%] lg:w-[31%] w-[48%] mr-[2%]  pt-[2%] border-t-2 border-black  mb-[5%]"
             onClick={() =>
               item.travelStatus === true
                 ? logEvent("post click", {
@@ -50,22 +52,32 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
           >
             <Stdiv>
               <StMap>
-                <ListMap course={item} />
+                <ListMap
+                  mapstyle={
+                    window.innerWidth < 415
+                      ? { width: "170px", height: "170px" }
+                      : {
+                          width: "270px",
+                          height: "300px",
+                        }
+                  }
+                  course={item}
+                />
               </StMap>
               <StImg
                 src={item.cover}
                 alt="대표 사진"
-                className=" border-black h-[324px] w-[300px]"
+                className=" border-black sm:h-[324px] sm:w-[300px] w-[170px] h-[194px] "
               />
             </Stdiv>
 
-            <p className="pr-4 ml-1 mt-5 sm:h-16 h-14 sm:text-2xl text-xl overflow-hidden font-black ">
+            <p className=" ml-1 mt-[10%] w-[98%] sm:h-16 h-14 sm:text-2xl text-xl overflow-hidden font-black ">
               {item.title}
             </p>
-            <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
+            <p className="ml-1 mt-[3%] font-medium  text-gray-400 sm:text-xl  text-base ">
               {item.nickname}
             </p>
-            <p className="ml-1 mt-2 font-medium  text-gray-400 sm:text-xl mb-3  ">
+            <p className="ml-1 mt-[3%]  font-medium  text-gray-400 sm:text-xl text-sm ">
               <CreatedDate createdAt={item.createdAt} />
             </p>
           </Link>
@@ -103,6 +115,7 @@ const StMap = styled.div`
 
 const Stdiv = styled.div`
   position: relative;
+  overflow: hidden;
 
   &:hover {
     ${StImg} {
