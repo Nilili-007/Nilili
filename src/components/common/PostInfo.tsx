@@ -75,7 +75,7 @@ const PostInfo = ({
       <div className="w-full h-[220px] sm:h-[450px] md:h-[700px] -mt-[220px] sm:-mt-[450px] md:-mt-[700px] absolute z-10 bg-gradient-to-t from-[#00000060]" />
       <div className="w-[85%] md:w-[70%] pt-28 m-auto -mt-[270px] sm:-mt-[300px] xs:w-[90%] xs:pt-40">
         {uploadCover === "" && galleryCover === "" ? (
-          <div className="scale-[0.25] sm:scale-50 md:scale-100 sm:top-[40%] md:top-[50%] left-[50%] xs:top-[67%] -translate-x-1/2  -translate-y-[550px] absolute z-10">
+          <div className="scale-[0.25] sm:scale-50 md:scale-100 sm:top-[40%] md:top-[50%] left-[50%] xs:top-[67%] -translate-x-1/2  -translate-y-[250px] xs:-translate-y-[550px] absolute z-10">
             <img src="/assets/empty-img.png" />
           </div>
         ) : null}

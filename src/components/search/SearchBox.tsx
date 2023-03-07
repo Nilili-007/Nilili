@@ -272,7 +272,7 @@ const SearchBox = () => {
           </div>
         </>
       ) : isError ? (
-        <p className="min-h-[1500px]">에러가 발생했습니다.</p>
+        <p className="min-h-[1500px]">Error : 데이터를 불러오지 못했습니다.</p>
       ) : (
         <SearchList filteredList={filteredList} />
       )}

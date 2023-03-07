@@ -48,7 +48,6 @@ const ColorStyles: StylesConfig<optionType, true> = {
     ...styles,
     color: "#ffffff",
     ":hover": {
-      // backgroundColor: "#CBCDD2",
       color: "#f95c54",
     },
   }),
