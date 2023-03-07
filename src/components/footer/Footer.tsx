@@ -7,7 +7,10 @@ const Footer = () => {
           © 2023 007 All rights reserved.
         </p>
         <div className="mt-8 flex items-center justify-center space-x-4 text-sm font-semibold leading-6 text-gray-400">
-          <a className="hover:text-white" href="/">
+          <a
+            className="hover:text-white"
+            href="https://forms.gle/EgTg3Fu4Ecd3ezt37"
+          >
             Customer Service Center
           </a>
           <div className="h-4 w-px bg-gray-100"></div>
