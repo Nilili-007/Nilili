@@ -8,7 +8,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 const AfterLike = () => {
   const { data, isLoading, isError } = useGetCourseLikeQuery();
   if (isError) {
-    return <>에러가 발생했습니다.</>;
+    return <>Error : 데이터를 불러오지 못했습니다.</>;
   }
 
   return (
