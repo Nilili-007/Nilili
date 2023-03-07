@@ -187,7 +187,7 @@ const UserList = ({ done, category }: UserListType) => {
             </Stdiv>
 
             <p
-              className={`pr-4 ml-1 sm:h-8  h-7  sm:w-[95%] w-[60%] sm:text-2xl text-xl overflow-hidden font-black ${
+              className={`pr-4 ml-1 sm:h-8  h-7  w-[98%] sm:text-2xl text-xl overflow-hidden font-black ${
                 category === "MY" ? "mt-[-20px]" : "mt-5"
               }`}
             >
