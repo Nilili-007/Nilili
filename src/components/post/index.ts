@@ -1,15 +1,10 @@
-import PostCourseDesc from "./PostCourseDesc";
 import PostCourse from "./PostCourse";
 import PostHashTag from "./PostHashTag";
 import PostMap from "./PostMap";
-import PostSearchModal from "./PostSearchModal";
-import PostTextarea from "./PostTextarea";
 import PostCategories from "./PostCategories";
 import PostHeader from "./PostHeader";
 import PostTravelStatus from "./PostTravelStatus";
-import PostMarkers from "./PostMarkers";
 import PostMobileCourse from "./PostMobileCourse";
-import PostMobileMemo from "./PostMobileMemo";
 
 const galleryLists = [
   "https://cdn.pixabay.com/photo/2020/05/21/11/37/road-5200366_1280.jpg",
@@ -35,17 +30,12 @@ const galleryLists = [
 ];
 
 export {
-  PostCourseDesc,
   PostCourse,
   PostHashTag,
   PostMap,
-  PostSearchModal,
-  PostTextarea,
   PostCategories,
   PostHeader,
   PostTravelStatus,
-  PostMarkers,
   PostMobileCourse,
-  PostMobileMemo,
   galleryLists,
 };

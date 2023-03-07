@@ -212,11 +212,7 @@ const EditCourse = () => {
           modalOpen={modalOpen}
           setModalOpen={setModalOpen}
         />
-        <EditCourseMap
-          initLists={course}
-          modalOpen={modalOpen}
-          setModalOpen={setModalOpen}
-        />
+        <EditCourseMap modalOpen={modalOpen} setModalOpen={setModalOpen} />
         <EditCourseMobile />
         <div className="flex flex-col sm:flex-row w-full justify-center gap-2 my-10 sm:gap-[5%]">
           <button

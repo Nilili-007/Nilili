@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { GrFormClose } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { addCourse } from "../../redux/modules/courseSlice";
@@ -14,14 +14,13 @@ import Swal from "sweetalert2";
 //   boundsInfo: object;
 // }
 
-const PostSearchModal = ({
+const SearchModal = ({
   setModalOpen,
   searchKeyword,
   setSearchKeyword,
   searchList,
   setSearchList,
   searchCnt,
-  boundsInfo,
 }: any) => {
   const dispatch = useDispatch();
   const [text, setText] = useState("");
@@ -50,7 +49,6 @@ const PostSearchModal = ({
         lng: item.x,
         lat: item.y,
       },
-      bounds: boundsInfo,
       memo: "",
     };
 
@@ -130,4 +128,4 @@ const PostSearchModal = ({
   );
 };
 
-export default PostSearchModal;
+export default SearchModal;
