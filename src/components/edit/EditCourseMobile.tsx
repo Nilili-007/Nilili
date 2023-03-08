@@ -3,11 +3,10 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import {
   CourseOrderBtns,
-  CourseMemo,
   CoursePlaceInfo,
   CourseDeleteBtn,
-  MobileCourseMemo,
   MobileCourseToggleBtn,
+  CourseMemo,
 } from "../common";
 import { useFilterCourse } from "../../hooks";
 
@@ -45,7 +44,7 @@ const EditCourseMobile = () => {
               </h4>
             )}
             {filteredIdx === "" || filteredIdx === -1 ? null : (
-              <MobileCourseMemo
+              <CourseMemo
                 idx={filteredIdx}
                 item={lists[filteredIdx]}
                 text={text}
@@ -77,12 +76,6 @@ const EditCourseMobile = () => {
                       <CoursePlaceInfo lists={lists} item={item} idx={idx} />
                       <CourseDeleteBtn item={item} idx={idx} />
                     </div>
-                    {/* <CourseMemo
-                          idx={idx}
-                          item={item}
-                          text={text}
-                          setText={setText}
-                        /> */}
                     <p className="mt-1 w-full ">{item.memo}</p>
                     {lists.length < 2 ? (
                       <div className="p-3.5" />
