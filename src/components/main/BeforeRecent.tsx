@@ -54,7 +54,7 @@ const BeforeRecent = () => {
         // @ts-ignore
         ref={scrollRef}
       >
-        {!isLoading ? (
+        {isLoading ? (
           <div className="flex ">
             {new Array(window.innerWidth < 415 ? 3 : 4)
               .fill(null)

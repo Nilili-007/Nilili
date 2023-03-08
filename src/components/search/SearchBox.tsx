@@ -255,7 +255,7 @@ const SearchBox = () => {
       {/* 나올 수 있는 리스트 상태 구분 */}
       {filteredList?.length === 0 ? (
         <p className="min-h-[100vh] pt-16 text-lg">검색결과가 없습니다.</p>
-      ) : !isLoading ? (
+      ) : isLoading ? (
         <div className=" flex justify-between flex-wrap mb-[2%]  lg:max-w-6xl w-[90%] mt-[3%] ">
           {new Array(12).fill(null).map((_, idx) => (
             <SkeletonTheme baseColor="#202020" highlightColor="#444" key={idx}>

@@ -48,7 +48,7 @@ const AfterLike = () => {
         // @ts-ignore
         ref={scrollRef}
       >
-        {!isLoading ? (
+        {isLoading ? (
           <div className="flex ">
             {new Array(window.innerWidth < 415 ? 2 : 3)
               .fill(null)
