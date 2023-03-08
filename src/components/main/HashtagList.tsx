@@ -15,8 +15,8 @@ const HashtagList = () => {
 
   return (
     <div
-      className={`mt-[10%] pb-[2%] bg-gray-200 w-full sm:max-h-[550px] overflow-hidden ${
-        openHash === false ? "max-h-[250px]" : "max-h-[500px]"
+      className={`mt-[10%] pb-[2%] bg-gray-200 w-full sm:min-h-[570px] overflow-hidden ${
+        openHash === false ? "max-h-[250px]" : "max-h-[520px]"
       } `}
     >
       <div className="mx-auto  lg:max-w-6xl w-[90%] ">

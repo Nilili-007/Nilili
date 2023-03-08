@@ -92,7 +92,7 @@ const LoginForm = () => {
                 minLength: {
                   value: 8,
                   message:
-                    "비밀번호는 영문 대소문자, 숫자를 혼합하여 8~15자로 입력해주세요.",
+                    "비밀번호는 영문, 숫자를 혼합하여 8~15자로 입력해주세요.",
                 },
                 pattern: {
                   value: /^[A-Za-z0-9]{8,15}$/,

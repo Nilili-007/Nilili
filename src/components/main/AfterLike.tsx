@@ -6,12 +6,18 @@ import { logEvent } from "../../utils/amplitude";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useGetScreenSize } from "../../hooks";
 import { CgChevronRight, CgChevronLeft } from "react-icons/cg";
-import useSmoothHorizontalScroll from "use-smooth-horizontal-scroll";
+import { useRef } from "react";
 
 const AfterLike = () => {
   const { data, isLoading, isError } = useGetCourseLikeQuery();
-  const { scrollContainerRef, handleScroll, scrollTo, isAtStart, isAtEnd } =
-    useSmoothHorizontalScroll();
+
+  const scrollRef = useRef();
+
+  const scroll = (scrollOffset: any) => {
+    // @ts-ignore
+    scrollRef.current.scrollLeft += scrollOffset;
+  };
+
   useGetScreenSize();
 
   if (isError) {
@@ -29,42 +35,39 @@ const AfterLike = () => {
       <div className="sm:flex  justify-between mb-[1%] hidden ">
         <button
           className="font-3xl"
-          onClick={() => scrollTo(-window.innerWidth * 0.5)}
-          disabled={isAtStart}
+          onClick={() => scroll(-window.innerWidth * 0.5)}
         >
           <CgChevronLeft className="text-6xl  " />
         </button>
-        <button
-          onClick={() => scrollTo(window.innerWidth * 0.5)}
-          disabled={isAtEnd}
-        >
+        <button onClick={() => scroll(window.innerWidth * 0.5)}>
           <CgChevronRight className="text-6xl  " />
         </button>
       </div>
       <ul
         className=" overflow-x-auto whitespace-nowrap no-scrollbar"
         // @ts-ignore
-        ref={scrollContainerRef}
-        onScroll={handleScroll}
+        ref={scrollRef}
       >
         {isLoading ? (
           <div className="flex ">
-            {new Array(3).fill(null).map((_, idx) => (
-              <SkeletonTheme
-                baseColor="#202020"
-                highlightColor="#444"
-                key={idx}
-              >
-                <div className=" mb-3 3xl:w-[31%] w-[45%]  mr-[4%]">
-                  <Skeleton className="h-[300px]" />
-                  <div className="mt-3">
-                    <Skeleton className="w-[80%] h-[30px]" />
-                    <Skeleton className="w-[30%]  h-[25px]" />
-                    <Skeleton className="w-[60%] h-[20px]" />
+            {new Array(window.innerWidth < 415 ? 2 : 3)
+              .fill(null)
+              .map((_, idx) => (
+                <SkeletonTheme
+                  baseColor="#202020"
+                  highlightColor="#444"
+                  key={idx}
+                >
+                  <div className=" mb-3 lg:w-[31%] w-[51%] mr-[2%]">
+                    <Skeleton className="sm:h-[300px] h-[190px]" />
+                    <div className="mt-3">
+                      <Skeleton className="w-[80%] h-[30px]" />
+                      <Skeleton className="w-[30%]  h-[25px]" />
+                      <Skeleton className="w-[60%] h-[20px]" />
+                    </div>
                   </div>
-                </div>
-              </SkeletonTheme>
-            ))}
+                </SkeletonTheme>
+              ))}
           </div>
         ) : null}
 

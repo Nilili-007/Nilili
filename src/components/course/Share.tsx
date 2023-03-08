@@ -142,9 +142,6 @@ const Share = () => {
         </div>
       </div>
       <div className="md:hidden flex flex-col mt-4">
-        <div className="text-black text-[16px] sm:text-[20px] font-medium mb-2">
-          공유하기
-        </div>
         <button
           onClick={() => {
             shareHandle();

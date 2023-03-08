@@ -24,12 +24,12 @@ const CourseHeader = ({ course }: CourseProps) => {
         <div className="mt-4 z-20 body3 sm:text-2xl flex xs:mt-1 text-white">
           {course?.location.map((location: any) => {
             return (
-              <p className="pr-2" key={location}>
+              <p className="pr-2 z-20" key={location}>
                 #{location}
               </p>
             );
           })}{" "}
-          코스를 소개해드릴게요!
+          <p className="z-20">코스를 소개해드릴게요!</p>
         </div>
       </div>
     </>

@@ -6,12 +6,18 @@ import { logEvent } from "../../utils/amplitude";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useGetScreenSize } from "../../hooks";
 import { CgChevronRight, CgChevronLeft } from "react-icons/cg";
-import useSmoothHorizontalScroll from "use-smooth-horizontal-scroll";
+import { useRef } from "react";
 
 const BeforeRecent = () => {
   const { data, isLoading, isError } = useGetCourseQuery();
-  const { scrollContainerRef, handleScroll, scrollTo, isAtStart, isAtEnd } =
-    useSmoothHorizontalScroll();
+
+  const scrollRef = useRef();
+
+  const scroll = (scrollOffset: any) => {
+    // @ts-ignore
+    scrollRef.current.scrollLeft += scrollOffset;
+  };
+
   useGetScreenSize();
 
   if (isError) {
@@ -29,14 +35,16 @@ const BeforeRecent = () => {
       <div className="sm:flex  justify-between mb-[1%] hidden ">
         <button
           className="font-3xl"
-          onClick={() => scrollTo(-window.innerWidth * 0.5)}
-          disabled={isAtStart}
+          onClick={() => {
+            scroll(-window.innerWidth * 0.5);
+          }}
         >
           <CgChevronLeft className="text-6xl  " />
         </button>
         <button
-          onClick={() => scrollTo(window.innerWidth * 0.5)}
-          disabled={isAtEnd}
+          onClick={() => {
+            scroll(window.innerWidth * 0.5);
+          }}
         >
           <CgChevronRight className="text-6xl  " />
         </button>
@@ -44,27 +52,28 @@ const BeforeRecent = () => {
       <ul
         className="overflow-x-auto whitespace-nowrap no-scrollbar"
         // @ts-ignore
-        ref={scrollContainerRef}
-        onScroll={handleScroll}
+        ref={scrollRef}
       >
         {isLoading ? (
           <div className="flex ">
-            {new Array(4).fill(null).map((_, idx) => (
-              <SkeletonTheme
-                baseColor="#202020"
-                highlightColor="#444"
-                key={idx}
-              >
-                <div className=" mb-3 w-[23%] mr-[2%]">
-                  <Skeleton className="h-[300px]" />
-                  <div className="mt-3">
-                    <Skeleton className="w-[80%] h-[30px]" />
-                    <Skeleton className="w-[30%]  h-[25px]" />
-                    <Skeleton className="w-[60%] h-[20px]" />
+            {new Array(window.innerWidth < 415 ? 3 : 4)
+              .fill(null)
+              .map((_, idx) => (
+                <SkeletonTheme
+                  baseColor="#202020"
+                  highlightColor="#444"
+                  key={idx}
+                >
+                  <div className=" mb-3 md:w-[35%] sm:w-[52%] w-[40%] mr-[1%] ">
+                    <Skeleton className="sm:h-[300px] h-[170px]" />
+                    <div className="mt-3">
+                      <Skeleton className="w-[80%] h-[30px]" />
+                      <Skeleton className="w-[30%]  h-[25px]" />
+                      <Skeleton className="w-[60%] h-[20px]" />
+                    </div>
                   </div>
-                </div>
-              </SkeletonTheme>
-            ))}
+                </SkeletonTheme>
+              ))}
           </div>
         ) : null}
         {data
@@ -80,7 +89,7 @@ const BeforeRecent = () => {
                 })
               }
             >
-              <li className=" lg:w-[27%] md:w-[35%] sm:w-[52%] w-[40%] mr-[0.01%]  inline-block mx-3 pt-[2%] border-t-2 border-black ">
+              <li className=" lg:w-[27%] md:w-[35%] sm:w-[52%] w-[40%] mr-[1%]  inline-block  pt-[2%] border-t-2 border-black ">
                 <Stdiv>
                   <StMap>
                     <ListMap

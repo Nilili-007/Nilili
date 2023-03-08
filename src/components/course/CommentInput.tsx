@@ -74,7 +74,7 @@ const CommentInput = ({ paramId }: CommentProps) => {
           />
         </div>
         <button
-          className="w-20 sm:w-[100px] h-10 sm:h-[60px] bg-[#000000] text-white font-bold px-3 disabled:opacity-40 float-right text-[16px] sm:text-[20px]"
+          className="w-20 sm:w-[100px] h-10 sm:h-[60px] bg-[#000000] text-white font-bold px-3 disabled:opacity-40 float-right text-[14px] sm:text-[18px]"
           ref={submitRef}
           disabled
         >
