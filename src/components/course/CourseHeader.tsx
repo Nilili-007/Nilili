@@ -12,7 +12,7 @@ const CourseHeader = ({ course }: CourseProps) => {
         />
       </div>
       <div className="w-full h-[220px] -mt-[220px] sm:h-[450px] sm:-mt-[450px] md:h-[700px] md:-mt-[700px] absolute z-10 bg-gradient-to-t from-[#00000060]" />
-      <div className="w-full left-[15%] -mt-52 text-white absolute xs:left-[5%] xs:-mt-28">
+      <div className="w-[85%] left-[15%] -mt-52 text-white absolute xs:left-[5%] xs:-mt-28">
         <div className=" w-full z-20 flex">
           <h1 className="z-20 text-5xl font-bold leading-tight w-[70%] xs:text-xl xs:w-[90%]">
             {course?.title}
@@ -24,12 +24,12 @@ const CourseHeader = ({ course }: CourseProps) => {
         <div className="mt-4 z-20 body3 sm:text-2xl flex xs:mt-2">
           {course?.location.map((location: any) => {
             return (
-              <p className="pr-2" key={location}>
+              <p className="pr-2 z-20" key={location}>
                 #{location}
               </p>
             );
           })}{" "}
-          코스를 소개해드릴게요!
+          <p className="z-20">코스를 소개해드릴게요!</p>
         </div>
       </div>
     </>
