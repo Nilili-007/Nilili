@@ -80,7 +80,7 @@ const LikeBtn = ({ paramId, course }: LikeProps) => {
             disabled
           >
             <IoHeartSharp
-              size={28}
+              size={33}
               onClick={() => submitLike()}
               className="sm:scale-125"
             />
@@ -93,7 +93,7 @@ const LikeBtn = ({ paramId, course }: LikeProps) => {
             disabled
           >
             <IoHeartOutline
-              size={28}
+              size={33}
               className="sm:scale-125"
               onClick={() => submitLike()}
             />
