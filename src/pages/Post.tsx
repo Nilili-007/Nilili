@@ -200,7 +200,7 @@ const Post = () => {
             <p className="text-[18px] sm:text-3xl whitespace-normal font-bold">
               나만의 코스를 만들어보세요.
             </p>
-            <p className="text-gray-400 mt-1 text-[13px] sm:body2 whitespace-normal xs:-mt-1">
+            <p className="text-gray-400 mt-1 text-[13px] sm:body2 whitespace-normal xs:-mt-1 xs:text-xs">
               간단한 클릭으로 여행지를 추가하고 순서를 변경할 수 있어요.
             </p>
           </div>

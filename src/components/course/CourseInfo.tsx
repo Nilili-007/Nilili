@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { ItemCard } from "../post/PostCourse";
 
 const CourseInfo = ({ courseList, filteredIdx, setFilteredIdx }: any) => {
   return (
@@ -33,13 +33,3 @@ const CourseInfo = ({ courseList, filteredIdx, setFilteredIdx }: any) => {
 };
 
 export default CourseInfo;
-
-const ItemCard = styled.div`
-  border: 1px solid #9ca3af;
-  margin-bottom: 32px;
-  cursor: pointer;
-  &.clicked {
-    background: black;
-    color: white;
-  }
-`;

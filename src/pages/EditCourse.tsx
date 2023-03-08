@@ -170,23 +170,6 @@ const EditCourse = () => {
     }
   };
 
-  const onClickCancel = () => {
-    Swal.fire({
-      title: "게시글 수정을 취소하시겠습니까?",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonColor: "#B3261E",
-      cancelButtonColor: "#50AA72",
-      confirmButtonText: "네, 다음 번에 쓸게요.",
-      cancelButtonText: "아니요, 마저 쓸게요.",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        navigate(`/course/${paramId}`);
-        dispatch(replaceAllData([]));
-      }
-    });
-  };
-
   return (
     <div className="mb-[7%]">
       <PostInfo
@@ -212,20 +195,6 @@ const EditCourse = () => {
         />
         <EditCourseMap />
         <EditCourseMobile />
-        {/* <div className="flex flex-col sm:flex-row w-full justify-center gap-2 my-10 sm:gap-[5%]">
-          <button
-            onClick={() => updateCourseHandler()}
-            className="w-full sm:w-[472px] bg-black border-black border-2 text-white text-md md:text-lg py-3 shadow-[0_8px_8px_rgb(0,0,0,0.25)] hover:text-black hover:bg-white "
-          >
-            게시물 수정하기
-          </button>
-          <button
-            onClick={onClickCancel}
-            className="w-full sm:w-[472px] bg-white border-gray-04 border text-black text-md md:text-lg py-3 shadow-[0_8px_8px_rgb(0,0,0,0.25)] hover:text-black hover:bg-white "
-          >
-            취소하기
-          </button>
-        </div> */}
         <PostManageBtns postHandler={updateCourseHandler} />
       </div>
     </div>

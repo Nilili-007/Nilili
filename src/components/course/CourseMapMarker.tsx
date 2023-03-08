@@ -37,11 +37,14 @@ const CourseMapMarker = ({ lists, filteredIdx, setFilteredIdx }: any) => {
             strokeWeight={3}
             strokeColor={"black"}
             strokeOpacity={1}
-            strokeStyle={"solid"}
+            strokeStyle={"dashed"}
           />
         </div>
       ))}
-      <div className="xs:w-[90px] xs:h-[600px] xs:flex xs:flex-col xs:absolute xs:right-6 xs:overflow-y-scroll">
+      {lists.length > 0 ? (
+        <div className="xs:border-r-2 xs:border-dashed xs:border-black xs:w-4 xs:h-[600px] xs:right-[14%] xs:absolute xs:overflow-y-scroll" />
+      ) : null}
+      <div className="xs:w-[50px] xs:h-[600px] xs:flex xs:flex-col xs:absolute xs:right-[7.5%] xs:overflow-y-scroll">
         {lists.map((item: any, idx: number) => (
           <div key={item.id + idx} className="xs:flex xs:justify-center">
             <MobileMarker
@@ -49,14 +52,11 @@ const CourseMapMarker = ({ lists, filteredIdx, setFilteredIdx }: any) => {
               className={idx === filteredIdx ? "clicked" : " "}
             >
               <span className="font-bold text-white absolute z-[99]">
-                #{idx + 1}
+                {idx === filteredIdx ? `#${idx + 1}` : null}
               </span>
             </MobileMarker>
           </div>
         ))}
-        {lists.length > 0 ? (
-          <div className="xs:border-r-4 xs:border-black xs:h-full xs:absolute xs:ml-[43px] " />
-        ) : null}
       </div>
     </>
   );
