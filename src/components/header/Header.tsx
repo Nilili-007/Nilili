@@ -201,7 +201,7 @@ const Header = () => {
                           로그인
                         </button>
                       </li>
-                      <li className="badge 1px-4 py-2 leading-none  text-white hover:text-amber-300">
+                      <li className="badge1 px-4 py-2 leading-none  text-white hover:text-amber-300">
                         <button
                           onClick={() => {
                             navigate("/register");
