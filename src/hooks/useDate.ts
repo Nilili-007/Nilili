@@ -6,11 +6,11 @@ const useDate = (time: any) => {
 
   //시간 ( + 9:00 )
   const hourNum = Number(JSON.parse(time).substr(11, 2)) + 9;
-  const hour = hourNum > 23 ? hourNum - 24 : hourNum;
+  let hour = hourNum - 24;
 
   //일 ( 24시 이상 숫자 처리 )
   const dateNum = Number(JSON.parse(time).substr(8, 2));
-  let date = hourNum + 9 > 23 ? dateNum + 1 : dateNum;
+  let date = dateNum + 1;
 
   //월 ( 28,30,31일 이상 숫자처리 )
   const monthNum = Number(JSON.parse(time).substr(5, 2));
@@ -34,6 +34,13 @@ const useDate = (time: any) => {
     month = 1;
   } else {
     year = yearNum;
+  }
+
+  if (hourNum < 24) {
+    year = yearNum;
+    month = monthNum;
+    date = dateNum;
+    hour = hourNum;
   }
 
   return { year, month, date, hour, minute };
