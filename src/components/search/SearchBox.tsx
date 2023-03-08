@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Select from "react-select";
 import SearchList from "./SearchList";
 import {
@@ -21,7 +21,6 @@ const travelStatusOptions: any = [
 
 const SearchBox = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [locations, setLocations] = useState<optionType[]>([]);
   const [hashtags, sethashtags] = useState<optionType[]>([]);
   const [words, setWords] = useState("");
@@ -29,6 +28,7 @@ const SearchBox = () => {
   const [filteredList, setFilteredList] = useState<CourseType[]>();
   const [searchParams] = useSearchParams();
   const { data } = useGetCourseQuery();
+  const [condition, setCondition] = useState<boolean>(false);
 
   const {
     data: conditionData,
@@ -107,6 +107,18 @@ const SearchBox = () => {
   useEffect(() => {
     filterData();
   }, [data]);
+
+  //해시태그 리스트 클릭해서 들어왔을 때 바로 검색
+  useEffect(() => {
+    if (
+      searchParams.get("lc") === null &&
+      searchParams.get("ws") === null &&
+      searchParams.get("ts") === null &&
+      searchParams.get("ht") !== null
+    ) {
+      filterData();
+    }
+  }, [hashtags]);
 
   useEffect(() => {
     const emptyArr: optionType[] = [];
