@@ -42,11 +42,11 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
               item.travelStatus === true
                 ? logEvent("post click", {
                     from: "검색페이지",
-                    여행여부: "여행 후",
+                    여행여부: "여행 후기",
                   })
                 : logEvent("post click", {
                     from: "검색페이지",
-                    여행여부: "여행 전",
+                    여행여부: "여행 계획",
                   })
             }
           >

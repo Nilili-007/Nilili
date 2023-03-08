@@ -30,7 +30,7 @@ const AfterLike = () => {
         BEST REVIEWS
       </p>
       <p className=" hidden sm:block ml-2 pb-5 w-fit text-xl text-gray-04">
-        NILILI 유저들이 남긴 최고의 여행 리뷰를 소개합니다.
+        NILILI 유저들이 남긴 최고의 여행 후기를 소개합니다.
       </p>
       <div className="sm:flex  justify-between mb-[1%] hidden ">
         <button

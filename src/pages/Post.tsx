@@ -102,7 +102,7 @@ const Post = () => {
           if (!travelStatus) {
             Swal.fire({
               icon: "success",
-              title: `훌륭한 여정이에요! \n 여행 후 리뷰도 꼭 부탁드려요!`,
+              title: `훌륭한 여정이에요! \n 여행 후기도 꼭 부탁드려요!`,
               showConfirmButton: false,
               timer: 1500,
             });
@@ -135,7 +135,7 @@ const Post = () => {
       if (travelStatus === null) {
         Swal.fire({
           icon: "error",
-          title: "여행 전/후 카테고리를 선택해주세요!",
+          title: "여행 계획/후 카테고리를 선택해주세요!",
           didClose: () => {
             window.scrollTo({ top: 450, behavior: "smooth" });
           },

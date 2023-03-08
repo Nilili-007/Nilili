@@ -70,7 +70,7 @@ const UserCategoryBtn = () => {
               setDone(false);
             }}
           >
-            여행 전
+            여행 계획
           </button>
           <button
             className={`badge border border-black sm:px-[20px] sm:py-[8px] p-1 ${
@@ -81,7 +81,7 @@ const UserCategoryBtn = () => {
               setDone(true);
             }}
           >
-            여행 후
+            여행 후기
           </button>
         </div>
       </div>

@@ -15,8 +15,8 @@ import { useSearchParams } from "react-router-dom";
 import { ColorStyles } from "../shared";
 
 const travelStatusOptions: any = [
-  { value: false, label: "여행 전" },
-  { value: true, label: "여행 후" },
+  { value: false, label: "여행 계획" },
+  { value: true, label: "여행 후기" },
 ];
 
 const SearchBox = () => {
@@ -114,7 +114,7 @@ const SearchBox = () => {
       searchParams.get("lc") === null &&
       searchParams.get("ws") === null &&
       searchParams.get("ts") === null &&
-      searchParams.get("ht") !== null
+      hashtags.length > 0
     ) {
       filterData();
     }
@@ -234,7 +234,7 @@ const SearchBox = () => {
           <div className="border-b-2 w-full">
             <div className="w-full flex flex-row indent-2 ">
               <div className="body2 w-[180px] p-[1%] sm:p-4   xs:body3 text-white bg-black hidden md:block">
-                여행 전/후
+                여행 계획/후
               </div>
               <Select
                 className="z-20 w-full m-[0.5%] sm:m-[1%]  leading-7 text-[22px] xs:body3"

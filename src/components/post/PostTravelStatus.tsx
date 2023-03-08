@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 const PostTravelStatus = ({ travelStatus, setTravelStatus }: any) => {
   const onClickStatus = (e: any) => {
-    if (e.target.innerText === "여행 전") {
+    if (e.target.innerText === "여행 계획") {
       setTravelStatus(false);
     }
-    if (e.target.innerText === "여행 후") {
+    if (e.target.innerText === "여행 후기") {
       setTravelStatus(true);
     }
   };
@@ -17,13 +17,13 @@ const PostTravelStatus = ({ travelStatus, setTravelStatus }: any) => {
           onClick={(e) => onClickStatus(e)}
           className={travelStatus || travelStatus === null ? "" : "clicked"}
         >
-          여행 전
+          여행 계획
         </Category>
         <Category
           onClick={(e) => onClickStatus(e)}
           className={travelStatus ? "clicked" : ""}
         >
-          여행 후
+          여행 후기
         </Category>
       </div>
     </div>
