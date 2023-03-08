@@ -49,9 +49,16 @@ const UserCategoryBtn = () => {
               MY LIKES
             </p>
           )}
-          <p className="hidden md:block ml-2 pb-5 w-fit text-xl text-gray-04 ">
-            {userName}님이 작성한 여행 여정을 되돌아보세요.
-          </p>
+
+          {category === "MY" ? (
+            <p className="hidden md:block ml-2 pb-5 w-fit text-xl text-gray-04 ">
+              {userName}님이 작성한 여행 여정을 되돌아보세요.
+            </p>
+          ) : (
+            <p className="hidden md:block ml-2 pb-5 w-fit text-xl text-gray-04 ">
+              {userName}님이 좋아요 한 여행 여정을 살펴보세요.
+            </p>
+          )}
         </div>
         <div>
           <button

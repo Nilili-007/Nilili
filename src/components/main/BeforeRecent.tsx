@@ -56,22 +56,24 @@ const BeforeRecent = () => {
       >
         {isLoading ? (
           <div className="flex ">
-            {new Array(4).fill(null).map((_, idx) => (
-              <SkeletonTheme
-                baseColor="#202020"
-                highlightColor="#444"
-                key={idx}
-              >
-                <div className=" mb-3 w-[23%] mr-[2%]">
-                  <Skeleton className="h-[300px]" />
-                  <div className="mt-3">
-                    <Skeleton className="w-[80%] h-[30px]" />
-                    <Skeleton className="w-[30%]  h-[25px]" />
-                    <Skeleton className="w-[60%] h-[20px]" />
+            {new Array(window.innerWidth < 415 ? 3 : 4)
+              .fill(null)
+              .map((_, idx) => (
+                <SkeletonTheme
+                  baseColor="#202020"
+                  highlightColor="#444"
+                  key={idx}
+                >
+                  <div className=" mb-3 md:w-[35%] sm:w-[52%] w-[40%] mr-[1%] ">
+                    <Skeleton className="sm:h-[300px] h-[170px]" />
+                    <div className="mt-3">
+                      <Skeleton className="w-[80%] h-[30px]" />
+                      <Skeleton className="w-[30%]  h-[25px]" />
+                      <Skeleton className="w-[60%] h-[20px]" />
+                    </div>
                   </div>
-                </div>
-              </SkeletonTheme>
-            ))}
+                </SkeletonTheme>
+              ))}
           </div>
         ) : null}
         {data
