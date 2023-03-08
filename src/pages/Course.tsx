@@ -29,7 +29,7 @@ const Course = () => {
   }, []);
 
   return (
-    <div className="h-full">
+    <div className="w-screen h-full">
       {isLoading ? (
         <div className="h-screen flex justify-center items-center">
           <SyncLoader color="#A0A4A8" margin={10} size={18} />
@@ -41,7 +41,7 @@ const Course = () => {
             {courseData?.userID === authService.currentUser?.uid ? (
               <CourseManageButton paramId={paramId} course={courseData} />
             ) : null}
-            <div className="flex items-center">
+            <div className="flex items-center mb-3">
               <div className="flex items-center gap-2">
                 <img
                   src={courseData?.profileImage}
@@ -58,7 +58,7 @@ const Course = () => {
                 </div>
               </div>
             </div>
-            <p className="hidden sm:block my-6 text-lg text-gray-400">
+            <p className="hidden sm:block mt-3 mb-6 text-lg text-gray-400">
               <CreatedDate createdAt={courseData?.createdAt} />
             </p>
             <CourseMap
