@@ -28,7 +28,7 @@
 <br/>
 
 ## 서비스 아키텍처
-![nilili-서비스 아키텍처 drawio](https://user-images.githubusercontent.com/95006849/221066852-694415c8-2295-4cc4-b9ff-1bc8f9775d67.png)
+![nilili-서비스 아키텍처 drawio](https://user-images.githubusercontent.com/95006849/223658216-560da369-daf9-4de3-adfa-1bee5f4ba3d3.png)
 <br/>
 <br/>
 <br/>
@@ -36,8 +36,8 @@
 ## 실제 구현된 페이지
 |메인 페이지|검색 페이지|
 |------|---|
-|<img src="https://user-images.githubusercontent.com/95006849/221067188-eb7ad7f9-1c15-4656-b79d-44f78aa1f4d0.png" width="800" />|<img src="https://user-images.githubusercontent.com/95006849/221068968-8e874428-0f30-47bf-9241-c585dd4564c6.png" width="800" />|
+|<img src="https://user-images.githubusercontent.com/95006849/223657276-d2d3a2fb-ee72-453a-85e6-2cd5be11a2c9.png" width="800" />|<img src="https://user-images.githubusercontent.com/95006849/223656502-5c66648e-3da0-4ae2-ab32-4a04a1135cb2.png" width="800" />|
 |글쓰기 페이지|디테일 페이지|
-|<img src="https://user-images.githubusercontent.com/95006849/221067885-49afa90d-7258-49d7-9abc-da6adf46cd1e.png" width="800" />|<img src="https://user-images.githubusercontent.com/95006849/221068174-44fd1a26-e090-49cb-90a3-830ac66302b2.png" width="800" />|
-|유저 페이지||
-|<img src="https://user-images.githubusercontent.com/95006849/221067954-7779343f-e1bf-4f09-9403-607fbf3960d2.png" width="800" />||
+|<img src="https://user-images.githubusercontent.com/95006849/223656790-f62a2a12-8ab6-4a8e-a92f-7e8e39529e5a.png" width="800" />|<img src="https://user-images.githubusercontent.com/95006849/223656960-6dd02f22-a5b1-4b49-af2a-377cb12bbc02.png" width="800" />|
+|로그인 페이지|유저 페이지|
+|<img src="https://user-images.githubusercontent.com/95006849/223657045-f9c0f6e2-8ac3-4f0f-9021-679ba9c8b5f3.png" width="800" />|<img src="https://user-images.githubusercontent.com/95006849/223657127-49740556-e6d7-4e66-8a4e-e6e11190bfd9.png" width="800" />|
