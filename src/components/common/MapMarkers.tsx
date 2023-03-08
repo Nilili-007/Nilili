@@ -21,10 +21,7 @@ const MapMarkers = () => {
     <>
       {lists.map((item: any, idx: number) => (
         <div key={item.id + idx}>
-          <div
-            onClick={(event) => getIdx(event, item, idx)}
-            className="xs:flex"
-          >
+          <div onClick={(event) => getIdx(event, item, idx)}>
             <CustomOverlayMap position={item.position}>
               <InfoWindow className={idx === filteredIdx ? "clicked" : " "}>
                 <MdLocationOn className="mt-1 -ml-1 mr-1" /> {item.name}
@@ -54,7 +51,7 @@ const MapMarkers = () => {
         </div>
       ))}
       {lists.length > 0 ? (
-        <div className="xs:border-r-2 xs:border-dashed xs:border-black xs:w-4 xs:h-[600px] xs:right-[14%] xs:absolute xs:overflow-y-scroll" />
+        <div className="lg:hidden xs:border-r-2 xs:border-dashed xs:border-black xs:w-4 xs:h-[600px] xs:right-[14%] xs:absolute xs:overflow-y-scroll" />
       ) : null}
       <div className="xs:w-[50px] xs:h-[600px] xs:flex xs:flex-col xs:absolute xs:right-[7.5%] xs:overflow-y-scroll">
         {lists.map((item: any, idx: number) => (
@@ -77,7 +74,6 @@ const MapMarkers = () => {
 export default MapMarkers;
 
 export const InfoWindow = styled.div`
-  position: relative;
   background: black;
   color: white;
   margin-top: -75px;
@@ -124,7 +120,6 @@ export const Marker = styled.div`
     width: 35px;
     height: 35px;
     font-size: 14px;
-    opacity: 1;
     &.clicked {
       width: 35px;
       height: 35px;
@@ -154,16 +149,6 @@ export const MobileMarker = styled.div`
       height: 35px;
       font-size: 14px;
       opacity: 1;
-      &:after {
-        content: "";
-        position: absolute;
-        background: #0000004c;
-        border-radius: 50px;
-        width: 55px;
-        height: 55px;
-        opacity: 0.6;
-        display: none;
-      }
     }
   }
 `;

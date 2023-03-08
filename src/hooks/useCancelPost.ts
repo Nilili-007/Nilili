@@ -1,24 +1,36 @@
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { replaceAllData } from "../redux/modules/courseSlice";
 
 const useCancelPost = () => {
+  const paramId = useParams().id;
+  let targetWord: string;
+  let targetPage: string;
+
+  if (window.location.pathname !== "/post") {
+    targetWord = "수정";
+    targetPage = `/course/${paramId}`;
+  } else {
+    targetWord = "작성";
+    targetPage = "/";
+  }
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const cancelPost = () => {
     Swal.fire({
-      title: "게시글 작성을 취소하시겠습니까?",
+      title: `<p style="font-size: 20px;">게시글 ${targetWord}을 취소하시겠습니까?</p>`,
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#B3261E",
       cancelButtonColor: "#50AA72",
-      confirmButtonText: "네, 다음 번에 쓸게요.",
-      cancelButtonText: "아니요, 마저 쓸게요.",
+      confirmButtonText: "네",
+      cancelButtonText: "아니오",
     }).then((result) => {
       if (result.isConfirmed) {
-        navigate(`/`);
+        navigate(targetPage);
         dispatch(replaceAllData([]));
       }
     });

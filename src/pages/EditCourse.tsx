@@ -96,7 +96,7 @@ const EditCourse = () => {
     if (selectedRegions?.length === 0) {
       Swal.fire({
         icon: "error",
-        title: "하나 이상의 지역을 선택해주세요!",
+        title: `<p style="font-size: 20px;">하나 이상의 지역을 선택해주세요!</p>`,
         didClose: () => {
           regionsRef.current?.focus();
         },
@@ -104,7 +104,8 @@ const EditCourse = () => {
     } else if (!courseTitle?.trim()) {
       Swal.fire({
         icon: "error",
-        title: "제목을 입력해주세요!",
+        title: `<p style="font-size: 20px;">제목을 입력해주세요!</p>`,
+
         didClose: () => {
           titleRef.current?.focus();
         },
@@ -112,7 +113,8 @@ const EditCourse = () => {
     } else if (!uploadCover && !galleryCover) {
       Swal.fire({
         icon: "error",
-        title: "커버 이미지를 추가해주세요!",
+        title: `<p style="font-size: 20px;">커버 이미지를 추가해주세요!</p>`,
+
         didClose: () => {
           window.scrollTo({ top: 0, behavior: "smooth" });
         },
@@ -120,14 +122,15 @@ const EditCourse = () => {
     } else if (editedList.length < 2) {
       Swal.fire({
         icon: "error",
-        title: "2개 이상의 여행지를 추가해주세요!",
+        title: `<p style="font-size: 20px;">2개 이상의 여행지를 추가해주세요!</p>`,
+
         didClose: () => {
           window.scrollTo({ top: 600, behavior: "smooth" });
         },
       });
     } else {
       Swal.fire({
-        title: "게시글을 수정하시겠습니까?",
+        title: `<p style="font-size: 20px;">게시글을 수정하시겠습니까?</p>`,
         icon: "question",
         showCancelButton: true,
         confirmButtonColor: "#B3261E",
