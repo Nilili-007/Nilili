@@ -48,24 +48,26 @@ const AfterLike = () => {
         // @ts-ignore
         ref={scrollRef}
       >
-        {isLoading ? (
+        {!isLoading ? (
           <div className="flex ">
-            {new Array(3).fill(null).map((_, idx) => (
-              <SkeletonTheme
-                baseColor="#202020"
-                highlightColor="#444"
-                key={idx}
-              >
-                <div className=" mb-3 3xl:w-[31%] w-[45%]  mr-[4%]">
-                  <Skeleton className="h-[300px]" />
-                  <div className="mt-3">
-                    <Skeleton className="w-[80%] h-[30px]" />
-                    <Skeleton className="w-[30%]  h-[25px]" />
-                    <Skeleton className="w-[60%] h-[20px]" />
+            {new Array(window.innerWidth < 415 ? 2 : 3)
+              .fill(null)
+              .map((_, idx) => (
+                <SkeletonTheme
+                  baseColor="#202020"
+                  highlightColor="#444"
+                  key={idx}
+                >
+                  <div className=" mb-3 lg:w-[31%] w-[51%] mr-[2%]">
+                    <Skeleton className="sm:h-[300px] h-[190px]" />
+                    <div className="mt-3">
+                      <Skeleton className="w-[80%] h-[30px]" />
+                      <Skeleton className="w-[30%]  h-[25px]" />
+                      <Skeleton className="w-[60%] h-[20px]" />
+                    </div>
                   </div>
-                </div>
-              </SkeletonTheme>
-            ))}
+                </SkeletonTheme>
+              ))}
           </div>
         ) : null}
 

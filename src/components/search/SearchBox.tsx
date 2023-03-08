@@ -255,12 +255,12 @@ const SearchBox = () => {
       {/* 나올 수 있는 리스트 상태 구분 */}
       {filteredList?.length === 0 ? (
         <p className="min-h-[100vh] pt-16 text-lg">검색결과가 없습니다.</p>
-      ) : isLoading ? (
-        <div className=" flex justify-between flex-wrap mb-[2%]  3xl:w-[55%] md:w-[60%] w-[90%] min-w-[370px]">
+      ) : !isLoading ? (
+        <div className=" flex justify-between flex-wrap mb-[2%]  lg:max-w-6xl w-[90%] mt-[3%] ">
           {new Array(12).fill(null).map((_, idx) => (
             <SkeletonTheme baseColor="#202020" highlightColor="#444" key={idx}>
-              <div className="  mb-[5%] w-[23%] mr-[2%]">
-                <Skeleton className="h-[300px]" />
+              <div className="  mb-[5%] xl:w-[23%] lg:w-[31%] w-[48%] mr-[2%]">
+                <Skeleton className="sm:h-[300px] h-[160px]" />
                 <div className="mt-3">
                   <Skeleton className="w-[80%] h-[30px]" />
                   <Skeleton className="w-[30%]  h-[25px]" />
