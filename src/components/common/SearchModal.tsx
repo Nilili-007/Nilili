@@ -1,8 +1,9 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { GrFormClose } from "react-icons/gr";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addCourse } from "../../redux/modules/courseSlice";
 import Swal from "sweetalert2";
+import { useCourse } from "../../hooks";
 
 interface PostProps {
   setModalOpen: Dispatch<SetStateAction<boolean>>;
@@ -23,7 +24,7 @@ const SearchModal = ({
 }: PostProps) => {
   const dispatch = useDispatch();
   const [text, setText] = useState("");
-  const lists = useSelector((state: any) => state.courseSlice.courseList);
+  const { lists } = useCourse();
 
   const closeModal = () => {
     setModalOpen(false);

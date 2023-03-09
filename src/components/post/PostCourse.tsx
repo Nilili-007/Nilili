@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import { useSelector } from "react-redux";
 import {
   CourseOrderBtns,
   CourseMemo,
@@ -8,17 +7,15 @@ import {
   SearchModalAddCourseBtn,
 } from "../common";
 import styled from "styled-components";
-import { useFilterCourse } from "../../hooks";
+import { useCourse, useFilterCourse } from "../../hooks";
 
 interface PostProps {
   setModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 const PostCourse = ({ setModalOpen }: PostProps) => {
-  const lists = useSelector((state: any) => state.courseSlice.courseList);
-  const filteredIdx = useSelector(
-    (state: any) => state.courseSlice.filteredIdx
-  );
+  const { lists } = useCourse();
+  const { filteredIdx } = useCourse();
 
   const [text, setText] = useState<string>("");
   const getIdx = useFilterCourse();

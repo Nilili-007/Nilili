@@ -7,7 +7,7 @@ import {
   MobileCourseToggleBtn,
   CourseMemo,
 } from "../common";
-import { useFilterCourse } from "../../hooks";
+import { useCourse, useFilterCourse } from "../../hooks";
 import { ItemCard } from "../post/PostCourse";
 
 const EditCourseMobile = () => {
@@ -15,9 +15,7 @@ const EditCourseMobile = () => {
   const [text, setText] = useState<string>("");
   const data = useSelector((state: any) => state.courseSlice.courseList);
   const [lists, setLists] = useState(data);
-  const filteredIdx = useSelector(
-    (state: any) => state.courseSlice.filteredIdx
-  );
+  const { filteredIdx } = useCourse();
 
   const getIdx = useFilterCourse();
 

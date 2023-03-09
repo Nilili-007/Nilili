@@ -15,6 +15,7 @@ import useOption from "./useOption";
 import useGetScreenSize from "./useGetScreenSize";
 import useDate from "./useDate";
 import useCancelPost from "./useCancelPost";
+import useCourse from "./useCourse";
 
 export {
   usePagenation,
@@ -34,4 +35,5 @@ export {
   useGetScreenSize,
   useDate,
   useCancelPost,
+  useCourse,
 };

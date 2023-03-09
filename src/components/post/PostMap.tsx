@@ -3,8 +3,7 @@ import { Map } from "react-kakao-maps-sdk";
 import { SearchModal, SearchModalAddCourseBtn } from "../common";
 import { PostCourse } from "./index";
 import { MapMarkers } from "../common";
-import { useSelector } from "react-redux";
-import { useKakaoMap } from "../../hooks";
+import { useCourse, useKakaoMap } from "../../hooks";
 
 const PostMap = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -12,10 +11,8 @@ const PostMap = () => {
   const [searchList, setSearchList] = useState<SearchListType[]>([]);
   const [searchCnt, setSearchCnt] = useState<number | undefined>();
   const [map, setMap] = useState();
-  const lists = useSelector((state: any) => state.courseSlice.courseList);
-  const filteredIdx = useSelector(
-    (state: any) => state.courseSlice.filteredIdx
-  );
+  const { lists } = useCourse();
+  const { filteredIdx } = useCourse();
 
   useKakaoMap(map, searchKeyword, setSearchList, setSearchCnt);
 

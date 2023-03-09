@@ -1,6 +1,5 @@
-import { useSelector } from "react-redux";
 import TextareaAutosize from "react-textarea-autosize";
-import { useAddMemo, useHandleMemo } from "../../hooks";
+import { useAddMemo, useCourse, useHandleMemo } from "../../hooks";
 import { Dispatch, SetStateAction } from "react";
 
 interface CourseInfoProps {
@@ -11,10 +10,7 @@ interface CourseInfoProps {
 }
 
 const CourseMemo = ({ idx, item, text, setText }: CourseInfoProps) => {
-  const filteredIdx = useSelector(
-    (state: any) => state.courseSlice.filteredIdx
-  );
-
+  const { filteredIdx } = useCourse();
   const handleMemo = useHandleMemo();
   const addMemo = useAddMemo();
 
