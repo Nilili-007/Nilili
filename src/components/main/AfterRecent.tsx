@@ -110,7 +110,7 @@ const AfterRecent = () => {
                     className=" mt-6 w-full sm:h-[350px] h-[170px]"
                   />
                 </Stdiv>
-                <p className="ml-1  mt-[8%] mb-[2%] sm:h-9  h-7  w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ">
+                <p className="ml-1  mt-[8%] mb-[2%] sm:h-[31px]  h-7  w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ">
                   {item.title}
                 </p>
                 <p className="ml-1 mt-[3%]  font-medium  text-gray-400 sm:text-2xl text-base  ">

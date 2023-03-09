@@ -210,7 +210,7 @@ const UserList = ({ done, category }: UserListType) => {
             ) : null}
 
             <p
-              className={`pr-4 ml-1 sm:h-9  h-7  w-[98%] sm:text-2xl text-lg overflow-hidden font-black ${
+              className={`pr-4 ml-1 sm:h-[31px]  h-7  w-[98%] sm:text-[27px] text-lg overflow-hidden font-black ${
                 category === "MY" ? "sm:mt-[-20px]  " : "mt-5"
               }`}
             >

@@ -71,7 +71,7 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
               />
             </Stdiv>
 
-            <p className=" ml-1 mt-[10%] w-[98%] sm:h-16 h-14 sm:text-2xl text-xl overflow-hidden font-black ">
+            <p className="ml-1  mt-[8%] mb-[2%] sm:h-[31px]  h-7  w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ">
               {item.title}
             </p>
             <p className="ml-1 mt-[3%] font-medium  text-gray-400 sm:text-xl  text-base ">
