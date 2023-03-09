@@ -47,7 +47,7 @@ const PostMobileCourse = () => {
         <>
           {lists.length === 0 ? null : (
             <div className="lg:hidden 3xl:hidden xs:border xs:border-gray-03 xs:p-5 xs:my-8">
-              <span className="text-[20px] font-bold">
+              <span className="text-[18px] font-bold">
                 지도에서 여행지를 선택해보세요.
               </span>
             </div>

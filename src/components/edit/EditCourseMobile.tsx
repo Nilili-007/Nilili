@@ -49,7 +49,7 @@ const EditCourseMobile = () => {
               </div>
             </>
           ) : (
-            <h4 className="font-bold text-black text-[17px] mt-[3px]">
+            <h4 className="font-bold text-black text-[18px] mt-[3px]">
               지도에서 여행지를 선택해보세요.
             </h4>
           )}
