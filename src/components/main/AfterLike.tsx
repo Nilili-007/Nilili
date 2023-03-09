@@ -82,16 +82,16 @@ const AfterLike = () => {
                 logEvent("post click : AfterLike", { from: "메인페이지" })
               }
             >
-              <li className="lg:w-[31%] w-[51%] mr-[2%] inline-block  sm:pt-[2%] pt-[3%] border-t-2 border-black ">
+              <li className="2xl:w-[26%] xl:w-[29%] lg:w-[39%] sm:w-[45%] w-[51%] mr-[3%] inline-block  sm:pt-[2%] pt-[3%] border-t-2 border-black ">
                 <Stdiv>
                   <StMap>
                     <ListMap
                       mapstyle={
                         window.innerWidth < 415
-                          ? { width: "200px", height: "200px" }
+                          ? { width: "160px", height: "160px" }
                           : {
-                              width: "380px",
-                              height: "380px",
+                              width: "350px",
+                              height: "320px",
                             }
                       }
                       course={item}
@@ -100,7 +100,7 @@ const AfterLike = () => {
                   <StImg
                     src={item.cover}
                     alt="대표 사진"
-                    className="mt-6 w-full sm:h-[380px] h-[200px] object-cover"
+                    className="mt-6  sm:w-[350px] sm:h-[320px] h-[160px] w-[160px] object-cover"
                   />
                 </Stdiv>
                 <p className="ml-1  mt-[8%] mb-[2%] sm:h-[31px]  h-7  w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ">

@@ -39,6 +39,8 @@ const UserList = ({ done, category }: UserListType) => {
 
   useGetScreenSize();
 
+  console.log(window.innerWidth);
+
   const currentPosts = userData
     ? userData.slice(firstPostIndex, lastPostIndex)
     : null;
@@ -141,17 +143,17 @@ const UserList = ({ done, category }: UserListType) => {
           <div
             onClick={(event: any) => handleNavigate(event, item.id)}
             key={item.id}
-            className="relative lg:w-[31%] md:w-[48%] sm:w-[80%] w-[48%]  mr-[2%] hover:cursor-pointer"
+            className="relative xl:w-[31%] md:w-[48%] sm:w-[80%] w-[48%]  mr-[2%] hover:cursor-pointer"
           >
             <Stdiv>
               <StMap category={category}>
                 <ListMap
                   mapstyle={
                     window.innerWidth < 415
-                      ? { width: "170px", height: "170px" }
+                      ? { width: "150px", height: "150px" }
                       : {
-                          width: "350px",
-                          height: "350px",
+                          width: "400px",
+                          height: "320px",
                         }
                   }
                   course={item}
@@ -180,7 +182,7 @@ const UserList = ({ done, category }: UserListType) => {
               <StImg
                 src={item.cover}
                 alt="대표 사진"
-                className=" sm:h-[350px] sm:w-[350px] h-[170px] w-[170px] object-cover"
+                className=" sm:h-[320px] sm:w-[400px] h-[150px] w-[150px] object-cover"
                 category={category}
               />
             </Stdiv>
