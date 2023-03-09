@@ -23,12 +23,12 @@ const SearchBox = () => {
   const navigate = useNavigate();
   const [locations, setLocations] = useState<optionType[]>([]);
   const [hashtags, sethashtags] = useState<optionType[]>([]);
+  const [hashtags2, sethashtags2] = useState<optionType[]>([]);
   const [words, setWords] = useState("");
   const [travelStatus, setTravelStatus] = useState<optionType | undefined>();
   const [filteredList, setFilteredList] = useState<CourseType[]>();
   const [searchParams] = useSearchParams();
   const { data } = useGetCourseQuery();
-  const [condition, setCondition] = useState<boolean>(false);
 
   const selectInputRef = useRef<any>(null);
 
@@ -118,15 +118,8 @@ const SearchBox = () => {
 
   //해시태그 리스트 클릭해서 들어왔을 때 바로 검색
   useEffect(() => {
-    if (
-      searchParams.get("lc") === null &&
-      searchParams.get("ws") === null &&
-      searchParams.get("ts") === null &&
-      hashtags.length > 0
-    ) {
-      filterData();
-    }
-  }, [hashtags]);
+    filterData();
+  }, [hashtags2]);
 
   useEffect(() => {
     const emptyArr: optionType[] = [];
@@ -140,6 +133,14 @@ const SearchBox = () => {
     );
 
     sethashtags(
+      // @ts-ignore
+      searchParams.get("ht") === null
+        ? emptyArr
+        : // @ts-ignore
+          JSON.parse(searchParams.get("ht"))
+    );
+
+    sethashtags2(
       // @ts-ignore
       searchParams.get("ht") === null
         ? emptyArr
