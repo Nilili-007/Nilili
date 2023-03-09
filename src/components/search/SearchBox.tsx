@@ -1,11 +1,10 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import Select from "react-select";
 import SearchList from "./SearchList";
 import {
   useGetCourseQuery,
   useGetCourseConditionallyQuery,
 } from "../../redux/modules/apiSlice";
-import { useDispatch } from "react-redux";
 import { hashTagOptions } from "../post/PostHashTag";
 import { regionOptions } from "../post/PostCategories";
 import { logEvent } from "../../utils/amplitude";
@@ -13,6 +12,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import { ColorStyles } from "../shared";
+import { GrPowerReset } from "react-icons/gr";
 
 const travelStatusOptions: any = [
   { value: false, label: "여행 계획" },
@@ -29,6 +29,15 @@ const SearchBox = () => {
   const [searchParams] = useSearchParams();
   const { data } = useGetCourseQuery();
   const [condition, setCondition] = useState<boolean>(false);
+  console.log(travelStatus);
+
+  const selectInputRef = useRef<any>(null);
+
+  const onClearSelect = () => {
+    if (selectInputRef.current) {
+      selectInputRef.current.clearValue();
+    }
+  };
 
   const {
     data: conditionData,
@@ -163,7 +172,7 @@ const SearchBox = () => {
         <p className="w-fit mx-auto xl:text-[50px] lg:text-[45px] sm:text-[35px] text-2xl font-bold font-eng  my-[5%] ">
           EXPLORE YOUR PLANS
         </p>
-        <div className="w-full border border-black flex flex-col items-center">
+        <div className="w-full border border-black flex flex-col items-center  ">
           <div className="border-b-2 w-full">
             <div className="w-full flex flex-row justify-between indent-2">
               <div className="body2 w-[180px] p-[1%] sm:p-4   xs:body3 text-white bg-black hidden md:block">
@@ -210,8 +219,9 @@ const SearchBox = () => {
                 검색어
               </div>
               <input
+                type="search"
                 className={
-                  "rounded-sm indent-4 border border-gray-300 w-full m-[0.5%] sm:m-[1%]   h-[38px] placeholder:text-sm"
+                  "placeholder:sm:text-[22px] placeholder:text-[16px] placeholder:text-[#808080] sm:font-normal font-medium indent-4 border border-gray-300 w-full m-[0.5%] sm:m-[1%] h-[38px] placeholder:text-sm"
                 }
                 placeholder="검색어를 입력하세요."
                 value={words}
@@ -245,22 +255,39 @@ const SearchBox = () => {
                 onChange={travelStatusOnChangeHandler}
                 styles={ColorStyles}
                 value={travelStatus}
+                ref={selectInputRef}
               />
             </div>
           </div>
-          <button
-            className="button2 w-[20%] p-1 xs:body3 m-3 text-white bg-black hover:shadow-lg"
-            onClick={() => {
-              navigate(
-                `/search?lc=${JSON.stringify(locations)}&ht=${JSON.stringify(
-                  hashtags
-                )}&ts=${JSON.stringify(travelStatus)}&ws=${words}`
-              );
-              filterData();
-            }}
-          >
-            검색
-          </button>
+          <div className="flex w-full  items-center justify-center ">
+            <div className=" text-xl px-[2%] ">
+              <button
+                className="flex items-center gap-2"
+                onClick={() => {
+                  console.log("선택해제");
+                  setLocations([]);
+                  sethashtags([]);
+                  setWords("");
+                  onClearSelect();
+                }}
+              >
+                <GrPowerReset /> 선택해제
+              </button>
+            </div>
+            <button
+              className="button2 w-[20%] p-1 xs:body3  my-2 text-white bg-black hover:shadow-lg"
+              onClick={() => {
+                navigate(
+                  `/search?lc=${JSON.stringify(locations)}&ht=${JSON.stringify(
+                    hashtags
+                  )}&ts=${JSON.stringify(travelStatus)}&ws=${words}`
+                );
+                filterData();
+              }}
+            >
+              검색
+            </button>
+          </div>
         </div>
       </div>
 
