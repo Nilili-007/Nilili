@@ -5,7 +5,7 @@ const NotFound = () => {
 
   return (
     <>
-      <div className="flex flex-col justify-center items-center p-5 ">
+      <div className="h-[900px] flex flex-col justify-center items-center p-5 ">
         <img
           src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdZov1s%2FbtriZr7G14l%2FNDhpk5OzgfJcB2TwD8kxJ0%2Fimg.png"
           alt="error"

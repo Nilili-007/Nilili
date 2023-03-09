@@ -37,16 +37,16 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
           <Link
             to={`/course/${item.id}`}
             key={item.id}
-            className="xl:w-[23%] lg:w-[31%] w-[48%] mr-[2%]  pt-[2%] border-t-2 border-black  mb-[5%]"
+            className="xl:w-[23%] lg:w-[31%] w-[48%] mr-[2%]  sm:pt-[2%] pt-[3%] border-t-2 border-black  mb-[5%]"
             onClick={() =>
               item.travelStatus === true
                 ? logEvent("post click", {
                     from: "검색페이지",
-                    여행여부: "여행 후",
+                    여행여부: "여행 후기",
                   })
                 : logEvent("post click", {
                     from: "검색페이지",
-                    여행여부: "여행 전",
+                    여행여부: "여행 계획",
                   })
             }
           >
@@ -67,11 +67,11 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
               <StImg
                 src={item.cover}
                 alt="대표 사진"
-                className=" border-black sm:h-[324px] sm:w-[300px] w-[170px] h-[194px] "
+                className=" border-black sm:h-[324px] sm:w-[300px] w-[170px] h-[194px] object-cover"
               />
             </Stdiv>
 
-            <p className=" ml-1 mt-[10%] w-[98%] sm:h-16 h-14 sm:text-2xl text-xl overflow-hidden font-black ">
+            <p className="ml-1  mt-[8%] mb-[2%] sm:h-[31px]  h-7  w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ">
               {item.title}
             </p>
             <p className="ml-1 mt-[3%] font-medium  text-gray-400 sm:text-xl  text-base ">

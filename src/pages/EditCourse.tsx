@@ -156,7 +156,7 @@ const EditCourse = () => {
             Swal.fire({
               icon: "success",
               title: "수정 완료",
-              html: "수정이 완료되었습니다!<br>여행 후 리뷰도 꼭 부탁드려요!",
+              html: "수정이 완료되었습니다!<br>여행 후기도 꼭 부탁드려요!",
               showConfirmButton: false,
               timer: 1500,
             });

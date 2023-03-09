@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { replaceAllData } from "../../redux/modules/courseSlice";
 import Swal from "sweetalert2";
 import { resetAmplitude } from "../../utils/amplitude";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { AiOutlineClose } from "react-icons/ai";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -125,33 +127,9 @@ const Header = () => {
                   onClick={() => setNavbar(!navbar)}
                 >
                   {navbar ? (
-                    <svg
-                      xmlns="http://www.w3.org/3000/svg"
-                      className=" w-4 h-4 "
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                    <AiOutlineClose size={22} />
                   ) : (
-                    <svg
-                      xmlns="http://www.w3.org/3000/svg"
-                      className=" w-7 h-7"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M4 6h16M4 12h16M4 18h16"
-                      />
-                    </svg>
+                    <GiHamburgerMenu size={22} />
                   )}
                 </button>
               </div>

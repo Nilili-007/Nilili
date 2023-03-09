@@ -51,7 +51,7 @@ const Share = () => {
         title: "NILILI의 여행 코스를 공유합니다",
         description: "NILILI의 여행 코스로 여행을 다녀오세요!",
         imageUrl:
-          "https://user-images.githubusercontent.com/117059420/217982337-b6b4d259-e3d2-4535-8e62-ca8d5d27082f.jpg",
+          "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FmlJIr%2Fbtr2D3uWD6G%2FaRo3CI0zyhvAuXWkutSgh0%2Fimg.png",
         link: {
           webUrl: currentURL,
           mobileWebUrl: currentURL,
@@ -60,9 +60,9 @@ const Share = () => {
       itemContent: {
         profileText: "NILILI",
         profileImageUrl:
-          "https://user-images.githubusercontent.com/117059420/217982337-b6b4d259-e3d2-4535-8e62-ca8d5d27082f.jpg",
+          "https://user-images.githubusercontent.com/95006849/223911750-1a670f54-a6f2-4d06-a2eb-2920865fd05d.png",
         titleImageUrl:
-          "https://user-images.githubusercontent.com/117059420/217982337-b6b4d259-e3d2-4535-8e62-ca8d5d27082f.jpg",
+          "https://user-images.githubusercontent.com/95006849/223911750-1a670f54-a6f2-4d06-a2eb-2920865fd05d.png",
       },
       buttons: [
         {
@@ -93,7 +93,6 @@ const Share = () => {
   return (
     <>
       <div className="md:flex justify-end items-center gap-3 mt-2 hidden">
-        <div className="text-black text-[20px] font-medium">공유하기</div>
         <div className="flex gap-1">
           <FacebookShareButton
             url={currentURL}

@@ -15,7 +15,7 @@ const CourseMemo = ({ idx, item, text, setText }: any) => {
       autoFocus
       rows={1}
       placeholder={
-        item.memo !== "" ? item.memo : "일정에 대한 메모나 리뷰를 적어보세요!"
+        item.memo !== "" ? item.memo : "일정에 대한 메모나 후기를 적어보세요!"
       }
       value={idx === filteredIdx ? text : ""}
       onChange={

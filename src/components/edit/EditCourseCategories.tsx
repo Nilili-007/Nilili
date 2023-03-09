@@ -30,10 +30,10 @@ const EditCourseCategories = ({
   const regionLimit = 4;
   const tagLimit = 5;
   const onClickStatus = (e: any) => {
-    if (e.target.innerText === "여행 전") {
+    if (e.target.innerText === "여행 계획") {
       setTravelStatus(false);
     }
-    if (e.target.innerText === "여행 후") {
+    if (e.target.innerText === "여행 후기") {
       setTravelStatus(true);
     }
   };
@@ -63,13 +63,13 @@ const EditCourseCategories = ({
             onClick={(e) => onClickStatus(e)}
             className={travelStatus === false ? "clicked" : ""}
           >
-            여행 전
+            여행 계획
           </Category>
           <Category
             onClick={(e) => onClickStatus(e)}
             className={travelStatus === true ? "clicked" : ""}
           >
-            여행 후
+            여행 후기
           </Category>
         </div>
       </div>
@@ -127,7 +127,7 @@ const Category = styled.button`
     text-decoration-thickness: 1.5px;
   }
   @media screen and (min-width: 415px) {
-    width: 80px;
+    width: 100px;
     height: 40px;
     padding: 6px 12px;
     border: 1px solid #4b5563;
