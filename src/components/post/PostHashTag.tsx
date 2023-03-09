@@ -1,5 +1,5 @@
 import Select from "react-select";
-import { ColorStyles } from "../shared";
+import { MultiStyles } from "../shared";
 
 export const hashTagOptions = [
   { value: "가족", label: "화목하게 가족과" },
@@ -44,7 +44,7 @@ const PostHashTag = ({ selectedTags, setSelectedTags }: tagProps) => {
         isOptionDisabled={(selectedTag) =>
           selectedTags && selectedTags.length >= limit
         }
-        styles={ColorStyles}
+        styles={MultiStyles}
       />
     </div>
   );

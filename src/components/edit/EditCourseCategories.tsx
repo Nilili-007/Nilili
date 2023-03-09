@@ -3,7 +3,7 @@ import Select from "react-select";
 import styled from "styled-components";
 import { hashTagOptions } from "../post/PostHashTag";
 import { regionOptions } from "../post/PostCategories";
-import { ColorStyles } from "../shared";
+import { MultiStyles } from "../shared";
 
 interface EditTitleProps {
   regionsRef: any;
@@ -88,7 +88,7 @@ const EditCourseCategories = ({
             isOptionDisabled={(region) =>
               regions && regions.length >= regionLimit
             }
-            styles={ColorStyles}
+            styles={MultiStyles}
           />
         </div>
       </div>
@@ -104,7 +104,7 @@ const EditCourseCategories = ({
           isOptionDisabled={(selectedTag) =>
             selectedTags && selectedTags.length >= tagLimit
           }
-          styles={ColorStyles}
+          styles={MultiStyles}
         />
       </div>
     </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import Select from "react-select";
-import { ColorStyles } from "../shared";
+import { MultiStyles } from "../shared";
 
 export const regionOptions = [
   { value: "서울", label: "서울" },
@@ -45,7 +45,7 @@ const PostCategories = ({ regions, setRegions, regionsRef }: titleProps) => {
         classNamePrefix="select"
         isSearchable={true}
         isOptionDisabled={(region) => regions && regions.length >= limit}
-        styles={ColorStyles}
+        styles={MultiStyles}
       />
     </div>
   );
