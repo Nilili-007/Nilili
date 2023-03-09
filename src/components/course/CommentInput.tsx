@@ -59,7 +59,6 @@ const CommentInput = ({ paramId }: CommentProps) => {
               </h3>
             </div>
           ) : null}
-
           <textarea
             wrap="hard"
             cols={20}
@@ -72,14 +71,14 @@ const CommentInput = ({ paramId }: CommentProps) => {
             value={value}
             onChange={(event) => changeValueHandler(event)}
           />
+          <button
+            className="w-20 sm:w-[100px] h-10 sm:h-[60px] bg-[#000000] text-white font-bold px-3 disabled:opacity-40 float-right text-[14px] sm:text-[18px] mt-5"
+            ref={submitRef}
+            disabled
+          >
+            등록하기
+          </button>
         </div>
-        <button
-          className="w-20 sm:w-[100px] h-10 sm:h-[60px] bg-[#000000] text-white font-bold px-3 disabled:opacity-40 float-right text-[14px] sm:text-[18px]"
-          ref={submitRef}
-          disabled
-        >
-          등록하기
-        </button>
       </form>
     </>
   );

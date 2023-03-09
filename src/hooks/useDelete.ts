@@ -23,21 +23,13 @@ const useDelete = ({ target, deleteFn }: deleteType) => {
         if (target == "게시물") {
           navigate("/");
         }
-        // navigate("/");
         Swal.fire({
           icon: "success",
-          title: `${target}이 삭제되었습니다.`,
+          title: `<p style="font-size: 20px;">${target}이 삭제되었습니다.</p>`,
           showConfirmButton: false,
           timer: 1500,
         });
         deleteFn(id);
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire({
-          icon: "error",
-          title: "삭제가 취소되었습니다.",
-          showConfirmButton: false,
-          timer: 1500,
-        });
       }
     });
   };

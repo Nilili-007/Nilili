@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   useAddCourseMutation,
   useGetCourseQuery,
@@ -13,7 +13,6 @@ import {
   PostTravelStatus,
   PostMobileCourse,
 } from "../components/post/index";
-import { replaceAllData } from "../redux/modules/courseSlice";
 import Swal from "sweetalert2";
 import * as amplitude from "@amplitude/analytics-browser";
 import { logEvent } from "../utils/amplitude";
@@ -24,7 +23,6 @@ const Post = () => {
   useEffect(() => {
     amplitude.track("글쓰기페이지 접속");
   }, []);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [addCourse] = useAddCourseMutation();
   const { data } = useGetCourseQuery();
@@ -88,7 +86,7 @@ const Post = () => {
       courseList.length > 1
     ) {
       Swal.fire({
-        title: "게시글을 등록하시겠습니까?",
+        title: `<p style="font-size: 20px;">게시글을 등록하시겠습니까?</p>`,
         icon: "question",
         showCancelButton: true,
         confirmButtonColor: "#B3261E",
@@ -102,14 +100,14 @@ const Post = () => {
           if (!travelStatus) {
             Swal.fire({
               icon: "success",
-              title: `훌륭한 여정이에요! \n 여행 후기도 꼭 부탁드려요!`,
+              title: `<p style="font-size: 20px;">훌륭한 여정이에요! \n 여행 후기도 꼭 부탁드려요!!</p>`,
               showConfirmButton: false,
               timer: 1500,
             });
           } else {
             Swal.fire({
               icon: "success",
-              title: `${authService.currentUser?.displayName}님의 여정을 공유해주셔서 감사합니다!`,
+              title: `<p style="font-size: 20px;">${authService.currentUser?.displayName}님의 여정을 공유해주셔서 감사합니다!</p>`,
             });
           }
         }
@@ -126,7 +124,7 @@ const Post = () => {
       if (!uploadCover && !galleryCover) {
         Swal.fire({
           icon: "error",
-          title: "커버 이미지를 추가해주세요!",
+          title: `<p style="font-size: 20px;">커버 이미지를 추가해주세요!</p>`,
           didClose: () => {
             window.scrollTo({ top: 0, behavior: "smooth" });
           },
@@ -135,7 +133,7 @@ const Post = () => {
       if (travelStatus === null) {
         Swal.fire({
           icon: "error",
-          title: "여행 계획/후기 카테고리를 선택해주세요!",
+          title: `<p style="font-size: 20px;">여행 여행 계획/후기 카테고리를 선택해주세요!</p>`,
           didClose: () => {
             window.scrollTo({ top: 450, behavior: "smooth" });
           },
@@ -144,7 +142,7 @@ const Post = () => {
       if (regions.length === 0) {
         Swal.fire({
           icon: "error",
-          title: "하나 이상의 지역을 선택해주세요!",
+          title: `<p style="font-size: 20px;">하나 이상의 지역을 선택해주세요!</p>`,
           didClose: () => {
             regionsRef.current?.focus();
           },
@@ -153,7 +151,7 @@ const Post = () => {
       if (!courseTitle?.trim()) {
         Swal.fire({
           icon: "error",
-          title: "제목을 입력해주세요!",
+          title: `<p style="font-size: 20px;">제목을 입력해주세요!</p>`,
           didClose: () => {
             window.scrollTo({ top: 0, behavior: "smooth" });
             titleRef.current?.focus();
@@ -163,7 +161,7 @@ const Post = () => {
       if (courseList.length < 2) {
         Swal.fire({
           icon: "error",
-          title: "2개 이상의 여행지를 추가해주세요!",
+          title: `<p style="font-size: 20px;">2개 이상의 여행지를 추가해주세요!</p>`,
           didClose: () => {
             window.scrollTo({ top: 600, behavior: "smooth" });
           },
@@ -200,7 +198,7 @@ const Post = () => {
             <p className="text-[18px] sm:text-3xl whitespace-normal font-bold">
               나만의 코스를 만들어보세요.
             </p>
-            <p className="text-gray-400 mt-1 text-[13px] sm:body2 whitespace-normal xs:-mt-1">
+            <p className="text-gray-400 mt-1 text-[13px] sm:body2 whitespace-normal xs:-mt-1 xs:text-xs">
               간단한 클릭으로 여행지를 추가하고 순서를 변경할 수 있어요.
             </p>
           </div>

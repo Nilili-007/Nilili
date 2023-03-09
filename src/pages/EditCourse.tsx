@@ -96,7 +96,7 @@ const EditCourse = () => {
     if (selectedRegions?.length === 0) {
       Swal.fire({
         icon: "error",
-        title: "하나 이상의 지역을 선택해주세요!",
+        title: `<p style="font-size: 20px;">하나 이상의 지역을 선택해주세요!</p>`,
         didClose: () => {
           regionsRef.current?.focus();
         },
@@ -104,7 +104,8 @@ const EditCourse = () => {
     } else if (!courseTitle?.trim()) {
       Swal.fire({
         icon: "error",
-        title: "제목을 입력해주세요!",
+        title: `<p style="font-size: 20px;">제목을 입력해주세요!</p>`,
+
         didClose: () => {
           titleRef.current?.focus();
         },
@@ -112,7 +113,8 @@ const EditCourse = () => {
     } else if (!uploadCover && !galleryCover) {
       Swal.fire({
         icon: "error",
-        title: "커버 이미지를 추가해주세요!",
+        title: `<p style="font-size: 20px;">커버 이미지를 추가해주세요!</p>`,
+
         didClose: () => {
           window.scrollTo({ top: 0, behavior: "smooth" });
         },
@@ -120,14 +122,15 @@ const EditCourse = () => {
     } else if (editedList.length < 2) {
       Swal.fire({
         icon: "error",
-        title: "2개 이상의 여행지를 추가해주세요!",
+        title: `<p style="font-size: 20px;">2개 이상의 여행지를 추가해주세요!</p>`,
+
         didClose: () => {
           window.scrollTo({ top: 600, behavior: "smooth" });
         },
       });
     } else {
       Swal.fire({
-        title: "게시글을 수정하시겠습니까?",
+        title: `<p style="font-size: 20px;">게시글을 수정하시겠습니까?</p>`,
         icon: "question",
         showCancelButton: true,
         confirmButtonColor: "#B3261E",
@@ -162,29 +165,14 @@ const EditCourse = () => {
               icon: "success",
               title: "수정 완료",
               html: `${authService.currentUser?.displayName}님의 여정을<br>공유해주셔서 감사합니다!`,
+              showConfirmButton: false,
+              timer: 1500,
             });
             logEvent("수정내용 등록", { from: "수정페이지" });
           }
         }
       });
     }
-  };
-
-  const onClickCancel = () => {
-    Swal.fire({
-      title: "게시글 수정을 취소하시겠습니까?",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonColor: "#B3261E",
-      cancelButtonColor: "#50AA72",
-      confirmButtonText: "네, 다음 번에 쓸게요.",
-      cancelButtonText: "아니요, 마저 쓸게요.",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        navigate(`/course/${paramId}`);
-        dispatch(replaceAllData([]));
-      }
-    });
   };
 
   return (
@@ -212,20 +200,6 @@ const EditCourse = () => {
         />
         <EditCourseMap />
         <EditCourseMobile />
-        {/* <div className="flex flex-col sm:flex-row w-full justify-center gap-2 my-10 sm:gap-[5%]">
-          <button
-            onClick={() => updateCourseHandler()}
-            className="w-full sm:w-[472px] bg-black border-black border-2 text-white text-md md:text-lg py-3 shadow-[0_8px_8px_rgb(0,0,0,0.25)] hover:text-black hover:bg-white "
-          >
-            게시물 수정하기
-          </button>
-          <button
-            onClick={onClickCancel}
-            className="w-full sm:w-[472px] bg-white border-gray-04 border text-black text-md md:text-lg py-3 shadow-[0_8px_8px_rgb(0,0,0,0.25)] hover:text-black hover:bg-white "
-          >
-            취소하기
-          </button>
-        </div> */}
         <PostManageBtns postHandler={updateCourseHandler} />
       </div>
     </div>

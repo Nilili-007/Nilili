@@ -50,11 +50,11 @@ const EditCourseCategories = ({
       <div className="w-full flex flex-col-reverse md:flex-row justify-between">
         <div className="flex flex-col gap-2">
           <div className="w-full  flex justify-between">
-            <p className="text-[18px] sm:text-3xl whitespace-normal font-bold">
+            <p className="text-[18px] sm:text-3xl whitespace-normal font-bold xs:text-[16px]">
               나만의 코스를 만들어보세요.
             </p>
           </div>
-          <p className="text-gray-400 mt-1 text-[13px] sm:body2 whitespace-normal">
+          <p className="text-gray-400 mt-1 text-[13px] sm:body2 whitespace-normal xs:text-xs xs:-mt-1">
             간단한 클릭으로 여행지를 추가하고 순서를 변경할 수 있어요.
           </p>
         </div>

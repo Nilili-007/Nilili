@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
 import {
   CourseOrderBtns,
   CoursePlaceInfo,
@@ -9,6 +8,7 @@ import {
   CourseMemo,
 } from "../common";
 import { useFilterCourse } from "../../hooks";
+import { ItemCard } from "../post/PostCourse";
 
 const EditCourseMobile = () => {
   const [openCourse, setOpenCourse] = useState(false);
@@ -29,37 +29,32 @@ const EditCourseMobile = () => {
     <div className="lg:hidden 3xl:hidden xs:flex xs:flex-col">
       <ItemCard>
         <div className="flex">
-          <div>
-            {filteredIdx !== "" ? (
-              <>
+          {filteredIdx !== "" ? (
+            <>
+              <div className="w-full">
                 <CoursePlaceInfo
                   lists={lists}
                   item={lists[filteredIdx]}
                   idx={filteredIdx}
                 />
-              </>
-            ) : (
-              <h4 className="font-bold text-black text-[20px] mt-[3px]">
-                지도에서 여행지를 선택해보세요.
-              </h4>
-            )}
-            {filteredIdx === "" || filteredIdx === -1 ? null : (
-              <CourseMemo
-                idx={filteredIdx}
-                item={lists[filteredIdx]}
-                text={text}
-                setText={setText}
-              />
-            )}
-          </div>
-          {filteredIdx ? (
-            <div className="ml-auto">
-              <CourseDeleteBtn item={lists[filteredIdx]} idx={filteredIdx} />
-            </div>
-          ) : null}
+                <CourseMemo
+                  idx={filteredIdx}
+                  item={lists[filteredIdx]}
+                  text={text}
+                  setText={setText}
+                />
+              </div>
+              <div className="ml-auto">
+                <CourseDeleteBtn item={lists[filteredIdx]} idx={filteredIdx} />
+              </div>
+            </>
+          ) : (
+            <h4 className="font-bold text-black text-[18px] mt-[3px]">
+              지도에서 여행지를 선택해보세요.
+            </h4>
+          )}
         </div>
       </ItemCard>
-
       <MobileCourseToggleBtn
         lists={lists}
         openCourse={openCourse}
@@ -71,7 +66,10 @@ const EditCourseMobile = () => {
             <>
               {lists.map((item: any, idx: number) => {
                 return (
-                  <ItemCard key={idx} onClick={() => getIdx(item, idx)}>
+                  <ItemCard
+                    key={idx}
+                    onClick={(event) => getIdx(event, item, idx)}
+                  >
                     <div className="flex">
                       <CoursePlaceInfo lists={lists} item={item} idx={idx} />
                       <CourseDeleteBtn item={item} idx={idx} />
@@ -94,14 +92,3 @@ const EditCourseMobile = () => {
 };
 
 export default EditCourseMobile;
-
-const ItemCard = styled.div`
-  border: 1px solid #cbcdd2;
-  margin-bottom: 32px;
-  cursor: pointer;
-  padding: 20px;
-  &.clicked {
-    background: black;
-    color: white;
-  }
-`;

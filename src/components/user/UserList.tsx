@@ -221,10 +221,8 @@ const UserList = ({ done, category }: UserListType) => {
                 {item.nickname}
               </p>
             )}
-            <p className="ml-1 mt-[2%] font-medium  text-gray-400 sm:text-xl text-sm mb-[10%]">
-              {JSON.parse(item.createdAt).substr(0, 10)}{" "}
-              {Number(JSON.parse(item.createdAt).substr(11, 2)) + 9}:
-              {JSON.parse(item.createdAt).substr(14, 2)}
+            <p className="ml-1 mt-[2%] font-medium  text-gray-400 text-xl mb-[10%]">
+              <CreatedDate createdAt={item.createdAt} />
             </p>
           </div>
         ))}

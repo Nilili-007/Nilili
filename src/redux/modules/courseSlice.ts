@@ -36,7 +36,7 @@ const courseSlice = createSlice({
       } else {
         Swal.fire({
           icon: "error",
-          title: "첫 번째 코스입니다.",
+          title: `<p style="font-size: 20px;">첫 번째 코스입니다.</p>`,
         });
       }
     },
@@ -50,7 +50,7 @@ const courseSlice = createSlice({
       } else {
         Swal.fire({
           icon: "error",
-          title: "마지막 코스입니다.",
+          title: `<p style="font-size: 20px;">마지막 코스입니다.</p>`,
         });
       }
     },

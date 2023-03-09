@@ -63,26 +63,28 @@ const PostInfo = ({
   };
 
   return (
-    <div className="h-[220px] sm:h-[450px] md:h-[700px]  xs:h-[220px] text-white">
-      <img
-        src={
-          (uploadCover || galleryCover) !== undefined
-            ? uploadCover || galleryCover
-            : ""
-        }
-        className="w-full h-[220px] sm:h-[450px] md:h-[700px]  xs:h-[220px] object-cover z-0"
-      />
+    <div className="h-[220px] sm:h-[450px] md:h-[700px] xs:h-[220px] text-white">
+      {uploadCover || galleryCover ? (
+        <img
+          src={uploadCover || galleryCover}
+          className="w-full h-[220px] sm:h-[450px] md:h-[700px]  xs:h-[220px] object-cover z-0"
+        />
+      ) : (
+        <div className="w-full h-[220px] sm:h-[450px] md:h-[700px]  xs:h-[220px] object-cover z-0" />
+      )}
       <div className="w-full h-[220px] sm:h-[450px] md:h-[700px] -mt-[220px] sm:-mt-[450px] md:-mt-[700px] absolute z-10 bg-gradient-to-t from-[#00000060]" />
-      <div className="w-[85%] md:w-[70%] pt-28 m-auto -mt-[270px] sm:-mt-[300px] xs:w-[90%] xs:pt-40">
-        {/* {uploadCover === "" && galleryCover === "" ? (
-          <div className="scale-[0.25] sm:scale-50 md:scale-100 sm:top-[40%] md:top-[50%] left-[50%] xs:top-[67%] -translate-x-1/2  -translate-y-[250px] xs:-translate-y-[550px] absolute z-10">
+      <div className="w-full h-[220px] sm:h-[450px] md:h-[700px] -mt-[220px] sm:-mt-[450px] md:-mt-[700px] absolute z-10 flex justify-center items-center">
+        {uploadCover === "" && galleryCover === "" ? (
+          <div className="scale-[0.25] sm:scale-50 md:scale-100 absolute z-10 -mt-14">
             <img src="/assets/empty-img.png" />
           </div>
-        ) : null} */}
+        ) : null}
+      </div>
+      <div className="w-[85%] md:w-[70%] m-auto -mt-[220px] xs:w-[90%] xs:pt-[136px]">
         <input
-          className="w-[85%] sm:w-[80%] md:w-[70%] sm:py-1.5 text-[24px] sm:text-2xl md:text-[46px] xs:text-xl font-bold z-40 absolute bg-transparent mt-6 sm:mt-1 md:-mt-10 placeholder:text-white focus:outline-0"
+          className="w-full relative sm:py-1.5 text-[24px] sm:text-2xl md:text-[46px] xs:text-xl font-bold z-40 bg-transparent placeholder:text-white focus:outline-0"
           placeholder="여기에 제목을 입력해주세요."
-          maxLength={38}
+          maxLength={32}
           autoFocus={true}
           value={courseTitle}
           ref={titleRef}
@@ -90,10 +92,17 @@ const PostInfo = ({
             setCourseTitle(event.target.value);
           }}
         />
-        <p className="sm:mt-[50px] md:mt-[40px] z-20 absolute text-[14px] sm:text-lg hidden xs:hidden sm:flex">
-          {authService.currentUser?.displayName}님만의 여정을 직접 그려보세요!
-        </p>
-        <div className="flex mt-16 sm:mt-[80px] xs:mt-[54px]">
+        <div className="flex justify-between">
+          <p className="z-20 text-[14px] sm:text-lg hidden xs:hidden sm:flex">
+            {authService.currentUser?.displayName}님만의 여정을 직접 그려보세요!
+          </p>
+          {courseTitle.length > 32 ? (
+            <p className="text-white text-xl z-20 drop-shadow-xl px-2">
+              제목은 32자 이하로 작성해주세요.
+            </p>
+          ) : null}
+        </div>
+        <div className="flex mt-4 xs:mt-0">
           <button
             onClick={() => setModalOpen(true)}
             className="bg-black px-1 sm:px-2 py-1 mt-2 mr-3 z-20 text-[12px] sm:badge xs:text-[12px] xs:px-2"
@@ -109,7 +118,7 @@ const PostInfo = ({
         </div>
       </div>
       {modalOpen && (
-        <div className="w-[90%] h-[300px] lg:w-[700px] md:h-[300px] bg-white border border-gray-600 absolute sm:translate-x-[5.5%] md:translate-x-[34%] translate-y-[5%] z-[1000] xs:w-[90%] xs:translate-x-[5.5%]">
+        <div className="w-[90%] h-[300px] lg:w-[700px] md:h-[300px] bg-white border border-gray-600 absolute sm:translate-x-[5.5%] md:translate-x-[36%] translate-y-[5%] z-[1000] xs:w-[90%] xs:translate-x-[5.5%]">
           <div className="w-[95%] m-auto py-1 xs:w-[90%]">
             <div className="border-b border-gray-600 mt-10" />
             <GrFormClose
@@ -134,11 +143,16 @@ const PostInfo = ({
               {category === "업로드" ? (
                 <div className="flex flex-col justify-center items-center h-60">
                   <div className="w-40 flex justify-center items-center">
+                    <button className="text-md px-3 py-2 leading-none border border-black text-black hover:bg-gray-100 mt-4 lg:mt-0">
+                      <label htmlFor="changeimg">파일선택</label>
+                    </button>
                     <input
+                      hidden
+                      id="changeimg"
                       type="file"
+                      placeholder="파일선택"
                       ref={coverRef}
                       onChange={uploadCoverImg}
-                      className="w-[50%] text-black text-center"
                     />
                   </div>
                   <p className="text-black mt-3">
