@@ -1,11 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Select from "react-select";
 import SearchList from "./SearchList";
 import {
   useGetCourseQuery,
   useGetCourseConditionallyQuery,
 } from "../../redux/modules/apiSlice";
-import { useDispatch } from "react-redux";
 import { hashTagOptions } from "../post/PostHashTag";
 import { regionOptions } from "../post/PostCategories";
 import { logEvent } from "../../utils/amplitude";
@@ -13,15 +12,15 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import { ColorStyles } from "../shared";
+import { GrPowerReset } from "react-icons/gr";
 
 const travelStatusOptions: any = [
-  { value: false, label: "여행 전" },
-  { value: true, label: "여행 후" },
+  { value: false, label: "여행 계획" },
+  { value: true, label: "여행 후기" },
 ];
 
 const SearchBox = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [locations, setLocations] = useState<optionType[]>([]);
   const [hashtags, sethashtags] = useState<optionType[]>([]);
   const [words, setWords] = useState("");
@@ -29,6 +28,15 @@ const SearchBox = () => {
   const [filteredList, setFilteredList] = useState<CourseType[]>();
   const [searchParams] = useSearchParams();
   const { data } = useGetCourseQuery();
+  const [condition, setCondition] = useState<boolean>(false);
+
+  const selectInputRef = useRef<any>(null);
+
+  const onClearSelect = () => {
+    if (selectInputRef.current) {
+      selectInputRef.current.clearValue();
+    }
+  };
 
   const {
     data: conditionData,
@@ -108,6 +116,18 @@ const SearchBox = () => {
     filterData();
   }, [data]);
 
+  //해시태그 리스트 클릭해서 들어왔을 때 바로 검색
+  useEffect(() => {
+    if (
+      searchParams.get("lc") === null &&
+      searchParams.get("ws") === null &&
+      searchParams.get("ts") === null &&
+      hashtags.length > 0
+    ) {
+      filterData();
+    }
+  }, [hashtags]);
+
   useEffect(() => {
     const emptyArr: optionType[] = [];
     //파람스 값 검색에 넣기
@@ -147,108 +167,121 @@ const SearchBox = () => {
 
   return (
     <>
-      <div className="mb-[2%] lg:max-w-6xl w-[90%] min-w-[300px]">
-        <p className="w-fit mx-auto xl:text-[50px] lg:text-[45px] sm:text-[35px] text-xl font-bold font-eng  my-[5%] ">
+      <div className="mb-[2%]  w-[85%] md:w-[70%] h-auto mx-auto md:mt-[100px]  min-w-[300px]">
+        <p className="w-fit mx-auto xl:text-[50px] lg:text-[45px] sm:text-[35px] text-2xl font-bold font-eng  my-[5%] ">
           EXPLORE YOUR PLANS
         </p>
-        <div className="w-full border border-black flex flex-col items-center">
-          <div className="border-b-2 w-full">
-            <div className="w-full flex flex-row justify-between indent-2">
-              <div className="body2 w-[180px] p-[1%] sm:p-4   xs:body3 text-white bg-black hidden md:block">
-                지역 검색
-              </div>
+        <div className="w-full border border-black flex flex-col items-center  ">
+          <div className="w-full flex flex-row justify-between indent-2">
+            <div className="body2 w-[180px] p-[1%] sm:p-4 xs:body3 text-white bg-black hidden md:block">
+              지역 검색
+            </div>
 
-              <Select
-                className="z-50 w-full m-[0.5%] sm:m-[1%]  leading-7 text-[22px] xs:body3"
-                classNamePrefix="select"
-                options={regionOptions}
-                placeholder={"지역명"}
-                autoFocus={true}
-                isMulti
-                isSearchable={false}
-                isClearable={true}
-                onChange={locationOnChangeHandler}
-                value={locations}
-                styles={ColorStyles}
-              />
-            </div>
+            <Select
+              className="z-50 w-full m-[0.5%] sm:m-[1%]  leading-7 text-[22px] xs:body3"
+              classNamePrefix="select"
+              options={regionOptions}
+              placeholder={"지역명"}
+              autoFocus={true}
+              isMulti
+              isSearchable={false}
+              isClearable={true}
+              onChange={locationOnChangeHandler}
+              value={locations}
+              styles={ColorStyles}
+            />
           </div>
-          <div className="border-b-2 w-full">
-            <div className="w-full flex flex-row indent-2 ">
-              <div className="body2 w-[180px] p-[1%] sm:p-4  xs:body3 text-white bg-black hidden md:block">
-                #해시태그
-              </div>
-              <Select
-                className="z-30 w-full m-[0.5%] sm:m-[1%]  leading-7 text-[22px] xs:body3"
-                classNamePrefix="select"
-                options={hashTagOptions}
-                isMulti
-                isSearchable={false}
-                isClearable={true}
-                placeholder={"#해시태그"}
-                onChange={hashtagOnChangeHandler}
-                value={hashtags}
-                styles={ColorStyles}
-              />
+
+          <div className="w-full flex flex-row indent-2 ">
+            <div className="body2 w-[180px] p-[1%] sm:p-4  xs:body3 text-white bg-black hidden md:block">
+              #해시태그
             </div>
+            <Select
+              className="z-30 w-full m-[0.5%] sm:m-[1%]  leading-7 text-[22px] xs:body3"
+              classNamePrefix="select"
+              options={hashTagOptions}
+              isMulti
+              isSearchable={false}
+              isClearable={true}
+              placeholder={"#해시태그"}
+              onChange={hashtagOnChangeHandler}
+              value={hashtags}
+              styles={ColorStyles}
+            />
           </div>
-          <div className="border-b-2 w-full">
-            <div className="w-full flex flex-row indent-2 ">
-              <div className="body2 w-[180px] p-[1%] sm:p-4  xs:body3 text-white bg-black hidden md:block">
-                검색어
-              </div>
-              <input
-                className={
-                  "rounded-sm indent-4 border border-gray-300 w-full m-[0.5%] sm:m-[1%]   h-[38px] placeholder:text-sm"
+
+          <div className="w-full flex flex-row indent-2 ">
+            <div className="body2 w-[180px] p-[1%] sm:p-4  xs:body3 text-white bg-black hidden md:block">
+              검색어
+            </div>
+            <input
+              type="search"
+              className={
+                "placeholder:sm:text-[22px] placeholder:text-[16px] placeholder:text-[#808080] sm:font-normal font-medium indent-4 border border-gray-300 w-full m-[0.5%] sm:m-[1%] h-[38px] placeholder:text-sm"
+              }
+              placeholder="검색어를 입력하세요."
+              value={words}
+              onChange={(event) => setWords(event.target.value)}
+              onKeyUp={(e) => {
+                if (e.key === "Enter") {
+                  navigate(
+                    `/search?lc=${JSON.stringify(
+                      locations
+                    )}&ht=${JSON.stringify(hashtags)}&ts=${JSON.stringify(
+                      travelStatus
+                    )}&ws=${words}`
+                  );
+                  filterData();
                 }
-                placeholder="검색어를 입력하세요."
-                value={words}
-                onChange={(event) => setWords(event.target.value)}
-                onKeyUp={(e) => {
-                  if (e.key === "Enter") {
-                    navigate(
-                      `/search?lc=${JSON.stringify(
-                        locations
-                      )}&ht=${JSON.stringify(hashtags)}&ts=${JSON.stringify(
-                        travelStatus
-                      )}&ws=${words}`
-                    );
-                    filterData();
-                  }
+              }}
+            />
+          </div>
+
+          <div className="w-full flex flex-row indent-2 ">
+            <div className="body2 w-[180px] p-[1%] sm:p-4   xs:body3 text-white bg-black hidden md:block">
+              계획 / 후기
+            </div>
+            <Select
+              className="z-20 w-full m-[0.5%] sm:m-[1%]  leading-7 text-[22px] xs:body3"
+              classNamePrefix="select"
+              isClearable={true}
+              placeholder={" 계획 / 후기"}
+              options={travelStatusOptions}
+              onChange={travelStatusOnChangeHandler}
+              styles={ColorStyles}
+              value={travelStatus}
+              ref={selectInputRef}
+            />
+          </div>
+
+          <div className="flex w-full  items-center justify-center my-[1%] mr-[5%] ">
+            <div className=" sm:text-xl text-base px-[2%] ">
+              <button
+                className="flex items-center gap-2"
+                onClick={() => {
+                  setLocations([]);
+                  sethashtags([]);
+                  setWords("");
+                  onClearSelect();
                 }}
-              />
+              >
+                <GrPowerReset /> 선택해제
+              </button>
             </div>
+            <button
+              className="button2 w-[20%] p-1 xs:body3  text-white bg-black hover:shadow-lg"
+              onClick={() => {
+                navigate(
+                  `/search?lc=${JSON.stringify(locations)}&ht=${JSON.stringify(
+                    hashtags
+                  )}&ts=${JSON.stringify(travelStatus)}&ws=${words}`
+                );
+                filterData();
+              }}
+            >
+              검색
+            </button>
           </div>
-          <div className="border-b-2 w-full">
-            <div className="w-full flex flex-row indent-2 ">
-              <div className="body2 w-[180px] p-[1%] sm:p-4   xs:body3 text-white bg-black hidden md:block">
-                여행 전/후
-              </div>
-              <Select
-                className="z-20 w-full m-[0.5%] sm:m-[1%]  leading-7 text-[22px] xs:body3"
-                classNamePrefix="select"
-                isClearable={true}
-                placeholder={"전/후"}
-                options={travelStatusOptions}
-                onChange={travelStatusOnChangeHandler}
-                styles={ColorStyles}
-                value={travelStatus}
-              />
-            </div>
-          </div>
-          <button
-            className="button2 w-[20%] p-1 xs:body3 m-3 text-white bg-black hover:shadow-lg"
-            onClick={() => {
-              navigate(
-                `/search?lc=${JSON.stringify(locations)}&ht=${JSON.stringify(
-                  hashtags
-                )}&ts=${JSON.stringify(travelStatus)}&ws=${words}`
-              );
-              filterData();
-            }}
-          >
-            검색
-          </button>
         </div>
       </div>
 
