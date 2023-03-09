@@ -159,26 +159,7 @@ const UserList = ({ done, category }: UserListType) => {
                   course={item}
                 />
               </StMap>
-              <StButtonDiv className="hidden sm:block">
-                {category !== "MY" ? null : item.travelStatus ? (
-                  <button
-                    onClick={(event: any) =>
-                      changeTravelStatusFalse(event, item.id)
-                    }
-                  >
-                    여행 계획으로 변경
-                  </button>
-                ) : (
-                  <button
-                    onClick={(event: any) => {
-                      changeTravelStatusTrue(event, item.id);
-                      logEvent("여행 후기로 변경", { from: "유저페이지" });
-                    }}
-                  >
-                    여행 후기로 변경
-                  </button>
-                )}
-              </StButtonDiv>
+
               <StImg
                 src={item.cover}
                 alt="대표 사진"
@@ -186,35 +167,32 @@ const UserList = ({ done, category }: UserListType) => {
                 category={category}
               />
             </Stdiv>
-            {window.innerWidth < 415 ? (
-              <div className="ml-1  w-fit  text-sm font-medium mt-2  ">
-                {category !== "MY" ? null : item.travelStatus ? (
-                  <button
-                    className="border-2 border-black p-[2px]"
-                    onClick={(event: any) =>
-                      changeTravelStatusFalse(event, item.id)
-                    }
-                  >
-                    여행 계획으로 변경
-                  </button>
-                ) : (
-                  <button
-                    className="border-2 border-black p-[2px]"
-                    onClick={(event: any) => {
-                      changeTravelStatusTrue(event, item.id);
-                      logEvent("여행 후기로 변경", { from: "유저페이지" });
-                    }}
-                  >
-                    여행 후기로 변경
-                  </button>
-                )}
-              </div>
-            ) : null}
+
+            <div className="ml-1  w-fit sm:text-[18px] text-sm font-medium mt-2 hover:shadow-md ">
+              {category !== "MY" ? null : item.travelStatus ? (
+                <button
+                  className="border-2 border-black p-[2px]"
+                  onClick={(event: any) =>
+                    changeTravelStatusFalse(event, item.id)
+                  }
+                >
+                  여행 계획으로 변경
+                </button>
+              ) : (
+                <button
+                  className="border-2 border-black p-[2px]"
+                  onClick={(event: any) => {
+                    changeTravelStatusTrue(event, item.id);
+                    logEvent("여행 후기로 변경", { from: "유저페이지" });
+                  }}
+                >
+                  여행 후기로 변경
+                </button>
+              )}
+            </div>
 
             <p
-              className={`pr-4 ml-1 sm:h-[30px]  h-7  w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ${
-                category === "MY" ? "sm:mt-[-20px]  " : "mt-5"
-              }`}
+              className={`pr-4 ml-1 sm:h-[30px]  h-7  w-[98%] sm:text-[28px] text-lg overflow-hidden font-black mt-[3%]`}
             >
               {item.title}
             </p>
@@ -254,40 +232,13 @@ const UserList = ({ done, category }: UserListType) => {
 };
 export default UserList;
 
-const StButtonDiv = styled.div`
-  color: white;
-  position: relative;
-  z-index: 1;
-  opacity: 0%;
-  bottom: 185px;
-  left: 21%;
-  font-size: 25px;
-  width: fit-content;
-  &:hover {
-    font-weight: 700;
-    background-color: rgba(245, 158, 11, 0.6);
-  }
-  & > button {
-    padding-right: 10px;
-    padding-left: 10px;
-  }
-`;
-
 const StImg = styled.img<{ category: string }>`
   position: absolute;
   bottom: 0px;
-  @media screen and (min-width: 415px) {
-    position: absolute;
-    bottom: ${(props) => (props.category === "MY" ? "37.5px" : "0px")};
-  }
 `;
 
 const StMap = styled.div<{ category: string }>`
   opacity: 0%;
-
-  @media screen and (min-width: 415px) {
-    ${(props) => (props.category === "MY" ? "filter: Brightness(20%)" : null)}
-  }
 `;
 
 const Stdiv = styled.div`
@@ -298,9 +249,6 @@ const Stdiv = styled.div`
       display: none;
     }
     ${StMap} {
-      opacity: 100%;
-    }
-    ${StButtonDiv} {
       opacity: 100%;
     }
   }
