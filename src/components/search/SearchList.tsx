@@ -37,7 +37,7 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
           <Link
             to={`/course/${item.id}`}
             key={item.id}
-            className="xl:w-[23%] lg:w-[31%] w-[48%] mr-[2%]  pt-[2%] border-t-2 border-black  mb-[5%]"
+            className="xl:w-[23%] lg:w-[31%] w-[48%] mr-[2%]  sm:pt-[2%] pt-[3%] border-t-2 border-black  mb-[5%]"
             onClick={() =>
               item.travelStatus === true
                 ? logEvent("post click", {

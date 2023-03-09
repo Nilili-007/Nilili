@@ -26,7 +26,7 @@ const BeforeRecent = () => {
 
   return (
     <div className=" mt-[10%]  lg:max-w-6xl w-[90%] min-h-[300px]   ">
-      <p className=" ml-1 my-[2%] md:bg-gray-01 w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-3xl font-bold font-eng   ">
+      <p className=" ml-1 my-[2%] md:bg-gray-01 w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-2xl font-bold font-eng   ">
         NOW PLANS
       </p>
       <p className=" hidden sm:block ml-2 pb-5 w-fit text-xl text-gray-04">
@@ -89,7 +89,7 @@ const BeforeRecent = () => {
                 })
               }
             >
-              <li className=" lg:w-[27%] md:w-[35%] sm:w-[52%] w-[40%] mr-[1%]  inline-block  pt-[2%] border-t-2 border-black ">
+              <li className=" lg:w-[27%] md:w-[35%] sm:w-[52%] w-[40%] mr-[1%]  inline-block  sm:pt-[2%] pt-[3%] border-t-2 border-black ">
                 <Stdiv>
                   <StMap>
                     <ListMap

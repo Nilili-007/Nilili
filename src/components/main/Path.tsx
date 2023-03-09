@@ -29,7 +29,7 @@ const Path = () => {
 
   return (
     <div className="mt-[5%]  lg:max-w-6xl w-[90%] min-h-[220px] ">
-      <p className=" ml-1 my-[2%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-3xl font-bold font-eng  ">
+      <p className=" ml-1 my-[2%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-2xl font-bold font-eng  ">
         DRAW MY PATH
       </p>
       <p className=" hidden sm:block ml-2 pb-5 w-fit text-xl text-gray-04">
@@ -64,7 +64,7 @@ const Path = () => {
         </div>
 
         <div className="lg:hidden block  font-eng absolute right-[5%] bottom-[30%]">
-          <p className="md:display4 title2 flex items-end">
+          <p className="md:display4 text-2xl font-bold font-eng  flex items-end">
             Create <br />
             Course <AiOutlineSwapRight className="mb-[1%]" />
           </p>

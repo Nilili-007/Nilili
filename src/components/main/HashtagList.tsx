@@ -20,7 +20,7 @@ const HashtagList = () => {
       } `}
     >
       <div className="mx-auto  lg:max-w-6xl w-[90%] ">
-        <p className="mt-[5%] mb-[2%]  ml-1 my-[2%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-3xl font-bold font-eng  ">
+        <p className="mt-[5%] mb-[2%]  ml-1 my-[2%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-2xl font-bold font-eng  ">
           HASHTAG IN KOREA
         </p>
         <p className=" hidden sm:block ml-2 pb-5 w-fit text-xl text-gray-04">
@@ -28,12 +28,12 @@ const HashtagList = () => {
         </p>
         <div className="block sm:hidden">
           {openHash === false ? (
-            <button onClick={() => setOpenHash(true)}>
-              <CgChevronDown className="text-3xl" />
+            <button onClick={() => setOpenHash(true)} className="flex badge">
+              <CgChevronDown className="text-3xl" /> 더보기
             </button>
           ) : (
-            <button onClick={() => setOpenHash(false)}>
-              <CgChevronUp className="text-3xl" />
+            <button onClick={() => setOpenHash(false)} className="flex badge">
+              <CgChevronUp className="text-3xl" /> 닫기
             </button>
           )}
         </div>

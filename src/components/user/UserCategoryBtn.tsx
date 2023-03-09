@@ -41,11 +41,11 @@ const UserCategoryBtn = () => {
       <div className=" flex flex-row justify-between items-center border-b-4 border-black mt-[3%] ">
         <div>
           {category === "MY" ? (
-            <p className=" ml-1 my-[8%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-3xl font-bold font-eng ">
+            <p className=" ml-1 my-[8%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-2xl font-bold font-eng ">
               MY PATH
             </p>
           ) : (
-            <p className=" ml-1 my-[8%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-3xl font-bold font-eng ">
+            <p className=" ml-1 my-[8%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-2xl font-bold font-eng ">
               MY LIKES
             </p>
           )}
