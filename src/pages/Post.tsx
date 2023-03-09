@@ -135,7 +135,7 @@ const Post = () => {
       if (travelStatus === null) {
         Swal.fire({
           icon: "error",
-          title: "여행 계획/후 카테고리를 선택해주세요!",
+          title: "여행 계획/후기 카테고리를 선택해주세요!",
           didClose: () => {
             window.scrollTo({ top: 450, behavior: "smooth" });
           },

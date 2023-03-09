@@ -185,9 +185,10 @@ const UserList = ({ done, category }: UserListType) => {
               />
             </Stdiv>
             {window.innerWidth < 415 ? (
-              <div className="ml-1 border-2 border-black w-fit p-[2px] badge relative bottom-6  ">
+              <div className="ml-1  w-fit  text-sm font-medium mt-2  ">
                 {category !== "MY" ? null : item.travelStatus ? (
                   <button
+                    className="border-2 border-black p-[2px]"
                     onClick={(event: any) =>
                       changeTravelStatusFalse(event, item.id)
                     }
@@ -196,6 +197,7 @@ const UserList = ({ done, category }: UserListType) => {
                   </button>
                 ) : (
                   <button
+                    className="border-2 border-black p-[2px]"
                     onClick={(event: any) => {
                       changeTravelStatusTrue(event, item.id);
                       logEvent("여행 후기로 변경", { from: "유저페이지" });
@@ -208,18 +210,18 @@ const UserList = ({ done, category }: UserListType) => {
             ) : null}
 
             <p
-              className={`pr-4 ml-1 sm:h-9  h-7  w-[98%] sm:text-2xl text-xl overflow-hidden font-black ${
-                category === "MY" ? "mt-[-20px]" : "mt-5"
+              className={`pr-4 ml-1 sm:h-9  h-7  w-[98%] sm:text-2xl text-lg overflow-hidden font-black ${
+                category === "MY" ? "sm:mt-[-20px]  " : "mt-5"
               }`}
             >
               {item.title}
             </p>
             {category === "MY" ? null : (
-              <p className="ml-1 mt-[3%]  font-medium  text-gray-400 text-2xl   ">
+              <p className="ml-1 mt-[3%]  font-medium  text-gray-400 sm:text-2xl text-base">
                 {item.nickname}
               </p>
             )}
-            <p className="ml-1 mt-[2%] font-medium  text-gray-400 text-xl mb-[10%]">
+            <p className="ml-1 mt-[2%] font-medium  text-gray-400 sm:text-xl text-sm mb-[10%]">
               {JSON.parse(item.createdAt).substr(0, 10)}{" "}
               {Number(JSON.parse(item.createdAt).substr(11, 2)) + 9}:
               {JSON.parse(item.createdAt).substr(14, 2)}
@@ -258,7 +260,7 @@ const StButtonDiv = styled.div`
   z-index: 1;
   opacity: 0%;
   bottom: 185px;
-  left: 23%;
+  left: 21%;
   font-size: 25px;
   width: fit-content;
   &:hover {
@@ -273,12 +275,19 @@ const StButtonDiv = styled.div`
 
 const StImg = styled.img<{ category: string }>`
   position: absolute;
-  bottom: ${(props) => (props.category === "MY" ? "37.5px" : "0px")};
+  bottom: 0px;
+  @media screen and (min-width: 415px) {
+    position: absolute;
+    bottom: ${(props) => (props.category === "MY" ? "37.5px" : "0px")};
+  }
 `;
 
 const StMap = styled.div<{ category: string }>`
   opacity: 0%;
-  ${(props) => (props.category === "MY" ? "filter: Brightness(20%)" : null)};
+
+  @media screen and (min-width: 415px) {
+    ${(props) => (props.category === "MY" ? "filter: Brightness(20%)" : null)}
+  }
 `;
 
 const Stdiv = styled.div`

@@ -127,7 +127,7 @@ const Category = styled.button`
     text-decoration-thickness: 1.5px;
   }
   @media screen and (min-width: 415px) {
-    width: 80px;
+    width: 100px;
     height: 40px;
     padding: 6px 12px;
     border: 1px solid #4b5563;

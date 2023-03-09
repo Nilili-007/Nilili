@@ -234,13 +234,13 @@ const SearchBox = () => {
           <div className="border-b-2 w-full">
             <div className="w-full flex flex-row indent-2 ">
               <div className="body2 w-[180px] p-[1%] sm:p-4   xs:body3 text-white bg-black hidden md:block">
-                여행 계획/후
+                계획 / 후기
               </div>
               <Select
                 className="z-20 w-full m-[0.5%] sm:m-[1%]  leading-7 text-[22px] xs:body3"
                 classNamePrefix="select"
                 isClearable={true}
-                placeholder={"전/후"}
+                placeholder={" 계획 / 후기"}
                 options={travelStatusOptions}
                 onChange={travelStatusOnChangeHandler}
                 styles={ColorStyles}

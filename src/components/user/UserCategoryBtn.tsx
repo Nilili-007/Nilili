@@ -16,8 +16,8 @@ const UserCategoryBtn = () => {
     <div className="flex flex-col  lg:max-w-6xl w-[90%]   min-h-[57vh] ">
       <div className="flex  border-b-2 border-black ">
         <button
-          className={`body4  sm:body1 mr-[7%] py-4 ${
-            category === "MY" ? "border-b-[3px] border-black" : "text-gray-04"
+          className={`  text-[18px] sm:body1 mr-[7%] py-4 ${
+            category === "MY" ? "border-b-[2px] border-black" : "text-gray-04"
           } `}
           onClick={() => {
             refetch();
@@ -27,8 +27,8 @@ const UserCategoryBtn = () => {
           내 게시글
         </button>
         <button
-          className={` body4 sm:body1 py-4 ${
-            category === "MY" ? "text-gray-04" : "border-b-[3px] border-black"
+          className={` text-[18px] sm:body1 py-4 ${
+            category === "MY" ? "text-gray-04" : "border-b-[2px] border-black"
           } `}
           onClick={() => {
             refetch();
@@ -52,11 +52,13 @@ const UserCategoryBtn = () => {
 
           {category === "MY" ? (
             <p className="hidden md:block ml-2 pb-5 w-fit text-xl text-gray-04 ">
-              {userName}님이 작성한 여행 여정을 되돌아보세요.
+              {userName}님이 작성한 {done ? "여행 후기" : "여행 계획"}을
+              되돌아보세요.
             </p>
           ) : (
             <p className="hidden md:block ml-2 pb-5 w-fit text-xl text-gray-04 ">
-              {userName}님이 좋아요 한 여행 여정을 살펴보세요.
+              {userName}님이 좋아요 한 {done ? "여행 후기" : "여행 계획"}을
+              살펴보세요.
             </p>
           )}
         </div>
