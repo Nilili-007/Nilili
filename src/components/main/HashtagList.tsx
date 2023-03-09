@@ -19,12 +19,12 @@ const HashtagList = () => {
         openHash === false ? "max-h-[250px]" : "max-h-[520px]"
       } `}
     >
-      <div className="mx-auto  lg:max-w-6xl w-[90%] ">
+      <div className="mx-auto   w-[85%] md:w-[70%] ">
         <p className="mt-[5%] mb-[2%]  ml-1 my-[2%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-2xl font-bold font-eng  ">
           HASHTAG IN KOREA
         </p>
         <p className=" hidden sm:block ml-2 pb-5 w-fit text-xl text-gray-04">
-          NILILI 사용자가 가장 최근 올린 일정을 함께해보세요.
+          원하는 해시태그 별 일정을 검색하러 가보세요.
         </p>
         <div className="block sm:hidden">
           {openHash === false ? (

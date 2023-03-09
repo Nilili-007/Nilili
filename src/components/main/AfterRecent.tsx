@@ -25,7 +25,7 @@ const AfterRecent = () => {
   }
 
   return (
-    <div className=" mt-[10%]  lg:max-w-6xl w-[90%] min-h-[300px]   ">
+    <div className=" mt-[10%]   w-[85%] md:w-[70%] h-auto   ">
       <p className=" ml-1 my-[2%] md:bg-gray-01 w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-2xl font-bold font-eng   ">
         NOW REVIEWS
       </p>

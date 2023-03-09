@@ -13,7 +13,7 @@ const UserCategoryBtn = () => {
   const userName = user?.displayName;
 
   return (
-    <div className="flex flex-col  lg:max-w-6xl w-[90%]   min-h-[57vh] ">
+    <div className="flex flex-col   w-[85%] md:w-[70%]  min-h-[57vh] ">
       <div className="flex  border-b-2 border-black ">
         <button
           className={`  text-[18px] sm:body1 mr-[7%] py-4 ${

@@ -168,7 +168,7 @@ const SearchBox = () => {
 
   return (
     <>
-      <div className="mb-[2%]  w-[85%] md:w-[70%] h-auto mx-auto md:mt-[100px]  min-w-[300px]">
+      <div className="mb-[2%]  w-[85%] md:w-[70%] h-auto  min-w-[300px]">
         <p className="w-fit mx-auto xl:text-[50px] lg:text-[45px] sm:text-[35px] text-2xl font-bold font-eng  my-[5%] ">
           EXPLORE YOUR PLANS
         </p>
@@ -290,7 +290,7 @@ const SearchBox = () => {
       {filteredList?.length === 0 ? (
         <p className="min-h-[100vh] pt-16 text-lg">검색결과가 없습니다.</p>
       ) : isLoading ? (
-        <div className=" flex justify-between flex-wrap mb-[2%]  lg:max-w-6xl w-[90%] mt-[3%] ">
+        <div className=" flex justify-between flex-wrap mb-[2%]  w-[85%] md:w-[70%] mt-[3%] ">
           {new Array(12).fill(null).map((_, idx) => (
             <SkeletonTheme baseColor="#202020" highlightColor="#444" key={idx}>
               <div className="  mb-[5%] xl:w-[23%] lg:w-[31%] w-[48%] mr-[2%]">

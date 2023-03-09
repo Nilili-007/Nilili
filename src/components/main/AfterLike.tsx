@@ -25,7 +25,7 @@ const AfterLike = () => {
   }
 
   return (
-    <div className=" mt-[10%]   lg:max-w-6xl w-[90%] min-h-[400px]  ">
+    <div className=" mt-[10%] w-[85%] md:w-[70%] h-auto    ">
       <p className=" ml-1 my-[2%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-2xl font-bold font-eng  ">
         BEST REVIEWS
       </p>

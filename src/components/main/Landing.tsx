@@ -13,7 +13,7 @@ const Landing = () => {
 
   return (
     <div className="relative items-center justify-center overflow-hidden sm:h-[70vh] w-full aspect-video  bg-no-repeat bg-cover bg-center sm:bg-fixed bg-[url('https://images.unsplash.com/photo-1618237600880-fb9d72e98393?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')] min-h-[500px] min-w-[370px] hidden md:flex ">
-      <div className="lg:max-w-6xl  w-[90%]   ">
+      <div className="w-[85%] md:w-[70%]  ">
         <p className=" mb-10 display2   text-white bg-black bg-opacity-40   ">
           나만의 코스로 여행하고
           <br />

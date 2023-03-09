@@ -28,7 +28,7 @@ const Path = () => {
   };
 
   return (
-    <div className="mt-[5%]  lg:max-w-6xl w-[90%] min-h-[220px] ">
+    <div className="mt-[5%] w-[85%] md:w-[70%] h-auto  ">
       <p className=" ml-1 my-[2%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-2xl font-bold font-eng  ">
         DRAW MY PATH
       </p>
