@@ -80,7 +80,7 @@ const PostInfo = ({
           </div>
         ) : null}
       </div>
-      <div className="w-[85%] md:w-[70%] m-auto -mt-[220px] xs:w-[90%] xs:pt-[136px]">
+      <div className="w-[85%] md:w-[70%] m-auto -mt-[220px] sm:-mt-[170px] md:-mt-[220px] xs:w-[90%] xs:pt-[124px]">
         <input
           className="w-full relative sm:py-1.5 text-[24px] sm:text-2xl md:text-[46px] xs:text-xl font-bold z-40 bg-transparent placeholder:text-white focus:outline-0"
           placeholder="여기에 제목을 입력해주세요."
@@ -92,17 +92,17 @@ const PostInfo = ({
             setCourseTitle(event.target.value);
           }}
         />
-        <div className="flex justify-between">
-          <p className="z-20 text-[14px] sm:text-lg hidden xs:hidden sm:flex">
+        <div className="flex justify-between h-4">
+          <p className="z-20 text-[14px] md:text-lg hidden xs:hidden sm:flex">
             {authService.currentUser?.displayName}님만의 여정을 직접 그려보세요!
           </p>
           {courseTitle.length > 32 ? (
-            <p className="text-white text-xl z-20 drop-shadow-xl px-2">
+            <p className="text-white text-[14px] md:text-xl z-20 drop-shadow-xl px-2">
               제목은 32자 이하로 작성해주세요.
             </p>
           ) : null}
         </div>
-        <div className="flex mt-4 xs:mt-0">
+        <div className="flex sm:mt-2 md:mt-4 xs:mt-0">
           <button
             onClick={() => setModalOpen(true)}
             className="bg-black px-1 sm:px-2 py-1 mt-2 mr-3 z-20 text-[12px] sm:badge xs:text-[12px] xs:px-2"
