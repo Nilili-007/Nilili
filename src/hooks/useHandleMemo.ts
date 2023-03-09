@@ -1,22 +1,27 @@
 import { useDispatch } from "react-redux";
 import { editMemo, filterCourse } from "../redux/modules/courseSlice";
+import { Dispatch, SetStateAction } from "react";
 
 const useHandleMemo = () => {
   const dispatch = useDispatch();
 
-  const handleMemo = (item: any, idx: number, text: string, setText: any) => {
+  const handleMemo = (
+    item: CourseListType,
+    idx: number,
+    text: string,
+    setText: Dispatch<SetStateAction<string>>
+  ) => {
     const newInfo = {
-      id: item.id,
       idx,
       memo: text,
     };
 
     if (item.memo === "") {
       setText("");
-      dispatch(filterCourse(newInfo));
+      dispatch(filterCourse(idx));
     } else {
       setText(item.memo);
-      dispatch(filterCourse(newInfo));
+      dispatch(filterCourse(idx));
       dispatch(editMemo(newInfo));
     }
   };

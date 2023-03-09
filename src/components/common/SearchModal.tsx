@@ -1,18 +1,17 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { GrFormClose } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { addCourse } from "../../redux/modules/courseSlice";
 import Swal from "sweetalert2";
 
-// interface PostProps {
-//   setModalOpen: Dispatch<SetStateAction<boolean>>;
-//   searchKeyword: any;
-//   setSearchKeyword: Dispatch<SetStateAction<string>>;
-//   searchList: object[];
-//   setSearchList: Dispatch<SetStateAction<any>>;
-//   searchCnt: any;
-//   boundsInfo: object;
-// }
+interface PostProps {
+  setModalOpen: Dispatch<SetStateAction<boolean>>;
+  searchKeyword: string;
+  setSearchKeyword: Dispatch<SetStateAction<string>>;
+  searchList: SearchListType[];
+  setSearchList: Dispatch<SetStateAction<SearchListType[]>>;
+  searchCnt: number | undefined;
+}
 
 const SearchModal = ({
   setModalOpen,
@@ -21,7 +20,7 @@ const SearchModal = ({
   searchList,
   setSearchList,
   searchCnt,
-}: any) => {
+}: PostProps) => {
   const dispatch = useDispatch();
   const [text, setText] = useState("");
   const lists = useSelector((state: any) => state.courseSlice.courseList);
@@ -32,13 +31,13 @@ const SearchModal = ({
     setSearchKeyword("");
   };
 
-  const onSubmitSearch = (e: any) => {
+  const onSubmitSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSearchKeyword(text);
     setText("");
   };
 
-  const addPlace = (item: any) => {
+  const addPlace = (item: SearchListType) => {
     const targetItem = {
       name: item.place_name,
       address: item.address_name,
@@ -52,7 +51,7 @@ const SearchModal = ({
       memo: "",
     };
 
-    if (lists.some((course: any) => course.id === targetItem.id)) {
+    if (lists.some((course: CourseListType) => course.id === targetItem.id)) {
       Swal.fire({
         title: `<p style="font-size: 20px;">이미 등록한 여행지입니다.\n그래도 추가하시겠습니까?</p>`,
         icon: "question",
@@ -111,7 +110,7 @@ const SearchModal = ({
           ""
         )}
 
-        {searchList?.map((item: any) => {
+        {searchList?.map((item: SearchListType) => {
           return (
             <div
               key={item.id}

@@ -1,8 +1,14 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { CoursePlaceInfo, MobileCourseToggleBtn } from "../common";
 import { ItemCard } from "../post/PostCourse";
 
-const CourseMobile = ({ course, filteredIdx, setFilteredIdx }: any) => {
+interface CourseProps {
+  course: CourseType | undefined;
+  filteredIdx: number;
+  setFilteredIdx: Dispatch<SetStateAction<number>>;
+}
+
+const CourseMobile = ({ course, filteredIdx, setFilteredIdx }: CourseProps) => {
   const [openCourse, setOpenCourse] = useState(false);
   const lists = JSON.parse(course?.courseList);
 
@@ -26,7 +32,7 @@ const CourseMobile = ({ course, filteredIdx, setFilteredIdx }: any) => {
         <>
           {openCourse && (
             <>
-              {lists.map((item: any, idx: number) => {
+              {lists.map((item: CourseListType, idx: number) => {
                 return (
                   <ItemCard key={idx} onClick={() => setFilteredIdx(idx)}>
                     <div className="flex">

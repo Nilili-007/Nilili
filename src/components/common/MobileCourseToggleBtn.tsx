@@ -1,6 +1,17 @@
+import { Dispatch, SetStateAction } from "react";
 import { BsChevronUp, BsChevronDown } from "react-icons/bs";
 
-const MobileCourseToggleBtn = ({ lists, openCourse, setOpenCourse }: any) => {
+interface MobileProps {
+  lists: CourseListType[];
+  openCourse: boolean;
+  setOpenCourse: Dispatch<SetStateAction<boolean>>;
+}
+
+const MobileCourseToggleBtn = ({
+  lists,
+  openCourse,
+  setOpenCourse,
+}: MobileProps) => {
   return (
     <div>
       {lists.length > 0 ? (

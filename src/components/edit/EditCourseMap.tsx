@@ -7,10 +7,10 @@ import { useSelector } from "react-redux";
 import { useKakaoMap } from "../../hooks";
 
 const EditCourseMap = () => {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [searchKeyword, setSearchKeyword] = useState("");
-  const [searchList, setSearchList] = useState([]);
-  const [searchCnt, setSearchCnt] = useState<number | null>();
+  const [searchList, setSearchList] = useState<SearchListType[]>([]);
+  const [searchCnt, setSearchCnt] = useState<number | undefined>();
   const [map, setMap] = useState();
   const lists = useSelector((state: any) => state.courseSlice.courseList);
   const filteredIdx = useSelector(

@@ -3,7 +3,6 @@ import Swal from "sweetalert2";
 
 const initialState = {
   courseList: [],
-  filteredId: "",
   filteredIdx: "",
 };
 
@@ -16,8 +15,7 @@ const courseSlice = createSlice({
     },
     filterCourse: (state: any, action) => {
       state.courseList = [...state.courseList];
-      state.filteredId = action.payload.id;
-      state.filteredIdx = action.payload.idx;
+      state.filteredIdx = action.payload;
     },
     deleteCourse: (state: any, action) => {
       state.courseList = [...current(state).courseList];
@@ -58,17 +56,8 @@ const courseSlice = createSlice({
       state.courseList = [...state.courseList];
       state.courseList[action.payload.idx].memo = action.payload.memo;
     },
-    deleteMemo: (state: any, action) => {
-      state.courseList = [...state.courseList];
-      // const i = state.courseList.findIndex(
-      //   (item: any) => item.id === action.payload
-      // );
-      // console.log(state.courseList[i].memo);
-      // state.courseList[i].memo = "";
-    },
     replaceAllData: (state: any, action) => {
       state.courseList = action.payload;
-      state.filteredId = "";
       state.filteredIdx = "";
     },
   },
@@ -81,7 +70,6 @@ export const {
   upCourse,
   downCourse,
   editMemo,
-  deleteMemo,
   replaceAllData,
 } = courseSlice.actions;
 export default courseSlice.reducer;

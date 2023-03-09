@@ -29,11 +29,15 @@ const EditCourseCategories = ({
 }: EditTitleProps) => {
   const regionLimit = 4;
   const tagLimit = 5;
-  const onClickStatus = (e: any) => {
-    if (e.target.innerText === "여행 계획") {
+  const onClickStatus = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    const eventTarget = e.target as HTMLElement;
+
+    if (eventTarget.innerText === "여행 계획") {
       setTravelStatus(false);
     }
-    if (e.target.innerText === "여행 후기") {
+    if (eventTarget.innerText === "여행 후기") {
       setTravelStatus(true);
     }
   };

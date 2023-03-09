@@ -6,15 +6,10 @@ const useFilterCourse = () => {
 
   const getIdx = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    item: any,
     idx: number
   ) => {
     event.stopPropagation();
-    const newInfo = {
-      id: item.id,
-      idx,
-    };
-    dispatch(filterCourse(newInfo));
+    dispatch(filterCourse(idx));
   };
 
   return getIdx;

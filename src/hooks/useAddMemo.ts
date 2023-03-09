@@ -1,12 +1,16 @@
 import { useDispatch } from "react-redux";
 import { editMemo } from "../redux/modules/courseSlice";
+import { Dispatch, SetStateAction } from "react";
 
 const useAddMemo = () => {
   const dispatch = useDispatch();
 
-  const addMemo = (item: any, idx: number, text: string, setText: any) => {
+  const addMemo = (
+    idx: number,
+    text: string,
+    setText: Dispatch<SetStateAction<string>>
+  ) => {
     const newMemo = {
-      id: item.id,
       idx,
       memo: text,
     };
