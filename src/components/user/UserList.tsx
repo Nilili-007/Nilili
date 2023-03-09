@@ -56,14 +56,14 @@ const UserList = ({ done, category }: UserListType) => {
   const changeTravelStatusTrue = (event: any, id: string | undefined) => {
     event.stopPropagation();
     Swal.fire({
-      title: "리뷰를 남기시겠습니까?",
-      text: "NILILI에 소중한 리뷰를 남겨주세요 ♥",
+      title: "후기를 남기시겠습니까?",
+      text: "NILILI에 소중한 후기를 남겨주세요 ♥",
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#B3261E",
       cancelButtonColor: "#50AA72",
-      confirmButtonText: "리뷰도 작성할게요!",
-      cancelButtonText: "여행 후로만 변경할게요.",
+      confirmButtonText: "후기도 작성할게요!",
+      cancelButtonText: "여행 후기로만 변경할게요.",
       reverseButtons: true,
     }).then(async (result) => {
       if (result.isConfirmed) {
@@ -72,14 +72,14 @@ const UserList = ({ done, category }: UserListType) => {
           travelStatus: true,
         });
         navigate(`/edit/${id}`);
-        logEvent("리뷰 작성하러 이동", { from: "유저페이지" });
+        logEvent("후기 작성하러 이동", { from: "유저페이지" });
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         await updateTravelStatus({
           courseId: id,
           travelStatus: true,
         });
-        Swal.fire("변경 완료!", "여행 후로 변경되었습니다.", "success");
-        logEvent("여행 후로만 변경하기", { from: "유저페이지" });
+        Swal.fire("변경 완료!", "여행 후기로 변경되었습니다.", "success");
+        logEvent("여행 후기로만 변경하기", { from: "유저페이지" });
       }
     });
   };
@@ -87,7 +87,7 @@ const UserList = ({ done, category }: UserListType) => {
   const changeTravelStatusFalse = (event: any, id: string | undefined) => {
     event.stopPropagation();
     Swal.fire({
-      title: "여행 전으로 변경하시겠습니까?",
+      title: "여행 계획으로 변경하시겠습니까?",
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -99,7 +99,7 @@ const UserList = ({ done, category }: UserListType) => {
           courseId: id,
           travelStatus: false,
         });
-        Swal.fire("변경 완료!", "여행 전으로 변경되었습니다.", "success");
+        Swal.fire("변경 완료!", "여행 계획으로 변경되었습니다.", "success");
       }
     });
   };
@@ -164,58 +164,60 @@ const UserList = ({ done, category }: UserListType) => {
                       changeTravelStatusFalse(event, item.id)
                     }
                   >
-                    여행 전으로 변경
+                    여행 계획으로 변경
                   </button>
                 ) : (
                   <button
                     onClick={(event: any) => {
                       changeTravelStatusTrue(event, item.id);
-                      logEvent("여행 후로 변경", { from: "유저페이지" });
+                      logEvent("여행 후기로 변경", { from: "유저페이지" });
                     }}
                   >
-                    여행 후로 변경
+                    여행 후기로 변경
                   </button>
                 )}
               </StButtonDiv>
               <StImg
                 src={item.cover}
                 alt="대표 사진"
-                className=" sm:h-[350px] sm:w-[350px] h-[170px] w-[170px]"
+                className=" sm:h-[350px] sm:w-[350px] h-[170px] w-[170px] object-cover"
                 category={category}
               />
             </Stdiv>
             {window.innerWidth < 415 ? (
-              <div className="ml-1 border-2 border-black w-fit p-[2px] badge relative bottom-6  ">
+              <div className="ml-1  w-fit  text-sm font-medium mt-2  ">
                 {category !== "MY" ? null : item.travelStatus ? (
                   <button
+                    className="border-2 border-black p-[2px]"
                     onClick={(event: any) =>
                       changeTravelStatusFalse(event, item.id)
                     }
                   >
-                    여행 전으로 변경
+                    여행 계획으로 변경
                   </button>
                 ) : (
                   <button
+                    className="border-2 border-black p-[2px]"
                     onClick={(event: any) => {
                       changeTravelStatusTrue(event, item.id);
-                      logEvent("여행 후로 변경", { from: "유저페이지" });
+                      logEvent("여행 후기로 변경", { from: "유저페이지" });
                     }}
                   >
-                    여행 후로 변경
+                    여행 후기로 변경
                   </button>
                 )}
               </div>
             ) : null}
 
             <p
-              className={`pr-4 ml-1 sm:h-9  h-7  w-[98%] sm:text-2xl text-xl overflow-hidden font-black ${
-                category === "MY" ? "mt-[-20px]" : "mt-5"
+              className={`pr-4 ml-1 sm:h-[30px]  h-7  w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ${
+                category === "MY" ? "sm:mt-[-20px]  " : "mt-5"
               }`}
             >
               {item.title}
             </p>
             {category === "MY" ? null : (
-              <p className="ml-1 mt-[3%]  font-medium  text-gray-400 text-2xl   ">
+              <p className="ml-1 mt-[3%]  font-medium  text-gray-400 sm:text-2xl text-base">
                 {item.nickname}
               </p>
             )}
@@ -229,7 +231,7 @@ const UserList = ({ done, category }: UserListType) => {
       {userData?.length === 0 ? (
         <div className="h-52 flex pt-16 justify-center text-sm sm:text-lg flex-wrap">
           {category === "MY" ? "작성된" : "좋아요를 누른"}{" "}
-          {done ? "여행 후" : "여행 전"} 게시물이 없습니다.
+          {done ? "여행 후기" : "여행 계획"} 게시물이 없습니다.
         </div>
       ) : (
         <Pagenation
@@ -256,7 +258,7 @@ const StButtonDiv = styled.div`
   z-index: 1;
   opacity: 0%;
   bottom: 185px;
-  left: 23%;
+  left: 21%;
   font-size: 25px;
   width: fit-content;
   &:hover {
@@ -271,12 +273,19 @@ const StButtonDiv = styled.div`
 
 const StImg = styled.img<{ category: string }>`
   position: absolute;
-  bottom: ${(props) => (props.category === "MY" ? "37.5px" : "0px")};
+  bottom: 0px;
+  @media screen and (min-width: 415px) {
+    position: absolute;
+    bottom: ${(props) => (props.category === "MY" ? "37.5px" : "0px")};
+  }
 `;
 
 const StMap = styled.div<{ category: string }>`
   opacity: 0%;
-  ${(props) => (props.category === "MY" ? "filter: Brightness(20%)" : null)};
+
+  @media screen and (min-width: 415px) {
+    ${(props) => (props.category === "MY" ? "filter: Brightness(20%)" : null)}
+  }
 `;
 
 const Stdiv = styled.div`
