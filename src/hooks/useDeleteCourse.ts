@@ -17,13 +17,13 @@ const useDeleteCourse = () => {
       idx,
     };
     Swal.fire({
-      title: "일정에서 삭제하시겠습니까?",
+      title: `<p style="font-size: 20px;">일정에서 삭제하시겠습니까?</p>`,
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#B3261E",
       cancelButtonColor: "#50AA72",
-      confirmButtonText: "네, 삭제할래요",
-      cancelButtonText: "아니요, 취소할래요",
+      confirmButtonText: "네",
+      cancelButtonText: "아니오",
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(filterCourse(newInfo));

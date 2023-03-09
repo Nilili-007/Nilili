@@ -42,7 +42,7 @@ const EditCourseInfo = ({ setModalOpen }: any) => {
           return (
             <ItemCard
               key={idx}
-              onClick={() => getIdx(item, idx)}
+              onClick={(event) => getIdx(event, item, idx)}
               className={idx === filteredIdx ? "clicked" : " "}
             >
               <div className="w-full flex">
