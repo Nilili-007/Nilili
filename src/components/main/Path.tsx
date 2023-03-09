@@ -47,7 +47,7 @@ const Path = () => {
               }
             : handleNavigate
         }
-        className="hover:cursor-pointer pt-6  border-t-2 border-black relative "
+        className="hover:cursor-pointer sm:pt-[2%] pt-[3%]  border-t-2 border-black relative "
       >
         <ProgressiveImg
           src="/assets/path.png"

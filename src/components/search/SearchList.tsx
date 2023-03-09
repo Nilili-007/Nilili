@@ -67,7 +67,7 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
               <StImg
                 src={item.cover}
                 alt="대표 사진"
-                className=" border-black sm:h-[324px] sm:w-[300px] w-[170px] h-[194px] "
+                className=" border-black sm:h-[324px] sm:w-[300px] w-[170px] h-[194px] object-cover"
               />
             </Stdiv>
 

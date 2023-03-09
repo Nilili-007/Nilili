@@ -107,7 +107,7 @@ const BeforeRecent = () => {
                   <StImg
                     src={item.cover}
                     alt="대표 사진"
-                    className=" mt-6 w-full sm:h-[350px] h-[170px]"
+                    className=" mt-6 w-full sm:h-[350px] h-[170px] object-cover"
                   />
                 </Stdiv>
                 <p className="ml-1  mt-[8%] mb-[2%] sm:h-9  h-7  w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ">

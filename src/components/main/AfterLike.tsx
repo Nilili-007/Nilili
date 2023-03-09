@@ -100,7 +100,7 @@ const AfterLike = () => {
                   <StImg
                     src={item.cover}
                     alt="대표 사진"
-                    className="mt-6 w-full sm:h-[380px] h-[200px]"
+                    className="mt-6 w-full sm:h-[380px] h-[200px] object-cover"
                   />
                 </Stdiv>
                 <p className="ml-1  mt-[8%] mb-[2%] sm:h-[31px]  h-7  w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ">

@@ -180,7 +180,7 @@ const UserList = ({ done, category }: UserListType) => {
               <StImg
                 src={item.cover}
                 alt="대표 사진"
-                className=" sm:h-[350px] sm:w-[350px] h-[170px] w-[170px]"
+                className=" sm:h-[350px] sm:w-[350px] h-[170px] w-[170px] object-cover"
                 category={category}
               />
             </Stdiv>
@@ -210,7 +210,7 @@ const UserList = ({ done, category }: UserListType) => {
             ) : null}
 
             <p
-              className={`pr-4 ml-1 sm:h-[31px]  h-7  w-[98%] sm:text-[27px] text-lg overflow-hidden font-black ${
+              className={`pr-4 ml-1 sm:h-[30px]  h-7  w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ${
                 category === "MY" ? "sm:mt-[-20px]  " : "mt-5"
               }`}
             >
