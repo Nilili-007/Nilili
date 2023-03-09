@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { ItemCard } from "../post/PostCourse";
 import { useSelector } from "react-redux";
 import {
@@ -12,8 +12,12 @@ import { useGetCourseQuery } from "../../redux/modules/apiSlice";
 import { useParams } from "react-router-dom";
 import { useFilterCourse } from "../../hooks";
 
-const EditCourseInfo = ({ setModalOpen }: any) => {
-  const [text, setText] = useState<any>("");
+interface EditCourseProps {
+  setModalOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+const EditCourseInfo = ({ setModalOpen }: EditCourseProps) => {
+  const [text, setText] = useState<string>("");
 
   const paramId = useParams().id;
   const { data } = useGetCourseQuery();
@@ -38,11 +42,11 @@ const EditCourseInfo = ({ setModalOpen }: any) => {
     <div className="w-[35%] pl-7 float-right xs:hidden">
       <SearchModalAddCourseBtn setModalOpen={setModalOpen} />
       <div className="flex flex-col h-[932px] overflow-y-scroll ">
-        {lists?.map((item: any, idx: any) => {
+        {lists?.map((item: CourseListType, idx: number) => {
           return (
             <ItemCard
               key={idx}
-              onClick={(event) => getIdx(event, item, idx)}
+              onClick={(event) => getIdx(event, idx)}
               className={idx === filteredIdx ? "clicked" : " "}
             >
               <div className="w-full flex">
@@ -55,7 +59,7 @@ const EditCourseInfo = ({ setModalOpen }: any) => {
                     setText={setText}
                   />
                 </div>
-                <CourseDeleteBtn item={item} idx={idx} />
+                <CourseDeleteBtn idx={idx} />
               </div>
               <CourseOrderBtns lists={lists} item={item} idx={idx} />
             </ItemCard>

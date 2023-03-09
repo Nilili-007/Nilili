@@ -1,10 +1,14 @@
 import { Map } from "react-kakao-maps-sdk";
 import { CourseInfo, CourseMapMarker } from "./index";
+import { Dispatch, SetStateAction } from "react";
+
 interface CourseProps {
   course: CourseType | undefined;
+  filteredIdx: number | string;
+  setFilteredIdx: Dispatch<SetStateAction<number>>;
 }
 
-const CourseMap = ({ course, filteredIdx, setFilteredIdx }: any) => {
+const CourseMap = ({ course, filteredIdx, setFilteredIdx }: CourseProps) => {
   const lists = JSON.parse(course?.courseList);
 
   return (

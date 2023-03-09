@@ -7,7 +7,7 @@ import { useDelete } from "../../hooks";
 
 interface CourseManageButtonProps {
   paramId: string | undefined;
-  course: any;
+  course: CourseType | undefined;
 }
 
 const CourseManageButton = ({ paramId, course }: CourseManageButtonProps) => {

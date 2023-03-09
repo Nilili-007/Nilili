@@ -1,4 +1,10 @@
-const SearchModalAddCourseBtn = ({ setModalOpen }: any) => {
+import { Dispatch, SetStateAction } from "react";
+
+interface Props {
+  setModalOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+const SearchModalAddCourseBtn = ({ setModalOpen }: Props) => {
   return (
     <>
       <button

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useSelector } from "react-redux";
 import {
   CourseOrderBtns,
@@ -10,24 +10,28 @@ import {
 import styled from "styled-components";
 import { useFilterCourse } from "../../hooks";
 
-const PostCourse = ({ setModalOpen }: any) => {
+interface PostProps {
+  setModalOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+const PostCourse = ({ setModalOpen }: PostProps) => {
   const lists = useSelector((state: any) => state.courseSlice.courseList);
   const filteredIdx = useSelector(
     (state: any) => state.courseSlice.filteredIdx
   );
 
-  const [text, setText] = useState("");
+  const [text, setText] = useState<string>("");
   const getIdx = useFilterCourse();
 
   return (
     <div className="w-[35%] pl-4 md:pl-7 float-right xs:hidden">
       <SearchModalAddCourseBtn setModalOpen={setModalOpen} />
       <div className="flex flex-col h-[932px] overflow-y-scroll ">
-        {lists?.map((item: any, idx: number) => {
+        {lists?.map((item: CourseListType, idx: number) => {
           return (
             <ItemCard
               key={idx}
-              onClick={(event) => getIdx(event, item, idx)}
+              onClick={(event) => getIdx(event, idx)}
               className={idx === filteredIdx ? "clicked" : " "}
             >
               <div className="flex">
@@ -40,7 +44,7 @@ const PostCourse = ({ setModalOpen }: any) => {
                     setText={setText}
                   />
                 </div>
-                <CourseDeleteBtn item={item} idx={idx} />
+                <CourseDeleteBtn idx={idx} />
               </div>
               {lists.length < 2 ? (
                 <div className="p-3.5" />

@@ -1,10 +1,21 @@
+import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 
-const CourseInfo = ({ courseList, filteredIdx, setFilteredIdx }: any) => {
+interface CourseProps {
+  courseList: CourseListType[];
+  filteredIdx: number | string;
+  setFilteredIdx: Dispatch<SetStateAction<number>>;
+}
+
+const CourseInfo = ({
+  courseList,
+  filteredIdx,
+  setFilteredIdx,
+}: CourseProps) => {
   return (
     <div className="w-[35%] pl-7 float-right xs:hidden">
       <div className="flex flex-col h-[1024px] overflow-y-scroll ">
-        {courseList?.map((item: any, idx: any) => {
+        {courseList?.map((item: CourseListType, idx: number) => {
           return (
             <ItemCard
               key={idx}

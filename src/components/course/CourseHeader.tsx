@@ -22,13 +22,12 @@ const CourseHeader = ({ course }: CourseProps) => {
             <h1 className="z-20 sm:text-4xl md:text-5xl font-bold leading-tight xs:text-2xl xs:w-full xs:-mt-6 flex items-end h-[100px]">
               {course?.title}
             </h1>
-
-            <p className="z-20 text-xs sm:text-[17px] sm:leading-6 lg:text-lg font-bold text-black bg-white opacity-80 sm:h-auto sm:top-0 xs:w-[50px] sm:w-[70px] lg:w-[85px] text-center sm:mt-4 lg:mt-5 xs:mt-2 py-1 xs:py-0.5">
+            <p className="z-20 text-xs sm:text-[17px] sm:leading-6 lg:text-lg font-bold text-black bg-white opacity-80 sm:h-auto sm:top-0 xs:w-[50px] sm:w-[70px] lg:w-[85px] mt-4 text-center sm:mt-3 xs:mt-2 py-1 xs:py-0.5">
               {course?.travelStatus === true ? "여행 후" : "여행 전"}
             </p>
           </div>
-          <div className="z-20 body3 sm:text-lg md:text-2xl flex xs:mt-1 sm:mt-3 lg:mt-4 text-white">
-            {course?.location.map((location: any) => {
+          <div className="mt-4 z-20 body3 sm:text-2xl flex xs:mt-1 sm:mt-3 text-white">
+            {course?.location.map((location: string) => {
               return (
                 <p className="pr-2 z-20" key={location}>
                   #{location}
