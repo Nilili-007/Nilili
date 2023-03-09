@@ -93,7 +93,6 @@ const Share = () => {
   return (
     <>
       <div className="md:flex justify-end items-center gap-3 mt-2 hidden">
-        <div className="text-black text-[20px] font-medium">공유하기</div>
         <div className="flex gap-1">
           <FacebookShareButton
             url={currentURL}
