@@ -4,6 +4,7 @@ import {
   HashtagList,
   BeforeRecent,
   AfterLike,
+  AfterRecent,
 } from "../components/main";
 import * as amplitude from "@amplitude/analytics-browser";
 import { useEffect } from "react";
@@ -16,6 +17,7 @@ const Main = () => {
       <Landing />
       <Path />
       <BeforeRecent />
+      <AfterRecent />
       <AfterLike />
       <HashtagList />
     </div>

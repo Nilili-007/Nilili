@@ -1,15 +1,15 @@
-import { useGetCourseLikeQuery } from "../../redux/modules/apiSlice";
+import { useGetCourseQuery } from "../../redux/modules/apiSlice";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 import { CreatedDate, ListMap } from "../shared";
+import styled from "styled-components";
 import { logEvent } from "../../utils/amplitude";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useGetScreenSize } from "../../hooks";
 import { CgChevronRight, CgChevronLeft } from "react-icons/cg";
 import { useRef } from "react";
 
-const AfterLike = () => {
-  const { data, isLoading, isError } = useGetCourseLikeQuery();
+const AfterRecent = () => {
+  const { data, isLoading, isError } = useGetCourseQuery();
 
   const scrollRef = useRef();
 
@@ -25,32 +25,38 @@ const AfterLike = () => {
   }
 
   return (
-    <div className=" mt-[10%]   lg:max-w-6xl w-[90%] min-h-[400px]  ">
-      <p className=" ml-1 my-[2%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-3xl font-bold font-eng  ">
-        BEST REVIEWS
+    <div className=" mt-[10%]  lg:max-w-6xl w-[90%] min-h-[300px]   ">
+      <p className=" ml-1 my-[2%] md:bg-gray-01 w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-3xl font-bold font-eng   ">
+        NOW REVIEWS
       </p>
       <p className=" hidden sm:block ml-2 pb-5 w-fit text-xl text-gray-04">
-        NILILI 유저들이 남긴 최고의 여행 후기를 소개합니다.
+        NILILI 유저들의 최신 여행 후기을 함께 해보세요.
       </p>
       <div className="sm:flex  justify-between mb-[1%] hidden ">
         <button
           className="font-3xl"
-          onClick={() => scroll(-window.innerWidth * 0.5)}
+          onClick={() => {
+            scroll(-window.innerWidth * 0.5);
+          }}
         >
           <CgChevronLeft className="text-6xl  " />
         </button>
-        <button onClick={() => scroll(window.innerWidth * 0.5)}>
+        <button
+          onClick={() => {
+            scroll(window.innerWidth * 0.5);
+          }}
+        >
           <CgChevronRight className="text-6xl  " />
         </button>
       </div>
       <ul
-        className=" overflow-x-auto whitespace-nowrap no-scrollbar"
+        className="overflow-x-auto whitespace-nowrap no-scrollbar"
         // @ts-ignore
         ref={scrollRef}
       >
         {isLoading ? (
           <div className="flex ">
-            {new Array(window.innerWidth < 415 ? 2 : 3)
+            {new Array(window.innerWidth < 415 ? 3 : 4)
               .fill(null)
               .map((_, idx) => (
                 <SkeletonTheme
@@ -58,8 +64,8 @@ const AfterLike = () => {
                   highlightColor="#444"
                   key={idx}
                 >
-                  <div className=" mb-3 lg:w-[31%] w-[51%] mr-[2%]">
-                    <Skeleton className="sm:h-[300px] h-[190px]" />
+                  <div className=" mb-3 md:w-[35%] sm:w-[52%] w-[40%] mr-[1%] ">
+                    <Skeleton className="sm:h-[300px] h-[170px]" />
                     <div className="mt-3">
                       <Skeleton className="w-[80%] h-[30px]" />
                       <Skeleton className="w-[30%]  h-[25px]" />
@@ -70,28 +76,29 @@ const AfterLike = () => {
               ))}
           </div>
         ) : null}
-
         {data
           ?.filter((item: CourseType) => item.travelStatus === true)
-          .slice(0, 8)
-          .map((item) => (
+          .slice(0, 16)
+          .map((item: CourseType) => (
             <Link
               to={`/course/${item.id}`}
               key={item.id}
               onClick={() =>
-                logEvent("post click : AfterLike", { from: "메인페이지" })
+                logEvent("post click : BeforeRecent", {
+                  from: "메인페이지",
+                })
               }
             >
-              <li className="lg:w-[31%] w-[51%] mr-[2%] inline-block  pt-[2%] border-t-2 border-black ">
+              <li className=" lg:w-[27%] md:w-[35%] sm:w-[52%] w-[40%] mr-[1%]  inline-block  pt-[2%] border-t-2 border-black ">
                 <Stdiv>
                   <StMap>
                     <ListMap
                       mapstyle={
                         window.innerWidth < 415
-                          ? { width: "200px", height: "200px" }
+                          ? { width: "170px", height: "170px" }
                           : {
-                              width: "380px",
-                              height: "380px",
+                              width: "350px",
+                              height: "350px",
                             }
                       }
                       course={item}
@@ -100,7 +107,7 @@ const AfterLike = () => {
                   <StImg
                     src={item.cover}
                     alt="대표 사진"
-                    className="mt-6 w-full sm:h-[380px] h-[200px]"
+                    className=" mt-6 w-full sm:h-[350px] h-[170px]"
                   />
                 </Stdiv>
                 <p className="ml-1  mt-[8%] mb-[2%] sm:h-9  h-7  w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ">
@@ -120,7 +127,7 @@ const AfterLike = () => {
   );
 };
 
-export default AfterLike;
+export default AfterRecent;
 
 const StImg = styled.img`
   position: absolute;
