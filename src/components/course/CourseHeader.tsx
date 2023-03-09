@@ -21,12 +21,12 @@ const CourseHeader = ({ course }: CourseProps) => {
           <div className=" w-full z-20 flex">
             <h1 className="z-20 text-5xl font-bold leading-tight xs:text-2xl xs:w-full xs:-mt-6">
               {course?.title}
-              <span className="ml-1 z-20 text-xs sm:text-lg font-bold text-black bg-white opacity-80 px-2 py-1 sm:h-auto sm:top-0 xs:px-1.5 xs:py-0.5 ">
-                {course?.travelStatus === true ? "여행 후" : "여행 전"}
-              </span>
             </h1>
+            <p className="z-20 text-xs sm:text-[17px] sm:leading-6 lg:text-lg font-bold text-black bg-white opacity-80 sm:h-auto sm:top-0 xs:w-[50px] sm:w-[70px] lg:w-[85px] mt-4 text-center sm:mt-3 xs:mt-2 py-1 xs:py-0.5">
+            {course?.travelStatus === true ? "여행 후" : "여행 전"}
+            </p>
           </div>
-          <div className="mt-4 z-20 body3 sm:text-2xl flex xs:mt-1 text-white">
+          <div className="mt-4 z-20 body3 sm:text-2xl flex xs:mt-1 sm:mt-3 text-white">
             {course?.location.map((location: any) => {
               return (
                 <p className="pr-2 z-20" key={location}>

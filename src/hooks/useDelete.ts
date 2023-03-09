@@ -30,13 +30,6 @@ const useDelete = ({ target, deleteFn }: deleteType) => {
           timer: 1500,
         });
         deleteFn(id);
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire({
-          icon: "error",
-          title: `<p style="font-size: 20px;">삭제가 취소되었습니다.</p>`,
-          showConfirmButton: false,
-          timer: 1500,
-        });
       }
     });
   };
