@@ -5,13 +5,13 @@ import { GrFormClose } from "react-icons/gr";
 import styled from "styled-components";
 
 interface PostProps {
-  uploadCover: string;
-  setUploadCover: Dispatch<SetStateAction<any>>;
+  uploadCover: string | undefined;
+  setUploadCover: Dispatch<SetStateAction<string | undefined>>;
   galleryCover: string;
-  setGalleryCover: Dispatch<SetStateAction<any>>;
-  courseTitle?: any;
+  setGalleryCover: Dispatch<SetStateAction<string>>;
+  courseTitle: string | undefined;
   titleRef?: any;
-  setCourseTitle?: any;
+  setCourseTitle: Dispatch<SetStateAction<string | undefined>>;
 }
 
 const PostInfo = ({
@@ -28,11 +28,13 @@ const PostInfo = ({
   const coverRef = useRef<HTMLInputElement>(null);
   let file: any;
 
-  const selectCategory = (e: any) => {
-    if (e.target.innerText !== "업로드") {
+  const selectCategory = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const eventTarget = e.target as HTMLElement;
+
+    if (eventTarget.innerText !== "업로드") {
       setCategory("갤러리");
     }
-    if (e.target.innerText !== "갤러리") {
+    if (eventTarget.innerText !== "갤러리") {
       setCategory("업로드");
     }
   };
@@ -43,15 +45,19 @@ const PostInfo = ({
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = () => {
-        setUploadCover(reader.result as any);
+        setUploadCover(reader.result as SetStateAction<string | undefined>);
         setModalOpen(false);
       };
     }
   };
 
-  const selectCoverImg = (e: any) => {
-    if (e.target.currentSrc) {
-      setGalleryCover(e.target.currentSrc);
+  const selectCoverImg = (
+    e: React.MouseEvent<HTMLImageElement, MouseEvent>
+  ) => {
+    const eventTarget = e.target as HTMLImageElement;
+
+    if (eventTarget.currentSrc) {
+      setGalleryCover(eventTarget.currentSrc);
       setUploadCover(undefined);
       setModalOpen(false);
     }
@@ -96,7 +102,7 @@ const PostInfo = ({
           <p className="z-20 text-[14px] sm:text-lg hidden xs:hidden sm:flex">
             {authService.currentUser?.displayName}님만의 여정을 직접 그려보세요!
           </p>
-          {courseTitle.length > 32 ? (
+          {courseTitle && courseTitle.length > 32 ? (
             <p className="text-white text-xl z-20 drop-shadow-xl px-2">
               제목은 32자 이하로 작성해주세요.
             </p>

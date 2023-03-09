@@ -25,17 +25,32 @@ declare interface optionType {
 }
 
 declare interface CourseListType {
-  memo?: string;
+  memo: string;
   name: string;
   address: string;
   road: string;
   phone: string;
   id: string;
-  bounds: any;
   position: PositionType;
 }
 
 declare interface PositionType {
-  lng: string;
-  lat: string;
+  lat: number;
+  lng: number;
+}
+
+declare interface SearchListType {
+  place_name: string;
+  address_name: string;
+  road_address_name: string;
+  phone: string;
+  id: string;
+  position: object;
+  x: string;
+  y: string;
+  category_group_code: string;
+  category_group_name: string;
+  category_name: string;
+  distance: string;
+  place_url: string;
 }

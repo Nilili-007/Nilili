@@ -33,11 +33,11 @@ const Post = () => {
   const regionsRef = useRef<HTMLSelectElement>(null);
 
   // 커버
-  const [uploadCover, setUploadCover] = useState("");
+  const [uploadCover, setUploadCover] = useState<string | undefined>("");
   const [galleryCover, setGalleryCover] = useState("");
 
   //제목
-  const [courseTitle, setCourseTitle] = useState("");
+  const [courseTitle, setCourseTitle] = useState<string | undefined>("");
 
   // select
   const {
@@ -82,7 +82,7 @@ const Post = () => {
       (uploadCover || galleryCover) &&
       travelStatus !== null &&
       regions.length > 0 &&
-      courseTitle.trim() &&
+      courseTitle?.trim() &&
       courseList.length > 1
     ) {
       Swal.fire({

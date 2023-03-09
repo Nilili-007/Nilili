@@ -1,16 +1,27 @@
 import { CustomOverlayMap, Polyline } from "react-kakao-maps-sdk";
 import { InfoWindow, Marker, MobileMarker } from "../common/MapMarkers";
 import { MdLocationOn } from "react-icons/md";
+import { Dispatch, SetStateAction } from "react";
 
-const CourseMapMarker = ({ lists, filteredIdx, setFilteredIdx }: any) => {
+interface CourseProps {
+  lists: CourseListType[];
+  filteredIdx: number | string;
+  setFilteredIdx: Dispatch<SetStateAction<number>>;
+}
+
+const CourseMapMarker = ({
+  lists,
+  filteredIdx,
+  setFilteredIdx,
+}: CourseProps) => {
   let polyline: any = [];
-  lists.map((item: any) => {
+  lists.map((item: CourseListType) => {
     polyline.push(item.position);
   });
 
   return (
     <>
-      {lists.map((item: any, idx: number) => (
+      {lists.map((item: CourseListType, idx: number) => (
         <div key={item.id + idx}>
           <div onClick={() => setFilteredIdx(idx)}>
             <CustomOverlayMap position={item.position}>
@@ -42,10 +53,10 @@ const CourseMapMarker = ({ lists, filteredIdx, setFilteredIdx }: any) => {
         </div>
       ))}
       {lists.length > 0 ? (
-        <div className="xs:border-r-2 xs:border-dashed xs:border-black xs:w-4 xs:h-[600px] xs:right-[14%] xs:absolute xs:overflow-y-scroll" />
+        <div className="xs:border-r-2 xs:border-dashed xs:border-black xs:w-4 xs:h-[600px] xs:right-[13.3%] xs:absolute xs:overflow-y-scroll" />
       ) : null}
       <div className="xs:w-[50px] xs:h-[600px] xs:flex xs:flex-col xs:absolute xs:right-[7.5%] xs:overflow-y-scroll">
-        {lists.map((item: any, idx: number) => (
+        {lists.map((item: CourseListType, idx: number) => (
           <div key={item.id + idx} className="xs:flex xs:justify-center">
             <MobileMarker
               onClick={() => setFilteredIdx(idx)}

@@ -39,7 +39,7 @@ const PostMobileCourse = () => {
               />
             </div>
             <div className="ml-auto">
-              <CourseDeleteBtn item={lists[filteredIdx]} idx={filteredIdx} />
+              <CourseDeleteBtn idx={filteredIdx} />
             </div>
           </div>
         </ItemCard>
@@ -63,15 +63,12 @@ const PostMobileCourse = () => {
         <>
           {openCourse && (
             <>
-              {lists.map((item: any, idx: number) => {
+              {lists.map((item: CourseListType, idx: number) => {
                 return (
-                  <ItemCard
-                    key={idx}
-                    onClick={(event) => getIdx(event, item, idx)}
-                  >
+                  <ItemCard key={idx} onClick={(event) => getIdx(event, idx)}>
                     <div className="flex">
                       <CoursePlaceInfo lists={lists} item={item} idx={idx} />
-                      <CourseDeleteBtn item={item} idx={idx} />
+                      <CourseDeleteBtn idx={idx} />
                     </div>
                     <p className="mt-1 w-full ">{item.memo}</p>
                     {lists.length < 2 ? (

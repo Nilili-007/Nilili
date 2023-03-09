@@ -11,7 +11,7 @@ const MapMarkers = () => {
   );
 
   let polyline: any = [];
-  lists.map((item: any) => {
+  lists.map((item: CourseListType) => {
     polyline.push(item.position);
   });
 
@@ -19,9 +19,9 @@ const MapMarkers = () => {
 
   return (
     <>
-      {lists.map((item: any, idx: number) => (
+      {lists.map((item: CourseListType, idx: number) => (
         <div key={item.id + idx}>
-          <div onClick={(event) => getIdx(event, item, idx)}>
+          <div onClick={(event) => getIdx(event, idx)}>
             <CustomOverlayMap position={item.position}>
               <InfoWindow className={idx === filteredIdx ? "clicked" : " "}>
                 <MdLocationOn className="mt-1 -ml-1 mr-1" /> {item.name}
@@ -51,13 +51,13 @@ const MapMarkers = () => {
         </div>
       ))}
       {lists.length > 0 ? (
-        <div className="lg:hidden xs:border-r-2 xs:border-dashed xs:border-black xs:w-4 xs:h-[600px] xs:right-[14%] xs:absolute xs:overflow-y-scroll" />
+        <div className="lg:hidden xs:border-r-2 xs:border-dashed xs:border-black xs:w-4 xs:h-[600px] xs:right-[13.3%] xs:absolute xs:overflow-y-scroll" />
       ) : null}
       <div className="xs:w-[50px] xs:h-[600px] xs:flex xs:flex-col xs:absolute xs:right-[7.5%] xs:overflow-y-scroll">
-        {lists.map((item: any, idx: number) => (
+        {lists.map((item: CourseListType, idx: number) => (
           <div key={item.id + idx} className="xs:flex xs:justify-center">
             <MobileMarker
-              onClick={(event) => getIdx(event, item, idx)}
+              onClick={(event) => getIdx(event, idx)}
               className={idx === filteredIdx ? "clicked" : " "}
             >
               <span className="font-bold text-white absolute z-[99]">
