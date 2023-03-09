@@ -20,14 +20,14 @@ const PostCourse = ({ setModalOpen }: any) => {
   const getIdx = useFilterCourse();
 
   return (
-    <div className="w-[35%] pl-7 float-right xs:hidden">
+    <div className="w-[35%] pl-4 md:pl-7 float-right xs:hidden">
       <SearchModalAddCourseBtn setModalOpen={setModalOpen} />
       <div className="flex flex-col h-[932px] overflow-y-scroll ">
         {lists?.map((item: any, idx: number) => {
           return (
             <ItemCard
               key={idx}
-              onClick={() => getIdx(item, idx)}
+              onClick={(event) => getIdx(event, item, idx)}
               className={idx === filteredIdx ? "clicked" : " "}
             >
               <div className="flex">
@@ -65,5 +65,9 @@ export const ItemCard = styled.div`
   &.clicked {
     background: black;
     color: white;
+  }
+  @media screen and (max-width: 414px) {
+    padding: 15px 20px 20px 20px;
+    margin-bottom: 20px;
   }
 `;

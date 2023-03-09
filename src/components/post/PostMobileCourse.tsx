@@ -25,7 +25,7 @@ const PostMobileCourse = () => {
       {lists?.length > 0 && lists[filteredIdx] ? (
         <ItemCard>
           <div className="flex">
-            <div>
+            <div className="w-full">
               <CoursePlaceInfo
                 lists={lists}
                 item={lists[filteredIdx]}
@@ -47,7 +47,7 @@ const PostMobileCourse = () => {
         <>
           {lists.length === 0 ? null : (
             <div className="lg:hidden 3xl:hidden xs:border xs:border-gray-03 xs:p-5 xs:my-8">
-              <span className="text-[20px] font-bold">
+              <span className="text-[18px] font-bold">
                 지도에서 여행지를 선택해보세요.
               </span>
             </div>
@@ -65,7 +65,10 @@ const PostMobileCourse = () => {
             <>
               {lists.map((item: any, idx: number) => {
                 return (
-                  <ItemCard key={idx} onClick={() => getIdx(item, idx)}>
+                  <ItemCard
+                    key={idx}
+                    onClick={(event) => getIdx(event, item, idx)}
+                  >
                     <div className="flex">
                       <CoursePlaceInfo lists={lists} item={item} idx={idx} />
                       <CourseDeleteBtn item={item} idx={idx} />

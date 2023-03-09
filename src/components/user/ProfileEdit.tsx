@@ -133,13 +133,6 @@ const ProfileEdit = ({
               <div></div>
               <div></div>
             </div>
-            <div className="w-full flex justify-between items-center">
-              <div></div>
-              <div className="text-[11px]">
-                회원님을 알릴 수 있는 사진을 등록해주세요. <br />
-                등록된 사진은 회원님의 게시물이나 댓글 등에 사용됩니다.
-              </div>
-            </div>
             <div className="flex justify-center items-center m-3">
               <div className="border-b-2 border-solid border-gray-200 w-full" />
             </div>
