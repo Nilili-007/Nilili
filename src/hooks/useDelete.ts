@@ -23,7 +23,6 @@ const useDelete = ({ target, deleteFn }: deleteType) => {
         if (target == "게시물") {
           navigate("/");
         }
-        // navigate("/");
         Swal.fire({
           icon: "success",
           title: `<p style="font-size: 20px;">${target}이 삭제되었습니다.</p>`,

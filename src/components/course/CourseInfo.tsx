@@ -38,7 +38,7 @@ const ItemCard = styled.div`
   border: 1px solid #cbcdd2;
   margin-bottom: 32px;
   cursor: pointer;
-  padding: 20px;
+  padding: 10px 5px;
   &.clicked {
     background: black;
     color: white;
