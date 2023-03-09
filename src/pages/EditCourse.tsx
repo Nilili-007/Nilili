@@ -165,6 +165,8 @@ const EditCourse = () => {
               icon: "success",
               title: "수정 완료",
               html: `${authService.currentUser?.displayName}님의 여정을<br>공유해주셔서 감사합니다!`,
+              showConfirmButton: false,
+              timer: 1500,
             });
             logEvent("수정내용 등록", { from: "수정페이지" });
           }
