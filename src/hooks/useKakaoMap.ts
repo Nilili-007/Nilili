@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 
 const useKakaoMap = (
-  map: any,
+  // @ts-ignore
+  map,
   searchKeyword: string,
-  setSearchList: any,
-  setSearchCnt: any
+  setSearchList: Dispatch<SetStateAction<SearchListType[]>>,
+  setSearchCnt: React.Dispatch<React.SetStateAction<number | undefined>>
 ) => {
   const ps = new kakao.maps.services.Places();
 

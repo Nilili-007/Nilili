@@ -2,7 +2,13 @@ import styled from "styled-components";
 import { BsChevronUp, BsChevronDown } from "react-icons/bs";
 import { useDownCourse, useUpCourse } from "../../hooks";
 
-const CourseOrderBtns = ({ lists, item, idx }: any) => {
+interface CourseInfoProps {
+  lists: object[];
+  idx: number;
+  item: CourseListType;
+}
+
+const CourseOrderBtns = ({ lists, item, idx }: CourseInfoProps) => {
   const liftUp = useUpCourse();
   const liftDown = useDownCourse();
 

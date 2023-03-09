@@ -12,7 +12,7 @@ import { ItemCard } from "../post/PostCourse";
 
 const EditCourseMobile = () => {
   const [openCourse, setOpenCourse] = useState(false);
-  const [text, setText] = useState<any>("");
+  const [text, setText] = useState<string>("");
   const data = useSelector((state: any) => state.courseSlice.courseList);
   const [lists, setLists] = useState(data);
   const filteredIdx = useSelector(
@@ -45,7 +45,7 @@ const EditCourseMobile = () => {
                 />
               </div>
               <div className="ml-auto">
-                <CourseDeleteBtn item={lists[filteredIdx]} idx={filteredIdx} />
+                <CourseDeleteBtn idx={filteredIdx} />
               </div>
             </>
           ) : (
@@ -64,15 +64,12 @@ const EditCourseMobile = () => {
         <>
           {openCourse && (
             <>
-              {lists.map((item: any, idx: number) => {
+              {lists.map((item: CourseListType, idx: number) => {
                 return (
-                  <ItemCard
-                    key={idx}
-                    onClick={(event) => getIdx(event, item, idx)}
-                  >
+                  <ItemCard key={idx} onClick={(event) => getIdx(event, idx)}>
                     <div className="flex">
                       <CoursePlaceInfo lists={lists} item={item} idx={idx} />
-                      <CourseDeleteBtn item={item} idx={idx} />
+                      <CourseDeleteBtn idx={idx} />
                     </div>
                     <p className="mt-1 w-full ">{item.memo}</p>
                     {lists.length < 2 ? (

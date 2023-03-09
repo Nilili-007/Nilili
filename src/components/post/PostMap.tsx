@@ -8,9 +8,9 @@ import { useKakaoMap } from "../../hooks";
 
 const PostMap = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [searchKeyword, setSearchKeyword] = useState<any | null>("");
-  const [searchList, setSearchList] = useState([]);
-  const [searchCnt, setSearchCnt] = useState<number | null>();
+  const [searchKeyword, setSearchKeyword] = useState<string>("");
+  const [searchList, setSearchList] = useState<SearchListType[]>([]);
+  const [searchCnt, setSearchCnt] = useState<number | undefined>();
   const [map, setMap] = useState();
   const lists = useSelector((state: any) => state.courseSlice.courseList);
   const filteredIdx = useSelector(

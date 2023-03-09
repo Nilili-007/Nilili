@@ -1,7 +1,13 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-const CoursePlaceInfo = ({ lists, item, idx }: any) => {
+interface CourseInfoProps {
+  lists: object[];
+  idx: number;
+  item: CourseListType;
+}
+
+const CoursePlaceInfo = ({ lists, item, idx }: CourseInfoProps) => {
   const filteredIdx = useSelector(
     (state: any) => state.courseSlice.filteredIdx
   );

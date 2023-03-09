@@ -1,11 +1,21 @@
+import { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 
-const PostTravelStatus = ({ travelStatus, setTravelStatus }: any) => {
-  const onClickStatus = (e: any) => {
-    if (e.target.innerText === "여행 계획") {
+interface PostProps {
+  travelStatus: boolean | null;
+  setTravelStatus: Dispatch<SetStateAction<boolean | null>>;
+}
+
+const PostTravelStatus = ({ travelStatus, setTravelStatus }: PostProps) => {
+  const onClickStatus = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    const eventTarget = e.target as HTMLElement;
+
+    if (eventTarget.innerText === "여행 계획") {
       setTravelStatus(false);
     }
-    if (e.target.innerText === "여행 후기") {
+    if (eventTarget.innerText === "여행 후기") {
       setTravelStatus(true);
     }
   };
