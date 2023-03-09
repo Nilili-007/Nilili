@@ -7,7 +7,7 @@ const CourseInfo = ({ courseList, filteredIdx, setFilteredIdx }: any) => {
         {courseList?.map((item: any, idx: any) => {
           return (
             <ItemCard
-              key={item.id}
+              key={idx}
               onClick={() => setFilteredIdx(idx)}
               className={idx === filteredIdx ? "clicked" : ""}
             >
@@ -35,11 +35,16 @@ const CourseInfo = ({ courseList, filteredIdx, setFilteredIdx }: any) => {
 export default CourseInfo;
 
 const ItemCard = styled.div`
-  border: 1px solid #9ca3af;
+  border: 1px solid #cbcdd2;
   margin-bottom: 32px;
   cursor: pointer;
+  padding: 20px;
   &.clicked {
     background: black;
     color: white;
+  }
+  @media screen and (max-width: 414px) {
+    padding: 15px 20px 20px 20px;
+    margin-bottom: 20px;
   }
 `;

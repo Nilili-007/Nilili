@@ -1,6 +1,6 @@
 import { useState } from "react";
-import styled from "styled-components";
 import { CoursePlaceInfo, MobileCourseToggleBtn } from "../common";
+import { ItemCard } from "../post/PostCourse";
 
 const CourseMobile = ({ course, filteredIdx, setFilteredIdx }: any) => {
   const [openCourse, setOpenCourse] = useState(false);
@@ -54,14 +54,3 @@ const CourseMobile = ({ course, filteredIdx, setFilteredIdx }: any) => {
 };
 
 export default CourseMobile;
-
-const ItemCard = styled.div`
-  border: 1px solid #cbcdd2;
-  margin-bottom: 32px;
-  cursor: pointer;
-  padding: 20px;
-  &.clicked {
-    background: black;
-    color: white;
-  }
-`;
