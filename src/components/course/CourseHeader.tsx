@@ -23,7 +23,7 @@ const CourseHeader = ({ course }: CourseProps) => {
               {course?.title}
             </h1>
             <p className="z-20 text-xs sm:text-[17px] sm:leading-6 lg:text-lg font-bold text-black bg-white opacity-80 sm:h-auto sm:top-0 xs:w-[50px] sm:w-[70px] lg:w-[85px] mt-4 text-center sm:mt-3 xs:mt-2 py-1 xs:py-0.5">
-            {course?.travelStatus === true ? "여행 후" : "여행 전"}
+              {course?.travelStatus === true ? "여행 후" : "여행 전"}
             </p>
           </div>
           <div className="mt-4 z-20 body3 sm:text-2xl flex xs:mt-1 sm:mt-3 text-white">
