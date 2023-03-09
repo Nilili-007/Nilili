@@ -46,7 +46,7 @@ const MultiStyles: StylesConfig<optionType, true> = {
         fontSize: 20,
         lineHeight: 3,
       },
-      "@media (min-width:640px)": {
+      "@media (max-width:1024px)": {
         fontSize: 18,
         lineHeight: 2,
       },
@@ -66,12 +66,12 @@ const MultiStyles: StylesConfig<optionType, true> = {
     color: "#ffffff",
     paddingLeft: 10,
     fontSize: 16,
-    "@media (min-width:1280px)": {
+    "@media (min-width:1024px)": {
       fontSize: 20,
       padding: "0px 15px 0px 20px",
       lineHeight: 2.5,
     },
-    "@media (min-width:640px)": {
+    "@media (max-width:1024px)": {
       fontSize: 16,
       lineHeight: 2,
     },

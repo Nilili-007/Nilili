@@ -34,7 +34,7 @@ const PostHashTag = ({ selectedTags, setSelectedTags }: tagProps) => {
     <div className="mb-8 text-xs sm:text-lg">
       <Select
         isMulti
-        placeholder={"#해시태그"}
+        placeholder={"# 해시태그"}
         options={hashTagOptions}
         onChange={handleTagSelect}
         className="basic-multi-select z-10"
