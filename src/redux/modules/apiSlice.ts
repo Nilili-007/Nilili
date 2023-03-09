@@ -209,7 +209,7 @@ export const courseApi = createApi({
             likes,
             likesID,
           });
-          return { data: null };
+          return { data: likes };
         } catch (error: any) {
           console.error(error.message);
           return { error: error.message };
