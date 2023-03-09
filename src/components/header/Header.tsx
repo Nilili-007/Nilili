@@ -38,7 +38,7 @@ const Header = () => {
       window.location.pathname === `/edit/${window.location.pathname.slice(6)}`
     ) {
       Swal.fire({
-        title: "이 페이지를 나가시겠습니까?",
+        title: '<p style="font-size: 18px;">이 페이지를 나가시겠습니까?</p>',
         icon: "question",
         showCancelButton: true,
         confirmButtonColor: "#B3261E",

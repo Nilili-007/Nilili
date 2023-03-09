@@ -21,7 +21,7 @@ const MapMarkers = () => {
     <>
       {lists.map((item: any, idx: number) => (
         <div key={item.id + idx}>
-          <div onClick={() => getIdx(item, idx)} className="xs:flex">
+          <div onClick={(event) => getIdx(event, item, idx)}>
             <CustomOverlayMap position={item.position}>
               <InfoWindow className={idx === filteredIdx ? "clicked" : " "}>
                 <MdLocationOn className="mt-1 -ml-1 mr-1" /> {item.name}
@@ -46,26 +46,26 @@ const MapMarkers = () => {
             strokeWeight={2}
             strokeColor={"black"}
             strokeOpacity={1}
-            strokeStyle={"solid"}
+            strokeStyle={"dashed"}
           />
         </div>
       ))}
-      <div className="xs:w-[90px] xs:h-[600px] xs:flex xs:flex-col xs:absolute xs:right-6 xs:overflow-y-scroll">
+      {lists.length > 0 ? (
+        <div className="lg:hidden xs:border-r-2 xs:border-dashed xs:border-black xs:w-4 xs:h-[600px] xs:right-[14%] xs:absolute xs:overflow-y-scroll" />
+      ) : null}
+      <div className="xs:w-[50px] xs:h-[600px] xs:flex xs:flex-col xs:absolute xs:right-[7.5%] xs:overflow-y-scroll">
         {lists.map((item: any, idx: number) => (
           <div key={item.id + idx} className="xs:flex xs:justify-center">
             <MobileMarker
-              onClick={() => getIdx(item, idx)}
+              onClick={(event) => getIdx(event, item, idx)}
               className={idx === filteredIdx ? "clicked" : " "}
             >
               <span className="font-bold text-white absolute z-[99]">
-                #{idx + 1}
+                {idx === filteredIdx ? `#${idx + 1}` : null}
               </span>
             </MobileMarker>
           </div>
         ))}
-        {lists.length > 0 ? (
-          <div className="xs:border-r-4 xs:border-black xs:h-full xs:absolute xs:ml-[43px] " />
-        ) : null}
       </div>
     </>
   );
@@ -74,7 +74,6 @@ const MapMarkers = () => {
 export default MapMarkers;
 
 export const InfoWindow = styled.div`
-  position: relative;
   background: black;
   color: white;
   margin-top: -75px;
@@ -98,7 +97,7 @@ export const Marker = styled.div`
   border-radius: 50px;
   background: black;
   color: white;
-  opacity: 0.6;
+  opacity: 0.7;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -114,7 +113,7 @@ export const Marker = styled.div`
       border-radius: 50px;
       width: 72px;
       height: 72px;
-      opacity: 0.6;
+      opacity: 0.7;
     }
   }
   @media screen and (max-width: 414px) {
@@ -136,9 +135,8 @@ export const MobileMarker = styled.div`
 
   @media screen and (max-width: 414px) {
     display: block;
-    width: 35px;
-    height: 35px;
-    font-size: 14px;
+    width: 12px;
+    height: 12px;
     border-radius: 50px;
     background: black;
     color: white;
@@ -147,16 +145,10 @@ export const MobileMarker = styled.div`
     align-items: center;
     margin: 17.5px 0;
     &.clicked {
+      width: 35px;
+      height: 35px;
+      font-size: 14px;
       opacity: 1;
-      &:after {
-        content: "";
-        position: absolute;
-        background: black;
-        border-radius: 50px;
-        width: 55px;
-        height: 55px;
-        opacity: 0.6;
-      }
     }
   }
 `;

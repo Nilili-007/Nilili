@@ -54,7 +54,7 @@ const SearchModal = ({
 
     if (lists.some((course: any) => course.id === targetItem.id)) {
       Swal.fire({
-        title: `이미 등록한 여행지입니다. \n 그래도 추가하시겠습니까?`,
+        title: `<p style="font-size: 20px;">이미 등록한 여행지입니다.\n그래도 추가하시겠습니까?</p>`,
         icon: "question",
         showCancelButton: true,
         confirmButtonColor: "#B3261E",
