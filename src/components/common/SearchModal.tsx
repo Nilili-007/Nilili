@@ -1,9 +1,10 @@
-import React, { Dispatch, SetStateAction, useRef, useState } from "react";
+import React, { Dispatch, SetStateAction, useCallback, useState } from "react";
 import { GrFormClose } from "react-icons/gr";
 import { useDispatch } from "react-redux";
 import { addCourse } from "../../redux/modules/courseSlice";
 import Swal from "sweetalert2";
-import { useCourse } from "../../hooks";
+import { useCourse, useDebounce } from "../../hooks";
+import styled from "styled-components";
 
 interface PostProps {
   setModalOpen: Dispatch<SetStateAction<boolean>>;
@@ -22,10 +23,19 @@ const SearchModal = ({
   setSearchList,
   searchCnt,
 }: PostProps) => {
-  const page = useRef(null);
   const dispatch = useDispatch();
   const [text, setText] = useState("");
   const { lists } = useCourse();
+
+  const printValue = useCallback(
+    useDebounce((value: any) => console.log(value), 500),
+    []
+  );
+
+  const handleChange = (e: any) => {
+    printValue(e.target.value);
+    setText(e.target.value);
+  };
 
   const closeModal = () => {
     setModalOpen(false);
@@ -37,6 +47,9 @@ const SearchModal = ({
     e.preventDefault();
     setSearchKeyword(text);
     setText("");
+    if (searchList.length > 0) {
+      setSearchList([]);
+    }
   };
 
   const addPlace = (item: SearchListType) => {
@@ -94,7 +107,8 @@ const SearchModal = ({
         <form onSubmit={(e) => onSubmitSearch(e)} className="flex">
           <input
             value={text}
-            onChange={(e) => setText(e.target.value)}
+            onChange={handleChange}
+            // onChange={(event) => changeTextHandler(event)}
             placeholder="여행지를 입력해주세요."
             className="w-[695px] h-[50px] px-[14px] py-[16px] border border-gray-400 text-lg focus:outline-none xs:w-[72%] xs:h-10 xs:text-[14px]"
           />
@@ -103,39 +117,64 @@ const SearchModal = ({
           </button>
         </form>
       </div>
-      <div className="overflow-y-scroll max-h-[1000px]">
-        {searchList.length > 0 ? (
-          <h4 className="title3 my-3 px-8 xs:text-lg xs:mt-2 xs:mb-1 xs:px-5">
-            '{searchKeyword}' 검색결과({searchCnt})
-          </h4>
-        ) : (
-          ""
-        )}
 
-        {searchList?.map((item: SearchListType) => {
-          return (
-            <div
-              key={item.id}
-              onClick={() => addPlace(item)}
-              className="pt-3 cursor-pointer hover:border-white hover:bg-black hover:text-white xs:pt-1"
-            >
-              <h5 className="title3 px-8 xs:px-5 xs:text-[16px]">
-                {item.place_name}
-              </h5>
-              <p className="px-8 mt-2 text-lg text-[#474C51] xs:px-5 xs:text-sm xs:mt-0">
-                {item.address_name}
-              </p>
-              <div className="w-[92%] flex mx-auto mt-3 border-b border-black xs:mt-2" />
-            </div>
-          );
-        })}
-      </div>
-      <div
+      {searchKeyword !== "" && searchList.length === 0 ? (
+        <div className="flex flex-col justify-center items-center h-32 text-2xl mt-12 xs:text-sm xs:mt-10 xs:h-20">
+          <p>'{searchKeyword}'에 대한 검색 결과가 없습니다.</p>
+          <p>검색어를 확인해주세요.</p>
+        </div>
+      ) : (
+        <div className="overflow-y-scroll max-h-[1000px]">
+          {searchList.length > 0 ? (
+            <h4 className="title3 my-3 px-8 xs:text-lg xs:mt-2 xs:mb-1 xs:px-5">
+              '{searchKeyword}' 검색결과({searchCnt})
+            </h4>
+          ) : (
+            ""
+          )}
+          {searchList?.map((item: SearchListType) => {
+            return (
+              <div
+                key={item.id}
+                onClick={() => addPlace(item)}
+                className="pt-3 cursor-pointer hover:border-white hover:bg-black hover:text-white xs:pt-1"
+              >
+                <h5 className="title3 px-8 xs:px-5 xs:text-[16px]">
+                  {item.place_name}
+                </h5>
+                <p className="px-8 mt-2 text-lg text-[#474C51] xs:px-5 xs:text-sm xs:mt-0">
+                  {item.address_name}
+                </p>
+                <div className="w-[92%] flex mx-auto mt-3 border-b border-black xs:mt-2" />
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      <Pagination
         id="pagination"
-        className="text-2xl font-bold tracking-[20px] flex justify-center items-center mt-5 xs:text-xl"
+        className={searchList.length > 0 ? "result" : ""}
       />
     </div>
   );
 };
 
-export default React.memo(SearchModal);
+export default SearchModal;
+
+const Pagination = styled.span`
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  &.result {
+    color: black;
+  }
+  @media screen and (max-width: 414px) {
+    font-size: 20px;
+  }
+`;

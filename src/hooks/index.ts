@@ -10,6 +10,7 @@ import useGetScreenSize from "./useGetScreenSize";
 import useDate from "./useDate";
 import useCancelPost from "./useCancelPost";
 import useCourse from "./useCourse";
+import useDebounce from "./useDebounce";
 
 export {
   usePagenation,
@@ -24,4 +25,5 @@ export {
   useDate,
   useCancelPost,
   useCourse,
+  useDebounce,
 };

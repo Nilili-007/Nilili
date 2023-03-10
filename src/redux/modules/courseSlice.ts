@@ -13,7 +13,7 @@ const courseSlice = createSlice({
     addCourse: (state: any, action) => {
       state.courseList = [...state.courseList, action.payload];
     },
-    filterCourse: (state: any, action) => {
+    filterCourse: (state, action) => {
       state.courseList = [...state.courseList];
       state.filteredIdx = action.payload;
     },
@@ -24,7 +24,7 @@ const courseSlice = createSlice({
         state.filteredIdx = state.courseList.length - 1;
       }
     },
-    upCourse: (state: any, action) => {
+    upCourse: (state, action) => {
       state.courseList = [...current(state).courseList];
       const i = action.payload;
       if (i > 0) {
@@ -38,7 +38,7 @@ const courseSlice = createSlice({
         });
       }
     },
-    downCourse: (state: any, action) => {
+    downCourse: (state, action) => {
       state.courseList = [...current(state).courseList];
       const i = action.payload;
       if (i + 1 < state.courseList.length) {
@@ -56,7 +56,7 @@ const courseSlice = createSlice({
       state.courseList = [...state.courseList];
       state.courseList[action.payload.idx].memo = action.payload.memo;
     },
-    replaceAllData: (state: any, action) => {
+    replaceAllData: (state, action) => {
       state.courseList = action.payload;
       state.filteredIdx = "";
     },

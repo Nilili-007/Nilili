@@ -103,7 +103,7 @@ const PostInfo = ({
             {authService.currentUser?.displayName}님만의 여정을 직접 그려보세요!
           </p>
           {courseTitle && courseTitle.length > 32 ? (
-            <p className="text-white text-xl z-20 drop-shadow-xl px-2">
+            <p className="text-white text-xl z-20 drop-shadow-xl px-2 xs:text-[10px] xs:ml-auto xs:-mt-2">
               제목은 32자 이하로 작성해주세요.
             </p>
           ) : null}
