@@ -1,9 +1,11 @@
 import { Dispatch, SetStateAction, useRef, useState } from "react";
 import { authService } from "../../utils/firebase";
-import { galleryLists } from "../post/index";
 import { GrFormClose } from "react-icons/gr";
 import styled from "styled-components";
 import { DebouncedFunc } from "lodash";
+import { getStorage, ref } from "firebase/storage";
+import Swal from "sweetalert2";
+import { galleryLists } from ".";
 
 interface PostProps {
   uploadCover: string | undefined;
@@ -27,9 +29,9 @@ const PostInfo = ({
   changeValueHandler,
 }: PostProps) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [category, setCategory] = useState("업로드");
+  const [category, setCategory] = useState("갤러리");
   const coverRef = useRef<HTMLInputElement>(null);
-  let file: File | null;
+  let file: any;
 
   const selectCategory = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const eventTarget = e.target as HTMLElement;
@@ -47,10 +49,23 @@ const PostInfo = ({
       file = coverRef.current.files[0];
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onloadend = () => {
-        setUploadCover(reader.result as SetStateAction<string | undefined>);
-        setModalOpen(false);
-      };
+
+      if (
+        file.type !== "image/jpg" ||
+        file.type !== "image/jpeg" ||
+        file.type !== "image/png" ||
+        file.type !== "image/bmp"
+      ) {
+        Swal.fire({
+          title: `<p style="font-size: 20px;">jpg, png, bmp 이미지만 가능합니다.\n확장자를 다시 한 번 확인해주세요.</p>`,
+          icon: "error",
+        });
+      } else {
+        reader.onloadend = () => {
+          setUploadCover(reader.result as SetStateAction<string | undefined>);
+          setModalOpen(false);
+        };
+      }
     }
   };
 
@@ -124,7 +139,7 @@ const PostInfo = ({
         </div>
       </div>
       {modalOpen && (
-        <div className="w-[90%] h-[300px] lg:w-[700px] md:h-[300px] bg-white border border-gray-600 absolute sm:translate-x-[5.5%] md:translate-x-[36%] translate-y-[5%] z-[1000] xs:w-[90%] xs:translate-x-[5.5%]">
+        <div className="w-[90%] h-[720px] lg:w-[700px] bg-white border border-gray-600 absolute sm:translate-x-[5.5%] md:translate-x-[36%] translate-y-[5%] z-[1000] xs:w-[90%] xs:translate-x-[5.5%]">
           <div className="w-[95%] m-auto py-1 xs:w-[90%]">
             <div className="border-b border-gray-600 mt-10" />
             <GrFormClose
@@ -133,16 +148,16 @@ const PostInfo = ({
             />
             <div className="flex -mt-[26px]">
               <AddCoverCategory
-                onClick={(e) => selectCategory(e)}
-                className={category === "업로드" ? "clicked" : ""}
-              >
-                업로드
-              </AddCoverCategory>
-              <AddCoverCategory
                 onClick={selectCategory}
                 className={category === "갤러리" ? "clicked" : ""}
               >
                 갤러리
+              </AddCoverCategory>
+              <AddCoverCategory
+                onClick={(e) => selectCategory(e)}
+                className={category === "업로드" ? "clicked" : ""}
+              >
+                업로드
               </AddCoverCategory>
             </div>
             <div className="w-full h-full flex flex-col justify-center items-center">
@@ -166,7 +181,7 @@ const PostInfo = ({
                   </p>
                 </div>
               ) : (
-                <div className="overflow-y-scroll max-h-[236px]">
+                <div className="overflow-y-scroll max-h-[660px] xs:h-[60%]">
                   <div className="grid grid-cols-4 gap-3 text-black mt-4 w-full">
                     {galleryLists.map((item: string) => {
                       return (
