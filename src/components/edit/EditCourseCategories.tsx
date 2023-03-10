@@ -3,7 +3,7 @@ import Select from "react-select";
 import styled from "styled-components";
 import { hashTagOptions } from "../post/PostHashTag";
 import { regionOptions } from "../post/PostCategories";
-import { ColorStyles } from "../shared";
+import { MultiStyles } from "../shared";
 
 interface EditTitleProps {
   regionsRef: any;
@@ -52,8 +52,8 @@ const EditCourseCategories = ({
   return (
     <div>
       <div className="w-full flex flex-col-reverse md:flex-row justify-between">
-        <div className="flex flex-col gap-2">
-          <div className="w-full  flex justify-between">
+        <div className="flex flex-col gap-2 lg:gap-4">
+          <div className="w-full flex justify-between">
             <p className="text-[18px] sm:text-3xl whitespace-normal font-bold xs:text-[16px]">
               나만의 코스를 만들어보세요.
             </p>
@@ -77,8 +77,8 @@ const EditCourseCategories = ({
           </Category>
         </div>
       </div>
-      <div className="flex items-center gap-4">
-        <div className="flex w-full items-center h-16 gap-4 text-xs sm:text-lg">
+      <div className="flex flex-col gap-4 sm:gap-6 mt-4 lg:m-0">
+        <div className="flex w-full items-center text-xs sm:text-lg">
           <Select
             ref={regionsRef}
             options={regionOptions}
@@ -92,24 +92,25 @@ const EditCourseCategories = ({
             isOptionDisabled={(region) =>
               regions && regions.length >= regionLimit
             }
-            styles={ColorStyles}
+            styles={MultiStyles}
           />
         </div>
-      </div>
-      <div className="mb-8 text-xs sm:text-lg">
-        <Select
-          isMulti
-          defaultValue={filterTags}
-          placeholder={"#해시태그를 선택해주세요."}
-          options={hashTagOptions}
-          onChange={handleTagSelect}
-          className="basic-multi-select z-10"
-          isSearchable={true}
-          isOptionDisabled={(selectedTag) =>
-            selectedTags && selectedTags.length >= tagLimit
-          }
-          styles={ColorStyles}
-        />
+
+        <div className="mb-8 text-xs sm:text-lg">
+          <Select
+            isMulti
+            defaultValue={filterTags}
+            placeholder={"#해시태그를 선택해주세요."}
+            options={hashTagOptions}
+            onChange={handleTagSelect}
+            className="basic-multi-select z-10"
+            isSearchable={true}
+            isOptionDisabled={(selectedTag) =>
+              selectedTags && selectedTags.length >= tagLimit
+            }
+            styles={MultiStyles}
+          />
+        </div>
       </div>
     </div>
   );

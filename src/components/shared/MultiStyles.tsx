@@ -1,21 +1,36 @@
 import { StylesConfig } from "react-select";
 
-const ColorStyles: StylesConfig<optionType, true> = {
-  control: (styles) => ({ ...styles, borderRadius: "0" }),
+const MultiStyles: StylesConfig<optionType, true> = {
+  control: (styles) => ({
+    ...styles,
+    borderRadius: 0,
+    "@media (min-width:1024px)": {
+      fontSize: 22,
+      lineHeight: "54px",
+    },
+    "@media (max-width:1024px)": {
+      fontSize: 20,
+      lineHeight: "46px",
+    },
+    "@media (max-width: 414px)": {
+      fontSize: 14,
+      lineHeight: "28px",
+    },
+  }),
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     return {
       ...styles,
       backgroundColor: isDisabled
         ? undefined
         : isSelected
-        ? "#000000"
+        ? "#ffffff"
         : isFocused
         ? "#000000"
         : undefined,
       color: isDisabled
         ? "#ccc"
         : isSelected
-        ? "#000000"
+        ? "#ccc"
         : isFocused
         ? "#ffffff"
         : "#000000",
@@ -26,6 +41,17 @@ const ColorStyles: StylesConfig<optionType, true> = {
             ? "#000000"
             : "#A0A4A8"
           : undefined,
+      },
+      "@media (min-width:1024px)": {
+        fontSize: 20,
+        lineHeight: 3,
+      },
+      "@media (max-width:1024px)": {
+        fontSize: 18,
+        lineHeight: 2,
+      },
+      "@media (max-width: 414px)": {
+        fontSize: 12,
       },
     };
   },
@@ -40,6 +66,15 @@ const ColorStyles: StylesConfig<optionType, true> = {
     color: "#ffffff",
     paddingLeft: 10,
     fontSize: 16,
+    "@media (min-width:1024px)": {
+      fontSize: 20,
+      padding: "0px 15px 0px 20px",
+      lineHeight: 2.5,
+    },
+    "@media (max-width:1024px)": {
+      fontSize: 16,
+      lineHeight: 2,
+    },
     "@media (max-width: 414px)": {
       fontSize: 12,
     },
@@ -47,10 +82,11 @@ const ColorStyles: StylesConfig<optionType, true> = {
   multiValueRemove: (styles) => ({
     ...styles,
     color: "#ffffff",
+    width: 24,
     ":hover": {
       color: "#f95c54",
     },
   }),
 };
 
-export default ColorStyles;
+export default MultiStyles;

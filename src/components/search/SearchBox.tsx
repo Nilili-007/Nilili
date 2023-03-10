@@ -11,7 +11,7 @@ import { logEvent } from "../../utils/amplitude";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
-import { ColorStyles } from "../shared";
+import { MultiStyles, SingleStyles } from "../shared";
 import { GrPowerReset } from "react-icons/gr";
 
 const travelStatusOptions: any = [
@@ -168,18 +168,17 @@ const SearchBox = () => {
 
   return (
     <>
-      <div className="mb-[2%]  w-[85%] md:w-[70%] h-auto  min-w-[300px]">
-        <p className="w-fit mx-auto xl:text-[50px] lg:text-[45px] sm:text-[35px] text-2xl font-bold font-eng  my-[5%] ">
+      <div className="mb-[2%]  w-[85%] md:w-[70%] h-auto mx-auto md:mt-[100px]  min-w-[300px]">
+        <p className="w-fit mx-auto xl:text-[50px] lg:text-[45px] md:text-[35px] sm:text-[29px] text-2xl font-bold font-eng my-[5%]">
           EXPLORE YOUR PLANS
         </p>
-        <div className="w-full border border-black flex flex-col items-center  ">
-          <div className="w-full flex flex-row justify-between indent-2">
-            <div className="body2 w-[180px] p-[1%] sm:p-4 xs:body3 text-white bg-black hidden md:block">
+        <div className="w-full flex flex-col gap-3 lg:gap-5 items-center">
+          <div className="w-full flex flex-row gap-3 lg:gap-5 justify-between indent-2 items-center">
+            <div className="text-lg lg:body2 w-[170px] lg:w-[180px] p-[1%] sm:p-4  xs:body3 text-white bg-black hidden md:flex md:items-center md:h-[50px] lg:h-[60px]">
               지역 검색
             </div>
-
             <Select
-              className="z-50 w-full m-[0.5%] sm:m-[1%]  leading-7 text-[22px] xs:body3"
+              className="z-50 w-full leading-7 text-[22px] xs:body3"
               classNamePrefix="select"
               options={regionOptions}
               placeholder={"지역명"}
@@ -189,16 +188,16 @@ const SearchBox = () => {
               isClearable={true}
               onChange={locationOnChangeHandler}
               value={locations}
-              styles={ColorStyles}
+              styles={MultiStyles}
             />
           </div>
 
-          <div className="w-full flex flex-row indent-2 ">
-            <div className="body2 w-[180px] p-[1%] sm:p-4  xs:body3 text-white bg-black hidden md:block">
+          <div className="w-full flex flex-row gap-3 lg:gap-5 indent-2 items-center">
+            <div className="text-lg lg:body2 w-[170px] lg:w-[180px] p-[1%] sm:p-4  xs:body3 text-white bg-black hidden md:flex md:items-center md:h-[50px] lg:h-[60px]">
               #해시태그
             </div>
             <Select
-              className="z-30 w-full m-[0.5%] sm:m-[1%]  leading-7 text-[22px] xs:body3"
+              className="z-30 w-full  leading-7 text-[22px] xs:body3"
               classNamePrefix="select"
               options={hashTagOptions}
               isMulti
@@ -207,18 +206,18 @@ const SearchBox = () => {
               placeholder={"#해시태그"}
               onChange={hashtagOnChangeHandler}
               value={hashtags}
-              styles={ColorStyles}
+              styles={MultiStyles}
             />
           </div>
 
-          <div className="w-full flex flex-row indent-2 ">
-            <div className="body2 w-[180px] p-[1%] sm:p-4  xs:body3 text-white bg-black hidden md:block">
+          <div className="w-full flex flex-row gap-3 lg:gap-5 indent-2 items-center">
+            <div className="text-lg lg:body2 w-[170px] lg:w-[180px] p-[1%] sm:p-4  xs:body3 text-white bg-black hidden md:flex md:items-center md:h-[50px] lg:h-[60px]">
               검색어
             </div>
             <input
               type="search"
               className={
-                "placeholder:sm:text-[22px] placeholder:text-[16px] placeholder:text-[#808080] sm:font-normal font-medium indent-4 border border-gray-300 w-full m-[0.5%] sm:m-[1%] h-[38px] placeholder:text-sm"
+                "z-20 placeholder:sm:text-[20px] placeholder:lg:text-[22px] placeholder:text-[#808080] font-normal indent-4 border border-gray-300 w-full h-[38px] sm:h-[50px] lg:h-[60px] placeholder:text-[14px] xl:py-2 pr-3 xs:pb-1"
               }
               placeholder="검색어를 입력하세요."
               value={words}
@@ -238,27 +237,27 @@ const SearchBox = () => {
             />
           </div>
 
-          <div className="w-full flex flex-row indent-2 ">
-            <div className="body2 w-[180px] p-[1%] sm:p-4   xs:body3 text-white bg-black hidden md:block">
+          <div className="w-full flex flex-row gap-3 lg:gap-5 indent-2 items-center ">
+            <div className="text-lg lg:body2 w-[170px] lg:w-[180px] p-[1%] sm:p-4  xs:body3 text-white bg-black hidden md:flex md:items-center md:h-[50px] lg:h-[60px]">
               계획 / 후기
             </div>
             <Select
-              className="z-20 w-full m-[0.5%] sm:m-[1%]  leading-7 text-[22px] xs:body3"
+              className="z-20 w-full text-[20px] xs:body3"
               classNamePrefix="select"
               isClearable={true}
               placeholder={" 계획 / 후기"}
               options={travelStatusOptions}
               onChange={travelStatusOnChangeHandler}
-              styles={ColorStyles}
+              styles={SingleStyles}
               value={travelStatus}
               ref={selectInputRef}
             />
           </div>
 
-          <div className="flex w-full  items-center justify-center my-[1%] mr-[5%] ">
-            <div className=" sm:text-xl text-base px-[2%] ">
+          <div className="flex w-full items-center justify-center my-[1%] sm:gap-12 gap-8">
+            <div className="sm:text-xl text-base px-[2%] ">
               <button
-                className="flex items-center gap-2"
+                className="flex justify-center items-center gap-2 font-medium text-[16px] sm:text-[18px] md:text-xl w-28 sm:w-36 md:w-44 p-2"
                 onClick={() => {
                   setLocations([]);
                   sethashtags([]);
@@ -270,7 +269,7 @@ const SearchBox = () => {
               </button>
             </div>
             <button
-              className="button2 w-[20%] p-1 xs:body3  text-white bg-black hover:shadow-lg"
+              className="text-[16px] sm:text-[18px] md:text-xl w-28 sm:w-36 md:w-44 p-2 border-2 border-black text-white bg-black hover:shadow-lg font-medium"
               onClick={() => {
                 navigate(
                   `/search?lc=${JSON.stringify(locations)}&ht=${JSON.stringify(
