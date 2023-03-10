@@ -1,15 +1,15 @@
 import { FiMinus } from "react-icons/fi";
-import { useDeleteCourse } from "../../hooks";
+import { useCourse } from "../../hooks";
 
 interface Props {
   idx: number;
 }
 const CourseDeleteBtn = ({ idx }: Props) => {
-  const deleteCourse = useDeleteCourse();
+  const { removeCourse } = useCourse();
 
   return (
     <FiMinus
-      onClick={() => deleteCourse(idx)}
+      onClick={() => removeCourse(idx)}
       className="text-[26px] text-gray-04 -ml-5"
     />
   );

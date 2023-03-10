@@ -17,7 +17,7 @@ import { authService } from "../utils/firebase";
 import Swal from "sweetalert2";
 import * as amplitude from "@amplitude/analytics-browser";
 import { logEvent } from "../utils/amplitude";
-import { usePreventLeave, useOption } from "../hooks";
+import { usePreventLeave, useOption, useCourse } from "../hooks";
 import { PostInfo, PostManageBtns } from "../components/common";
 
 const EditCourse = () => {
@@ -68,7 +68,7 @@ const EditCourse = () => {
   const dispatch = useDispatch();
 
   // 수정한 내용
-  const editedList = useSelector((state: any) => state.courseSlice.courseList);
+  const { lists } = useCourse();
 
   // 수정 전 내용 불러오기
   useEffect(() => {
@@ -119,7 +119,7 @@ const EditCourse = () => {
           window.scrollTo({ top: 0, behavior: "smooth" });
         },
       });
-    } else if (editedList.length < 2) {
+    } else if (lists.length < 2) {
       Swal.fire({
         icon: "error",
         title: `<p style="font-size: 20px;">2개 이상의 여행지를 추가해주세요!</p>`,
@@ -145,7 +145,7 @@ const EditCourse = () => {
             hashtags: selectedLabels,
             title: courseTitle,
             cover: uploadCover || galleryCover,
-            courseList: JSON.stringify(editedList),
+            courseList: JSON.stringify(lists),
             travelStatus,
             nickname: authService.currentUser?.displayName,
             profileImage: authService.currentUser?.photoURL,
