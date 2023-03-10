@@ -241,6 +241,18 @@ const RegisterForm = () => {
               </button>
             </div>
           </form>
+          <div className="flex justify-center items-center ">
+            <div className="border-b border-solid border-gray-500 w-[90%]" />
+          </div>
+          <div className="flex items-center justify-center p-2 mt-2">
+            <button
+              className="text-black underline text-sm font-semibold p-1 outline-none focus:outline-none mr-1 mb-1"
+              type="button"
+              onClick={() => navigate("/login")}
+            >
+              로그인 페이지로 돌아가기
+            </button>
+          </div>
         </div>
       </div>
     </>

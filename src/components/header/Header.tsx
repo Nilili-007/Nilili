@@ -180,16 +180,6 @@ const Header = () => {
                           로그인
                         </button>
                       </li>
-                      <li className="badge1 px-4 py-2 leading-none  text-white hover:text-amber-300">
-                        <button
-                          onClick={() => {
-                            navigate("/register");
-                            setNavbar(false);
-                          }}
-                        >
-                          회원가입
-                        </button>
-                      </li>
                     </>
                   )
                 ) : null}
