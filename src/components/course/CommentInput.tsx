@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import useCommentPost from "../../hooks/useCommentPost";
+import { useInput } from "../../hooks";
 import { useAddCommentMutation } from "../../redux/modules/apiSlice";
+import { logEvent } from "../../utils/amplitude";
 import { authService } from "../../utils/firebase";
 import { CommentProps } from "./CommentDesc";
 
@@ -15,8 +16,7 @@ export interface CommentType {
 }
 
 const CommentInput = ({ paramId }: CommentProps) => {
-  const { trimValue, changeValueHandler, value, submitHandler } =
-    useCommentPost("");
+  const { inputRef, value, trimValue, changeValueHandler } = useInput("");
   const submitRef = useRef<HTMLButtonElement | any>();
   const [addComment] = useAddCommentMutation();
   const userImg: string | undefined | null = authService.currentUser?.photoURL;
@@ -29,6 +29,16 @@ const CommentInput = ({ paramId }: CommentProps) => {
     }
   }, [value]);
 
+  const submitHandler = (
+    event: React.FormEvent<HTMLFormElement>,
+    addFn: any,
+    newContent: CommentType
+  ) => {
+    event.preventDefault();
+    addFn(newContent);
+    inputRef.current.value = "";
+    logEvent("댓글등록", { from: "상세페이지" });
+  };
   const newComment = {
     createdAt: Date.now(),
     userId: authService.currentUser?.uid,
@@ -61,6 +71,7 @@ const CommentInput = ({ paramId }: CommentProps) => {
           ) : null}
           <textarea
             wrap="hard"
+            ref={inputRef}
             cols={20}
             className="border-2 resize-none px-2 py-1 w-full h-24 sm:h-28 text-[16px] md:text-[22px] focus:outline-black "
             placeholder={
@@ -68,7 +79,7 @@ const CommentInput = ({ paramId }: CommentProps) => {
                 ? "댓글을 입력해 주세요."
                 : "로그인 한 이용자만 이용하실 수 있습니다."
             }
-            value={value}
+            // value={value}
             onChange={(event) => changeValueHandler(event)}
           />
           <button

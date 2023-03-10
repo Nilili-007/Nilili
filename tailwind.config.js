@@ -8,6 +8,7 @@ module.exports = {
         "3xl": "1700px",
         sm: "415px",
         xs: { min: "375px", max: "414px" },
+        "m-sm": { max: "415px" },
       },
 
       colors: {

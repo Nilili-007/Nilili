@@ -3,6 +3,7 @@ import { authService } from "../../utils/firebase";
 import { galleryLists } from "../post/index";
 import { GrFormClose } from "react-icons/gr";
 import styled from "styled-components";
+import { DebouncedFunc } from "lodash";
 
 interface PostProps {
   uploadCover: string | undefined;
@@ -11,7 +12,9 @@ interface PostProps {
   setGalleryCover: Dispatch<SetStateAction<string>>;
   courseTitle: string | undefined;
   titleRef?: React.RefObject<HTMLInputElement>;
-  setCourseTitle: Dispatch<SetStateAction<string | undefined>>;
+  changeValueHandler: DebouncedFunc<
+    (event: React.ChangeEvent<HTMLInputElement>) => void
+  >;
 }
 
 const PostInfo = ({
@@ -21,7 +24,7 @@ const PostInfo = ({
   setGalleryCover,
   courseTitle,
   titleRef,
-  setCourseTitle,
+  changeValueHandler,
 }: PostProps) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [category, setCategory] = useState("업로드");
@@ -92,18 +95,15 @@ const PostInfo = ({
           placeholder="여기에 제목을 입력해주세요."
           maxLength={32}
           autoFocus={true}
-          value={courseTitle}
           ref={titleRef}
-          onChange={(event) => {
-            setCourseTitle(event.target.value);
-          }}
+          onChange={(event) => changeValueHandler(event)}
         />
         <div className="flex justify-between h-4">
           <p className="z-20 text-[14px] md:text-lg hidden xs:hidden sm:flex">
             {authService.currentUser?.displayName}님만의 여정을 직접 그려보세요!
           </p>
           {courseTitle && courseTitle.length > 32 ? (
-            <p className="text-white text-xl z-20 drop-shadow-xl px-2">
+            <p className="text-white text-xl z-20 drop-shadow-xl px-2 xs:text-[10px] xs:ml-auto xs:-mt-2">
               제목은 32자 이하로 작성해주세요.
             </p>
           ) : null}

@@ -55,10 +55,10 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
                 <ListMap
                   mapstyle={
                     window.innerWidth < 415
-                      ? { width: "170px", height: "170px" }
+                      ? { width: "150px", height: "150px" }
                       : {
-                          width: "270px",
-                          height: "300px",
+                          width: "300px",
+                          height: "290px",
                         }
                   }
                   course={item}
@@ -67,11 +67,11 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
               <StImg
                 src={item.cover}
                 alt="대표 사진"
-                className=" border-black sm:h-[324px] sm:w-[300px] w-[170px] h-[194px] object-cover"
+                className=" border-black sm:h-[290px] sm:w-[300px] w-[150px] h-[150px] object-cover"
               />
             </Stdiv>
 
-            <p className="ml-1  mt-[8%] mb-[2%] sm:h-[31px]  h-7  w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ">
+            <p className="ml-1  mt-[8%] mb-[2%] sm:h-[31px]  h-7 m-w-[300px] w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ">
               {item.title}
             </p>
             <p className="ml-1 mt-[3%] font-medium  text-gray-400 sm:text-xl  text-base ">
