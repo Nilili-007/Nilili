@@ -64,8 +64,8 @@ const BeforeRecent = () => {
                   highlightColor="#444"
                   key={idx}
                 >
-                  <div className=" mb-3 md:w-[35%] sm:w-[52%] w-[40%] mr-[1%] ">
-                    <Skeleton className="sm:h-[300px] h-[170px]" />
+                  <div className=" mb-3 2xl:w-[23%] xl:w-[28%] lg:w-[34%] w-[45%] mr-[2%]  ">
+                    <Skeleton className="sm:h-[300px] h-[140px]" />
                     <div className="mt-3">
                       <Skeleton className="w-[80%] h-[30px]" />
                       <Skeleton className="w-[30%]  h-[25px]" />

@@ -118,8 +118,8 @@ const UserList = ({ done, category }: UserListType) => {
       <div className="flex flex-row flex-wrap mt-[3%]">
         {new Array(9).fill(null).map((_, idx) => (
           <SkeletonTheme baseColor="#202020" highlightColor="#444" key={idx}>
-            <div className=" mb-[5%] lg:w-[31%] md:w-[48%] sm:w-[80%] w-[48%]  mr-[2%] ">
-              <Skeleton className=" sm:h-[300px] h-[160px]" />
+            <div className=" mb-[5%] xl:w-[31%] md:w-[48%] sm:w-[80%] w-[48%]  mr-[2%]   ">
+              <Skeleton className=" sm:h-[320px] h-[150px]" />
               <div className="mt-3">
                 <Skeleton className="w-[80%] h-[30px]" />
                 <Skeleton className="w-[30%]  h-[25px]" />

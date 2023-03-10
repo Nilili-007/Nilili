@@ -58,8 +58,8 @@ const AfterLike = () => {
                   highlightColor="#444"
                   key={idx}
                 >
-                  <div className=" mb-3 lg:w-[31%] w-[51%] mr-[2%]">
-                    <Skeleton className="sm:h-[300px] h-[190px]" />
+                  <div className=" mb-3 2xl:w-[26%] xl:w-[29%] lg:w-[39%] sm:w-[45%] w-[51%] mr-[3%]">
+                    <Skeleton className="sm:h-[320px] h-[160px]" />
                     <div className="mt-3">
                       <Skeleton className="w-[80%] h-[30px]" />
                       <Skeleton className="w-[30%]  h-[25px]" />
