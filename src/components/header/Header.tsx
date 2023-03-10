@@ -1,5 +1,5 @@
 import { getAuth, signOut } from "firebase/auth";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authService } from "../../utils/firebase";
 import Weather from "./Weather";
@@ -17,7 +17,7 @@ const Header = () => {
   const [navbar, setNavbar] = useState(false);
 
   const navigate = useNavigate();
-  const [isSign, setIsSign] = useState<any>(null);
+  const [isSign, setIsSign] = useState<boolean | null>(null);
 
   const userID = authService.currentUser?.uid;
 
