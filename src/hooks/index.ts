@@ -11,6 +11,7 @@ import useDate from "./useDate";
 import useCancelPost from "./useCancelPost";
 import useCourse from "./useCourse";
 import useDebounce from "./useDebounce";
+import useFilterData from "./useFilterData";
 
 export {
   usePagenation,
@@ -26,4 +27,5 @@ export {
   useCancelPost,
   useCourse,
   useDebounce,
+  useFilterData,
 };

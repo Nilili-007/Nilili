@@ -1,5 +1,3 @@
-import React from "react";
-
 const useDate = (time: any) => {
   //분
   const minute = JSON.parse(time).substr(14, 2);

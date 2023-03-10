@@ -13,6 +13,7 @@ import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import { MultiStyles, SingleStyles } from "../shared";
 import { GrPowerReset } from "react-icons/gr";
+import { useOption } from "../../hooks";
 
 const travelStatusOptions: any = [
   { value: false, label: "여행 계획" },
@@ -21,14 +22,21 @@ const travelStatusOptions: any = [
 
 const SearchBox = () => {
   const navigate = useNavigate();
-  const [locations, setLocations] = useState<optionType[]>([]);
-  const [hashtags, sethashtags] = useState<optionType[]>([]);
   const [hashtags2, sethashtags2] = useState<optionType[]>([]);
   const [words, setWords] = useState("");
   const [travelStatus, setTravelStatus] = useState<optionType | undefined>();
   const [filteredList, setFilteredList] = useState<CourseType[]>();
   const [searchParams] = useSearchParams();
   const { data } = useGetCourseQuery();
+
+  const {
+    selectedTags,
+    setSelectedTags,
+    regions,
+    setRegions,
+    selectedLabels,
+    selectedRegions,
+  } = useOption();
 
   const selectInputRef = useRef<any>(null);
 
@@ -45,16 +53,14 @@ const SearchBox = () => {
   } = useGetCourseConditionallyQuery(travelStatus ? travelStatus.value : "");
 
   //섹렉트된 데이터 형태 object에서 string[]으로 바꾸기
-  let locationsArr = locations?.map((item) => item.value);
-  let hashtagsArr = hashtags?.map((item) => item.label);
 
   //셀렉트한 데이터 State에 반영하기
   const locationOnChangeHandler = (data: any) => {
-    setLocations(data);
+    setRegions(data);
   };
 
   const hashtagOnChangeHandler = (data: any) => {
-    sethashtags(data);
+    setSelectedTags(data);
   };
 
   const travelStatusOnChangeHandler = (data: any) => {
@@ -73,8 +79,8 @@ const SearchBox = () => {
   const filterData = () => {
     if (
       words.length === 0 &&
-      locationsArr?.length === 0 &&
-      hashtagsArr?.length === 0 &&
+      selectedRegions?.length === 0 &&
+      selectedLabels?.length === 0 &&
       travelStatus === undefined
     ) {
       setFilteredList(data);
@@ -85,8 +91,8 @@ const SearchBox = () => {
       const filteredData: CourseType[] | undefined = (
         travelStatus !== undefined ? conditionData : data
       )
-        ?.filter((item) => isSubsetOf(item.location, locationsArr))
-        .filter((item) => isSubsetOf(item.hashtags, hashtagsArr))
+        ?.filter((item) => isSubsetOf(item.location, selectedRegions))
+        .filter((item) => isSubsetOf(item.hashtags, selectedLabels))
         .filter(
           (item) =>
             item.title?.toLowerCase().includes(words.toLowerCase()) ||
@@ -103,8 +109,8 @@ const SearchBox = () => {
     logEvent("게시물 검색", {
       from: "검색페이지",
       filter: {
-        해시태그: hashtagsArr,
-        지역: locationsArr,
+        해시태그: selectedLabels,
+        지역: selectedRegions,
         여행여부: travelStatus,
         검색어: words,
       },
@@ -124,7 +130,7 @@ const SearchBox = () => {
   useEffect(() => {
     const emptyArr: optionType[] = [];
     //파람스 값 검색에 넣기
-    setLocations(
+    setRegions(
       // @ts-ignore
       searchParams.get("lc") === null
         ? emptyArr
@@ -132,7 +138,7 @@ const SearchBox = () => {
           JSON.parse(searchParams.get("lc"))
     );
 
-    sethashtags(
+    setSelectedTags(
       // @ts-ignore
       searchParams.get("ht") === null
         ? emptyArr
@@ -190,7 +196,7 @@ const SearchBox = () => {
               isSearchable={false}
               isClearable={true}
               onChange={locationOnChangeHandler}
-              value={locations}
+              value={regions}
               styles={MultiStyles}
             />
           </div>
@@ -208,7 +214,7 @@ const SearchBox = () => {
               isClearable={true}
               placeholder={"#해시태그"}
               onChange={hashtagOnChangeHandler}
-              value={hashtags}
+              value={selectedTags}
               styles={MultiStyles}
             />
           </div>
@@ -228,11 +234,9 @@ const SearchBox = () => {
               onKeyUp={(e) => {
                 if (e.key === "Enter") {
                   navigate(
-                    `/search?lc=${JSON.stringify(
-                      locations
-                    )}&ht=${JSON.stringify(hashtags)}&ts=${JSON.stringify(
-                      travelStatus
-                    )}&ws=${words}`
+                    `/search?lc=${JSON.stringify(regions)}&ht=${JSON.stringify(
+                      selectedTags
+                    )}&ts=${JSON.stringify(travelStatus)}&ws=${words}`
                   );
                   filterData();
                 }
@@ -262,8 +266,8 @@ const SearchBox = () => {
               <button
                 className="flex justify-center items-center gap-2 font-medium text-[16px] sm:text-[18px] md:text-xl w-28 sm:w-36 md:w-44 p-2"
                 onClick={() => {
-                  setLocations([]);
-                  sethashtags([]);
+                  setRegions([]);
+                  setSelectedTags([]);
                   setWords("");
                   onClearSelect();
                 }}
@@ -275,8 +279,8 @@ const SearchBox = () => {
               className="text-[16px] sm:text-[18px] md:text-xl w-28 sm:w-36 md:w-44 p-2 border-2 border-black text-white bg-black hover:shadow-lg font-medium"
               onClick={() => {
                 navigate(
-                  `/search?lc=${JSON.stringify(locations)}&ht=${JSON.stringify(
-                    hashtags
+                  `/search?lc=${JSON.stringify(regions)}&ht=${JSON.stringify(
+                    selectedTags
                   )}&ts=${JSON.stringify(travelStatus)}&ws=${words}`
                 );
                 filterData();
