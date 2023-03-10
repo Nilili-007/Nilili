@@ -27,8 +27,6 @@ const SearchModal = ({
   const [text, setText] = useState("");
   const { lists } = useCourse();
 
-  console.log("렌더링");
-
   const printValue = useCallback(
     useDebounce((value: string) => value, 500),
     []
