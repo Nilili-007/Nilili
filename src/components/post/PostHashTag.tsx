@@ -39,7 +39,6 @@ const PostHashTag = ({ selectedTags, setSelectedTags }: tagProps) => {
         onChange={handleTagSelect}
         className="basic-multi-select z-10"
         classNamePrefix="select"
-        isSearchable={true}
         value={selectedTags}
         isOptionDisabled={(selectedTag) =>
           selectedTags && selectedTags.length >= limit
