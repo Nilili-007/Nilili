@@ -9,7 +9,7 @@ import useDeleteCourse from "./useDeleteCourse";
 import useHandleMemo from "./useHandleMemo";
 import useAddMemo from "./useAddMemo";
 import useBefore from "./useBefore";
-import useCommentPost from "./useCommentPost";
+import useInput from "./useInput";
 import useDelete from "./useDelete";
 import useOption from "./useOption";
 import useGetScreenSize from "./useGetScreenSize";
@@ -28,7 +28,7 @@ export {
   useHandleMemo,
   useAddMemo,
   useBefore,
-  useCommentPost,
+  useInput,
   useDelete,
   useOption,
   useGetScreenSize,
