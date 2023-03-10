@@ -16,7 +16,7 @@ import {
 import Swal from "sweetalert2";
 import * as amplitude from "@amplitude/analytics-browser";
 import { logEvent } from "../utils/amplitude";
-import { usePreventLeave, useOption } from "../hooks";
+import { usePreventLeave, useOption, useCourse } from "../hooks";
 import { PostInfo, PostManageBtns } from "../components/common";
 
 const Post = () => {
@@ -56,7 +56,7 @@ const Post = () => {
   const [condition, setCondition] = useState(false);
 
   const userID = authService.currentUser?.uid;
-  const courseList = useSelector((state: any) => state.courseSlice.courseList);
+  const { lists } = useCourse();
 
   const addPostHandler = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -68,7 +68,7 @@ const Post = () => {
       hashtags: selectedLabels,
       title: courseTitle,
       travelStatus,
-      courseList: JSON.stringify(courseList),
+      courseList: JSON.stringify(lists),
       cover: uploadCover || galleryCover,
       userID,
       nickname: authService.currentUser?.displayName,
@@ -83,7 +83,7 @@ const Post = () => {
       travelStatus !== null &&
       regions.length > 0 &&
       courseTitle?.trim() &&
-      courseList.length > 1
+      lists.length > 1
     ) {
       Swal.fire({
         title: `<p style="font-size: 20px;">게시글을 등록하시겠습니까?</p>`,
@@ -158,7 +158,7 @@ const Post = () => {
           },
         });
       }
-      if (courseList.length < 2) {
+      if (lists.length < 2) {
         Swal.fire({
           icon: "error",
           title: `<p style="font-size: 20px;">2개 이상의 여행지를 추가해주세요!</p>`,
@@ -207,15 +207,17 @@ const Post = () => {
             setTravelStatus={setTravelStatus}
           />
         </div>
-        <PostCategories
-          regionsRef={regionsRef}
-          regions={regions}
-          setRegions={setRegions}
-        />
-        <PostHashTag
-          selectedTags={selectedTags}
-          setSelectedTags={setSelectedTags}
-        />
+        <div className="flex flex-col gap-4 sm:gap-6 mt-4 lg:m-0">
+          <PostCategories
+            regionsRef={regionsRef}
+            regions={regions}
+            setRegions={setRegions}
+          />
+          <PostHashTag
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
+          />
+        </div>
         <PostMap />
         <PostMobileCourse />
         <PostManageBtns postHandler={addPostHandler} />

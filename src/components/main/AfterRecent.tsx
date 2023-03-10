@@ -20,8 +20,6 @@ const AfterRecent = () => {
 
   useGetScreenSize();
 
-  console.log(window.innerWidth);
-
   if (isError) {
     return <>Error : 데이터를 불러오지 못했습니다.</>;
   }

@@ -39,8 +39,6 @@ const UserList = ({ done, category }: UserListType) => {
 
   useGetScreenSize();
 
-  console.log(window.innerWidth);
-
   const currentPosts = userData
     ? userData.slice(firstPostIndex, lastPostIndex)
     : null;

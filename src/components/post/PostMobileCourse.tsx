@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import {
   CourseOrderBtns,
   CoursePlaceInfo,
@@ -8,17 +7,14 @@ import {
   CourseMemo,
 } from "../common";
 import { ItemCard } from "./PostCourse";
-import { useFilterCourse } from "../../hooks";
+import { useCourse } from "../../hooks";
 
 const PostMobileCourse = () => {
   const [openCourse, setOpenCourse] = useState(false);
   const [text, setText] = useState("");
-  const lists = useSelector((state: any) => state.courseSlice.courseList);
-  const filteredIdx = useSelector(
-    (state: any) => state.courseSlice.filteredIdx
-  );
-
-  const getIdx = useFilterCourse();
+  const { lists } = useCourse();
+  const { filteredIdx } = useCourse();
+  const { getIdx } = useCourse();
 
   return (
     <div className="lg:hidden 3xl:hidden xs:flex xs:flex-col">
