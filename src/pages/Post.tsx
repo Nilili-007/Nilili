@@ -207,15 +207,17 @@ const Post = () => {
             setTravelStatus={setTravelStatus}
           />
         </div>
-        <PostCategories
-          regionsRef={regionsRef}
-          regions={regions}
-          setRegions={setRegions}
-        />
-        <PostHashTag
-          selectedTags={selectedTags}
-          setSelectedTags={setSelectedTags}
-        />
+        <div className="flex flex-col gap-4 sm:gap-6 mt-4 lg:m-0">
+          <PostCategories
+            regionsRef={regionsRef}
+            regions={regions}
+            setRegions={setRegions}
+          />
+          <PostHashTag
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
+          />
+        </div>
         <PostMap />
         <PostMobileCourse />
         <PostManageBtns postHandler={addPostHandler} />
