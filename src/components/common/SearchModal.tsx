@@ -27,12 +27,14 @@ const SearchModal = ({
   const [text, setText] = useState("");
   const { lists } = useCourse();
 
+  console.log("렌더링");
+
   const printValue = useCallback(
-    useDebounce((value: any) => console.log(value), 500),
+    useDebounce((value: string) => value, 500),
     []
   );
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     printValue(e.target.value);
     setText(e.target.value);
   };
@@ -107,7 +109,7 @@ const SearchModal = ({
         <form onSubmit={(e) => onSubmitSearch(e)} className="flex">
           <input
             value={text}
-            onChange={handleChange}
+            onChange={(e) => handleChange(e)}
             // onChange={(event) => changeTextHandler(event)}
             placeholder="여행지를 입력해주세요."
             className="w-[695px] h-[50px] px-[14px] py-[16px] border border-gray-400 text-lg focus:outline-none xs:w-[72%] xs:h-10 xs:text-[14px]"
