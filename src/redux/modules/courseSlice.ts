@@ -1,6 +1,5 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 import Swal from "sweetalert2";
-import store from "../config/configStore";
 
 const initialState = {
   courseList: [],
@@ -64,7 +63,6 @@ const courseSlice = createSlice({
   },
 });
 
-export type RootState = ReturnType<typeof store.getState>;
 export const {
   addCourse,
   deleteCourse,
