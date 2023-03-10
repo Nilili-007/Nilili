@@ -12,7 +12,7 @@ import { authService } from "../../utils/firebase";
 interface UserEditModal {
   userEdit: boolean;
   setUserEdit: React.Dispatch<React.SetStateAction<boolean>>;
-  modalOutClick: (e: any) => void;
+  modalOutClick: (e: React.MouseEvent) => void;
   modalRef: React.ForwardedRef<HTMLDivElement>;
 }
 

@@ -1,6 +1,10 @@
 import { useCancelPost } from "../../hooks";
 
-const PostManageBtns = ({ postHandler }: any) => {
+interface Props {
+  postHandler: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
+const PostManageBtns: React.FC<Props> = ({ postHandler }) => {
   let target: string;
   if (window.location.pathname === "/post") {
     target = "등록";

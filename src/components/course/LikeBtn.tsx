@@ -5,6 +5,8 @@ import { authService } from "../../utils/firebase";
 import { useUpdateLikesMutation } from "../../redux/modules/apiSlice";
 import { logEvent } from "../../utils/amplitude";
 import { arrayRemove, arrayUnion } from "firebase/firestore";
+import Swal from "sweetalert2";
+
 interface LikeProps {
   paramId: string | any;
   course: CourseType | undefined;
@@ -21,7 +23,13 @@ const LikeBtn = ({ paramId, course }: LikeProps) => {
   const submitLike = async () => {
     if (!authService.currentUser) {
       setLike(false);
-      alert("좋아요는 로그인 후 이용가능합니다.");
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "좋아요는 로그인 후 이용 가능합니다",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       return;
     }
     if (like === true) {

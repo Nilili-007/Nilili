@@ -4,12 +4,13 @@ import styled from "styled-components";
 interface CourseMapMarkerProps {
   courseList: CourseListType[];
 }
+
 const ListMapMarker = ({ courseList }: CourseMapMarkerProps) => {
-  let polyline: any = [];
-  courseList.map((item: any) => polyline.push(item.position));
+  let polyline: { lat: number; lng: number }[] = [];
+  courseList.map((item: CourseListType) => polyline.push(item.position));
   return (
     <>
-      {courseList.map((item: any, index: number) => (
+      {courseList.map((item: CourseListType, index: number) => (
         <div key={item.id + index}>
           <div>
             <CustomOverlayMap position={item.position}></CustomOverlayMap>

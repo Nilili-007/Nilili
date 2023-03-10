@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 
 interface deleteType {
   target: string;
-  deleteFn: any;
+  deleteFn: (id: string | undefined) => void;
 }
 const useDelete = ({ target, deleteFn }: deleteType) => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const useDelete = ({ target, deleteFn }: deleteType) => {
       cancelButtonText: "아니요, 취소할래요",
     }).then((result) => {
       if (result.isConfirmed) {
-        if (target == "게시물") {
+        if (target === "게시물") {
           navigate("/");
         }
         Swal.fire({

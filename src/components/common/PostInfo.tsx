@@ -11,7 +11,7 @@ interface PostProps {
   galleryCover: string;
   setGalleryCover: Dispatch<SetStateAction<string>>;
   courseTitle: string | undefined;
-  titleRef?: any;
+  titleRef?: React.RefObject<HTMLInputElement>;
   changeValueHandler: DebouncedFunc<
     (event: React.ChangeEvent<HTMLInputElement>) => void
   >;
@@ -29,7 +29,7 @@ const PostInfo = ({
   const [modalOpen, setModalOpen] = useState(false);
   const [category, setCategory] = useState("업로드");
   const coverRef = useRef<HTMLInputElement>(null);
-  let file: any;
+  let file: File | null;
 
   const selectCategory = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const eventTarget = e.target as HTMLElement;

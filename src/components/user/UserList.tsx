@@ -53,7 +53,10 @@ const UserList = ({ done, category }: UserListType) => {
     category === "MY" ? setUserData(mypaths) : setUserData(mylikes);
   };
 
-  const changeTravelStatusTrue = (event: any, id: string | undefined) => {
+  const changeTravelStatusTrue = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    id: string | undefined
+  ) => {
     event.stopPropagation();
     Swal.fire({
       title: "후기를 남기시겠습니까?",
@@ -84,7 +87,10 @@ const UserList = ({ done, category }: UserListType) => {
     });
   };
 
-  const changeTravelStatusFalse = (event: any, id: string | undefined) => {
+  const changeTravelStatusFalse = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    id: string | undefined
+  ) => {
     event.stopPropagation();
     Swal.fire({
       title: "여행 계획으로 변경하시겠습니까?",
@@ -104,7 +110,10 @@ const UserList = ({ done, category }: UserListType) => {
     });
   };
 
-  const handleNavigate = (event: any, id: string) => {
+  const handleNavigate = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    id: string
+  ) => {
     event.stopPropagation();
     navigate(`/course/${id}`);
   };
@@ -139,7 +148,9 @@ const UserList = ({ done, category }: UserListType) => {
       <ul className="flex flex-wrap ">
         {currentPosts?.map((item: CourseType) => (
           <div
-            onClick={(event: any) => handleNavigate(event, item.id)}
+            onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
+              handleNavigate(event, item.id)
+            }
             key={item.id}
             className="relative xl:w-[31%] md:w-[48%] sm:w-[80%] w-[48%]  mr-[2%] hover:cursor-pointer"
           >
@@ -157,7 +168,6 @@ const UserList = ({ done, category }: UserListType) => {
                   course={item}
                 />
               </StMap>
-
               <StImg
                 src={item.cover}
                 alt="대표 사진"
@@ -170,7 +180,7 @@ const UserList = ({ done, category }: UserListType) => {
               {category !== "MY" ? null : item.travelStatus ? (
                 <button
                   className="border-2 border-black p-[2px]"
-                  onClick={(event: any) =>
+                  onClick={(event: React.MouseEvent<HTMLButtonElement>) =>
                     changeTravelStatusFalse(event, item.id)
                   }
                 >
@@ -179,7 +189,7 @@ const UserList = ({ done, category }: UserListType) => {
               ) : (
                 <button
                   className="border-2 border-black p-[2px]"
-                  onClick={(event: any) => {
+                  onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
                     changeTravelStatusTrue(event, item.id);
                     logEvent("여행 후기로 변경", { from: "유저페이지" });
                   }}
