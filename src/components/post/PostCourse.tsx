@@ -7,7 +7,7 @@ import {
   SearchModalAddCourseBtn,
 } from "../common";
 import styled from "styled-components";
-import { useCourse, useFilterCourse } from "../../hooks";
+import { useCourse } from "../../hooks";
 
 interface PostProps {
   setModalOpen: Dispatch<SetStateAction<boolean>>;
@@ -16,9 +16,8 @@ interface PostProps {
 const PostCourse = ({ setModalOpen }: PostProps) => {
   const { lists } = useCourse();
   const { filteredIdx } = useCourse();
-
+  const { getIdx } = useCourse();
   const [text, setText] = useState<string>("");
-  const getIdx = useFilterCourse();
 
   return (
     <div className="w-[35%] pl-4 md:pl-7 float-right xs:hidden">

@@ -1,18 +1,17 @@
 import { CustomOverlayMap, Polyline } from "react-kakao-maps-sdk";
 import styled from "styled-components";
 import { MdLocationOn } from "react-icons/md";
-import { useCourse, useFilterCourse } from "../../hooks";
+import { useCourse } from "../../hooks";
 
 const MapMarkers = () => {
   const { lists } = useCourse();
   const { filteredIdx } = useCourse();
+  const { getIdx } = useCourse();
 
   let polyline: any = [];
   lists.map((item: CourseListType) => {
     polyline.push(item.position);
   });
-
-  const getIdx = useFilterCourse();
 
   return (
     <>

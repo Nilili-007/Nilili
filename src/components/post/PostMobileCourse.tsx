@@ -7,15 +7,14 @@ import {
   CourseMemo,
 } from "../common";
 import { ItemCard } from "./PostCourse";
-import { useCourse, useFilterCourse } from "../../hooks";
+import { useCourse } from "../../hooks";
 
 const PostMobileCourse = () => {
   const [openCourse, setOpenCourse] = useState(false);
   const [text, setText] = useState("");
   const { lists } = useCourse();
   const { filteredIdx } = useCourse();
-
-  const getIdx = useFilterCourse();
+  const { getIdx } = useCourse();
 
   return (
     <div className="lg:hidden 3xl:hidden xs:flex xs:flex-col">

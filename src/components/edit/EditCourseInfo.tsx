@@ -10,7 +10,7 @@ import {
 } from "../common";
 import { useGetCourseQuery } from "../../redux/modules/apiSlice";
 import { useParams } from "react-router-dom";
-import { useCourse, useFilterCourse } from "../../hooks";
+import { useCourse } from "../../hooks";
 
 interface EditCourseProps {
   setModalOpen: Dispatch<SetStateAction<boolean>>;
@@ -28,7 +28,7 @@ const EditCourseInfo = ({ setModalOpen }: EditCourseProps) => {
   );
   const [lists, setLists] = useState(fbLists);
   const { filteredIdx } = useCourse();
-  const getIdx = useFilterCourse();
+  const { getIdx } = useCourse();
 
   useEffect(() => {
     setLists(reduxLists);
