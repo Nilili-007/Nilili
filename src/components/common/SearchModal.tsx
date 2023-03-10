@@ -1,9 +1,9 @@
-import React, { Dispatch, SetStateAction, useRef, useState } from "react";
+import React, { Dispatch, SetStateAction, useCallback, useState } from "react";
 import { GrFormClose } from "react-icons/gr";
 import { useDispatch } from "react-redux";
 import { addCourse } from "../../redux/modules/courseSlice";
 import Swal from "sweetalert2";
-import { useCourse } from "../../hooks";
+import { useCourse, useDebounce } from "../../hooks";
 import styled from "styled-components";
 
 interface PostProps {
@@ -26,7 +26,16 @@ const SearchModal = ({
   const dispatch = useDispatch();
   const [text, setText] = useState("");
   const { lists } = useCourse();
-  const inputRef = useRef(null);
+
+  const printValue = useCallback(
+    useDebounce((value: any) => console.log(value), 500),
+    []
+  );
+
+  const handleChange = (e: any) => {
+    printValue(e.target.value);
+    setText(e.target.value);
+  };
 
   const closeModal = () => {
     setModalOpen(false);
@@ -97,9 +106,9 @@ const SearchModal = ({
         </div>
         <form onSubmit={(e) => onSubmitSearch(e)} className="flex">
           <input
-            // ref={inputRef}
             value={text}
-            onChange={(e) => setText(e.target.value)}
+            onChange={handleChange}
+            // onChange={(event) => changeTextHandler(event)}
             placeholder="여행지를 입력해주세요."
             className="w-[695px] h-[50px] px-[14px] py-[16px] border border-gray-400 text-lg focus:outline-none xs:w-[72%] xs:h-10 xs:text-[14px]"
           />
@@ -109,7 +118,7 @@ const SearchModal = ({
         </form>
       </div>
 
-      {searchList.length === 0 ? (
+      {searchKeyword !== "" && searchList.length === 0 ? (
         <div className="flex flex-col justify-center items-center h-32 text-2xl mt-12 xs:text-sm xs:mt-10 xs:h-20">
           <p>'{searchKeyword}'에 대한 검색 결과가 없습니다.</p>
           <p>검색어를 확인해주세요.</p>
