@@ -16,7 +16,7 @@ import {
 import Swal from "sweetalert2";
 import * as amplitude from "@amplitude/analytics-browser";
 import { logEvent } from "../utils/amplitude";
-import { usePreventLeave, useOption, useCourse } from "../hooks";
+import { usePreventLeave, useOption, useCourse, useInput } from "../hooks";
 import { PostInfo, PostManageBtns } from "../components/common";
 
 const Post = () => {
@@ -29,7 +29,6 @@ const Post = () => {
 
   usePreventLeave();
 
-  const titleRef = useRef<HTMLInputElement>(null);
   const regionsRef = useRef<HTMLSelectElement>(null);
 
   // 커버
@@ -37,7 +36,7 @@ const Post = () => {
   const [galleryCover, setGalleryCover] = useState("");
 
   //제목
-  const [courseTitle, setCourseTitle] = useState<string | undefined>("");
+  const { inputRef, trimValue, changeValueHandler } = useInput("");
 
   // select
   const {
@@ -66,7 +65,7 @@ const Post = () => {
     const newPost = {
       location: selectedRegions,
       hashtags: selectedLabels,
-      title: courseTitle,
+      title: trimValue,
       travelStatus,
       courseList: JSON.stringify(lists),
       cover: uploadCover || galleryCover,
@@ -82,7 +81,7 @@ const Post = () => {
       (uploadCover || galleryCover) &&
       travelStatus !== null &&
       regions.length > 0 &&
-      courseTitle?.trim() &&
+      trimValue &&
       lists.length > 1
     ) {
       Swal.fire({
@@ -148,13 +147,13 @@ const Post = () => {
           },
         });
       }
-      if (!courseTitle?.trim()) {
+      if (!trimValue) {
         Swal.fire({
           icon: "error",
           title: `<p style="font-size: 20px;">제목을 입력해주세요!</p>`,
           didClose: () => {
             window.scrollTo({ top: 0, behavior: "smooth" });
-            titleRef.current?.focus();
+            inputRef.current?.focus();
           },
         });
       }
@@ -188,9 +187,9 @@ const Post = () => {
         setUploadCover={setUploadCover}
         galleryCover={galleryCover}
         setGalleryCover={setGalleryCover}
-        courseTitle={courseTitle}
-        setCourseTitle={setCourseTitle}
-        titleRef={titleRef}
+        courseTitle={trimValue}
+        titleRef={inputRef}
+        changeValueHandler={changeValueHandler}
       />
       <div className="w-[85%] md:w-[70%] h-auto mx-auto md:mt-[100px] mt-0 ">
         <div className="flex flex-col-reverse md:flex-row">

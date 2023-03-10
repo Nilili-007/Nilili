@@ -3,7 +3,7 @@ import usePreventLeave from "./usePreventLeave";
 import { useScript } from "./useScript";
 import useKakaoMap from "./useKakaoMap";
 import useBefore from "./useBefore";
-import useCommentPost from "./useCommentPost";
+import useInput from "./useInput";
 import useDelete from "./useDelete";
 import useOption from "./useOption";
 import useGetScreenSize from "./useGetScreenSize";
@@ -18,7 +18,7 @@ export {
   useScript,
   useKakaoMap,
   useBefore,
-  useCommentPost,
+  useInput,
   useDelete,
   useOption,
   useGetScreenSize,

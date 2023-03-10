@@ -17,7 +17,7 @@ import { authService } from "../utils/firebase";
 import Swal from "sweetalert2";
 import * as amplitude from "@amplitude/analytics-browser";
 import { logEvent } from "../utils/amplitude";
-import { usePreventLeave, useOption, useCourse } from "../hooks";
+import { usePreventLeave, useOption, useCourse, useInput } from "../hooks";
 import { PostInfo, PostManageBtns } from "../components/common";
 
 const EditCourse = () => {
@@ -43,8 +43,7 @@ const EditCourse = () => {
   );
 
   //제목
-  const [courseTitle, setCourseTitle] = useState<string | undefined>("");
-  const titleRef = useRef<HTMLInputElement>(null);
+  const { inputRef, trimValue, changeValueHandler } = useInput("");
 
   //지역, 카테고리 선택
   const regionsRef = useRef<HTMLSelectElement>(null);
@@ -73,7 +72,7 @@ const EditCourse = () => {
   // 수정 전 내용 불러오기
   useEffect(() => {
     refetch();
-    setCourseTitle(course?.title);
+    inputRef.current.value = course?.title;
     if (course?.travelStatus === true) {
       setTravelStatus(true);
     } else {
@@ -101,13 +100,13 @@ const EditCourse = () => {
           regionsRef.current?.focus();
         },
       });
-    } else if (!courseTitle?.trim()) {
+    } else if (!trimValue) {
       Swal.fire({
         icon: "error",
         title: `<p style="font-size: 20px;">제목을 입력해주세요!</p>`,
 
         didClose: () => {
-          titleRef.current?.focus();
+          inputRef.current?.focus();
         },
       });
     } else if (!uploadCover && !galleryCover) {
@@ -143,7 +142,7 @@ const EditCourse = () => {
             courseId: paramId,
             location: selectedRegions,
             hashtags: selectedLabels,
-            title: courseTitle,
+            title: trimValue,
             cover: uploadCover || galleryCover,
             courseList: JSON.stringify(lists),
             travelStatus,
@@ -182,9 +181,9 @@ const EditCourse = () => {
         setUploadCover={setUploadCover}
         galleryCover={galleryCover}
         setGalleryCover={setGalleryCover}
-        courseTitle={courseTitle}
-        titleRef={titleRef}
-        setCourseTitle={setCourseTitle}
+        courseTitle={trimValue}
+        titleRef={inputRef}
+        changeValueHandler={changeValueHandler}
       />
       <div className="w-[85%] md:w-[70%] h-auto mx-auto md:mt-[100px] mt-0 ">
         <EditCourseCategories

@@ -8,7 +8,7 @@ declare interface CourseType {
   id: string;
   location: string[];
   hashtags: string[];
-  title: string;
+  title: string | undefined;
   cover: string | undefined;
   createdAt: date;
   likes: number;
