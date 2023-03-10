@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useRef, useState } from "react";
 import { GrFormClose } from "react-icons/gr";
 import { useDispatch } from "react-redux";
 import { addCourse } from "../../redux/modules/courseSlice";
@@ -22,8 +22,7 @@ const SearchModal = ({
   setSearchList,
   searchCnt,
 }: PostProps) => {
-  console.log("렌더링 발생");
-
+  const page = useRef(null);
   const dispatch = useDispatch();
   const [text, setText] = useState("");
   const { lists } = useCourse();
