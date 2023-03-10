@@ -10,7 +10,7 @@ import {
 } from "../common";
 import { useGetCourseQuery } from "../../redux/modules/apiSlice";
 import { useParams } from "react-router-dom";
-import { useFilterCourse } from "../../hooks";
+import { useCourse } from "../../hooks";
 
 interface EditCourseProps {
   setModalOpen: Dispatch<SetStateAction<boolean>>;
@@ -26,13 +26,9 @@ const EditCourseInfo = ({ setModalOpen }: EditCourseProps) => {
     data?.filter((course: CourseType) => course.id === paramId).pop()
       ?.courseList
   );
-  const filteredIdx = useSelector(
-    (state: any) => state.courseSlice.filteredIdx
-  );
-
   const [lists, setLists] = useState(fbLists);
-
-  const getIdx = useFilterCourse();
+  const { filteredIdx } = useCourse();
+  const { getIdx } = useCourse();
 
   useEffect(() => {
     setLists(reduxLists);

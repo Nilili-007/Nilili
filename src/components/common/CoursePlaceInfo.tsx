@@ -1,5 +1,5 @@
-import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { useCourse } from "../../hooks";
 
 interface CourseInfoProps {
   lists: object[];
@@ -8,9 +8,7 @@ interface CourseInfoProps {
 }
 
 const CoursePlaceInfo = ({ lists, item, idx }: CourseInfoProps) => {
-  const filteredIdx = useSelector(
-    (state: any) => state.courseSlice.filteredIdx
-  );
+  const { filteredIdx } = useCourse();
 
   return (
     <div className="w-full h-auto text-gray-04 xs:mt-1 xs:text-sm">

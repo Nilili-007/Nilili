@@ -55,7 +55,7 @@ const Information = styled.h1`
     margin-top: -235px;
   }
   @media screen and (max-width: 414px) {
-    width: 90%;
+    width: 90.7%;
     left: 5%;
     margin-top: -150px;
   }

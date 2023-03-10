@@ -9,7 +9,7 @@ const useKakaoMap = (
 ) => {
   const ps = new kakao.maps.services.Places();
 
-  const kakaoPagenation = (pagination: any) => {
+  const displayPagination = (pagination: any) => {
     var paginationEl = document.getElementById("pagination"),
       fragment = document.createDocumentFragment(),
       i;
@@ -63,7 +63,7 @@ const useKakaoMap = (
 
         // @ts-ignore
         map.panTo(bounds);
-        kakaoPagenation(pagination);
+        displayPagination(pagination);
         // @ts-ignore
         setSearchList(data);
         setSearchCnt(pagination.totalCount);

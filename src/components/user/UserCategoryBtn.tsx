@@ -13,7 +13,7 @@ const UserCategoryBtn = () => {
   const userName = user?.displayName;
 
   return (
-    <div className="flex flex-col  lg:max-w-6xl w-[90%]   min-h-[57vh] ">
+    <div className="flex flex-col   w-[85%] md:w-[70%]  min-h-[57vh] ">
       <div className="flex  border-b-2 border-black ">
         <button
           className={`  text-[18px] sm:body1 mr-[7%] py-4 ${
@@ -64,7 +64,7 @@ const UserCategoryBtn = () => {
         </div>
         <div>
           <button
-            className={`badge border border-black sm:px-[20px] sm:py-[8px] p-1 ${
+            className={`badge sm:text-[18px] border border-black sm:px-[20px] sm:py-[8px] p-1 ${
               done === false ? "bg-black text-white " : null
             } `}
             onClick={() => {
@@ -75,7 +75,7 @@ const UserCategoryBtn = () => {
             여행 계획
           </button>
           <button
-            className={`badge border border-black sm:px-[20px] sm:py-[8px] p-1 ${
+            className={`badge sm:text-[18px] border border-black sm:px-[20px] sm:py-[8px] p-1 ${
               done === true ? "bg-black text-white " : null
             } `}
             onClick={() => {

@@ -16,7 +16,7 @@ import {
 import Swal from "sweetalert2";
 import * as amplitude from "@amplitude/analytics-browser";
 import { logEvent } from "../utils/amplitude";
-import { usePreventLeave, useOption, useInput } from "../hooks";
+import { usePreventLeave, useOption, useCourse, useInput } from "../hooks";
 import { PostInfo, PostManageBtns } from "../components/common";
 
 const Post = () => {
@@ -55,7 +55,7 @@ const Post = () => {
   const [condition, setCondition] = useState(false);
 
   const userID = authService.currentUser?.uid;
-  const courseList = useSelector((state: any) => state.courseSlice.courseList);
+  const { lists } = useCourse();
 
   const addPostHandler = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -67,7 +67,7 @@ const Post = () => {
       hashtags: selectedLabels,
       title: trimValue,
       travelStatus,
-      courseList: JSON.stringify(courseList),
+      courseList: JSON.stringify(lists),
       cover: uploadCover || galleryCover,
       userID,
       nickname: authService.currentUser?.displayName,
@@ -82,7 +82,7 @@ const Post = () => {
       travelStatus !== null &&
       regions.length > 0 &&
       trimValue &&
-      courseList.length > 1
+      lists.length > 1
     ) {
       Swal.fire({
         title: `<p style="font-size: 20px;">게시글을 등록하시겠습니까?</p>`,
@@ -157,7 +157,7 @@ const Post = () => {
           },
         });
       }
-      if (courseList.length < 2) {
+      if (lists.length < 2) {
         Swal.fire({
           icon: "error",
           title: `<p style="font-size: 20px;">2개 이상의 여행지를 추가해주세요!</p>`,

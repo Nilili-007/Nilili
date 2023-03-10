@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { BsChevronUp, BsChevronDown } from "react-icons/bs";
-import { useDownCourse, useUpCourse } from "../../hooks";
+import { useCourse } from "../../hooks";
 
 interface CourseInfoProps {
   lists: object[];
@@ -9,8 +9,8 @@ interface CourseInfoProps {
 }
 
 const CourseOrderBtns = ({ lists, item, idx }: CourseInfoProps) => {
-  const liftUp = useUpCourse();
-  const liftDown = useDownCourse();
+  const { liftUp } = useCourse();
+  const { liftDown } = useCourse();
 
   return (
     <div className="flex text-2xl mt-3 float-right">
