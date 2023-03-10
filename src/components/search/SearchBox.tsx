@@ -23,12 +23,12 @@ const SearchBox = () => {
   const navigate = useNavigate();
   const [locations, setLocations] = useState<optionType[]>([]);
   const [hashtags, sethashtags] = useState<optionType[]>([]);
+  const [hashtags2, sethashtags2] = useState<optionType[]>([]);
   const [words, setWords] = useState("");
   const [travelStatus, setTravelStatus] = useState<optionType | undefined>();
   const [filteredList, setFilteredList] = useState<CourseType[]>();
   const [searchParams] = useSearchParams();
   const { data } = useGetCourseQuery();
-  const [condition, setCondition] = useState<boolean>(false);
 
   const selectInputRef = useRef<any>(null);
 
@@ -118,15 +118,8 @@ const SearchBox = () => {
 
   //해시태그 리스트 클릭해서 들어왔을 때 바로 검색
   useEffect(() => {
-    if (
-      searchParams.get("lc") === null &&
-      searchParams.get("ws") === null &&
-      searchParams.get("ts") === null &&
-      hashtags.length > 0
-    ) {
-      filterData();
-    }
-  }, [hashtags]);
+    filterData();
+  }, [hashtags2]);
 
   useEffect(() => {
     const emptyArr: optionType[] = [];
@@ -140,6 +133,14 @@ const SearchBox = () => {
     );
 
     sethashtags(
+      // @ts-ignore
+      searchParams.get("ht") === null
+        ? emptyArr
+        : // @ts-ignore
+          JSON.parse(searchParams.get("ht"))
+    );
+
+    sethashtags2(
       // @ts-ignore
       searchParams.get("ht") === null
         ? emptyArr
@@ -288,11 +289,11 @@ const SearchBox = () => {
       {filteredList?.length === 0 ? (
         <p className="min-h-[100vh] pt-16 text-lg">검색결과가 없습니다.</p>
       ) : isLoading ? (
-        <div className=" flex justify-between flex-wrap mb-[2%]  lg:max-w-6xl w-[90%] mt-[3%] ">
+        <div className=" flex justify-between flex-wrap mb-[2%]  w-[85%] md:w-[70%] mt-[3%] ">
           {new Array(12).fill(null).map((_, idx) => (
             <SkeletonTheme baseColor="#202020" highlightColor="#444" key={idx}>
-              <div className="  mb-[5%] xl:w-[23%] lg:w-[31%] w-[48%] mr-[2%]">
-                <Skeleton className="sm:h-[300px] h-[160px]" />
+              <div className="  mb-[5%] xl:w-[23%] lg:w-[31%] w-[48%] mr-[2%] sm:pt-[2%]">
+                <Skeleton className="sm:h-[300px] h-[150px]" />
                 <div className="mt-3">
                   <Skeleton className="w-[80%] h-[30px]" />
                   <Skeleton className="w-[30%]  h-[25px]" />

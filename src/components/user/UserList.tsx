@@ -118,8 +118,8 @@ const UserList = ({ done, category }: UserListType) => {
       <div className="flex flex-row flex-wrap mt-[3%]">
         {new Array(9).fill(null).map((_, idx) => (
           <SkeletonTheme baseColor="#202020" highlightColor="#444" key={idx}>
-            <div className=" mb-[5%] lg:w-[31%] md:w-[48%] sm:w-[80%] w-[48%]  mr-[2%] ">
-              <Skeleton className=" sm:h-[300px] h-[160px]" />
+            <div className=" mb-[5%] xl:w-[31%] md:w-[48%] sm:w-[80%] w-[48%]  mr-[2%]   ">
+              <Skeleton className=" sm:h-[320px] h-[150px]" />
               <div className="mt-3">
                 <Skeleton className="w-[80%] h-[30px]" />
                 <Skeleton className="w-[30%]  h-[25px]" />
@@ -141,78 +141,56 @@ const UserList = ({ done, category }: UserListType) => {
           <div
             onClick={(event: any) => handleNavigate(event, item.id)}
             key={item.id}
-            className="relative lg:w-[31%] md:w-[48%] sm:w-[80%] w-[48%]  mr-[2%] hover:cursor-pointer"
+            className="relative xl:w-[31%] md:w-[48%] sm:w-[80%] w-[48%]  mr-[2%] hover:cursor-pointer"
           >
             <Stdiv>
               <StMap category={category}>
                 <ListMap
                   mapstyle={
                     window.innerWidth < 415
-                      ? { width: "170px", height: "170px" }
+                      ? { width: "150px", height: "150px" }
                       : {
-                          width: "350px",
-                          height: "350px",
+                          width: "400px",
+                          height: "320px",
                         }
                   }
                   course={item}
                 />
               </StMap>
-              <StButtonDiv className="hidden sm:block">
-                {category !== "MY" ? null : item.travelStatus ? (
-                  <button
-                    onClick={(event: any) =>
-                      changeTravelStatusFalse(event, item.id)
-                    }
-                  >
-                    여행 계획으로 변경
-                  </button>
-                ) : (
-                  <button
-                    onClick={(event: any) => {
-                      changeTravelStatusTrue(event, item.id);
-                      logEvent("여행 후기로 변경", { from: "유저페이지" });
-                    }}
-                  >
-                    여행 후기로 변경
-                  </button>
-                )}
-              </StButtonDiv>
+
               <StImg
                 src={item.cover}
                 alt="대표 사진"
-                className=" sm:h-[350px] sm:w-[350px] h-[170px] w-[170px] object-cover"
+                className=" sm:h-[320px] sm:w-[400px] h-[150px] w-[150px] object-cover"
                 category={category}
               />
             </Stdiv>
-            {window.innerWidth < 415 ? (
-              <div className="ml-1  w-fit  text-sm font-medium mt-2  ">
-                {category !== "MY" ? null : item.travelStatus ? (
-                  <button
-                    className="border-2 border-black p-[2px]"
-                    onClick={(event: any) =>
-                      changeTravelStatusFalse(event, item.id)
-                    }
-                  >
-                    여행 계획으로 변경
-                  </button>
-                ) : (
-                  <button
-                    className="border-2 border-black p-[2px]"
-                    onClick={(event: any) => {
-                      changeTravelStatusTrue(event, item.id);
-                      logEvent("여행 후기로 변경", { from: "유저페이지" });
-                    }}
-                  >
-                    여행 후기로 변경
-                  </button>
-                )}
-              </div>
-            ) : null}
+
+            <div className="ml-1  w-fit sm:text-[18px] text-sm font-medium mt-2 hover:shadow-md ">
+              {category !== "MY" ? null : item.travelStatus ? (
+                <button
+                  className="border-2 border-black p-[2px]"
+                  onClick={(event: any) =>
+                    changeTravelStatusFalse(event, item.id)
+                  }
+                >
+                  여행 계획으로 변경
+                </button>
+              ) : (
+                <button
+                  className="border-2 border-black p-[2px]"
+                  onClick={(event: any) => {
+                    changeTravelStatusTrue(event, item.id);
+                    logEvent("여행 후기로 변경", { from: "유저페이지" });
+                  }}
+                >
+                  여행 후기로 변경
+                </button>
+              )}
+            </div>
 
             <p
-              className={`pr-4 ml-1 sm:h-[30px]  h-7  w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ${
-                category === "MY" ? "sm:mt-[-20px]  " : "mt-5"
-              }`}
+              className={`pr-4 ml-1 sm:h-[30px]  h-7  w-[98%] sm:text-[28px] text-lg overflow-hidden font-black mt-[3%]`}
             >
               {item.title}
             </p>
@@ -252,40 +230,13 @@ const UserList = ({ done, category }: UserListType) => {
 };
 export default UserList;
 
-const StButtonDiv = styled.div`
-  color: white;
-  position: relative;
-  z-index: 1;
-  opacity: 0%;
-  bottom: 185px;
-  left: 21%;
-  font-size: 25px;
-  width: fit-content;
-  &:hover {
-    font-weight: 700;
-    background-color: rgba(245, 158, 11, 0.6);
-  }
-  & > button {
-    padding-right: 10px;
-    padding-left: 10px;
-  }
-`;
-
 const StImg = styled.img<{ category: string }>`
   position: absolute;
   bottom: 0px;
-  @media screen and (min-width: 415px) {
-    position: absolute;
-    bottom: ${(props) => (props.category === "MY" ? "37.5px" : "0px")};
-  }
 `;
 
 const StMap = styled.div<{ category: string }>`
   opacity: 0%;
-
-  @media screen and (min-width: 415px) {
-    ${(props) => (props.category === "MY" ? "filter: Brightness(20%)" : null)}
-  }
 `;
 
 const Stdiv = styled.div`
@@ -296,9 +247,6 @@ const Stdiv = styled.div`
       display: none;
     }
     ${StMap} {
-      opacity: 100%;
-    }
-    ${StButtonDiv} {
       opacity: 100%;
     }
   }
