@@ -49,22 +49,24 @@ const Path = () => {
         }
         className="hover:cursor-pointer sm:pt-[2%] pt-[3%]  border-t-2 border-black relative "
       >
-        <ProgressiveImg
-          src="/assets/path.png"
-          placeholderSrc="/assets/smallpath.png"
-          alt="글쓰기 페이지로"
-          className="w-full hover:border-black border hover:shadow-lg border-gray-03 hover:border-2 "
-        />
-        <div className="lg:block hidden  font-eng absolute right-[1%] bottom-[30%]">
-          <p className="display3  text-amber-500">Go to </p>
+        <div className=" hover:border-black border hover:shadow-lg border-gray-03 hover:border-2">
+          <ProgressiveImg
+            src="/assets/path.png"
+            placeholderSrc="/assets/smallpath.png"
+            alt="글쓰기 페이지로"
+            className="xl:w-[80%] w-full mx-auto   "
+          />
+          <div className="lg:block hidden  font-eng absolute right-[1%] bottom-[30%]">
+            <p className="2xl:display3 lg:display6    text-amber-500">Go to </p>
 
-          <p className="display2 lg:flex items-center">
-            Create Course <AiOutlineSwapRight />
-          </p>
+            <p className="2xl:display2 lg:display4 lg:flex items-center">
+              Create Course <AiOutlineSwapRight />
+            </p>
+          </div>
         </div>
 
         <div className="lg:hidden block  font-eng absolute right-[5%] bottom-[30%]">
-          <p className="md:display4 text-2xl font-bold font-eng  flex items-end">
+          <p className="sm:display5 text-2xl font-bold font-eng  flex items-end">
             Create <br />
             Course <AiOutlineSwapRight className="mb-[1%]" />
           </p>
