@@ -16,8 +16,6 @@ export interface CommentType {
 }
 
 const CommentInput = ({ paramId }: CommentProps) => {
-  console.log("리랜더링");
-
   const { inputRef, value, trimValue, changeValueHandler } = useInput("");
   const submitRef = useRef<HTMLButtonElement | any>();
   const [addComment] = useAddCommentMutation();

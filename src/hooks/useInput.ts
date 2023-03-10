@@ -6,12 +6,9 @@ const useInput = (initialValue: string) => {
   const [value, setValue] = useState(initialValue);
   const trimValue = value.trim();
 
-  const changeValueHandler = debounce(
-    (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setValue(event.target.value);
-    },
-    500
-  );
+  const changeValueHandler = debounce((event: React.ChangeEvent<any>) => {
+    setValue(event.target.value);
+  }, 500);
   return {
     inputRef,
     value,

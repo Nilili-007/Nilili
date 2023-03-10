@@ -89,7 +89,7 @@ const SearchBox = () => {
         .filter((item) => isSubsetOf(item.hashtags, hashtagsArr))
         .filter(
           (item) =>
-            item.title.toLowerCase().includes(words.toLowerCase()) ||
+            item.title?.toLowerCase().includes(words.toLowerCase()) ||
             JSON.parse(item.courseList).filter(
               (item: CourseListType) =>
                 item.name.toLowerCase().includes(words.toLowerCase()) ||
