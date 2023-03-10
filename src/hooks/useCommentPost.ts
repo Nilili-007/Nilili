@@ -12,7 +12,7 @@ const useCommentPost = (initialValue: string) => {
   };
   const submitHandler = (
     event: React.FormEvent<HTMLFormElement>,
-    addFn: any,
+    addFn: (newContent: CommentType) => void,
     newContent: CommentType
   ) => {
     event.preventDefault();

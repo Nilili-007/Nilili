@@ -14,7 +14,7 @@ const CourseMapMarker = ({
   filteredIdx,
   setFilteredIdx,
 }: CourseProps) => {
-  let polyline: any = [];
+  let polyline: { lat: number; lng: number }[] = [];
   lists.map((item: CourseListType) => {
     polyline.push(item.position);
   });

@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from "react";
 
+interface WeatherData {
+  main: {
+    temp: number;
+  };
+  weather: {
+    main: string;
+    icon: string;
+  }[];
+}
+
 const Weather = () => {
   const API_KEY = "22365910a24dc03c09c5ef5a0adb2c5e";
-  const [weather, setWeather] = useState<any>(null);
+  const [weather, setWeather] = useState<WeatherData | null>(null);
 
   const getCurrentLocation = () => {
     // 현재 위치 가져오기

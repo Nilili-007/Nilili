@@ -17,7 +17,7 @@ const Comment = ({ comment, index }: CommentProps) => {
   const [edit, setEdit] = useState(false);
   const editRef = useRef<HTMLButtonElement | any>();
   const currentUserId = authService.currentUser?.uid;
-  const userImg: any = comment.profileImage;
+  const userImg: string | undefined | null = comment.profileImage;
 
   // 작성시간 나타내기
   const { nowTime } = useBefore(comment.createdAt);

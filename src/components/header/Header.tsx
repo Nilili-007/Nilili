@@ -33,8 +33,9 @@ const Header = () => {
   };
 
   // 글쓰기 페이지 & 수정 페이지 이탈시 확인 모달
-  const leavePresentPage = (e: any) => {
-    const text = e.target.innerText;
+  const leavePresentPage = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const eventTarget = e.target as HTMLElement;
+    const text: string = eventTarget.innerText;
     if (
       window.location.pathname === "/post" ||
       window.location.pathname === `/edit/${window.location.pathname.slice(6)}`

@@ -46,7 +46,7 @@ const ProfileEdit = ({
       reader.readAsDataURL(file);
       reader.onloadend = () => {
         const changeImg = reader.result;
-        setImg(changeImg as any);
+        setImg(changeImg as string | null | undefined);
       };
     }
   };

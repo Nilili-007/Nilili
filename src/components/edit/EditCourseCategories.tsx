@@ -11,7 +11,7 @@ interface EditTitleProps {
   travelStatus: boolean | null;
   filterRegion: optionType[];
   regions: any;
-  setRegions: React.Dispatch<React.SetStateAction<optionType[] | null>>;
+  setRegions: React.Dispatch<React.SetStateAction<optionType[]>>;
   filterTags: optionType[];
   setSelectedTags: React.Dispatch<React.SetStateAction<optionType[] | null>>;
   selectedTags: any;
