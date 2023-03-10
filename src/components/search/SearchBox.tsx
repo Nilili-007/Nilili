@@ -154,7 +154,10 @@ const SearchBox = () => {
         : searchParams.get("ws")
     );
 
-    if (searchParams.get("ts") !== "undefined") {
+    if (
+      searchParams.get("ts") !== "undefined" &&
+      searchParams.get("ts") !== "null"
+    ) {
       setTravelStatus(
         searchParams.get("ts") === null
           ? undefined

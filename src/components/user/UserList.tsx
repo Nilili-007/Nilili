@@ -190,7 +190,7 @@ const UserList = ({ done, category }: UserListType) => {
             </div>
 
             <p
-              className={`pr-4 ml-1 sm:h-[30px]  h-7  w-[98%] sm:text-[28px] text-lg overflow-hidden font-black mt-[3%]`}
+              className={`pr-4 ml-1 sm:h-[30px]  h-7  m-w-[400px] w-[98%] sm:text-[28px] text-lg overflow-hidden font-black mt-[3%]`}
             >
               {item.title}
             </p>
