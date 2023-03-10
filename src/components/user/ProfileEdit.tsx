@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 interface ProfileEditModal {
   profileEditModal: boolean;
   setProfileEdit: React.Dispatch<React.SetStateAction<boolean>>;
-  modalOutClick: (e: any) => void;
+  modalOutClick: (e: React.MouseEvent) => void;
   modalRef: React.ForwardedRef<HTMLDivElement>;
 }
 
@@ -32,7 +32,7 @@ const ProfileEdit = ({
   const userID = authService.currentUser?.uid;
 
   const [img, setImg] = useState(userImg);
-  const [nickname, setNickname] = useState<any>(userName);
+  const [nickname, setNickname] = useState<string | any>(userName);
 
   const imgRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);

@@ -23,7 +23,7 @@ const UserNameEdit = () => {
     document.body.style.overflow = "hidden";
   };
 
-  const modalOutClick = (e: any) => {
+  const modalOutClick = (e: React.MouseEvent) => {
     if (modalRef.current === e.target) {
       setProfileEdit(false);
       setUserEdit(false);
