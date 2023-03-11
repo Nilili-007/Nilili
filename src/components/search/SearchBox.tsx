@@ -95,6 +95,7 @@ const SearchBox = () => {
         .filter((item) => isSubsetOf(item.hashtags, selectedLabels))
         .filter(
           (item) =>
+            item.nickname?.toLowerCase().includes(words.toLowerCase()) ||
             item.title?.toLowerCase().includes(words.toLowerCase()) ||
             JSON.parse(item.courseList).filter(
               (item: CourseListType) =>
