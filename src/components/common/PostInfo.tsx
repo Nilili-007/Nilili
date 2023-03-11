@@ -3,12 +3,13 @@ import { authService } from "../../utils/firebase";
 import { GrFormClose } from "react-icons/gr";
 import styled from "styled-components";
 import { DebouncedFunc } from "lodash";
-import { getStorage, ref } from "firebase/storage";
 import Swal from "sweetalert2";
 import { galleryLists } from ".";
+import heic2any from "heic2any";
+import imageCompression from "browser-image-compression";
 
 interface PostProps {
-  uploadCover: string | undefined;
+  uploadCover: any;
   setUploadCover: Dispatch<SetStateAction<string | undefined>>;
   galleryCover: string;
   setGalleryCover: Dispatch<SetStateAction<string>>;
@@ -30,7 +31,7 @@ const PostInfo = ({
 }: PostProps) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [category, setCategory] = useState("갤러리");
-  const coverRef = useRef<HTMLInputElement>(null);
+  const coverRef = useRef<HTMLInputElement | any>(null);
   let file: any;
 
   const selectCategory = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -44,28 +45,51 @@ const PostInfo = ({
     }
   };
 
-  const uploadCoverImg = () => {
-    if (coverRef.current?.files) {
-      file = coverRef.current.files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
+  if (uploadCover.length > 1048487) {
+    Swal.fire({
+      title: `<p style="font-size: 20px;">이미지 용량을 초과했습니다.</p>`,
+      icon: "error",
+    });
+  }
 
-      if (
-        file.type !== "image/jpg" ||
-        file.type !== "image/jpeg" ||
-        file.type !== "image/png" ||
-        file.type !== "image/bmp"
-      ) {
-        Swal.fire({
-          title: `<p style="font-size: 20px;">jpg, png, bmp 이미지만 가능합니다.\n확장자를 다시 한 번 확인해주세요.</p>`,
-          icon: "error",
-        });
-      } else {
+  // 1. 파일 정의
+  // 2. 파일 용량 줄이기
+  // 3. heic 파일에 해당하면 jpg 파일로 변환하기
+  // 4. 용량 초과시 alert, 용량 이하 파일이면 업로드
+
+  const uploadCoverImg = () => {
+    file = coverRef.current.files[0];
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 2520,
+    };
+    const reader = new FileReader();
+    const resizeFile = async () => {
+      try {
+        const compressedFile = await imageCompression(file, options);
+        reader.readAsDataURL(compressedFile);
         reader.onloadend = () => {
           setUploadCover(reader.result as SetStateAction<string | undefined>);
           setModalOpen(false);
         };
+      } catch (error) {
+        console.log(error);
       }
+    };
+
+    if (file.type === "image/heic" || file.type === "image/HEIC") {
+      let blob = coverRef.current.files[0];
+      heic2any({ blob, toType: "image/webp" }).then(function (resultBlob: any) {
+        file = new File([resultBlob], file.name.split(".")[0] + ".webp", {
+          type: "image/webp",
+          lastModified: new Date().getTime(),
+        });
+        resizeFile();
+      });
+    }
+
+    if (file.type !== "image/heic" || file.type !== "image/HEIC") {
+      resizeFile();
     }
   };
 
@@ -171,14 +195,14 @@ const PostInfo = ({
                       hidden
                       id="changeimg"
                       type="file"
+                      accept="image/jpg,image/png,image/jpeg,image/heic"
                       placeholder="파일선택"
                       ref={coverRef}
+                      // onChange={(e) => uploadCoverImg(e)}
                       onChange={uploadCoverImg}
                     />
                   </div>
-                  <p className="text-black mt-3">
-                    jpg, png, bmp 파일만 가능합니다.
-                  </p>
+                  <p className="text-black mt-3">jpg, png 파일만 가능합니다.</p>
                 </div>
               ) : (
                 <div className="overflow-y-scroll max-h-[660px] xs:h-[60%]">
