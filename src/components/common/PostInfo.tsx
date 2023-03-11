@@ -49,7 +49,7 @@ const PostInfo = ({
     }
   };
 
-  if (uploadCover.length > 1048487) {
+  if (uploadCover?.length > 1048487) {
     Swal.fire({
       title: `<p style="font-size: 20px;">이미지 용량을 초과했습니다.</p>`,
       icon: "error",
