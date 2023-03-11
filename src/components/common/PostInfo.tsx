@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { authService } from "../../utils/firebase";
 import { GrFormClose } from "react-icons/gr";
 import styled from "styled-components";
@@ -38,6 +38,7 @@ const PostInfo = ({
   let file: any;
 
   const selectCategory = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
     const eventTarget = e.target as HTMLElement;
 
     if (eventTarget.innerText === "업로드") {
