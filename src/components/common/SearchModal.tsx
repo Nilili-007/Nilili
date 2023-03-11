@@ -34,8 +34,6 @@ const SearchModal = ({
   const { lists } = useCourse();
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  console.log("searchList", searchList);
-
   const printValue = useCallback(
     useDebounce((value: string) => value, 500),
     []
@@ -60,8 +58,6 @@ const SearchModal = ({
       setSearchList(searchList);
     }
   };
-
-  console.log(searchKeyword);
 
   const addPlace = (item: SearchListType) => {
     const targetItem = {

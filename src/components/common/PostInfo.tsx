@@ -222,7 +222,7 @@ const PostInfo = ({
                     hidden
                     id="changeimg"
                     type="file"
-                    accept="image/jpg,image/png,image/jpeg,image/heic"
+                    accept="image/jpg,image/png,image/jpeg,image/heic,image/webp,image/avif"
                     placeholder="파일선택"
                     ref={coverRef}
                     onChange={uploadCoverImg}
