@@ -23,6 +23,9 @@ import { PostInfo, PostManageBtns } from "../components/common";
 const EditCourse = () => {
   useEffect(() => {
     amplitude.track("수정페이지 접속");
+    window.scroll({
+      top: 0,
+    });
   }, []);
   const paramId = useParams().id;
   const { data, refetch } = useGetCourseQuery();
