@@ -57,7 +57,6 @@ const UserList = ({ done, category }: UserListType) => {
     event: React.MouseEvent<HTMLButtonElement>,
     id: string | undefined
   ) => {
-    event.stopPropagation();
     Swal.fire({
       title: "후기를 남기시겠습니까?",
       text: "NILILI에 소중한 후기를 남겨주세요 ♥",
@@ -91,7 +90,6 @@ const UserList = ({ done, category }: UserListType) => {
     event: React.MouseEvent<HTMLButtonElement>,
     id: string | undefined
   ) => {
-    event.stopPropagation();
     Swal.fire({
       title: "여행 계획으로 변경하시겠습니까?",
       icon: "question",
@@ -114,7 +112,6 @@ const UserList = ({ done, category }: UserListType) => {
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     id: string
   ) => {
-    event.stopPropagation();
     navigate(`/course/${id}`);
   };
 
