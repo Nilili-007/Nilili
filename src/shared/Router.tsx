@@ -14,12 +14,19 @@ import {
   EditCourse,
   Search,
 } from "../pages";
+import { SyncLoader } from "react-spinners";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Header />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense
+        fallback={
+          <div className="h-screen flex justify-center items-center">
+            <SyncLoader color="#A0A4A8" margin={10} size={18} />
+          </div>
+        }
+      >
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/post" element={<Post />} />
