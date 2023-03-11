@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { galleryLists } from ".";
 import heic2any from "heic2any";
 import imageCompression from "browser-image-compression";
+import { FadeLoader } from "react-spinners";
 
 interface PostProps {
   uploadCover: any;
@@ -33,6 +34,7 @@ const PostInfo = ({
   const [category, setCategory] = useState("갤러리");
   const coverRef = useRef<HTMLInputElement | any>(null);
   const [link, setLink] = useState("");
+  const [loaded, setLoaded] = useState(true);
   let file: any;
 
   const selectCategory = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -69,12 +71,14 @@ const PostInfo = ({
     };
     const reader = new FileReader();
     const resizeFile = async () => {
+      setLoaded(false);
       try {
         const compressedFile = await imageCompression(file, options);
         reader.readAsDataURL(compressedFile);
         reader.onloadend = () => {
           setUploadCover(reader.result as SetStateAction<string | undefined>);
           setModalOpen(false);
+          setLoaded(true);
         };
       } catch (error) {
         console.log(error);
@@ -98,7 +102,7 @@ const PostInfo = ({
   };
 
   const selectCoverImg = (
-    e: React.MouseEvent<HTMLImageElement, MouseEvent>
+    e: React.MouseEvent<HTMLImageElement, MouseEvent> | any
   ) => {
     const eventTarget = e.target as HTMLImageElement;
 
@@ -135,7 +139,11 @@ const PostInfo = ({
       <div className="w-full h-[220px] sm:h-[450px] md:h-[700px] -mt-[220px] sm:-mt-[450px] md:-mt-[700px] absolute z-10 flex justify-center items-center">
         {uploadCover === "" && galleryCover === "" ? (
           <div className="scale-[0.25] sm:scale-50 md:scale-100 absolute z-10 -mt-14">
-            <img src="/assets/empty-img.png" />
+            {!loaded ? (
+              <FadeLoader color="#A0A4A8" margin={30} height={30} width={8} />
+            ) : (
+              <img src="/assets/empty-img.png" />
+            )}
           </div>
         ) : null}
       </div>
