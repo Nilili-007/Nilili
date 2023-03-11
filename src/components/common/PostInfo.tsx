@@ -50,9 +50,14 @@ const PostInfo = ({
   };
 
   if (uploadCover?.length > 1048487) {
+    setUploadCover("");
     Swal.fire({
       title: `<p style="font-size: 20px;">이미지 용량을 초과했습니다.</p>`,
       icon: "error",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setModalOpen(true);
+      }
     });
   }
 
@@ -169,10 +174,7 @@ const PostInfo = ({
         </div>
       </div>
       {modalOpen && (
-        <AddCoverModal
-          className={category === "갤러리" ? "gallery" : ""}
-          // className="w-[90%] h-[720px] lg:w-[700px] bg-white border border-gray-600 absolute sm:translate-x-[5.5%] md:translate-x-[36%] translate-y-[5%] z-[1000] xs:w-[90%] xs:translate-x-[5.5%]"
-        >
+        <AddCoverModal className={category === "갤러리" ? "gallery" : ""}>
           <div className="w-[95%] m-auto py-1 xs:w-[90%]">
             <div className="border-b border-gray-600 mt-11" />
             <GrFormClose
@@ -202,22 +204,18 @@ const PostInfo = ({
             <div className="w-full h-full flex flex-col justify-center items-center">
               {category === "업로드" ? (
                 <div className="flex flex-col justify-center items-center h-[200px]">
-                  <div className="w-40 flex justify-center items-center">
-                    <button className="text-md px-3 py-2 leading-none border border-black text-black hover:bg-gray-100 mt-4 lg:mt-0">
-                      <label htmlFor="changeimg">파일선택</label>
-                    </button>
-                    <input
-                      hidden
-                      id="changeimg"
-                      type="file"
-                      accept="image/jpg,image/png,image/jpeg,image/heic"
-                      placeholder="파일선택"
-                      ref={coverRef}
-                      // onChange={(e) => uploadCoverImg(e)}
-                      onChange={uploadCoverImg}
-                    />
-                  </div>
-                  <p className="text-black mt-3">jpg, png 파일만 가능합니다.</p>
+                  <button className="text-md px-3 py-2 leading-none border border-black text-black hover:bg-gray-100 mt-4 lg:mt-0">
+                    <label htmlFor="changeimg">파일선택</label>
+                  </button>
+                  <input
+                    hidden
+                    id="changeimg"
+                    type="file"
+                    accept="image/jpg,image/png,image/jpeg,image/heic"
+                    placeholder="파일선택"
+                    ref={coverRef}
+                    onChange={uploadCoverImg}
+                  />
                 </div>
               ) : null}
               {category === "갤러리" ? (
@@ -227,7 +225,6 @@ const PostInfo = ({
                       return (
                         <img
                           src={item}
-                          key={item}
                           onClick={(e) => selectCoverImg(e)}
                           className="cursor-pointer w-[160px] h-[70px] xs:object-cover"
                         />
