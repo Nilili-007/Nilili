@@ -30,7 +30,7 @@ const CourseManageButton = ({ paramId, course }: CourseManageButtonProps) => {
 
   return (
     <>
-      <div className="float-right text-[12px] sm:text-lg gap-1 sm:gap-0 text-gray-04 hover:text-black">
+      <div className="float-right text-[14px] sm:text-lg gap-1 sm:gap-0 text-gray-04 hover:text-black">
         <Button onClick={() => onClickEditing()}>수정</Button>
         <Button
           onClick={() => deleteContentHandler(paramId)}

@@ -19,7 +19,7 @@ const CommentInput = ({ paramId }: CommentProps) => {
   const { inputRef, value, trimValue, changeValueHandler } = useInput("");
   const submitRef = useRef<HTMLButtonElement | any>();
   const [addComment] = useAddCommentMutation();
-  const userImg: any = authService.currentUser?.photoURL;
+  const userImg: string | undefined | null = authService.currentUser?.photoURL;
   useEffect(() => {
     if (trimValue) {
       submitRef.current.disabled = false;
@@ -60,7 +60,7 @@ const CommentInput = ({ paramId }: CommentProps) => {
           {authService.currentUser ? (
             <div className="flex items-center gap-3 sm:gap-5 mb-5">
               <img
-                src={userImg}
+                src={userImg || ""}
                 alt="profile Image"
                 className="object-fill w-[36px] h-[36px] xs:w-[24px] xs:h-[24px]"
               />

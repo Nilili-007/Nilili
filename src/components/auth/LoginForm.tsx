@@ -133,6 +133,18 @@ const LoginForm = () => {
         </div>
         <div className="flex items-center justify-center p-2 ">
           <div className="flex items-center justify-center text-gray-500 text-xs mr-1">
+            아직 회원이 아니신가요?
+          </div>
+          <button
+            className="text-black underline text-xs font-semibold p-1 outline-none focus:outline-none mr-1 mb-1"
+            type="button"
+            onClick={() => navigate("/register")}
+          >
+            회원가입하기
+          </button>
+        </div>
+        <div className="flex items-center justify-center p-2 ">
+          <div className="flex items-center justify-center text-gray-500 text-xs mr-1">
             비밀번호를 잊어버리셨나요?
           </div>
           <button

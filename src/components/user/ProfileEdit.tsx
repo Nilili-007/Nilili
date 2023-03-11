@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 interface ProfileEditModal {
   profileEditModal: boolean;
   setProfileEdit: React.Dispatch<React.SetStateAction<boolean>>;
-  modalOutClick: (e: any) => void;
+  modalOutClick: (e: React.MouseEvent) => void;
   modalRef: React.ForwardedRef<HTMLDivElement>;
 }
 
@@ -27,12 +27,12 @@ const ProfileEdit = ({
 
   const auth = getAuth();
   const user = auth.currentUser;
-  const userName = user?.displayName;
-  const userImg: any = user?.photoURL;
+  const userName: string | undefined | null = user?.displayName;
+  const userImg: string | undefined | null = user?.photoURL;
   const userID = authService.currentUser?.uid;
 
   const [img, setImg] = useState(userImg);
-  const [nickname, setNickname] = useState<any>(userName);
+  const [nickname, setNickname] = useState<string | any>(userName);
 
   const imgRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
@@ -46,7 +46,7 @@ const ProfileEdit = ({
       reader.readAsDataURL(file);
       reader.onloadend = () => {
         const changeImg = reader.result;
-        setImg(changeImg as any);
+        setImg(changeImg as string | null | undefined);
       };
     }
   };
@@ -117,7 +117,11 @@ const ProfileEdit = ({
             <div className="w-full flex justify-between mb-2">
               <div className="font-bold ml-2">사진</div>
               <div className="justify-between">
-                <img className="object-fill h-28 w-28 mb-2" src={img} alt="" />
+                <img
+                  className="object-fill h-28 w-28 mb-2"
+                  src={img || ""}
+                  alt=""
+                />
                 <button className="text-sm  px-1 py-1 leading-none border border-black text-black hover:bg-gray-100 mt-4 lg:mt-0">
                   <label htmlFor="changeimg">파일선택</label>
                 </button>

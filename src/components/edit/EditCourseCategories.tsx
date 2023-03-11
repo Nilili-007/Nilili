@@ -11,7 +11,7 @@ interface EditTitleProps {
   travelStatus: boolean | null;
   filterRegion: optionType[];
   regions: any;
-  setRegions: React.Dispatch<React.SetStateAction<optionType[] | null>>;
+  setRegions: React.Dispatch<React.SetStateAction<optionType[]>>;
   filterTags: optionType[];
   setSelectedTags: React.Dispatch<React.SetStateAction<optionType[] | null>>;
   selectedTags: any;
@@ -88,7 +88,6 @@ const EditCourseCategories = ({
             placeholder="지역을 선택해주세요."
             className="w-full basic-multi-select z-20"
             classNamePrefix="select"
-            isSearchable={true}
             isOptionDisabled={(region) =>
               regions && regions.length >= regionLimit
             }
@@ -104,7 +103,6 @@ const EditCourseCategories = ({
             options={hashTagOptions}
             onChange={handleTagSelect}
             className="basic-multi-select z-10"
-            isSearchable={true}
             isOptionDisabled={(selectedTag) =>
               selectedTags && selectedTags.length >= tagLimit
             }

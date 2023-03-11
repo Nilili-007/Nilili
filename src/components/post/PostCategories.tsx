@@ -43,7 +43,6 @@ const PostCategories = ({ regions, setRegions, regionsRef }: titleProps) => {
         value={regions}
         className="w-full basic-multi-select z-20"
         classNamePrefix="select"
-        isSearchable={true}
         isOptionDisabled={(region) => regions && regions.length >= limit}
         styles={MultiStyles}
       />

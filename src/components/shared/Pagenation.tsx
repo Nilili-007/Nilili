@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
-
 interface PagenationProps {
-  setCurrentPage: any;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   currentPage: number;
   pages: number[];
   pageArr: number;
-  setPageArr: any;
+  setPageArr: React.Dispatch<React.SetStateAction<number>>;
   lastPage: number;
   firstPage: number;
   showPages: number[];

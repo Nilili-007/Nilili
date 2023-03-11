@@ -47,7 +47,7 @@ const RegisterForm = () => {
           title: "회원가입을 축하드립니다!",
           text: "이제 NILILI의 서비스를 즐겨보세요",
           showConfirmButton: false,
-          timer: 3000,
+          timer: 1500,
         });
         navigate("/");
         amplitude.track("회원가입");
@@ -86,7 +86,7 @@ const RegisterForm = () => {
           title: "회원가입에 실패했습니다.",
           text: "다시 시도해주세요.",
           showConfirmButton: false,
-          timer: 3000,
+          timer: 1500,
         });
       });
   };
@@ -241,6 +241,18 @@ const RegisterForm = () => {
               </button>
             </div>
           </form>
+          <div className="flex justify-center items-center ">
+            <div className="border-b border-solid border-gray-500 w-[90%]" />
+          </div>
+          <div className="flex items-center justify-center p-2 mt-2">
+            <button
+              className="text-black underline text-sm font-semibold p-1 outline-none focus:outline-none mr-1 mb-1"
+              type="button"
+              onClick={() => navigate("/login")}
+            >
+              로그인 페이지로 돌아가기
+            </button>
+          </div>
         </div>
       </div>
     </>

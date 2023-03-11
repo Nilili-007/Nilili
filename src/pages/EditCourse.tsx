@@ -23,6 +23,9 @@ import { PostInfo, PostManageBtns } from "../components/common";
 const EditCourse = () => {
   useEffect(() => {
     amplitude.track("수정페이지 접속");
+    window.scroll({
+      top: 0,
+    });
   }, []);
   const paramId = useParams().id;
   const { data, refetch } = useGetCourseQuery();
@@ -43,7 +46,9 @@ const EditCourse = () => {
   );
 
   //제목
-  const { inputRef, trimValue, changeValueHandler } = useInput("");
+  const courseTitle = course?.title;
+  const { inputRef, trimValue, changeValueHandler, setValue } =
+    useInput(courseTitle);
 
   //지역, 카테고리 선택
   const regionsRef = useRef<HTMLSelectElement>(null);
@@ -72,7 +77,7 @@ const EditCourse = () => {
   // 수정 전 내용 불러오기
   useEffect(() => {
     refetch();
-    inputRef.current.value = course?.title;
+    inputRef.current.value = courseTitle;
     if (course?.travelStatus === true) {
       setTravelStatus(true);
     } else {

@@ -6,11 +6,11 @@ import UserInfoEdit from "./UserInfoEdit";
 const UserNameEdit = () => {
   const auth = getAuth();
   const user = auth.currentUser;
-  const userName = user?.displayName;
-  const userImg: any = user?.photoURL;
+  const userName: string | undefined | null = user?.displayName;
+  const userImg: string | undefined | null = user?.photoURL;
 
-  const [profileEditModal, setProfileEdit] = useState(false);
-  const [userEdit, setUserEdit] = useState(false);
+  const [profileEditModal, setProfileEdit] = useState<boolean>(false);
+  const [userEdit, setUserEdit] = useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement | null>(null);
 
   const openProfileEditModal = () => {
@@ -23,7 +23,7 @@ const UserNameEdit = () => {
     document.body.style.overflow = "hidden";
   };
 
-  const modalOutClick = (e: any) => {
+  const modalOutClick = (e: React.MouseEvent) => {
     if (modalRef.current === e.target) {
       setProfileEdit(false);
       setUserEdit(false);
@@ -57,7 +57,7 @@ const UserNameEdit = () => {
           <div className="flex gap-[3%] mt-[2%]">
             <div>
               <img
-                src={userImg}
+                src={userImg || ""}
                 alt="프로필 이미지"
                 className="object-fill sm:w-[200px] sm:h-[200px] h-[120px] w-[120px]"
               />

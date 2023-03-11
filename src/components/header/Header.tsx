@@ -1,5 +1,5 @@
 import { getAuth, signOut } from "firebase/auth";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authService } from "../../utils/firebase";
 import Weather from "./Weather";
@@ -17,7 +17,7 @@ const Header = () => {
   const [navbar, setNavbar] = useState(false);
 
   const navigate = useNavigate();
-  const [isSign, setIsSign] = useState<any>(null);
+  const [isSign, setIsSign] = useState<boolean | null>(null);
 
   const userID = authService.currentUser?.uid;
 
@@ -33,8 +33,9 @@ const Header = () => {
   };
 
   // 글쓰기 페이지 & 수정 페이지 이탈시 확인 모달
-  const leavePresentPage = (e: any) => {
-    const text = e.target.innerText;
+  const leavePresentPage = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const eventTarget = e.target as HTMLElement;
+    const text: string = eventTarget.innerText;
     if (
       window.location.pathname === "/post" ||
       window.location.pathname === `/edit/${window.location.pathname.slice(6)}`
@@ -177,16 +178,6 @@ const Header = () => {
                           }}
                         >
                           로그인
-                        </button>
-                      </li>
-                      <li className="badge1 px-4 py-2 leading-none  text-white hover:text-amber-300">
-                        <button
-                          onClick={() => {
-                            navigate("/register");
-                            setNavbar(false);
-                          }}
-                        >
-                          회원가입
                         </button>
                       </li>
                     </>
