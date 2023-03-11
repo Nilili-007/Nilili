@@ -1,13 +1,16 @@
-import Course from "./Course";
+import { lazy } from "react";
+
 import Main from "./Main";
-import User from "./User";
-import Post from "./Post";
-import Search from "./Search";
 import NotFound from "./NotFound";
-import EditCourse from "./EditCourse";
 import Login from "./Login";
 import Register from "./Register";
 import AuthForgot from "./AuthForgot";
+
+const Post = lazy(() => import("./Post"));
+const User = lazy(() => import("./User"));
+const Course = lazy(() => import("./Course"));
+const Search = lazy(() => import("./Search"));
+const EditCourse = lazy(() => import("./EditCourse"));
 
 export {
   Course,
