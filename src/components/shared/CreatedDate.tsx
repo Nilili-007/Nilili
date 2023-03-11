@@ -2,7 +2,7 @@ import React from "react";
 import { useDate } from "../../hooks";
 
 const CreatedDate = ({ createdAt }: any) => {
-  const { year, month, date, hour, minute } = useDate(createdAt);
+  const { year, month, date, hour, minute } = useDate(createdAt && createdAt);
   return (
     <>
       <span className="mr-1.5">
