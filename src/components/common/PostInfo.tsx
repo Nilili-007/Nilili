@@ -64,6 +64,8 @@ const PostInfo = ({
   }
 
   const uploadCoverImg = () => {
+    setGalleryCover("");
+    setUploadCover("");
     file = coverRef.current.files[0];
     const options = {
       maxSizeMB: 1,
