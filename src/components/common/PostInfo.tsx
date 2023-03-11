@@ -5,9 +5,11 @@ import styled from "styled-components";
 import { DebouncedFunc } from "lodash";
 import Swal from "sweetalert2";
 import { galleryLists } from ".";
+import heic2any from "heic2any";
+import imageCompression from "browser-image-compression";
 
 interface PostProps {
-  uploadCover: string | undefined;
+  uploadCover: any;
   setUploadCover: Dispatch<SetStateAction<string | undefined>>;
   galleryCover: string;
   setGalleryCover: Dispatch<SetStateAction<string>>;
@@ -29,7 +31,7 @@ const PostInfo = ({
 }: PostProps) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [category, setCategory] = useState("갤러리");
-  const coverRef = useRef<HTMLInputElement>(null);
+  const coverRef = useRef<HTMLInputElement | any>(null);
   const [link, setLink] = useState("");
   let file: any;
 
@@ -47,28 +49,46 @@ const PostInfo = ({
     }
   };
 
-  const uploadCoverImg = () => {
-    if (coverRef.current?.files) {
-      file = coverRef.current.files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
+  if (uploadCover.length > 1048487) {
+    Swal.fire({
+      title: `<p style="font-size: 20px;">이미지 용량을 초과했습니다.</p>`,
+      icon: "error",
+    });
+  }
 
-      if (
-        file.type === "image/jpg" ||
-        file.type === "image/jpeg" ||
-        file.type === "image/png" ||
-        file.type === "image/bmp"
-      ) {
+  const uploadCoverImg = () => {
+    file = coverRef.current.files[0];
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 2520,
+    };
+    const reader = new FileReader();
+    const resizeFile = async () => {
+      try {
+        const compressedFile = await imageCompression(file, options);
+        reader.readAsDataURL(compressedFile);
         reader.onloadend = () => {
           setUploadCover(reader.result as SetStateAction<string | undefined>);
           setModalOpen(false);
         };
-      } else {
-        Swal.fire({
-          title: `<p style="font-size: 18px;">jpg, png, bmp 이미지만 가능합니다.\n확장자를 다시 한 번 확인해주세요.</p>`,
-          icon: "error",
-        });
+      } catch (error) {
+        console.log(error);
       }
+    };
+
+    if (file.type === "image/heic" || file.type === "image/HEIC") {
+      let blob = coverRef.current.files[0];
+      heic2any({ blob, toType: "image/webp" }).then(function (resultBlob: any) {
+        file = new File([resultBlob], file.name.split(".")[0] + ".webp", {
+          type: "image/webp",
+          lastModified: new Date().getTime(),
+        });
+        resizeFile();
+      });
+    }
+
+    if (file.type !== "image/heic" || file.type !== "image/HEIC") {
+      resizeFile();
     }
   };
 
@@ -190,14 +210,14 @@ const PostInfo = ({
                       hidden
                       id="changeimg"
                       type="file"
+                      accept="image/jpg,image/png,image/jpeg,image/heic"
                       placeholder="파일선택"
                       ref={coverRef}
+                      // onChange={(e) => uploadCoverImg(e)}
                       onChange={uploadCoverImg}
                     />
                   </div>
-                  <p className="text-black mt-3">
-                    jpg, png, bmp 파일만 가능합니다.
-                  </p>
+                  <p className="text-black mt-3">jpg, png 파일만 가능합니다.</p>
                 </div>
               ) : null}
               {category === "갤러리" ? (
