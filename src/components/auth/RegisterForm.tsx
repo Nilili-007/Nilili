@@ -47,7 +47,7 @@ const RegisterForm = () => {
           title: "회원가입을 축하드립니다!",
           text: "이제 NILILI의 서비스를 즐겨보세요",
           showConfirmButton: false,
-          timer: 3000,
+          timer: 1500,
         });
         navigate("/");
         amplitude.track("회원가입");
@@ -86,7 +86,7 @@ const RegisterForm = () => {
           title: "회원가입에 실패했습니다.",
           text: "다시 시도해주세요.",
           showConfirmButton: false,
-          timer: 3000,
+          timer: 1500,
         });
       });
   };
