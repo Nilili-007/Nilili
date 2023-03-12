@@ -44,7 +44,7 @@ const Weather = () => {
         <img
           src={`http://openweathermap.org/img/wn/${weather?.weather[0].icon}.png`}
           alt=""
-          className="w-7"
+          className="w-7 h-7"
         />
       </div>
     </div>
