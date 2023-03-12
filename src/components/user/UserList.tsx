@@ -206,7 +206,7 @@ const UserList = ({ done, category }: UserListType) => {
                 {item.nickname}
               </p>
             )}
-            <p className="ml-1 mt-[2%] font-medium  text-gray-400 text-xl mb-[10%]">
+            <p className="ml-1 mt-[2%] font-medium  text-gray-400 sm:text-xl text-sm  mb-[10%]">
               <CreatedDate createdAt={item.createdAt} />
             </p>
           </div>
