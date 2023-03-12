@@ -119,7 +119,7 @@ const UserList = ({ done, category }: UserListType) => {
     filterData();
   }, [data, category, done]);
 
-  if (!isLoading) {
+  if (isLoading) {
     return (
       <div className="flex flex-row flex-wrap mt-[3%]">
         {new Array(9).fill(null).map((_, idx) => (
