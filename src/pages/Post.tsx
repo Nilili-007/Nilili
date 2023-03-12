@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import {
   useAddCourseMutation,
   useGetCourseQuery,
@@ -47,6 +46,10 @@ const Post = () => {
     selectedLabels,
     selectedRegions,
   } = useOption();
+
+  if (!authService.currentUser) {
+    navigate("/login");
+  }
 
   // 여행전/후 선택
   const [travelStatus, setTravelStatus] = useState<boolean | null>(null);

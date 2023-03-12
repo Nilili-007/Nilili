@@ -1,13 +1,13 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useRef, useState } from "react";
 import { authService } from "../../utils/firebase";
 import { GrFormClose } from "react-icons/gr";
 import styled from "styled-components";
 import { DebouncedFunc } from "lodash";
-import Swal from "sweetalert2";
 import { galleryLists } from ".";
 import heic2any from "heic2any";
 import imageCompression from "browser-image-compression";
 import { FadeLoader } from "react-spinners";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 interface PostProps {
   uploadCover: any;
@@ -30,7 +30,7 @@ const PostInfo = ({
   titleRef,
   changeValueHandler,
 }: PostProps) => {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [category, setCategory] = useState("갤러리");
   const coverRef = useRef<HTMLInputElement | any>(null);
   const [link, setLink] = useState("");
@@ -52,18 +52,6 @@ const PostInfo = ({
     }
   };
 
-  if (uploadCover?.length > 1048487) {
-    setUploadCover("");
-    Swal.fire({
-      title: `<p style="font-size: 20px;">이미지 용량을 초과했습니다.</p>`,
-      icon: "error",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        setModalOpen(true);
-      }
-    });
-  }
-
   const uploadCoverImg = () => {
     setGalleryCover("");
     setUploadCover("");
@@ -73,16 +61,23 @@ const PostInfo = ({
       maxWidthOrHeight: 2520,
     };
     const reader = new FileReader();
+    const storage = getStorage();
+
     const resizeFile = async () => {
       setLoaded(false);
       try {
         const compressedFile = await imageCompression(file, options);
-        reader.readAsDataURL(compressedFile);
-        reader.onloadend = () => {
-          setUploadCover(reader.result as SetStateAction<string | undefined>);
-          setModalOpen(false);
-          setLoaded(true);
-        };
+        const storageRef = ref(storage, `covers/${compressedFile.name}`);
+        uploadBytes(storageRef, compressedFile).then(() => {
+          getDownloadURL(storageRef).then((url) => {
+            reader.readAsDataURL(compressedFile);
+            reader.onloadend = () => {
+              setUploadCover(url);
+              setModalOpen(false);
+              setLoaded(true);
+            };
+          });
+        });
       } catch (error) {
         console.log(error);
       }
@@ -285,7 +280,6 @@ const AddCoverModal = styled.div`
     height: 724px;
   }
   @media screen and (max-width: 414px) {
-    /* transform: translateX(5.5%); */
     width: 90%;
     left: 5%;
     &.gallery {
