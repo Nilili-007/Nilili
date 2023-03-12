@@ -10,20 +10,20 @@ const useDate = (time: string) => {
 
   //일 ( 24시 이상 숫자 처리 )
   const dateNum = Number(JSON.parse(time).substr(8, 2));
-  let date;
+  let date = dateNum + 1;
 
   //월 ( 28,30,31일 이상 숫자처리 )
   const monthNum = Number(JSON.parse(time).substr(5, 2));
   let month;
   if (monthNum === 2) {
-    month = dateNum > 28 ? monthNum + 1 : monthNum;
-    date = dateNum > 28 ? 1 : dateNum + 1;
+    month = date > 28 ? monthNum + 1 : monthNum;
+    date = date > 28 ? 1 : date;
   } else if (monthNum === 4 || 6 || 9 || 11) {
-    month = dateNum > 30 ? monthNum + 1 : monthNum;
-    date = dateNum > 30 ? 1 : dateNum + 1;
+    month = date > 30 ? monthNum + 1 : monthNum;
+    date = date > 30 ? 1 : date;
   } else {
-    month = dateNum > 31 ? monthNum + 1 : monthNum;
-    date = dateNum > 31 ? 1 : dateNum + 1;
+    month = date > 31 ? monthNum + 1 : monthNum;
+    date = date > 31 ? 1 : date;
   }
 
   //연 ( 12월 이상 숫자처리 )
