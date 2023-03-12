@@ -130,7 +130,7 @@ const SearchBox = () => {
         </p>
         <div className="w-full flex flex-col gap-3 lg:gap-5 items-center">
           <div className="w-full flex flex-row gap-3 lg:gap-5 justify-between indent-2 items-center">
-            <div className="text-lg lg:body2 w-[170px] lg:w-[180px] p-[1%] sm:p-4  xs:body3 text-white bg-black hidden md:flex md:items-center md:h-[50px] lg:h-[60px]">
+            <div className="text-lg lg:body2 w-[170px] lg:w-[180px] p-[1%] sm:p-4  xs:body3 text-white bg-black hidden md:flex md:items-center md:h-[45px] lg:h-[55px]">
               지역 검색
             </div>
             <Select
@@ -149,7 +149,7 @@ const SearchBox = () => {
           </div>
 
           <div className="w-full flex flex-row gap-3 lg:gap-5 indent-2 items-center">
-            <div className="text-lg lg:body2 w-[170px] lg:w-[180px] p-[1%] sm:p-4  xs:body3 text-white bg-black hidden md:flex md:items-center md:h-[50px] lg:h-[60px]">
+            <div className="text-lg lg:body2 w-[170px] lg:w-[180px] p-[1%] sm:p-4  xs:body3 text-white bg-black hidden md:flex md:items-center md:h-[45px] lg:h-[55px]">
               #해시태그
             </div>
             <Select
@@ -167,13 +167,13 @@ const SearchBox = () => {
           </div>
 
           <div className="w-full flex flex-row gap-3 lg:gap-5 indent-2 items-center">
-            <div className="text-lg lg:body2 w-[170px] lg:w-[180px] p-[1%] sm:p-4  xs:body3 text-white bg-black hidden md:flex md:items-center md:h-[50px] lg:h-[60px]">
+            <div className="text-lg lg:body2 w-[170px] lg:w-[180px] p-[1%] sm:p-4  xs:body3 text-white bg-black hidden md:flex md:items-center md:h-[45px] lg:h-[55px]">
               검색어
             </div>
             <input
               type="search"
               className={
-                "z-20 placeholder:sm:text-[20px] placeholder:lg:text-[22px] placeholder:text-[#808080] font-normal indent-4 border border-gray-300 w-full h-[38px] sm:h-[50px] lg:h-[60px] placeholder:text-[14px] xl:py-2 pr-3 xs:pb-1"
+                "z-20 placeholder:sm:text-[20px] placeholder:lg:text-[22px] placeholder:text-[#808080] font-normal indent-4 border border-gray-300 w-full h-[38px] md:h-[45px] lg:h-[55px] placeholder:text-[14px] xl:py-2 pr-3 xs:pb-1"
               }
               placeholder="검색어를 입력하세요."
               value={words}
@@ -192,7 +192,7 @@ const SearchBox = () => {
           </div>
 
           <div className="w-full flex flex-row gap-3 lg:gap-5 indent-2 items-center ">
-            <div className="text-lg lg:body2 w-[170px] lg:w-[180px] p-[1%] sm:p-4  xs:body3 text-white bg-black hidden md:flex md:items-center md:h-[50px] lg:h-[60px]">
+            <div className="text-lg lg:body2 w-[170px] lg:w-[180px] p-[1%] sm:p-4  xs:body3 text-white bg-black hidden md:flex md:items-center md:h-[45px] lg:h-[55px]">
               계획 / 후기
             </div>
             <Select
@@ -211,7 +211,7 @@ const SearchBox = () => {
           <div className="flex w-full items-center justify-center my-[1%] sm:gap-12 gap-8">
             <div className="sm:text-xl text-base px-[2%] ">
               <button
-                className="flex justify-center items-center gap-2 font-medium text-[16px] sm:text-[18px] md:text-xl w-28 sm:w-36 md:w-44 p-2"
+                className="flex justify-center items-center gap-2 font-medium text-[14px] sm:text-[18px] md:text-xl w-28 sm:w-36 md:w-44 sm:p-[1%] p-[2%] "
                 onClick={() => {
                   setRegions([]);
                   setSelectedTags([]);
@@ -223,7 +223,7 @@ const SearchBox = () => {
               </button>
             </div>
             <button
-              className="text-[16px] sm:text-[18px] md:text-xl w-28 sm:w-36 md:w-44 p-2 border-2 border-black text-white bg-black hover:shadow-lg font-medium"
+              className="text-[14px] sm:text-[18px] md:text-xl w-28 sm:w-36 md:w-44 sm:p-[1%] p-[2%] border-2 border-black text-white bg-black hover:shadow-lg font-medium"
               onClick={() => {
                 navigate(
                   `/search?lc=${JSON.stringify(regions)}&ht=${JSON.stringify(

@@ -6,15 +6,15 @@ const SingleStyles: StylesConfig<optionType, true> = {
     borderRadius: 0,
     "@media (min-width:	1024px)": {
       fontSize: 22,
-      lineHeight: "48px",
+      lineHeight: "41px",
     },
     "@media (max-width:1024px)": {
       fontSize: 20,
-      lineHeight: "36px",
+      lineHeight: "31px",
     },
     "@media (max-width: 414px)": {
       fontSize: 14,
-      lineHeight: "22px",
+      lineHeight: "27px",
     },
   }),
   option: (styles, { isDisabled, isFocused, isSelected }) => {

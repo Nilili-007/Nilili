@@ -6,15 +6,15 @@ const MultiStyles: StylesConfig<optionType, true> = {
     borderRadius: 0,
     "@media (min-width:1024px)": {
       fontSize: 22,
-      lineHeight: "54px",
+      lineHeight: "48px",
     },
     "@media (max-width:1024px)": {
       fontSize: 20,
-      lineHeight: "46px",
+      lineHeight: "41px",
     },
     "@media (max-width: 414px)": {
       fontSize: 14,
-      lineHeight: "28px",
+      lineHeight: "23px",
     },
   }),
   option: (styles, { isDisabled, isFocused, isSelected }) => {
