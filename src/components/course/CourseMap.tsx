@@ -25,7 +25,7 @@ const CourseMap = ({ course, filteredIdx, setFilteredIdx }: CourseProps) => {
               : lists[0].position.lng,
         }}
         level={3}
-        className="w-[70%] h-[1024px] z-0 xs:w-full xs:h-[600px]"
+        className="w-[70%] h-[1024px] z-0 xs:w-full xs:h-[400px]"
       >
         <CourseMapMarker
           lists={lists}
