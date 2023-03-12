@@ -10,10 +10,10 @@ import { FadeLoader } from "react-spinners";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 interface PostProps {
-  uploadCover: any;
+  uploadCover: string | undefined;
   setUploadCover: Dispatch<SetStateAction<string | undefined>>;
-  galleryCover: string;
-  setGalleryCover: Dispatch<SetStateAction<string>>;
+  galleryCover: string | undefined;
+  setGalleryCover: Dispatch<SetStateAction<string | undefined>>;
   courseTitle: string | undefined;
   titleRef?: React.RefObject<HTMLInputElement>;
   changeValueHandler: DebouncedFunc<
@@ -100,7 +100,7 @@ const PostInfo = ({
   };
 
   const selectCoverImg = (
-    e: React.MouseEvent<HTMLImageElement, MouseEvent> | any
+    e: React.MouseEvent<HTMLImageElement, MouseEvent>
   ) => {
     const eventTarget = e.target as HTMLImageElement;
 
