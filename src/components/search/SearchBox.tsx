@@ -36,6 +36,7 @@ const SearchBox = () => {
     setWords,
     travelStatus,
     words,
+    trimWords,
     filteredList,
     data,
     isLoading,
@@ -182,7 +183,7 @@ const SearchBox = () => {
                   navigate(
                     `/search?lc=${JSON.stringify(regions)}&ht=${JSON.stringify(
                       selectedTags
-                    )}&ts=${JSON.stringify(travelStatus)}&ws=${words}`
+                    )}&ts=${JSON.stringify(travelStatus)}&ws=${trimWords}`
                   );
                   filterData();
                 }
@@ -227,7 +228,7 @@ const SearchBox = () => {
                 navigate(
                   `/search?lc=${JSON.stringify(regions)}&ht=${JSON.stringify(
                     selectedTags
-                  )}&ts=${JSON.stringify(travelStatus)}&ws=${words}`
+                  )}&ts=${JSON.stringify(travelStatus)}&ws=${trimWords}`
                 );
                 filterData();
               }}
