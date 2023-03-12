@@ -65,7 +65,7 @@ const BeforeRecent = () => {
                   key={idx}
                 >
                   <div className=" mb-3 2xl:w-[23%] xl:w-[28%] lg:w-[34%] w-[45%] mr-[2%]  ">
-                    <Skeleton className="sm:h-[300px] h-[140px]" />
+                    <Skeleton className="sm:h-[230px] h-[140px]" />
                     <div className="mt-3">
                       <Skeleton className="w-[80%] h-[30px]" />
                       <Skeleton className="w-[30%]  h-[25px]" />

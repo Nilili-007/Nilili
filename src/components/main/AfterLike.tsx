@@ -50,7 +50,7 @@ const AfterLike = () => {
       >
         {isLoading ? (
           <div className="flex ">
-            {new Array(window.innerWidth < 415 ? 2 : 3)
+            {new Array(window.innerWidth < 1024 ? 2 : 3)
               .fill(null)
               .map((_, idx) => (
                 <SkeletonTheme
@@ -59,7 +59,7 @@ const AfterLike = () => {
                   key={idx}
                 >
                   <div className=" mb-3 2xl:w-[26%] xl:w-[29%] lg:w-[39%] sm:w-[45%] w-[51%] mr-[3%]">
-                    <Skeleton className="sm:h-[320px] h-[160px]" />
+                    <Skeleton className="sm:h-[240px] h-[160px]" />
                     <div className="mt-3">
                       <Skeleton className="w-[80%] h-[30px]" />
                       <Skeleton className="w-[30%]  h-[25px]" />

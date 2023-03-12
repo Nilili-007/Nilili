@@ -247,7 +247,7 @@ const SearchBox = () => {
           {new Array(12).fill(null).map((_, idx) => (
             <SkeletonTheme baseColor="#202020" highlightColor="#444" key={idx}>
               <div className="  mb-[5%] xl:w-[23%] lg:w-[31%] w-[48%] mr-[2%] sm:pt-[2%]">
-                <Skeleton className="sm:h-[300px] h-[150px]" />
+                <Skeleton className="sm:h-[220px] h-[150px]" />
                 <div className="mt-3">
                   <Skeleton className="w-[80%] h-[30px]" />
                   <Skeleton className="w-[30%]  h-[25px]" />
