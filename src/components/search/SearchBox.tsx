@@ -124,8 +124,8 @@ const SearchBox = () => {
 
   return (
     <>
-      <div className="mb-[2%]  w-[85%] md:w-[70%] h-auto mx-auto md:mt-[100px]  min-w-[300px]">
-        <p className="w-fit mx-auto xl:text-[50px] lg:text-[45px] md:text-[35px] sm:text-[29px] text-2xl font-bold font-eng my-[5%]">
+      <div className="mb-[2%]  w-[85%] md:resp h-auto mx-auto md:mt-[100px]  min-w-[300px]">
+        <p className="w-fit mx-auto lg:text-[47px] md:text-[35px] sm:text-[29px] text-2xl font-bold font-eng my-[5%]">
           EXPLORE YOUR PLANS
         </p>
         <div className="w-full flex flex-col gap-3 lg:gap-5 items-center">
@@ -243,7 +243,7 @@ const SearchBox = () => {
       {filteredList?.length === 0 ? (
         <p className="min-h-[100vh] pt-16 text-lg">검색결과가 없습니다.</p>
       ) : isLoading ? (
-        <div className=" flex justify-between flex-wrap mb-[2%]  w-[85%] md:w-[70%] mt-[3%] ">
+        <div className=" flex justify-between flex-wrap mb-[2%]  w-[85%] md:resp mt-[3%] ">
           {new Array(12).fill(null).map((_, idx) => (
             <SkeletonTheme baseColor="#202020" highlightColor="#444" key={idx}>
               <div className="  mb-[5%] xl:w-[23%] lg:w-[31%] w-[48%] mr-[2%] sm:pt-[2%]">

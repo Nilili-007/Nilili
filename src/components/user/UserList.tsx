@@ -158,8 +158,8 @@ const UserList = ({ done, category }: UserListType) => {
                     window.innerWidth < 415
                       ? { width: "150px", height: "150px" }
                       : {
-                          width: "400px",
-                          height: "320px",
+                          width: "340px",
+                          height: "260px",
                         }
                   }
                   course={item}
@@ -168,7 +168,7 @@ const UserList = ({ done, category }: UserListType) => {
               <StImg
                 src={item.cover}
                 alt="대표 사진"
-                className=" sm:h-[320px] sm:w-[400px] h-[150px] w-[150px] object-cover"
+                className=" sm:h-[260px] sm:w-[340px] h-[150px] w-[150px] object-cover"
                 category={category}
               />
             </Stdiv>

@@ -25,8 +25,8 @@ const AfterLike = () => {
   }
 
   return (
-    <div className=" mt-[10%] w-[85%] md:w-[70%] h-auto    ">
-      <p className=" ml-1 my-[2%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-2xl font-bold font-eng  ">
+    <div className=" mt-[10%] w-[85%] md:resp h-auto    ">
+      <p className=" ml-1 my-[2%] w-fit lg:text-[47px] sm:text-[35px] text-2xl font-bold font-eng  ">
         BEST REVIEWS
       </p>
       <p className=" hidden sm:block ml-2 pb-5 w-fit text-xl text-gray-04">
@@ -90,8 +90,8 @@ const AfterLike = () => {
                         window.innerWidth < 415
                           ? { width: "160px", height: "160px" }
                           : {
-                              width: "350px",
-                              height: "320px",
+                              width: "320px",
+                              height: "250px",
                             }
                       }
                       course={item}
@@ -100,7 +100,7 @@ const AfterLike = () => {
                   <StImg
                     src={item.cover}
                     alt="대표 사진"
-                    className="mt-6  sm:w-[350px] sm:h-[320px] h-[160px] w-[160px] object-cover"
+                    className="mt-6  sm:w-[320px] sm:h-[250px] h-[160px] w-[160px] object-cover"
                   />
                 </Stdiv>
                 <p className="ml-1  mt-[8%] mb-[2%] sm:h-[31px] max-w-[350px]  h-7  w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ">

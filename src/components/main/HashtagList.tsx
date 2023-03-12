@@ -19,8 +19,8 @@ const HashtagList = () => {
        ${openHash === false ? "m-sm:max-h-[250px]" : null}
       } `}
     >
-      <div className="mx-auto   w-[85%] md:w-[70%]  ">
-        <p className="mt-[5%] mb-[2%]  ml-1 my-[2%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-2xl font-bold font-eng  ">
+      <div className="mx-auto   w-[85%] md:resp  ">
+        <p className="mt-[5%] mb-[2%]  ml-1 my-[2%] w-fit lg:text-[47px] sm:text-[35px] text-2xl font-bold font-eng  ">
           HASHTAG IN KOREA
         </p>
         <p className=" hidden sm:block ml-2 pb-5 w-fit text-xl text-gray-04">

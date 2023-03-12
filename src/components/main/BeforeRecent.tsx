@@ -25,8 +25,8 @@ const BeforeRecent = () => {
   }
 
   return (
-    <div className=" mt-[10%]  w-[85%] md:w-[70%] h-auto   ">
-      <p className=" ml-1 my-[2%] md:bg-gray-01 w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-2xl font-bold font-eng   ">
+    <div className=" mt-[10%]  w-[85%] md:resp h-auto   ">
+      <p className=" ml-1 my-[2%] md:bg-gray-01 w-fit lg:text-[47px] sm:text-[35px] text-2xl font-bold font-eng   ">
         NOW PLANS
       </p>
       <p className=" hidden sm:block ml-2 pb-5 w-fit text-xl text-gray-04">
@@ -97,8 +97,8 @@ const BeforeRecent = () => {
                         window.innerWidth < 415
                           ? { width: "140px", height: "140px" }
                           : {
-                              width: "310px",
-                              height: "290px",
+                              width: "280px",
+                              height: "240px",
                             }
                       }
                       course={item}
@@ -107,7 +107,7 @@ const BeforeRecent = () => {
                   <StImg
                     src={item.cover}
                     alt="대표 사진"
-                    className=" mt-6 sm:w-[310px] sm:h-[290px] h-[140px] w-[140px] object-cover"
+                    className=" mt-6 sm:w-[280px] sm:h-[240px] h-[140px] w-[140px] object-cover"
                   />
                 </Stdiv>
                 <p className="ml-1  mt-[8%] mb-[2%] sm:h-9  h-7 max-w-[310px] w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ">

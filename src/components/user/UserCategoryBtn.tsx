@@ -13,7 +13,7 @@ const UserCategoryBtn = () => {
   const userName = user?.displayName;
 
   return (
-    <div className="flex flex-col   w-[85%] md:w-[70%]  min-h-[57vh] ">
+    <div className="flex flex-col w-[85%] md:resp  min-h-[57vh] ">
       <div className="flex  border-b-2 border-black ">
         <button
           className={`  text-[18px] sm:body1 mr-[7%] py-4 ${
@@ -41,11 +41,11 @@ const UserCategoryBtn = () => {
       <div className=" flex flex-row justify-between items-center border-b-4 border-black mt-[3%] ">
         <div>
           {category === "MY" ? (
-            <p className=" ml-1 my-[8%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-2xl font-bold font-eng ">
+            <p className=" ml-1 my-[8%] w-fit lg:text-[47px] sm:text-[35px] text-2xl font-bold font-eng ">
               MY PATH
             </p>
           ) : (
-            <p className=" ml-1 my-[8%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-2xl font-bold font-eng ">
+            <p className=" ml-1 my-[8%] w-fit lg:text-[47px] sm:text-[35px] text-2xl font-bold font-eng ">
               MY LIKES
             </p>
           )}

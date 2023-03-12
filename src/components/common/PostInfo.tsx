@@ -145,7 +145,7 @@ const PostInfo = ({
           </div>
         ) : null}
       </div>
-      <div className="w-[85%] md:w-[70%] m-auto -mt-[220px] sm:-mt-[170px] md:-mt-[230px] xs:w-[90%] xs:pt-[124px]">
+      <div className="w-[85%] md:resp m-auto -mt-[220px] sm:-mt-[170px] md:-mt-[230px] xs:w-[90%] xs:pt-[124px]">
         <input
           className="w-full relative sm:py-1.5 text-[24px] sm:text-4xl md:text-5xl xs:text-2xl font-bold z-40 bg-transparent placeholder:text-white focus:outline-0 xs:focus:outline-0"
           placeholder="여기에 제목을 입력해주세요."

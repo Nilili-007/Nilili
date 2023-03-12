@@ -18,42 +18,42 @@
 
   .display1 {
     font-weight: 700;
-    font-size: 100px;
-    line-height: 100px;
+    font-size: 48px;
+    line-height: 50px;
     letter-spacing: -0.25px;
   }
   .display2 {
     font-weight: 700;
-    font-size: 57px;
+    font-size: 52px;
     line-height: 90px;
     letter-spacing: -0.25px;
   }
 
   .display3 {
     font-weight: 700;
-    font-size: 60px;
+    font-size: 52px;
     line-height: 100px;
     letter-spacing: -0.1px;
   }
 
   .display4 {
     font-weight: 700;
-    font-size: 48px;
+    font-size: 45px;
     line-height: 80px;
     letter-spacing: -0.1px;
   }
 
   .display5 {
     font-weight: 700;
-    font-size: 40px;
+    font-size: 38px;
     line-height: 50px;
     letter-spacing: -1px;
   }
 
   .display6 {
     font-weight: 700;
-    font-size: 45px;
-    line-height: 50px;
+    font-size: 42px;
+    line-height: 60px;
     letter-spacing: -1px;
   }
 
@@ -214,6 +214,10 @@
     font-size: 20px;
     line-height: 32px;
     letter-spacing: -0.25px;
+  }
+
+  .resp {
+    width: 60%;
   }
 
   @variants responsive {
