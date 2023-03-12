@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import {
   useAddCourseMutation,
   useGetCourseQuery,
@@ -33,7 +32,7 @@ const Post = () => {
 
   // 커버
   const [uploadCover, setUploadCover] = useState<string | undefined>("");
-  const [galleryCover, setGalleryCover] = useState("");
+  const [galleryCover, setGalleryCover] = useState<string | undefined>("");
 
   //제목
   const { inputRef, trimValue, changeValueHandler } = useInput("");

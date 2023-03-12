@@ -10,13 +10,23 @@ const usePreventLeave = () => {
       e.preventDefault();
       e.returnValue = "";
     };
-
-    window.addEventListener("beforeunload", preventClose);
-    dispatch(replaceAllData([]));
-
-    return () => {
+    if (
+      window.location.pathname === "/post" ||
+      window.location.pathname === `/edit/${window.location.pathname.slice(6)}`
+    ) {
       window.addEventListener("beforeunload", preventClose);
       dispatch(replaceAllData([]));
+    }
+
+    return () => {
+      if (
+        window.location.pathname === "/post" ||
+        window.location.pathname ===
+          `/edit/${window.location.pathname.slice(6)}`
+      ) {
+        window.addEventListener("beforeunload", preventClose);
+        dispatch(replaceAllData([]));
+      }
     };
   }, []);
 };

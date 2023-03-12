@@ -1,4 +1,10 @@
-import React, { Dispatch, SetStateAction, useCallback, useState } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useRef,
+  useState,
+} from "react";
 import { GrFormClose } from "react-icons/gr";
 import { useDispatch } from "react-redux";
 import { addCourse } from "../../redux/modules/courseSlice";
@@ -26,6 +32,7 @@ const SearchModal = ({
   const dispatch = useDispatch();
   const [text, setText] = useState("");
   const { lists } = useCourse();
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const printValue = useCallback(
     useDebounce((value: string) => value, 500),
@@ -47,8 +54,8 @@ const SearchModal = ({
     e.preventDefault();
     setSearchKeyword(text);
     setText("");
-    if (searchList.length > 0) {
-      setSearchList([]);
+    if (searchList.length > 0 && text !== inputRef.current?.value) {
+      setSearchList(searchList);
     }
   };
 
@@ -106,9 +113,9 @@ const SearchModal = ({
         </div>
         <form onSubmit={(e) => onSubmitSearch(e)} className="flex">
           <input
+            ref={inputRef}
             value={text}
             onChange={(e) => handleChange(e)}
-            // onChange={(event) => changeTextHandler(event)}
             placeholder="여행지를 입력해주세요."
             className="w-[695px] h-[50px] px-[14px] py-[16px] border border-gray-400 text-lg focus:outline-none xs:w-[72%] xs:h-10 xs:text-[14px]"
           />

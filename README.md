@@ -10,6 +10,11 @@
 <br/>
 <br/>
 
+## 협업 과정 보러가기
+[팀 노션 바로가기](https://quilled-authority-705.notion.site/007-34d0bee14fd24bbf86d6208353fe273d)
+<br/>
+<br/>
+
 ## Contributor
 
 |                | 깃허브                          | 블로그                           |

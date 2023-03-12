@@ -35,7 +35,7 @@ const PostMap = () => {
           }}
           level={4}
           onCreate={setMap}
-          className="w-[70%] h-[1024px] z-0 xs:w-full xs:h-[600px]"
+          className="w-[70%] h-[1024px] z-0 xs:w-full xs:h-[400px]"
         >
           <MapMarkers />
         </Map>

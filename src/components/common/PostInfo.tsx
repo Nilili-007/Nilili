@@ -3,17 +3,17 @@ import { authService } from "../../utils/firebase";
 import { GrFormClose } from "react-icons/gr";
 import styled from "styled-components";
 import { DebouncedFunc } from "lodash";
-import Swal from "sweetalert2";
 import { galleryLists } from ".";
 import heic2any from "heic2any";
 import imageCompression from "browser-image-compression";
 import { FadeLoader } from "react-spinners";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 interface PostProps {
-  uploadCover: any;
+  uploadCover: string | undefined;
   setUploadCover: Dispatch<SetStateAction<string | undefined>>;
-  galleryCover: string;
-  setGalleryCover: Dispatch<SetStateAction<string>>;
+  galleryCover: string | undefined;
+  setGalleryCover: Dispatch<SetStateAction<string | undefined>>;
   courseTitle: string | undefined;
   titleRef?: React.RefObject<HTMLInputElement>;
   changeValueHandler: DebouncedFunc<
@@ -30,7 +30,7 @@ const PostInfo = ({
   titleRef,
   changeValueHandler,
 }: PostProps) => {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [category, setCategory] = useState("갤러리");
   const coverRef = useRef<HTMLInputElement | any>(null);
   const [link, setLink] = useState("");
@@ -38,6 +38,7 @@ const PostInfo = ({
   let file: any;
 
   const selectCategory = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
     const eventTarget = e.target as HTMLElement;
 
     if (eventTarget.innerText === "업로드") {
@@ -51,18 +52,6 @@ const PostInfo = ({
     }
   };
 
-  if (uploadCover?.length > 1048487) {
-    setUploadCover("");
-    Swal.fire({
-      title: `<p style="font-size: 20px;">이미지 용량을 초과했습니다.</p>`,
-      icon: "error",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        setModalOpen(true);
-      }
-    });
-  }
-
   const uploadCoverImg = () => {
     setGalleryCover("");
     setUploadCover("");
@@ -72,16 +61,23 @@ const PostInfo = ({
       maxWidthOrHeight: 2520,
     };
     const reader = new FileReader();
+    const storage = getStorage();
+
     const resizeFile = async () => {
       setLoaded(false);
       try {
         const compressedFile = await imageCompression(file, options);
-        reader.readAsDataURL(compressedFile);
-        reader.onloadend = () => {
-          setUploadCover(reader.result as SetStateAction<string | undefined>);
-          setModalOpen(false);
-          setLoaded(true);
-        };
+        const storageRef = ref(storage, `covers/${compressedFile.name}`);
+        uploadBytes(storageRef, compressedFile).then(() => {
+          getDownloadURL(storageRef).then((url) => {
+            reader.readAsDataURL(compressedFile);
+            reader.onloadend = () => {
+              setUploadCover(url);
+              setModalOpen(false);
+              setLoaded(true);
+            };
+          });
+        });
       } catch (error) {
         console.log(error);
       }
@@ -104,7 +100,7 @@ const PostInfo = ({
   };
 
   const selectCoverImg = (
-    e: React.MouseEvent<HTMLImageElement, MouseEvent> | any
+    e: React.MouseEvent<HTMLImageElement, MouseEvent>
   ) => {
     const eventTarget = e.target as HTMLImageElement;
 
@@ -151,7 +147,7 @@ const PostInfo = ({
       </div>
       <div className="w-[85%] md:w-[70%] m-auto -mt-[220px] sm:-mt-[170px] md:-mt-[230px] xs:w-[90%] xs:pt-[124px]">
         <input
-          className="w-full relative sm:py-1.5 text-[24px] sm:text-4xl md:text-5xl xs:text-2xl font-bold z-40 bg-transparent placeholder:text-white focus:outline-0"
+          className="w-full relative sm:py-1.5 text-[24px] sm:text-4xl md:text-5xl xs:text-2xl font-bold z-40 bg-transparent placeholder:text-white focus:outline-0 xs:focus:outline-0"
           placeholder="여기에 제목을 입력해주세요."
           maxLength={32}
           autoFocus={true}
@@ -221,7 +217,7 @@ const PostInfo = ({
                     hidden
                     id="changeimg"
                     type="file"
-                    accept="image/jpg,image/png,image/jpeg,image/heic"
+                    accept="image/jpg,image/png,image/jpeg,image/heic,image/webp,image/avif"
                     placeholder="파일선택"
                     ref={coverRef}
                     onChange={uploadCoverImg}
@@ -284,7 +280,6 @@ const AddCoverModal = styled.div`
     height: 724px;
   }
   @media screen and (max-width: 414px) {
-    /* transform: translateX(5.5%); */
     width: 90%;
     left: 5%;
     &.gallery {

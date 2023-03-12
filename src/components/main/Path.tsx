@@ -54,7 +54,7 @@ const Path = () => {
             src="/assets/path.png"
             placeholderSrc="/assets/smallpath.png"
             alt="글쓰기 페이지로"
-            className="xl:w-[80%] w-full mx-auto   "
+            className="xl:w-[80%] w-full mx-auto h-full"
           />
           <div className="lg:block hidden  font-eng absolute right-[1%] bottom-[30%]">
             <p className="2xl:display3 lg:display6    text-amber-500">Go to </p>
