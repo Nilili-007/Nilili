@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap");
+@font-face {
+  font-family: "GmarketSansMedium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@layer utilities {
+  html {
+    overflow: -moz-scrollbars-vertical;
+    overflow-y: scroll;
+  }
+
+  .display1 {
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 50px;
+    letter-spacing: -0.25px;
+  }
+  .display2 {
+    font-weight: 700;
+    font-size: 52px;
+    line-height: 90px;
+    letter-spacing: -0.25px;
+  }
+
+  .display3 {
+    font-weight: 700;
+    font-size: 52px;
+    line-height: 100px;
+    letter-spacing: -0.1px;
+  }
+
+  .display4 {
+    font-weight: 700;
+    font-size: 45px;
+    line-height: 80px;
+    letter-spacing: -0.1px;
+  }
+
+  .display5 {
+    font-weight: 700;
+    font-size: 38px;
+    line-height: 50px;
+    letter-spacing: -1px;
+  }
+
+  .display6 {
+    font-weight: 700;
+    font-size: 42px;
+    line-height: 60px;
+    letter-spacing: -1px;
+  }
+
+  .title1 {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -0.25px;
+  }
+
+  .title3 {
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 28px;
+    letter-spacing: -0.25px;
+  }
+  .body1 {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.25px;
+  }
+
+  .body2 {
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 28px;
+    letter-spacing: -0.25px;
+  }
+  .body3 {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.25px;
+  }
+
+  .badge {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.25px;
+  }
+  .badge1 {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.25px;
+  }
+
+  .eng-title1 {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -0.25px;
+  }
+
+  .eng-title4 {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.25px;
+  }
+
+  .resp {
+    width: 60%;
+  }
+
+  @variants responsive {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+
+    .loading {
+      filter: blur(10px);
+      clip-path: inset(0);
+    }
+    .loaded {
+      filter: blur(0px);
+      transition: filter 0.5s linear;
+    }
+  }
+}
