@@ -128,19 +128,19 @@ const PostInfo = ({
   };
 
   return (
-    <div className="h-[220px] sm:h-[450px] md:h-[700px] xs:h-[220px] text-white">
+    <div className="h-[220px] sm:h-[450px] md:h-[500px] xs:h-[220px] text-white">
       {uploadCover || galleryCover ? (
         <img
           src={uploadCover || galleryCover}
-          className="w-full h-[220px] sm:h-[450px] md:h-[700px] xs:h-[220px] object-cover z-0"
+          className="w-full h-[220px] sm:h-[450px] md:h-[500px] xs:h-[220px] object-cover z-0"
         />
       ) : (
-        <div className="w-full h-[220px] sm:h-[450px] md:h-[700px]  xs:h-[220px] object-cover z-0" />
+        <div className="w-full h-[220px] sm:h-[450px] md:h-[500px]  xs:h-[220px] object-cover z-0" />
       )}
-      <div className="w-full h-[220px] sm:h-[450px] md:h-[700px] -mt-[220px] sm:-mt-[450px] md:-mt-[700px] absolute z-10 bg-gradient-to-t from-[#00000060]" />
-      <div className="w-full h-[220px] sm:h-[450px] md:h-[700px] -mt-[220px] sm:-mt-[450px] md:-mt-[700px] absolute z-10 flex justify-center items-center">
+      <div className="w-full h-[220px] sm:h-[450px] md:h-[500px] -mt-[220px] sm:-mt-[450px] md:-mt-[500px] absolute z-10 bg-gradient-to-t from-[#00000060]" />
+      <div className="w-full h-[220px] sm:h-[450px] md:h-[500px] -mt-[220px] sm:-mt-[450px] md:-mt-[500px] absolute z-10 flex justify-center items-center">
         {uploadCover === "" && galleryCover === "" ? (
-          <div className="scale-[0.25] sm:scale-50 md:scale-100 absolute z-10 -mt-14">
+          <div className="scale-[0.1] sm:scale-50 xs:scale-[0.3] absolute z-10 -mt-14">
             {!loaded ? (
               <FadeLoader color="#A0A4A8" margin={30} height={30} width={8} />
             ) : (
@@ -149,9 +149,9 @@ const PostInfo = ({
           </div>
         ) : null}
       </div>
-      <div className="w-[85%] md:w-[70%] m-auto -mt-[220px] sm:-mt-[170px] md:-mt-[230px] xs:w-[90%] xs:pt-[124px]">
+      <div className="w-[85%] md:w-[70%] m-auto -mt-[220px] sm:-mt-[170px] md:-mt-[200px] xs:w-[90%] xs:pt-[124px]">
         <input
-          className="w-full relative sm:py-1.5 text-[24px] sm:text-4xl md:text-5xl xs:text-2xl font-bold z-40 bg-transparent placeholder:text-white focus:outline-0 xs:focus:outline-0"
+          className="w-full relative sm:py-1.5 text-[24px] sm:text-4xl md:text-4xl xs:text-2xl font-bold z-40 bg-transparent placeholder:text-white focus:outline-0 xs:focus:outline-0"
           placeholder="여기에 제목을 입력해주세요."
           maxLength={32}
           autoFocus={true}
@@ -168,7 +168,7 @@ const PostInfo = ({
             </p>
           ) : null}
         </div>
-        <div className="flex sm:mt-2 md:mt-4 xs:mt-0">
+        <div className="flex sm:mt-2 md:mt-4 xs:-mt-3">
           <button
             onClick={() => setOpenCoverModal(true)}
             className="bg-black px-1 sm:px-2 py-1 mt-2 mr-3 z-20 text-[12px] sm:badge xs:text-[12px] xs:px-2"

@@ -20,7 +20,7 @@ const PostCourse = ({ setModalOpen }: PostProps) => {
   const [text, setText] = useState<string>("");
 
   return (
-    <div className="w-[35%] pl-4 md:pl-7 float-right xs:hidden">
+    <div className="w-[40%] pl-4 md:pl-7 float-right xs:hidden">
       <SearchModalAddCourseBtn setModalOpen={setModalOpen} />
       <div className="flex flex-col h-[932px] overflow-y-scroll ">
         {lists?.map((item: CourseListType, idx: number) => {

@@ -106,7 +106,7 @@ const SearchModal = ({
   return (
     <div
       ref={searchRef}
-      className="w-[900px] pb-5 bg-white border border-gray-04 absolute -translate-x-[20%] -translate-y-[40%] xs:w-11/12 xs:h-auto xs:h-max-5/6 xs:-translate-x-[3.5%] xs:-translate-y-28 z-[999]"
+      className="w-[700px] pb-5 bg-white border border-gray-04 absolute -translate-y-[40%] xs:w-11/12 xs:h-auto xs:h-max-5/6 xs:-translate-x-[3.5%] xs:-translate-y-28 z-[999]"
     >
       <div className="px-8 py-4 xs:px-5 xs:py-2">
         <div className="flex items-center border-b border-gray-04 mb-5 pb-3 xs:pb-1">
