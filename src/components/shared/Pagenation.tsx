@@ -6,7 +6,6 @@ interface PagenationProps {
   setPageArr: React.Dispatch<React.SetStateAction<number>>;
   lastPage: number;
   firstPage: number;
-  showPages: number[];
   currentPages: number[] | null;
   positionY: number;
 }
@@ -19,12 +18,13 @@ const Pagenation = ({
   setPageArr,
   lastPage,
   firstPage,
-  showPages,
   currentPages,
   positionY,
 }: PagenationProps) => {
   return (
     <div className="flex justify-center items-center gap-2 sm:gap-4 mt-10">
+      {/* 이전 페이지배열 버튼*/}
+      {/* 1번 페이지가 배열에 포함되어 있으면 안보임 */}
       {currentPages?.includes(1) ? null : (
         <>
           <button
@@ -39,6 +39,7 @@ const Pagenation = ({
           <span>···</span>
         </>
       )}
+      {/* 해당페이지로 이동하는 버튼 */}
       {currentPages?.map((page, index) => {
         return (
           <button
@@ -54,6 +55,8 @@ const Pagenation = ({
           </button>
         );
       })}
+      {/* 다음페이지배열로 이동하는 버튼 */}
+      {/* 마지막페이지가 배열에 포함되어 있으면 안보임 */}
       {currentPages?.includes(pages.length) ? null : (
         <>
           <span>···</span>

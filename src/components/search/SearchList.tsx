@@ -19,7 +19,6 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
     setPageArr,
     lastPage,
     firstPage,
-    showPages,
     currentPages,
     positionY,
   } = usePagenation(filteredList, 12, 5, 900);
@@ -93,7 +92,6 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
           setPageArr={setPageArr}
           lastPage={lastPage}
           firstPage={firstPage}
-          showPages={showPages}
           currentPages={currentPages}
           positionY={positionY}
         />
