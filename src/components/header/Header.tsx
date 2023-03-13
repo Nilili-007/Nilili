@@ -113,7 +113,7 @@ const Header = () => {
   return (
     <>
       <nav className="w-full bg-black shadow">
-        <div className="justify-between mx-auto  xl:items-center xl:flex  w-[85%] md:resp1 h-auto">
+        <div className="justify-between mx-auto  xl:items-center xl:flex  w-[85%] md:w-[70%] h-auto">
           <div>
             <div className="flex items-center justify-between py-3 xl:block">
               <button onClick={leavePresentPage}>
