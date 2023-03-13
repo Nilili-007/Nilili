@@ -40,7 +40,7 @@
 
 ## 서비스 아키텍처
 
-![nilili-서비스 아키텍처 drawio](https://user-images.githubusercontent.com/95006849/223658216-560da369-daf9-4de3-adfa-1bee5f4ba3d3.png)
+![nilili-서비스 아키텍처 drawio](https://user-images.githubusercontent.com/95006849/224600897-2a6cf42e-e3c7-468f-bfaf-94943fa80aa7.png)
 <br/>
 <br/>
 <br/>
