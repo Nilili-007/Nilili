@@ -19,6 +19,9 @@ interface PostProps {
   changeValueHandler: DebouncedFunc<
     (event: React.ChangeEvent<HTMLInputElement>) => void
   >;
+  coverRef: React.RefObject<HTMLDivElement>;
+  openCoverModal: boolean;
+  setOpenCoverModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const PostInfo = ({
@@ -29,10 +32,12 @@ const PostInfo = ({
   courseTitle,
   titleRef,
   changeValueHandler,
+  coverRef,
+  openCoverModal,
+  setOpenCoverModal,
 }: PostProps) => {
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [category, setCategory] = useState("갤러리");
-  const coverRef = useRef<HTMLInputElement | any>(null);
+  const fileRef = useRef<HTMLInputElement | any>(null);
   const [link, setLink] = useState("");
   const [loaded, setLoaded] = useState(true);
   let file: any;
@@ -55,7 +60,7 @@ const PostInfo = ({
   const uploadCoverImg = () => {
     setGalleryCover("");
     setUploadCover("");
-    file = coverRef.current.files[0];
+    file = fileRef.current.files[0];
     const options = {
       maxSizeMB: 1,
       maxWidthOrHeight: 2520,
@@ -73,7 +78,7 @@ const PostInfo = ({
             reader.readAsDataURL(compressedFile);
             reader.onloadend = () => {
               setUploadCover(url);
-              setModalOpen(false);
+              setOpenCoverModal(false);
               setLoaded(true);
             };
           });
@@ -84,7 +89,7 @@ const PostInfo = ({
     };
 
     if (file.type === "image/heic" || file.type === "image/HEIC") {
-      let blob = coverRef.current.files[0];
+      let blob = fileRef.current.files[0];
       heic2any({ blob, toType: "image/webp" }).then(function (resultBlob: any) {
         file = new File([resultBlob], file.name.split(".")[0] + ".webp", {
           type: "image/webp",
@@ -107,14 +112,14 @@ const PostInfo = ({
     if (eventTarget.currentSrc) {
       setGalleryCover(eventTarget.currentSrc);
       setUploadCover(undefined);
-      setModalOpen(false);
+      setOpenCoverModal(false);
     }
   };
 
   const uploadCoverLink = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setGalleryCover(link);
-    setModalOpen(false);
+    setOpenCoverModal(false);
     setLink("");
   };
 
@@ -166,7 +171,7 @@ const PostInfo = ({
         </div>
         <div className="flex sm:mt-2 md:mt-4 xs:mt-0">
           <button
-            onClick={() => setModalOpen(true)}
+            onClick={() => setOpenCoverModal(true)}
             className="bg-black px-1 sm:px-2 py-1 mt-2 mr-3 z-20 text-[12px] sm:badge xs:text-[12px] xs:px-2"
           >
             {uploadCover || galleryCover ? "Change Cover" : "Add Cover"}
@@ -179,32 +184,31 @@ const PostInfo = ({
           </button>
         </div>
       </div>
-      {modalOpen && (
-        <AddCoverModal className={category === "갤러리" ? "gallery" : ""}>
+      {openCoverModal && (
+        <AddCoverModal
+          ref={coverRef}
+          className={category === "갤러리" ? "gallery" : ""}
+        >
           <div className="w-[95%] m-auto py-1 xs:w-[90%]">
             <div className="border-b border-gray-600 mt-11" />
-            <GrFormClose
-              onClick={() => setModalOpen(false)}
-              className="cursor-pointer text-4xl ml-auto -mt-10 -mr-1 xs:text-3xl xs:-mt-[33.5px]"
-            />
             <div className="flex -mt-[26px]">
               <AddCoverCategory
                 onClick={selectCategory}
                 className={category === "갤러리" ? "clicked" : ""}
               >
-                <p className="pb-1.5 -mt-1.5">갤러리</p>
+                <p className="pb-1.5 -mt-3">갤러리</p>
               </AddCoverCategory>
               <AddCoverCategory
                 onClick={(e) => selectCategory(e)}
                 className={category === "업로드" ? "clicked" : ""}
               >
-                <p className="pb-1.5 -mt-1.5">업로드</p>
+                <p className="pb-1.5 -mt-3">업로드</p>
               </AddCoverCategory>
               <AddCoverCategory
                 onClick={(e) => selectCategory(e)}
                 className={category === "링크" ? "clicked" : ""}
               >
-                <p className="pb-1.5 -mt-1.5">링크</p>
+                <p className="pb-1.5 -mt-3">링크</p>
               </AddCoverCategory>
             </div>
             <div className="w-full h-full flex flex-col justify-center items-center">
@@ -219,7 +223,7 @@ const PostInfo = ({
                     type="file"
                     accept="image/jpg,image/png,image/jpeg,image/heic,image/webp,image/avif"
                     placeholder="파일선택"
-                    ref={coverRef}
+                    ref={fileRef}
                     onChange={uploadCoverImg}
                   />
                 </div>
@@ -249,7 +253,7 @@ const PostInfo = ({
                       value={link}
                       placeholder="이미지 링크 붙여넣기"
                       onChange={(e) => setLink(e.target.value)}
-                      className="w-[500px] h-10 border border-gray-04 px-2 py-1 text-black xs:w-[320px] xs:h-8"
+                      className="w-[500px] h-10 border border-gray-04 px-2 py-1 text-black xs:w-full xs:h-8"
                     />
                     <button className="bg-black text-white h-10 px-6 ml-3 xs:h-8 xs:w-full xs:ml-0 xs:mt-2">
                       확인
@@ -303,7 +307,8 @@ const AddCoverCategory = styled.div`
   &.clicked {
     color: black;
     border-bottom: 2px solid black;
-    margin-bottom: -2px;
+    padding-bottom: 3px;
+    margin-bottom: -5px;
   }
   @media screen and (max-width: 414px) {
     width: 68px;

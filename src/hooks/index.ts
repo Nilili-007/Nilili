@@ -11,6 +11,7 @@ import useDate from "./useDate";
 import useCancelPost from "./useCancelPost";
 import useCourse from "./useCourse";
 import useDebounce from "./useDebounce";
+import useCloseModal from "./useCloseModal";
 
 export {
   usePagenation,
@@ -26,4 +27,5 @@ export {
   useCancelPost,
   useCourse,
   useDebounce,
+  useCloseModal,
 };
