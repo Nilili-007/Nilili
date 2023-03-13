@@ -1,6 +1,6 @@
 # NILILI
 
-### [바로가기](https://nilili-chi.vercel.app/)
+### [바로가기](https://www.nilili.site/)
 
 <br/>
 
