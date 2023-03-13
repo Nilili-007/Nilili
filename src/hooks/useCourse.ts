@@ -18,6 +18,7 @@ const useCourse = () => {
     (state: any) => state.courseSlice.filteredIdx
   );
 
+  // 클릭한 코스 및 마커의 인덱스 값 보내기
   const getIdx = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     idx: number
@@ -26,6 +27,7 @@ const useCourse = () => {
     dispatch(filterCourse(idx));
   };
 
+  // 코스 삭제하기
   const removeCourse = (idx: number) => {
     Swal.fire({
       title: `<p style="font-size: 20px;">일정에서 삭제하시겠습니까?</p>`,
@@ -44,14 +46,17 @@ const useCourse = () => {
     });
   };
 
+  // 코스 위로 올리기
   const liftUp = (idx: number) => {
     dispatch(upCourse(idx));
   };
 
+  // 코스 아래로 내리기
   const liftDown = (idx: number) => {
     dispatch(downCourse(idx));
   };
 
+  // 메모 작성
   const handleMemo = (
     item: CourseListType,
     idx: number,
@@ -73,6 +78,7 @@ const useCourse = () => {
     }
   };
 
+  // 메모 추가
   const addMemo = (
     idx: number,
     text: string,

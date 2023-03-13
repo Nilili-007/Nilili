@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useGetCommentQuery } from "../../redux/modules/apiSlice";
 import Comment from "./Comment";
 import CommentInput from "./CommentInput";
