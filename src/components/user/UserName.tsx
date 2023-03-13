@@ -53,7 +53,7 @@ const UserNameEdit = () => {
         <></>
       )}
       <div className="w-full h-360 bg-black shadow mb-[2%] pb-[3%]">
-        <div className="  w-[85%] md:w-[70%] h-auto  mx-auto ">
+        <div className="  w-[85%] md:resp h-auto  mx-auto ">
           <div className="flex gap-[3%] mt-[2%]">
             <div>
               <img

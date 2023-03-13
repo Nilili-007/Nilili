@@ -11,7 +11,7 @@ const PostMap = () => {
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [searchList, setSearchList] = useState<SearchListType[]>([]);
   const [searchCnt, setSearchCnt] = useState<number | undefined>();
-  const [map, setMap] = useState();
+  const [map, setMap] = useState<kakao.maps.Map>();
   const { lists } = useCourse();
   const { filteredIdx } = useCourse();
 
@@ -36,7 +36,6 @@ const PostMap = () => {
                 : lists[filteredIdx].position.lng,
           }}
           level={4}
-          // @ts-ignore
           onCreate={setMap}
           className="w-[70%] h-[1024px] z-0 xs:w-full xs:h-[400px]"
         >

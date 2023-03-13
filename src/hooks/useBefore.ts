@@ -1,5 +1,3 @@
-import React from "react";
-
 const useBefore = (createdTime: number | undefined) => {
   const now = Date.now();
   const timeGap = (createTime: number | undefined) => {

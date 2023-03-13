@@ -203,7 +203,7 @@ const EditCourse = () => {
         openCoverModal={openCoverModal}
         setOpenCoverModal={setOpenCoverModal}
       />
-      <div className="w-[85%] md:w-[70%] h-auto mx-auto md:mt-[100px] mt-0 ">
+      <div className="w-[85%] md:resp h-auto mx-auto md:mt-[100px] mt-0 ">
         <EditCourseCategories
           regionsRef={regionsRef}
           setTravelStatus={setTravelStatus}

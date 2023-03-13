@@ -57,7 +57,6 @@ const UserList = ({ done, category }: UserListType) => {
     event: React.MouseEvent<HTMLButtonElement>,
     id: string | undefined
   ) => {
-    event.stopPropagation();
     Swal.fire({
       title: "후기를 남기시겠습니까?",
       text: "NILILI에 소중한 후기를 남겨주세요 ♥",
@@ -91,7 +90,6 @@ const UserList = ({ done, category }: UserListType) => {
     event: React.MouseEvent<HTMLButtonElement>,
     id: string | undefined
   ) => {
-    event.stopPropagation();
     Swal.fire({
       title: "여행 계획으로 변경하시겠습니까?",
       icon: "question",
@@ -114,7 +112,6 @@ const UserList = ({ done, category }: UserListType) => {
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     id: string
   ) => {
-    event.stopPropagation();
     navigate(`/course/${id}`);
   };
 
@@ -128,7 +125,7 @@ const UserList = ({ done, category }: UserListType) => {
         {new Array(9).fill(null).map((_, idx) => (
           <SkeletonTheme baseColor="#202020" highlightColor="#444" key={idx}>
             <div className=" mb-[5%] xl:w-[31%] md:w-[48%] sm:w-[80%] w-[48%]  mr-[2%]   ">
-              <Skeleton className=" sm:h-[320px] h-[150px]" />
+              <Skeleton className=" sm:h-[260px] h-[150px]" />
               <div className="mt-3">
                 <Skeleton className="w-[80%] h-[30px]" />
                 <Skeleton className="w-[30%]  h-[25px]" />
@@ -161,8 +158,8 @@ const UserList = ({ done, category }: UserListType) => {
                     window.innerWidth < 415
                       ? { width: "150px", height: "150px" }
                       : {
-                          width: "400px",
-                          height: "320px",
+                          width: "340px",
+                          height: "260px",
                         }
                   }
                   course={item}
@@ -171,7 +168,7 @@ const UserList = ({ done, category }: UserListType) => {
               <StImg
                 src={item.cover}
                 alt="대표 사진"
-                className=" sm:h-[320px] sm:w-[400px] h-[150px] w-[150px] object-cover"
+                className=" sm:h-[260px] sm:w-[340px] h-[150px] w-[150px] object-cover"
                 category={category}
               />
             </Stdiv>
@@ -209,7 +206,7 @@ const UserList = ({ done, category }: UserListType) => {
                 {item.nickname}
               </p>
             )}
-            <p className="ml-1 mt-[2%] font-medium  text-gray-400 text-xl mb-[10%]">
+            <p className="ml-1 mt-[2%] font-medium  text-gray-400 sm:text-xl text-sm  mb-[10%]">
               <CreatedDate createdAt={item.createdAt} />
             </p>
           </div>

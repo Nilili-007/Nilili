@@ -31,7 +31,7 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
     : null;
 
   return (
-    <div className="my-10 w-[85%] md:w-[70%] min-h-[100vh]">
+    <div className="my-10 w-[85%] md:resp min-h-[100vh]">
       <ul className="flex flex-wrap">
         {currentPosts?.map((item) => (
           <Link
@@ -57,8 +57,8 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
                     window.innerWidth < 415
                       ? { width: "150px", height: "150px" }
                       : {
-                          width: "300px",
-                          height: "290px",
+                          width: "290px",
+                          height: "230px",
                         }
                   }
                   course={item}
@@ -67,7 +67,7 @@ const SearchList = ({ filteredList }: ISearchListProps) => {
               <StImg
                 src={item.cover}
                 alt="대표 사진"
-                className=" border-black sm:h-[290px] sm:w-[300px] w-[150px] h-[150px] object-cover"
+                className=" border-black sm:h-[230px] sm:w-[290px] w-[150px] h-[150px] object-cover"
               />
             </Stdiv>
 

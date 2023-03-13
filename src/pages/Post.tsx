@@ -203,7 +203,7 @@ const Post = () => {
         openCoverModal={openCoverModal}
         setOpenCoverModal={setOpenCoverModal}
       />
-      <div className="w-[85%] md:w-[70%] h-auto mx-auto md:mt-[100px] mt-0 ">
+      <div className="w-[85%] md:resp h-auto mx-auto md:mt-[100px] mt-0 ">
         <div className="flex flex-col-reverse md:flex-row">
           <div className="flex flex-col gap-2">
             <p className="text-[18px] sm:text-3xl whitespace-normal font-bold">

@@ -25,8 +25,8 @@ const AfterLike = () => {
   }
 
   return (
-    <div className=" mt-[10%] w-[85%] md:w-[70%] h-auto    ">
-      <p className=" ml-1 my-[2%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-2xl font-bold font-eng  ">
+    <div className=" mt-[10%] w-[85%] md:resp h-auto    ">
+      <p className=" ml-1 my-[2%] w-fit lg:text-[47px] sm:text-[35px] text-2xl font-bold font-eng  ">
         BEST REVIEWS
       </p>
       <p className=" hidden sm:block ml-2 pb-5 w-fit text-xl text-gray-04">
@@ -50,7 +50,7 @@ const AfterLike = () => {
       >
         {isLoading ? (
           <div className="flex ">
-            {new Array(window.innerWidth < 415 ? 2 : 3)
+            {new Array(window.innerWidth < 1024 ? 2 : 3)
               .fill(null)
               .map((_, idx) => (
                 <SkeletonTheme
@@ -59,7 +59,7 @@ const AfterLike = () => {
                   key={idx}
                 >
                   <div className=" mb-3 2xl:w-[26%] xl:w-[29%] lg:w-[39%] sm:w-[45%] w-[51%] mr-[3%]">
-                    <Skeleton className="sm:h-[320px] h-[160px]" />
+                    <Skeleton className="sm:h-[240px] h-[160px]" />
                     <div className="mt-3">
                       <Skeleton className="w-[80%] h-[30px]" />
                       <Skeleton className="w-[30%]  h-[25px]" />
@@ -90,8 +90,8 @@ const AfterLike = () => {
                         window.innerWidth < 415
                           ? { width: "160px", height: "160px" }
                           : {
-                              width: "350px",
-                              height: "320px",
+                              width: "320px",
+                              height: "250px",
                             }
                       }
                       course={item}
@@ -100,7 +100,7 @@ const AfterLike = () => {
                   <StImg
                     src={item.cover}
                     alt="대표 사진"
-                    className="mt-6  sm:w-[350px] sm:h-[320px] h-[160px] w-[160px] object-cover"
+                    className="mt-6  sm:w-[320px] sm:h-[250px] h-[160px] w-[160px] object-cover"
                   />
                 </Stdiv>
                 <p className="ml-1  mt-[8%] mb-[2%] sm:h-[31px] max-w-[350px]  h-7  w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ">

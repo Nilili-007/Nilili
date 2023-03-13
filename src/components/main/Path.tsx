@@ -28,8 +28,8 @@ const Path = () => {
   };
 
   return (
-    <div className="mt-[5%] w-[85%] md:w-[70%] h-auto  ">
-      <p className=" ml-1 my-[2%] w-fit xl:text-[50px] lg:text-[45px] sm:text-[35px] text-2xl font-bold font-eng  ">
+    <div className="mt-[5%] w-[85%] md:resp h-auto  ">
+      <p className=" ml-1 my-[2%] w-fit  lg:text-[47px] sm:text-[35px] text-2xl font-bold font-eng  ">
         DRAW MY PATH
       </p>
       <p className=" hidden sm:block ml-2 pb-5 w-fit text-xl text-gray-04">
@@ -54,18 +54,18 @@ const Path = () => {
             src="/assets/path.png"
             placeholderSrc="/assets/smallpath.png"
             alt="글쓰기 페이지로"
-            className="xl:w-[80%] w-full mx-auto h-full"
+            className="xl:w-[77%] w-full mx-auto h-full"
           />
-          <div className="lg:block hidden  font-eng absolute right-[1%] bottom-[30%]">
+          <div className="xl:block hidden  font-eng absolute right-[1%] bottom-[30%]">
             <p className="2xl:display3 lg:display6    text-amber-500">Go to </p>
 
-            <p className="2xl:display2 lg:display4 lg:flex items-center">
+            <p className="2xl:display1 lg:display6 lg:flex items-center">
               Create Course <AiOutlineSwapRight />
             </p>
           </div>
         </div>
 
-        <div className="lg:hidden block  font-eng absolute right-[5%] bottom-[30%]">
+        <div className="xl:hidden block  font-eng absolute right-[5%] bottom-[30%]">
           <p className="sm:display5 text-2xl font-bold font-eng  flex items-end">
             Create <br />
             Course <AiOutlineSwapRight className="mb-[1%]" />
