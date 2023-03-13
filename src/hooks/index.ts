@@ -12,6 +12,7 @@ import useCancelPost from "./useCancelPost";
 import useCourse from "./useCourse";
 import useDebounce from "./useDebounce";
 import useFilterData from "./useFilterData";
+import useCloseModal from "./useCloseModal";
 
 export {
   usePagenation,
@@ -28,4 +29,5 @@ export {
   useCourse,
   useDebounce,
   useFilterData,
+  useCloseModal,
 };

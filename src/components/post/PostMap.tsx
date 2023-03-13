@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Map } from "react-kakao-maps-sdk";
 import { SearchModal, SearchModalAddCourseBtn } from "../common";
 import { PostCourse } from "./index";
 import { MapMarkers } from "../common";
-import { useCourse, useKakaoMap } from "../../hooks";
+import { useCloseModal, useCourse, useKakaoMap } from "../../hooks";
 
 const PostMap = () => {
+  const searchRef = useRef<HTMLDivElement>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [searchList, setSearchList] = useState<SearchListType[]>([]);
@@ -15,6 +16,7 @@ const PostMap = () => {
   const { filteredIdx } = useCourse();
 
   useKakaoMap(map, searchKeyword, setSearchList, setSearchCnt);
+  useCloseModal(searchRef, modalOpen, setModalOpen);
 
   return (
     <div>
@@ -48,6 +50,7 @@ const PostMap = () => {
             searchList={searchList}
             setSearchList={setSearchList}
             searchCnt={searchCnt}
+            searchRef={searchRef}
           />
         )}
       </div>

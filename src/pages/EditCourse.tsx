@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { hashTagOptions } from "../components/post/PostHashTag";
 import { regionOptions } from "../components/post/PostCategories";
 import { replaceAllData } from "../redux/modules/courseSlice";
@@ -17,7 +17,13 @@ import { authService } from "../utils/firebase";
 import Swal from "sweetalert2";
 import * as amplitude from "@amplitude/analytics-browser";
 import { logEvent } from "../utils/amplitude";
-import { usePreventLeave, useOption, useCourse, useInput } from "../hooks";
+import {
+  usePreventLeave,
+  useOption,
+  useCourse,
+  useInput,
+  useCloseModal,
+} from "../hooks";
 import { PostInfo, PostManageBtns } from "../components/common";
 
 const EditCourse = () => {
@@ -34,6 +40,8 @@ const EditCourse = () => {
   );
   const course = filterData?.pop();
   const navigate = useNavigate();
+  const coverRef = useRef(null);
+  const [openCoverModal, setOpenCoverModal] = useState<boolean>(false);
 
   usePreventLeave();
 
@@ -179,6 +187,8 @@ const EditCourse = () => {
     }
   };
 
+  useCloseModal(coverRef, openCoverModal, setOpenCoverModal);
+
   return (
     <div className="mb-[7%]">
       <PostInfo
@@ -189,6 +199,9 @@ const EditCourse = () => {
         courseTitle={trimValue}
         titleRef={inputRef}
         changeValueHandler={changeValueHandler}
+        coverRef={coverRef}
+        openCoverModal={openCoverModal}
+        setOpenCoverModal={setOpenCoverModal}
       />
       <div className="w-[85%] md:resp h-auto mx-auto md:mt-[100px] mt-0 ">
         <EditCourseCategories

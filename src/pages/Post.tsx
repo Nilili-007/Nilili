@@ -15,7 +15,13 @@ import {
 import Swal from "sweetalert2";
 import * as amplitude from "@amplitude/analytics-browser";
 import { logEvent } from "../utils/amplitude";
-import { usePreventLeave, useOption, useCourse, useInput } from "../hooks";
+import {
+  usePreventLeave,
+  useOption,
+  useCourse,
+  useInput,
+  useCloseModal,
+} from "../hooks";
 import { PostInfo, PostManageBtns } from "../components/common";
 
 const Post = () => {
@@ -25,6 +31,8 @@ const Post = () => {
   const navigate = useNavigate();
   const [addCourse] = useAddCourseMutation();
   const { data } = useGetCourseQuery();
+  const coverRef = useRef(null);
+  const [openCoverModal, setOpenCoverModal] = useState<boolean>(false);
 
   usePreventLeave();
 
@@ -179,6 +187,8 @@ const Post = () => {
     window.history.pushState(null, "", window.location.href)
   );
 
+  useCloseModal(coverRef, openCoverModal, setOpenCoverModal);
+
   return (
     <div className="mb-[7%]">
       <PostInfo
@@ -189,6 +199,9 @@ const Post = () => {
         courseTitle={trimValue}
         titleRef={inputRef}
         changeValueHandler={changeValueHandler}
+        coverRef={coverRef}
+        openCoverModal={openCoverModal}
+        setOpenCoverModal={setOpenCoverModal}
       />
       <div className="w-[85%] md:resp h-auto mx-auto md:mt-[100px] mt-0 ">
         <div className="flex flex-col-reverse md:flex-row">

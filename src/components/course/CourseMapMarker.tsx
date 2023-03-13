@@ -53,7 +53,7 @@ const CourseMapMarker = ({
         </div>
       ))}
       {lists.length > 0 ? (
-        <div className="xs:border-r-2 xs:border-dashed xs:border-black xs:w-4 xs:h-[400px] xs:right-[13.4%] xs:absolute xs:overflow-y-scroll" />
+        <div className="xs:border-r-2 xs:border-dashed xs:border-black xs:w-4 xs:h-[400px] xs:right-[13.35%] xs:absolute xs:overflow-y-scroll" />
       ) : null}
       <div className="xs:w-[50px] xs:h-[400px] xs:flex xs:flex-col xs:absolute xs:right-[7.5%] xs:overflow-y-scroll">
         {lists.map((item: CourseListType, idx: number) => (
