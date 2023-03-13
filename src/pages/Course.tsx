@@ -37,7 +37,7 @@ const Course = () => {
       ) : (
         <div>
           <CourseHeader course={courseData} />
-          <div className="w-[85%] md:w-[70%] py-10 m-auto">
+          <div className="w-[85%] resp1 py-10 m-auto">
             {courseData?.userID === authService.currentUser?.uid ? (
               <CourseManageButton paramId={paramId} course={courseData} />
             ) : null}
