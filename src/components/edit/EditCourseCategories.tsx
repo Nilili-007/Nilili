@@ -51,7 +51,7 @@ const EditCourseCategories = ({
 
   return (
     <div>
-      <div className="w-full flex flex-col-reverse md:flex-row justify-between -mt-10">
+      <div className="w-full flex flex-col-reverse md:flex-row justify-between -mt-10 xs:mt-0">
         <div className="flex flex-col gap-2 lg:gap-4">
           <div className="w-full flex justify-between">
             <p className="text-2xl whitespace-normal font-bold xs:text-[16px]">
