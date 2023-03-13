@@ -29,12 +29,6 @@ const usePagenation = (
   const firstPage = lastPage - pageNumber;
   const currentPages = pages ? pages.slice(firstPage, lastPage) : null;
 
-  const totalPages = pages.length;
-  const showPages = [];
-  for (let i = 1; i <= Math.ceil(totalPages / pageNumber); i++) {
-    showPages.push(i);
-  }
-
   //페이지 눌렀을 때, 스크롤 위치
   const positionY = windowY;
   return {
@@ -47,7 +41,6 @@ const usePagenation = (
     setPageArr,
     lastPage,
     firstPage,
-    showPages,
     currentPages,
     positionY,
   };
