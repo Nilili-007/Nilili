@@ -1,6 +1,5 @@
 import { Dispatch, SetStateAction, useRef, useState } from "react";
 import { authService } from "../../utils/firebase";
-import { GrFormClose } from "react-icons/gr";
 import styled from "styled-components";
 import { DebouncedFunc } from "lodash";
 import { galleryLists } from ".";
@@ -84,7 +83,7 @@ const PostInfo = ({
           });
         });
       } catch (error) {
-        console.log(error);
+        console.log("error", error);
       }
     };
 

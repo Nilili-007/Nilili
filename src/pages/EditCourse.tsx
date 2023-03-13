@@ -6,7 +6,7 @@ import {
   useGetCourseQuery,
   useUpdateCourseMutation,
 } from "../redux/modules/apiSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   EditCourseCategories,
