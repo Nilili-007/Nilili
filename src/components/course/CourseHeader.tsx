@@ -7,27 +7,27 @@ interface CourseProps {
 const CourseHeader = ({ course }: CourseProps) => {
   return (
     <>
-      <div className="h-[220px] sm:h-[450px] md:h-[700px]">
+      <div className="h-[220px] sm:h-[450px] md:h-[500px]">
         <img
           alt="대표 이미지"
           src={course?.cover}
-          className="w-full h-[220px] sm:h-[450px] md:h-[700px] object-cover z-0"
+          className="w-full h-[220px] sm:h-[450px] md:h-[500px] object-cover z-0"
         />
       </div>
-      <div className="  w-full h-[220px] -mt-[220px] sm:h-[450px] sm:-mt-[450px] md:h-[700px] md:-mt-[700px] absolute z-10 bg-gradient-to-t from-[#00000060]" />
+      <div className="w-full h-[220px] sm:h-[450px] md:h-[500px] -mt-[220px] sm:-mt-[450px] md:-mt-[500px] absolute z-10 bg-gradient-to-t from-[#00000060]" />
       <div className="flex justify-center">
         <Information
           className={Number(course?.title?.length) > 28 ? "double-line" : ""}
         >
-          <div className="  w-full z-20 flex flex-col">
-            <h1 className="z-20 sm:text-4xl md:text-5xl font-bold leading-tight xs:text-2xl xs:w-full xs:-mt-6 flex items-end h-[100px]">
+          <div className="  w-full z-20 flex flex-col xs:-mt-1">
+            <h1 className="z-20 sm:text-4xl md:text-4xl font-bold leading-tight xs:text-2xl xs:w-full xs:-mt-6 flex items-end h-[100px]">
               {course?.title}
             </h1>
             <p className="z-20 text-xs sm:text-[17px] sm:leading-6 lg:text-lg font-bold text-black bg-white opacity-80 sm:h-auto sm:top-0 xs:w-[65px] sm:w-[70px] lg:w-[85px] mt-4 text-center sm:mt-3 xs:mt-2 py-1 xs:py-1">
               {course?.travelStatus === true ? "여행 후기" : "여행 계획"}
             </p>
           </div>
-          <div className="mt-4 z-20 body3 sm:text-2xl flex xs:mt-1 sm:mt-3 text-white">
+          <div className="mt-4 z-20 text-[20px] flex xs:mt-2 sm:mt-3 xs:text-sm text-white">
             {course?.location.map((location: string) => {
               return (
                 <p className="pr-2 z-20" key={location}>

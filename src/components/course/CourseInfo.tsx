@@ -13,7 +13,7 @@ const CourseInfo = ({
   setFilteredIdx,
 }: CourseProps) => {
   return (
-    <div className="w-[35%] pl-7 float-right xs:hidden">
+    <div className="w-[40%] pl-7 float-right xs:hidden">
       <div className="flex flex-col h-[1024px] overflow-y-scroll ">
         {courseList?.map((item: CourseListType, idx: number) => {
           return (

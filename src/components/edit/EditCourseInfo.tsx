@@ -35,7 +35,7 @@ const EditCourseInfo = ({ setModalOpen }: EditCourseProps) => {
   }, [reduxLists]);
 
   return (
-    <div className="w-[35%] pl-7 float-right xs:hidden">
+    <div className="w-[40%] pl-7 float-right xs:hidden">
       <SearchModalAddCourseBtn setModalOpen={setModalOpen} />
       <div className="flex flex-col h-[932px] overflow-y-scroll ">
         {lists?.map((item: CourseListType, idx: number) => {
