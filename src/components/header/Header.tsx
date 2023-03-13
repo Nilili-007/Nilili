@@ -113,16 +113,16 @@ const Header = () => {
   return (
     <>
       <nav className="w-full bg-black shadow">
-        <div className="justify-between mx-auto  2xl:items-center 2xl:flex  w-[85%] md:resp h-auto">
+        <div className="justify-between mx-auto  xl:items-center xl:flex  w-[85%] md:resp1 h-auto">
           <div>
-            <div className="flex items-center justify-between py-3 2xl:block">
+            <div className="flex items-center justify-between py-3 xl:block">
               <button onClick={leavePresentPage}>
                 <h2 className="text-4xl leading-[26px] text-white font-bold">
                   Nilili
                 </h2>
               </button>
 
-              <div className="2xl:hidden">
+              <div className="xl:hidden">
                 <button
                   className="p-2 text-white rounded-md outline-none focus:border"
                   onClick={() => setNavbar(!navbar)}
@@ -138,11 +138,11 @@ const Header = () => {
           </div>
           <div>
             <div
-              className={`flex-1 justify-self-center pb-3 mt-8 2xl:block 2xl:pb-0 2xl:mt-0 ${
+              className={`flex-1 justify-self-center pb-3 mt-8 xl:block xl:pb-0 xl:mt-0 ${
                 navbar ? "block" : "hidden"
               }`}
             >
-              <ul className="items-center justify-center space-y-8 2xl:flex 2xl:space-x-6 2xl:space-y-0">
+              <ul className="items-center justify-center space-y-8 xl:flex xl:space-x-6 xl:space-y-0">
                 {isSign !== null ? (
                   isSign ? (
                     <>

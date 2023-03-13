@@ -103,7 +103,7 @@ const AfterLike = () => {
                     className="mt-6  sm:w-[320px] sm:h-[250px] h-[160px] w-[160px] object-cover"
                   />
                 </Stdiv>
-                <p className="ml-1  mt-[8%] mb-[2%] sm:h-[31px] max-w-[350px]  h-7  w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ">
+                <p className="ml-1  mt-[8%] mb-[2%] sm:h-[31px] max-w-[320px]  h-7  w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ">
                   {item.title}
                 </p>
                 <p className="ml-1 mt-[3%]  font-medium  text-gray-400 sm:text-2xl text-base  ">

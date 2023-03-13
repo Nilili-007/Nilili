@@ -46,7 +46,7 @@ const CourseHeader = ({ course }: CourseProps) => {
 export default CourseHeader;
 
 const Information = styled.h1`
-  width: 60%;
+  width: 70%;
   color: white;
   position: absolute;
   margin-top: -260px;

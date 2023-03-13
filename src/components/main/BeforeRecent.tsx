@@ -110,7 +110,7 @@ const BeforeRecent = () => {
                     className=" mt-6 sm:w-[280px] sm:h-[240px] h-[140px] w-[140px] object-cover"
                   />
                 </Stdiv>
-                <p className="ml-1  mt-[8%] mb-[2%] sm:h-9  h-7 max-w-[310px] w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ">
+                <p className="ml-1  mt-[8%] mb-[2%] sm:h-9  h-7 max-w-[280px] w-[98%] sm:text-[28px] text-lg overflow-hidden font-black ">
                   {item.title}
                 </p>
                 <p className="ml-1 mt-[3%]  font-medium  text-gray-400 sm:text-2xl text-base  ">
