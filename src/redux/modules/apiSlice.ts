@@ -15,7 +15,7 @@ import { dbService } from "../../utils/firebase";
 
 export const courseApi = createApi({
   baseQuery: fetchBaseQuery(),
-  tagTypes: ["Courses", "Comments"],
+  tagTypes: ["Courses", "Comments", "updateLikes", "updateCourses"],
   endpoints: (builder) => ({
     //Course reducer
     addCourse: builder.mutation({
@@ -48,7 +48,7 @@ export const courseApi = createApi({
           return { error: error.message };
         }
       },
-      providesTags: ["Courses"],
+      providesTags: ["Courses", "updateLikes", "updateCourses"],
     }),
     getCourseConditionally: builder.query<CourseType[], string | boolean>({
       async queryFn(travelStatus) {
@@ -100,7 +100,7 @@ export const courseApi = createApi({
           return { error: error.message };
         }
       },
-      invalidatesTags: ["Courses"],
+      invalidatesTags: ["updateCourses"],
     }),
     deleteCourse: builder.mutation({
       async queryFn(courseId) {
@@ -209,13 +209,13 @@ export const courseApi = createApi({
             likes,
             likesID,
           });
-          return { data: likes };
+          return { data: null };
         } catch (error: any) {
           console.error(error.message);
           return { error: error.message };
         }
       },
-      invalidatesTags: ["Courses"],
+      invalidatesTags: ["updateLikes"],
     }),
     updateTravelStatus: builder.mutation({
       async queryFn({ travelStatus, courseId }) {

@@ -14,7 +14,7 @@ interface LikeProps {
 
 const LikeBtn = ({ paramId, course }: LikeProps) => {
   const [like, setLike] = useState(false);
-  const courseLikes = course && course?.likes;
+  const courseLikes = course && course?.likesID.length;
   const [likeCount, setLikeCount] = useState<number | any>(0);
   const currentId = authService.currentUser?.uid;
   const submitRef = useRef<HTMLButtonElement | any>();
