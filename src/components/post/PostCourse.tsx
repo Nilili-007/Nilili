@@ -58,7 +58,7 @@ const PostCourse = ({ setModalOpen }: PostProps) => {
 export default PostCourse;
 
 export const ItemCard = styled.div`
-  border: 1px solid #cbcdd2;
+  border: 1px solid #a0a4a8;
   margin-bottom: 32px;
   cursor: pointer;
   padding: 20px;

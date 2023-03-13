@@ -17,9 +17,11 @@ const CoursePlaceInfo = ({ lists, item, idx }: CourseInfoProps) => {
           <PlaceName className={idx === filteredIdx ? "clicked" : " "}>
             #{idx + 1} {item.name}
           </PlaceName>
-          <p>{item.address}</p>
-          <p>{item.road}</p>
-          <p>{item.phone}</p>
+          <div className="w-full h-auto mt-2 text-gray-04 text-sm">
+            <p>{item.address}</p>
+            <p>{item.road}</p>
+            <p>{item.phone}</p>
+          </div>
         </>
       ) : (
         <h3 className="text-3xl font-bold">"여행지를 추가해주세요."</h3>
@@ -32,7 +34,7 @@ export default CoursePlaceInfo;
 
 const PlaceName = styled.h4`
   font-weight: bold;
-  font-size: 22px;
+  font-size: 20px;
   color: black;
   margin-bottom: 6px;
   &.clicked {

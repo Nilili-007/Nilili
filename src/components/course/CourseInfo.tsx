@@ -23,16 +23,16 @@ const CourseInfo = ({
               className={idx === filteredIdx ? "clicked" : ""}
             >
               <div className="w-full px-2 py-3 flex">
-                <div className="w-full px-3 text-lg">
-                  <h4 className="title3">
+                <div className="w-full px-3">
+                  <h4 className="text-xl font-bold">
                     #{idx + 1} {item.name}
                   </h4>
-                  <div className="w-full h-auto mt-2 text-gray-04 text-[17px]">
+                  <div className="w-full h-auto mt-2 text-gray-04 text-sm">
                     <p>{item.address}</p>
                     <p>{item.road}</p>
                     <p>{item.phone}</p>
                   </div>
-                  <p className="mt-2">{item.memo}</p>
+                  <p className="text-[14px] mt-2 leading-5">{item.memo}</p>
                 </div>
               </div>
             </ItemCard>
@@ -46,7 +46,7 @@ const CourseInfo = ({
 export default CourseInfo;
 
 const ItemCard = styled.div`
-  border: 1px solid #cbcdd2;
+  border: 1px solid #a0a4a8;
   margin-bottom: 32px;
   cursor: pointer;
   padding: 10px 5px;
