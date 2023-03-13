@@ -93,11 +93,7 @@ const EditCourse = () => {
     }
     setRegions(filterRegion);
     setSelectedTags(filterTags);
-    if (course?.cover?.includes("data:image/")) {
-      setUploadCover(course?.cover);
-    } else {
-      setGalleryCover(course?.cover);
-    }
+    setGalleryCover(course?.cover);
     dispatch(replaceAllData(JSON.parse(course?.courseList)));
   }, [data]);
 

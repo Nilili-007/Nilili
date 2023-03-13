@@ -32,7 +32,6 @@ const UserList = ({ done, category }: UserListType) => {
     setPageArr,
     lastPage,
     firstPage,
-    showPages,
     currentPages,
     positionY,
   } = usePagenation(userData, 6, 5, 300);
@@ -227,7 +226,6 @@ const UserList = ({ done, category }: UserListType) => {
           setPageArr={setPageArr}
           lastPage={lastPage}
           firstPage={firstPage}
-          showPages={showPages}
           currentPages={currentPages}
           positionY={positionY}
         />

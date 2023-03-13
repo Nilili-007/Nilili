@@ -32,7 +32,6 @@ const CommentDesc = ({ paramId, courseData }: CommentProps) => {
     setPageArr,
     lastPage,
     firstPage,
-    showPages,
     currentPages,
     positionY,
   } = usePagenation(filterData, 10, 5, 2300);
@@ -118,7 +117,6 @@ const CommentDesc = ({ paramId, courseData }: CommentProps) => {
           setPageArr={setPageArr}
           lastPage={lastPage}
           firstPage={firstPage}
-          showPages={showPages}
           currentPages={currentPages}
           positionY={positionY}
         />
