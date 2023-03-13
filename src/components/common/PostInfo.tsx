@@ -36,7 +36,6 @@ const PostInfo = ({
   openCoverModal,
   setOpenCoverModal,
 }: PostProps) => {
-  // const [openCoverModal, setOpenCoverModal] = useState<boolean>(false);
   const [category, setCategory] = useState("갤러리");
   const fileRef = useRef<HTMLInputElement | any>(null);
   const [link, setLink] = useState("");
@@ -254,7 +253,7 @@ const PostInfo = ({
                       value={link}
                       placeholder="이미지 링크 붙여넣기"
                       onChange={(e) => setLink(e.target.value)}
-                      className="w-[500px] h-10 border border-gray-04 px-2 py-1 text-black xs:w-[320px] xs:h-8"
+                      className="w-[500px] h-10 border border-gray-04 px-2 py-1 text-black xs:w-full xs:h-8"
                     />
                     <button className="bg-black text-white h-10 px-6 ml-3 xs:h-8 xs:w-full xs:ml-0 xs:mt-2">
                       확인
