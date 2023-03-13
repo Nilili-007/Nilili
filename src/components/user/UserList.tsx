@@ -176,9 +176,11 @@ const UserList = ({ done, category }: UserListType) => {
               {category !== "MY" ? null : item.travelStatus ? (
                 <button
                   className="border-2 border-black p-[2px]"
-                  onClick={(event: React.MouseEvent<HTMLButtonElement>) =>
-                    changeTravelStatusFalse(event, item.id)
-                  }
+                  onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+                    event.stopPropagation();
+                    changeTravelStatusFalse(event, item.id);
+                    logEvent("여행 계획로 변경", { from: "유저페이지" });
+                  }}
                 >
                   여행 계획으로 변경
                 </button>
@@ -186,6 +188,7 @@ const UserList = ({ done, category }: UserListType) => {
                 <button
                   className="border-2 border-black p-[2px]"
                   onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+                    event.stopPropagation();
                     changeTravelStatusTrue(event, item.id);
                     logEvent("여행 후기로 변경", { from: "유저페이지" });
                   }}
